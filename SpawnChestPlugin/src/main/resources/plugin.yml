@@ -1,0 +1,100 @@
+name: SpawnChestPlugin
+main: com.myplugin.SpawnChestPlugin
+version: 2.0.0
+api-version: 1.20
+author: YourName
+description: "Эпичный плагин для спавна сундуков с лутом, охранниками и эффектами! СБАЛАНСИРОВАННАЯ ВЕРСИЯ"
+website: https://github.com/yourname/spawnchest
+
+commands:
+  nextchest:
+    description: "Показывает время до появления следующего сундука"
+    usage: "/nextchest"
+    aliases: ["nc", "чест"]
+    
+  spawnchestnow:
+    description: "Мгновенно создает сундук (только для администраторов)"
+    usage: "/spawnchestnow"
+    aliases: ["chestnow", "спавнчест"]
+    permission: spawnchest.spawnchestnow
+    
+  setchesttimer:
+    description: "Изменяет интервал появления сундуков"
+    usage: "/setchesttimer <секунды>"
+    aliases: ["settimer", "таймер"]
+    permission: spawnchest.setchesttimer
+    
+  reloadchestconfig:
+    description: "Перезагружает конфигурацию плагина"
+    usage: "/reloadchestconfig"
+    aliases: ["chestconfigreload", "ccr"]
+    permission: spawnchest.reloadchestconfig
+    
+  cheststats:
+    description: "Показывает статистику и информацию о сундуках"
+    usage: "/cheststats"
+    aliases: ["cstats", "статчест"]
+    
+  testchestzone:
+    description: "Тестирует зону спавна сундуков"
+    usage: "/testchestzone"
+    permission: spawnchest.testchestzone
+    
+  getlegendaryitems:
+    description: "Получить все легендарные предметы для тестирования"
+    usage: "/getlegendaryitems"
+    aliases: ["getlegendary", "testgear"]
+    permission: spawnchest.getlegendaryitems
+
+permissions:
+  spawnchest.*:
+    description: "Доступ ко всем командам SpawnChest"
+    children:
+      spawnchest.nextchest: true
+      spawnchest.spawnchestnow: true
+      spawnchest.setchesttimer: true
+      spawnchest.reloadchestconfig: true
+      spawnchest.cheststats: true
+      spawnchest.testchestzone: true
+      spawnchest.getlegendaryitems: true
+    default: op
+    
+  spawnchest.nextchest:
+    description: "Позволяет использовать команду /nextchest"
+    default: true
+    
+  spawnchest.spawnchestnow:
+    description: "Позволяет мгновенно создавать сундуки"
+    default: op
+    
+  spawnchest.setchesttimer:
+    description: "Позволяет изменять интервал спавна"
+    default: op
+    
+  spawnchest.reloadchestconfig:
+    description: "Позволяет перезагружать конфигурацию"
+    default: op
+    
+  spawnchest.cheststats:
+    description: "Позволяет просматривать статистику"
+    default: true
+    
+  spawnchest.testchestzone:
+    description: "Позволяет тестировать зону спавна"
+    default: op
+    
+  spawnchest.getlegendaryitems:
+    description: "Позволяет получать все легендарные предметы"
+    default: op
+
+depend: []
+softdepend: []
+loadbefore: []
+
+# Дополнительная информация
+commands-help:
+  - "§6=== SpawnChest v2.0 ==="
+  - "§e/nextchest §7- Время до следующего сундука"
+  - "§e/cheststats §7- Статистика сундуков"
+  - "§e/spawnchestnow §7- Создать сундук сейчас §c(Админ)"
+  - "§e/setchesttimer §7- Изменить таймер §c(Админ)"
