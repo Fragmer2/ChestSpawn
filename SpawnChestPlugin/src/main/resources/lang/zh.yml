@@ -1,0 +1,549 @@
+# ============================================
+# SpawnChestPlugin - 中文语言文件
+# 语言: 中文 (zh-CN)
+# 版本: 4.1.5 FULL
+# ============================================
+
+# ============================================
+# 箱子等级名称
+# ============================================
+tiers:
+  common:
+    name: "§f普通宝箱"
+    guardian-name: "§f普通宝箱守护者"
+  rare:
+    name: "§9稀有宝箱"
+    guardian-name: "§9稀有宝箱守护者"
+  legendary:
+    name: "§6传奇宝箱"
+    guardian-name: "§6传奇宝箱守护者"
+
+# ============================================
+# 系统消息 (日志和内部)
+# ============================================
+system:
+  # 统计
+  stats-saved: "已保存 %count% 名玩家的统计数据。"
+  stats-save-error: "保存玩家 %player% 的统计数据失败: %error%"
+  player-unknown: "未知"
+  
+  # 版本适配器
+  version-adapter-init: "版本适配器已初始化:"
+  version-minecraft: "  - Minecraft: %version%"
+  version-server: "  - 服务器: %type%"
+  version-full: "  - 完整版本: %version%"
+  version-java: "  - Java: %version%"
+  version-chunk-error: "异步区块加载失败: %error%"
+  
+  # 箱子生成
+  chest-spawn-started: "箱子生成进行中 (%elapsed%秒前)"
+  chest-spawn-stuck: "生成已卡住 %seconds%秒，正在重置..."
+  chest-invalid-world: "未找到适合生成箱子的世界!"
+  chest-spawn-attempt: "尝试 %attempt%: 测试 X=%x% Z=%z% (距离=%dist%)"
+  chest-location-found: "找到箱子位置: X=%x% Y=%y% Z=%z%"
+  chest-ground-level: "在 X=%x% Y=%y% Z=%z% 生成箱子 (地面=%ground%)"
+  chest-filled: "成功在 %x%, %y%, %z% 填充箱子"
+  chest-state-error: "无法获取箱子状态，类型为: %type%"
+  chest-spawn-error: "生成箱子时出错: %error%"
+  chest-spawn-failed-attempts: "经过 %attempts% 次尝试后未能找到位置，放弃"
+  chest-block-not-chest: "方块不是箱子，强制重试..."
+  chest-highest-solid-not-found: "在 X=%x% Z=%z% 找不到固体方块，使用 Y=64"
+  
+  # 计时器
+  timer-loaded: "已加载上次生成时间: %time%"
+  timer-first-run: "检测到首次运行，箱子将在30秒后生成"
+  timer-save-error: "保存计时器失败: %error%"
+  timer-load-error: "加载计时器失败: %error%"
+  timer-spawn-reset: "计时器: 生成已卡住，正在重置..."
+  
+  # 自定义战利品
+  custom-loot-using: "为 %tier% 箱子使用自定义战利品: %count% 个物品"
+  custom-loot-no-file: "未找到自定义战利品文件，使用默认值。"
+  custom-loot-loaded: "已加载自定义战利品配置。"
+  custom-loot-saved: "自定义战利品已保存到文件。"
+  custom-loot-load-error: "加载自定义战利品时出错: %error%"
+  custom-loot-save-error: "保存自定义战利品时出错: %error%"
+  
+  # 插件生命周期
+  plugin-enabled: "SpawnChestPlugin v4.0 FULL 已启用!"
+  plugin-disabled: "SpawnChestPlugin 已禁用。"
+  plugin-version-too-old: "此插件需要 Minecraft 1.18 或更高版本!"
+  plugin-version-detected: "检测到版本: %version%"
+  plugin-version-update: "请将您的服务器更新到 MC 1.18+"
+
+# ============================================
+# 广播消息
+# ============================================
+broadcasts:
+  chest-spawned: "§6🎁 %tier% §a已出现在: §eX: %x% Y: %y% Z: %z%"
+  chest-disappeared: "§c💨 一个宝箱已消失! 太迟了..."
+  chest-opened: "§a%player% 打开了一个 %tier%!"
+  legendary-found: "§6§l✨ %player% 找到了一个传奇物品: %item%! ✨"
+  minutes-left: "§e⏰ 距离下一个宝箱出现还有 %minutes% 分钟!"
+  countdown: "§c⚡ 距离宝箱出现还有 %seconds% 秒!"
+  spawn-title: "§6✨ 一个宝箱出现了! ✨"
+  spawn-subtitle: "§e坐标: §fX: %x% Y: %y% Z: %z%"
+  apple-used: "§6🍎 %player% 使用魔法苹果召唤了一个宝箱!"
+  resurrection: "§d🪶 %player% 被凤凰羽毛复活了!"
+  achievement-unlocked: "§6%player% 解锁了成就: §e%achievement%"
+  achievement-title: "§6§l★ 成就已解锁 ★"
+  achievement-subtitle: "§e%name%"
+
+# ============================================
+# 命令
+# ============================================
+commands:
+  # 基础命令
+  next-chest: "§6⏰ 距离下一个宝箱: §e%minutes% 分 %seconds% 秒"
+  next-chest-now: "§a一个宝箱正在生成!"
+  chest-spawned: "§a✅ 已生成一个宝箱!"
+  chest-spawn-failed: "§c生成宝箱失败。请重试。"
+  chest-spawn-in-progress: "§e宝箱生成已在进展中..."
+  timer-set: "§a宝箱计时器设置为 §e%seconds% §a秒 (%minutes% 分钟)。"
+  timer-invalid: "§c❌ 请输入一个有效的数字!"
+  config-reloaded: "§a✓ 配置已重载!"
+  config-value: "§7%path%: §e%value%"
+  config-set: "§a✓ 设置 §e%path% §a为 §e%value%"
+  config-invalid-path: "§c无效的配置路径: %path%"
+  feature-enabled: "§a✓ %feature% 已启用!"
+  feature-disabled: "§c✗ %feature% 已禁用!"
+  apple-given: "§a给予 %player% %amount% 个召唤苹果"
+  apple-received: "§6🍎 你收到了 %amount% 个宝箱召唤苹果!"
+  legendary-items-given: "§a✓ 你收到了所有传奇物品!"
+  no-permission: "§c❌ 你没有权限执行此操作!"
+  player-not-found: "§c❌ 未找到玩家: %player%"
+  player-only: "§c此命令只能由玩家使用!"
+  invalid-usage: "§c用法: %usage%"
+  world-not-found: "§c❌ 未找到世界!"
+  
+  # 附加消息
+  searching-location: "§e正在搜索宝箱位置..."
+  spawn-interval-set: "§a生成间隔设置为 %seconds% 秒。"
+  enter-valid-number: "§c请输入有效的数字!"
+  timer-reset: "§a计时器已重置! 宝箱将在10秒后生成。"
+  language-reloaded: "§7语言: §e%code% §7(%name%)"
+  stats-disabled: "§c统计功能已禁用!"
+  players-only: "§c仅限玩家!"
+  status-on: "§a开启"
+  status-off: "§c关闭"
+  
+  # 配置帮助
+  config-help-header: "§6=== 宝箱配置命令 ==="
+  config-help-get: "§e/chestconfig get <路径> §7- 获取配置值"
+  config-help-set: "§e/chestconfig set <路径> <值> §7- 设置配置值"
+  config-help-toggle: "§e/chestconfig toggle <路径> §7- 切换布尔值"
+  config-help-reload: "§e/chestconfig reload §7- 重载配置"
+  config-help-list: "§e/chestconfig list [部分] §7- 列出值"
+  config-help-examples: "§7示例:"
+  config-help-example1: "§7  /chestconfig toggle features.guardians.enabled"
+  config-help-example2: "§7  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
+  
+  # 配置列表
+  config-list-header: "§6=== 配置: %section% ==="
+  config-list-master-toggle: "§7主开关: §e%value%"
+  
+  # 宝箱统计命令
+  chest-stats-header: "§6=== 宝箱统计 ==="
+  chest-stats-common-chance: "§7普通宝箱几率: §f%chance%%"
+  chest-stats-rare-chance: "§9稀有宝箱几率: §f%chance%%"
+  chest-stats-legendary-chance: "§6传奇宝箱几率: §f%chance%%"
+  chest-stats-guardians: "§7守护者: %status%"
+  chest-stats-legendary-items: "§7传奇物品: %status%"
+  chest-stats-pvp-protection: "§7PvP保护: %status%"
+  chest-stats-particles: "§7粒子效果: %status%"
+  chest-stats-sounds: "§7音效: %status%"
+  chest-stats-statistics: "§7统计功能: %status%"
+  chest-stats-active: "§7活跃宝箱: §e%count%"
+  
+  # 测试区域命令
+  test-zone-header: "§e测试宝箱生成区域..."
+  test-zone-min-dist: "§7最小距离: %min%，最大距离: %max%"
+  test-zone-bury: "§7埋入地面: %value%"
+  test-zone-worlds: "§7启用的世界: %worlds%"
+  test-zone-example: "§7示例 %num%: §fX=%x% Z=%z% §7(距离: %dist%)"
+  
+  # 切换传奇物品命令
+  legendary-all-toggled: "§6所有传奇物品: %status%"
+  legendary-item-toggled: "§6%item%: %status%"
+  legendary-unknown-item: "§c未知物品: %item%"
+  legendary-available-items: "§7可用: dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
+  
+  # 切换功能命令
+  features-available-header: "§6可用功能:"
+  features-list-guardians: "§e- guardians §7(features.guardians.enabled)"
+  features-list-particles: "§e- particles §7(features.effects.particles)"
+  features-list-sounds: "§e- sounds §7(features.effects.sounds)"
+  features-list-lightning: "§e- lightning §7(features.effects.lightning-on-legendary)"
+  features-list-announcements: "§e- announcements §7(features.broadcasts.chest-spawn-announcement)"
+  features-list-titles: "§e- titles §7(features.broadcasts.title-on-spawn)"
+  features-list-pvp: "§e- pvp-protection §7(abilities.pvp-protection)"
+  features-list-cooldown-msg: "§e- cooldown-messages §7(abilities.show-cooldown-messages)"
+  features-list-activation-msg: "§e- activation-messages §7(abilities.show-activation-messages)"
+  features-list-stats: "§e- statistics §7(statistics.enabled)"
+  features-unknown: "§c未知功能: %feature%"
+  
+  # 传奇物品命令
+  legendary-received: "§6✨ 你收到了所有已启用的传奇物品!"
+  legendary-use-cooldowns: "§e使用 §f/cooldowns §e检查冷却时间!"
+  
+  # 用法消息
+  usage-giveapple: "§c用法: /giveapple <玩家> [数量]"
+  usage-chestconfig-get: "§c用法: /chestconfig get <路径>"
+  usage-chestconfig-set: "§c用法: /chestconfig set <路径> <值>"
+  usage-setchesttimer: "§c用法: /setchesttimer <秒数>"
+  invalid-number: "§c无效数字!"
+
+# ============================================
+# 统计数据
+# ============================================
+stats:
+  header: "§6══════ 你的统计数据 ══════"
+  chests-opened: "§7打开的宝箱: §e%count%"
+  common-opened: "§7  普通: §f%count%"
+  rare-opened: "§7  稀有: §9%count%"
+  legendary-opened: "§7  传奇: §6%count%"
+  legendaries-found: "§7找到的传奇物品: §d%count%"
+  guardians-killed: "§7击杀的守护者: §c%count%"
+  apples-used: "§7使用的召唤苹果: §a%count%"
+  score: "§7总分: §e%score%"
+  rank: "§7你的排名: §e#%rank%"
+  footer: "§6═══════════════════════════"
+  leaderboard-header: "§6══════ 顶级宝藏猎人 ══════"
+  leaderboard-entry: "§e#%rank% §f%player% §7- §a%score% 分"
+  leaderboard-empty: "§7暂无统计数据..."
+  leaderboard-footer: "§6══════════════════════════════════"
+
+# ============================================
+# 冷却时间
+# ============================================
+cooldowns:
+  header: "§6=== 技能冷却时间 ==="
+  ready: "§a就绪"
+  seconds-left: "§c%seconds%秒"
+  item-entry: "§7%item%: %status%"
+  footer: "§6═══════════════════════════"
+  on-cooldown: "§c⏳ %item% 正在冷却中! §e还剩%seconds%秒§c。"
+  cooldown-ready: "§a✓ %item% 已准备就绪!"
+  
+  # 单个冷却消息 (用于能力)
+  sword-recharging: "§c⚔ 剑正在充能! %time%"
+  axe-recharging: "§c🪓 斧头正在充能! %time%"
+  hammer-recharging: "§c⚡ 锤子正在充能! %time%"
+  bow-recharging: "§c🏹 弓正在充能! %time%"
+  shovel-recharging: "§c🕳 铲子正在充能! %time%"
+  tree-cutting-recharging: "§c🌳 砍树正在充能! %time%"
+  trident-recharging: "§c🔱 三叉戟正在充能! %time%"
+  
+  # 冷却列表条目 (用于 /cooldowns 命令)
+  dragon-slayer: "§6⚔ 屠龙之剑: %status%"
+  titan-axe: "§4🪓 泰坦之斧: %status%"
+  storm-hammer: "§9⚡ 风暴之锤: %status%"
+  guardian-bow: "§a🏹 守护者之弓: %status%"
+  void-shovel: "§5🕳 虚空之铲: %status%"
+  master-pickaxe: "§b⛏ 大师镐: %status%"
+  tree-cutting: "§4🌳 砍树: %status%"
+  poseidon-trident: "§b🔱 波塞冬三叉戟: %status%"
+
+# ============================================
+# 技能能力
+# ============================================
+abilities:
+  # 剑
+  sword-activated: "§c🔥 屠龙之剑点燃了你的敌人!"
+  sword-activated-cooldown: "§6⚔ 屠龙之剑点燃! 冷却: %cooldown%秒"
+  
+  # 镐
+  pickaxe-smelted: "§6⛏ 矿石自动熔炼!"
+  pickaxe-double: "§e⛏ 双倍掉落!"
+  
+  # 斧
+  axe-tree-felled: "§a🪓 砍倒了树! §7(%blocks% 个方块)"
+  axe-tree-felled-cooldown: "§4🪓 泰坦之斧砍倒树木! 冷却: %cooldown%秒"
+  axe-combat: "§c🪓 泰坦之斧以狂暴之势攻击!"
+  axe-combat-cooldown: "§4🪓 泰坦之斧粉碎! 冷却: %cooldown%秒"
+  
+  # 铲
+  shovel-excavate: "§b🪏 区域已挖掘! §7(%blocks% 个方块)"
+  shovel-excavate-full: "§5🕳 虚空之铲挖掘了 %blocks% 个方块!"
+  
+  # 锤
+  hammer-lightning: "§e⚡ 风暴之锤召唤闪电!"
+  hammer-shockwave: "§e⚡ 冲击波伤害附近敌人!"
+  hammer-activated-cooldown: "§9⚡ 风暴之锤雷鸣! 冷却: %cooldown%秒"
+  
+  # 弓
+  bow-double-shot: "§d🏹 双箭齐发!"
+  bow-double-shot-cooldown: "§a🏹 守护者之弓: 双重射击! 冷却: %cooldown%秒"
+  bow-homing: "§d🏹 追踪箭寻找目标!"
+  
+  # 书
+  book-used: "§6📖 远古智慧附魔了你的装备!"
+  book-enchanted: "§d📚 智慧之书附魔了 %count% 件物品!"
+  book-no-items: "§c📚 没有合适的物品可以附魔!"
+  
+  # 凤凰羽毛
+  phoenix-resurrect: "§d🪶 凤凰羽毛将你从死亡中拯救!"
+  phoenix-fire-immune: "§6🪶 凤凰羽毛使你免受火焰伤害!"
+  phoenix-resurrect-message: "§c🔥 凤凰羽毛将你从死亡中拯救!"
+  phoenix-resurrect-broadcast: "§6%player% 被凤凰羽毛复活了!"
+  
+  # 三叉戟
+  trident-lightning: "§b🔱 波塞冬的愤怒击中你的敌人!"
+  trident-lightning-cooldown: "§b🔱 波塞冬以闪电打击! 冷却: %cooldown%秒"
+  trident-rain: "§b🔱 雨在你周围旋转..."
+
+# ============================================
+# 传奇物品
+# ============================================
+items:
+  summoner-apple:
+    name: "§d🍎 宝箱召唤苹果"
+    lore:
+      - "§7一个充满宝藏精髓的"
+      - "§7魔法苹果。"
+      - ""
+      - "§e⚡ 食用以召唤一个宝箱!"
+      - "§7(不重置主计时器)"
+      - ""
+      - "§d特殊捐赠者物品"
+  
+  dragon-slayer-sword:
+    name: "§6⚔ 屠龙之剑 ⚔"
+    lore:
+      - "§7用龙心锻造的"
+      - "§7传奇之剑。"
+      - "§7燃烧着永恒火焰。"
+      - ""
+      - "§c+%damage% 额外伤害"
+      - "§e⚡ 点燃敌人"
+      - "§8冷却: %cooldown%秒"
+      - ""
+      - "§6传奇物品"
+  
+  master-pickaxe:
+    name: "§b⛏ 大师镐 ⛏"
+    lore:
+      - "§7传奇矿工的工具，"
+      - "§7能在任何石头中"
+      - "§7找到财富。"
+      - ""
+      - "§e⚡ 自动熔炼矿石"
+      - "§e⚡ 双倍掉落几率"
+      - "§8冷却: %cooldown%秒"
+      - ""
+      - "§6传奇物品"
+  
+  titan-axe:
+    name: "§4🪓 泰坦之斧 🪓"
+    lore:
+      - "§7泰坦的巨斧。"
+      - "§7一挥砍倒整棵树。"
+      - ""
+      - "§c+%damage% 战斗伤害"
+      - "§e⚡ 砍倒整棵树"
+      - "§8树木冷却: %tree_cooldown%秒"
+      - "§8战斗冷却: %combat_cooldown%秒"
+      - ""
+      - "§6传奇物品"
+  
+  void-shovel:
+    name: "§5🕳 虚空之铲 🕳"
+    lore:
+      - "§7被虚空触摸的铲子。"
+      - "§7在大片区域吞噬泥土。"
+      - ""
+      - "§e⚡ %size%x%size% 区域挖掘 (潜行)"
+      - "§e⚡ 自动收集掉落物"
+      - "§8冷却: %cooldown%秒"
+      - ""
+      - "§6传奇物品"
+  
+  storm-hammer:
+    name: "§9⚡ 风暴之锤 ⚡"
+    lore:
+      - "§7风暴领主的锤子。"
+      - "§7掌控闪电本身。"
+      - ""
+      - "§c+%damage% 额外伤害"
+      - "§e⚡ 召唤闪电"
+      - "§e⚡ 范围冲击波伤害"
+      - "§8冷却: %cooldown%秒"
+      - ""
+      - "§6传奇物品"
+  
+  guardian-bow:
+    name: "§a🏹 守护者之弓 🏹"
+    lore:
+      - "§7被守护者祝福的弓。"
+      - "§7箭矢会自动寻找目标。"
+      - ""
+      - "§e⚡ 射出双箭"
+      - "§e⚡ 追踪箭能力"
+      - "§8冷却: %cooldown%秒"
+      - ""
+      - "§6传奇物品"
+  
+  wisdom-book:
+    name: "§d📖 远古智慧之书 📖"
+    lore:
+      - "§7包含古代文明"
+      - "§7的知识。"
+      - ""
+      - "§e⚡ 右键点击附魔"
+      - "§e⚡ 背包中的所有装备"
+      - "§c⚠ 一次性使用"
+      - ""
+      - "§6传奇物品"
+  
+  phoenix-feather:
+    name: "§c🔥 凤凰羽毛 🔥"
+    lore:
+      - "§7不死凤凰的羽毛。"
+      - "§7给予第二次生命机会。"
+      - ""
+      - "§e⚡ 死亡时自动复活"
+      - "§e⚡ 持有时免疫火焰"
+      - "§8冷却: %cooldown%秒"
+      - ""
+      - "§6传奇物品"
+  
+  poseidon-trident:
+    name: "§b🔱 波塞冬三叉戟 🔱"
+    lore:
+      - "§7海神的武器。"
+      - "§7掌控风暴和海洋。"
+      - ""
+      - "§e⚡ 雨之灵光 (%radius% 格)"
+      - "§e⚡ 击中时召唤闪电"
+      - "§b+%damage% 闪电伤害"
+      - "§8冷却: %cooldown%秒"
+      - ""
+      - "§6传奇物品"
+
+# ============================================
+# 自定义药水
+# ============================================
+potions:
+  strength-3:
+    name: "§c⚔ 力量III药水"
+    lore:
+      - "§7力量 III (2:00)"
+      - "§6自定义药水"
+  
+  haste-2:
+    name: "§e⛏ 急迫II药水"
+    lore:
+      - "§7急迫 II (3:00)"
+      - "§6自定义药水"
+  
+  luck-2:
+    name: "§a🍀 幸运II药水"
+    lore:
+      - "§7幸运 II (5:00)"
+      - "§6自定义药水"
+  
+  dolphins-grace:
+    name: "§b🐬 海豚恩惠药水"
+    lore:
+      - "§7海豚的优雅 (3:00)"
+      - "§6自定义药水"
+  
+  turtle-master:
+    name: "§a🐢 延长版神龟药水"
+    lore:
+      - "§7缓慢 IV (1:00)"
+      - "§7抗性 III (1:00)"
+      - "§6自定义药水"
+  
+  wither-resistance:
+    name: "§8💀 凋零抗性药水"
+    lore:
+      - "§7生命恢复 II (0:30)"
+      - "§7抗性 II (1:00)"
+      - "§6自定义药水"
+
+# ============================================
+# 成就
+# ============================================
+achievements:
+  first-chest:
+    name: "§e首次发现"
+    description: "打开你的第一个宝箱"
+    reward-message: "§6+50 经验奖励!"
+  
+  treasure-hunter:
+    name: "§6宝藏猎人"
+    description: "打开10个宝箱"
+    reward-message: "§6+200 经验奖励!"
+  
+  chest-master:
+    name: "§c宝箱大师"
+    description: "打开50个宝箱"
+    reward-message: "§6+500 经验奖励!"
+  
+  legendary-finder:
+    name: "§5传奇发现者"
+    description: "找到一个传奇物品"
+    reward-message: "§6+300 经验奖励!"
+  
+  guardian-slayer:
+    name: "§4守护者杀手"
+    description: "击杀25个宝箱守护者"
+    reward-message: "§6+400 经验奖励!"
+
+# ============================================
+# 自定义战利品GUI
+# ============================================
+gui:
+  # 主菜单
+  custom-loot-title: "§6自定义宝箱战利品"
+  
+  # 编辑菜单
+  edit-common: "§f编辑普通宝箱战利品"
+  edit-rare: "§9编辑稀有宝箱战利品"
+  edit-legendary: "§6编辑传奇宝箱战利品"
+  
+  # 主菜单物品名称
+  common-chest-name: "§f普通宝箱"
+  rare-chest-name: "§9稀有宝箱"
+  legendary-chest-name: "§6传奇宝箱"
+  
+  # 主菜单描述
+  click-to-edit: "§7点击编辑战利品"
+  custom-enabled: "§a自定义战利品: 启用"
+  custom-disabled: "§c自定义战利品: 禁用"
+  using-default: "§7使用默认随机战利品"
+  items-count: "§7物品: %count%"
+  
+  # 控制按钮
+  save-button: "§a✓ 保存并启用"
+  save-lore:
+    - "§7点击保存物品并"
+    - "§7为此等级启用自定义战利品"
+  
+  reset-button: "§c✗ 重置并禁用"
+  reset-lore:
+    - "§7点击清除物品并"
+    - "§7使用默认随机战利品"
+  
+  back-button: "§7← 返回"
+  
+  # 消息
+  saved: "§a✓ 为 %tier% 宝箱保存了 %count% 个物品!"
+  reset-done: "§c✗ 已清除 %tier% 宝箱的自定义战利品。"
+
+# ============================================
+# 宝箱交互
+# ============================================
+chest:
+  first-opener: "§e✨ 你是第一个打开这个宝箱的人!"
+  guardian-spawned: "§c一个守护者出现了!"
+  proximity-hint: "§7你听到附近有声音..."
+
+# ============================================
+# 其他
+# ============================================
+misc:
+  chest-opening: "§e正在打开宝箱..."
+  guardian-spawned: "§c一个守护者出现了!"
+  proximity-hint: "§7你听到附近有声音..."

@@ -1,0 +1,549 @@
+# ============================================
+# SpawnChestPlugin - Deutsche Sprachdatei
+# Sprache: Deutsch (de)
+# Version: 4.1.5 FULL
+# ============================================
+
+# ============================================
+# STUFENBEZEICHNUNGEN
+# ============================================
+tiers:
+  common:
+    name: "§fGewöhnliche Truhe"
+    guardian-name: "§fWächter der Gewöhnlichen Truhe"
+  rare:
+    name: "§9Seltene Truhe"
+    guardian-name: "§9Wächter der Seltenen Truhe"
+  legendary:
+    name: "§6Legendäre Truhe"
+    guardian-name: "§6Wächter der Legendären Truhe"
+
+# ============================================
+# SYSTEMNACHRICHTEN (Logs und intern)
+# ============================================
+system:
+  # Statistiken
+  stats-saved: "Statistiken für %count% Spieler gespeichert."
+  stats-save-error: "Fehler beim Speichern der Statistiken für %player%: %error%"
+  player-unknown: "Unbekannt"
+  
+  # Version-Adapter
+  version-adapter-init: "VersionAdapter initialisiert:"
+  version-minecraft: "  - Minecraft: %version%"
+  version-server: "  - Server: %type%"
+  version-full: "  - Vollständige Version: %version%"
+  version-java: "  - Java: %version%"
+  version-chunk-error: "Fehler bei asynchronem Chunk-Laden: %error%"
+  
+  # Truhen-Spawning
+  chest-spawn-started: "Truhen-Spawn läuft (vor %elapsed%s)"
+  chest-spawn-stuck: "Spawn war für %seconds%s hängengeblieben, wird zurückgesetzt..."
+  chest-invalid-world: "Keine gültige Welt für Truhen-Spawn gefunden!"
+  chest-spawn-attempt: "Versuch %attempt%: teste X=%x% Z=%z% (Entf.=%dist%)"
+  chest-location-found: "Truhen-Standort gefunden: X=%x% Y=%y% Z=%z%"
+  chest-ground-level: "Spawne Truhe bei X=%x% Y=%y% Z=%z% (Boden=%ground%)"
+  chest-filled: "Truhe erfolgreich bei %x%, %y%, %z% gefüllt"
+  chest-state-error: "Konnte Truhen-Status nicht abrufen, Typ ist: %type%"
+  chest-spawn-error: "Fehler beim Spawnen der Truhe: %error%"
+  chest-spawn-failed-attempts: "Konnte nach %attempts% Versuchen keinen Standort finden, breche ab"
+  chest-block-not-chest: "Block ist keine Truhe, erzwinge erneut..."
+  chest-highest-solid-not-found: "Konnte keinen festen Block bei X=%x% Z=%z% finden, verwende Y=64"
+  
+  # Timer
+  timer-loaded: "Letzte Spawn-Zeit geladen: %time%"
+  timer-first-run: "Erster Start erkannt, Truhe erscheint in 30 Sekunden"
+  timer-save-error: "Fehler beim Speichern des Timers: %error%"
+  timer-load-error: "Fehler beim Laden des Timers: %error%"
+  timer-spawn-reset: "Timer: Spawn war hängengeblieben, wird zurückgesetzt..."
+  
+  # Benutzerdefinierte Beute
+  custom-loot-using: "Verwende benutzerdefinierte Beute für %tier%-Truhe: %count% Items"
+  custom-loot-no-file: "Keine benutzerdefinierte Beutedatei gefunden, verwende Standardwerte."
+  custom-loot-loaded: "Benutzerdefinierte Beutekonfiguration geladen."
+  custom-loot-saved: "Benutzerdefinierte Beute in Datei gespeichert."
+  custom-loot-load-error: "Fehler beim Laden der benutzerdefinierten Beute: %error%"
+  custom-loot-save-error: "Fehler beim Speichern der benutzerdefinierten Beute: %error%"
+  
+  # Plugin-Lebenszyklus
+  plugin-enabled: "SpawnChestPlugin v4.0 FULL aktiviert!"
+  plugin-disabled: "SpawnChestPlugin deaktiviert."
+  plugin-version-too-old: "Dieses Plugin benötigt Minecraft 1.18 oder höher!"
+  plugin-version-detected: "Erkannte Version: %version%"
+  plugin-version-update: "Bitte aktualisieren Sie Ihren Server auf MC 1.18+"
+
+# ============================================
+# BROADCASTS
+# ============================================
+broadcasts:
+  chest-spawned: "§6🎁 %tier% §aist erschienen bei: §eX: %x% Y: %y% Z: %z%"
+  chest-disappeared: "§c💨 Eine Truhe ist verschwunden! Zu spät..."
+  chest-opened: "§a%player% öffnete eine %tier%!"
+  legendary-found: "§6§l✨ %player% fand einen LEGENDÄREN Gegenstand: %item%! ✨"
+  minutes-left: "§e⏰ Noch %minutes% Minute(n) bis zur nächsten Truhe!"
+  countdown: "§c⚡ Noch %seconds% Sekunde(n) bis die Truhe erscheint!"
+  spawn-title: "§6✨ Eine Truhe ist erschienen! ✨"
+  spawn-subtitle: "§eKoordinaten: §fX: %x% Y: %y% Z: %z%"
+  apple-used: "§6🍎 %player% beschwor eine Truhe mit dem magischen Apfel!"
+  resurrection: "§d🪶 %player% wurde durch die Phönixfeder wiederbelebt!"
+  achievement-unlocked: "§6%player% schaltete Erfolg frei: §e%achievement%"
+  achievement-title: "§6§l★ ERFOLG FREIGESCHALTET ★"
+  achievement-subtitle: "§e%name%"
+
+# ============================================
+# BEFEHLE
+# ============================================
+commands:
+  # Grundbefehle
+  next-chest: "§6⏰ Zeit bis zur nächsten Truhe: §e%minutes% Min. %seconds% Sek."
+  next-chest-now: "§aEine Truhe erscheint jetzt!"
+  chest-spawned: "§a✅ Eine Truhe wurde gespawnt!"
+  chest-spawn-failed: "§cFehler beim Spawnen der Truhe. Versuche es erneut."
+  chest-spawn-in-progress: "§eTruhen-Spawn läuft bereits..."
+  timer-set: "§aTruhen-Timer auf §e%seconds% §aSekunden gesetzt (%minutes% Min)."
+  timer-invalid: "§c❌ Bitte gib eine gültige Zahl ein!"
+  config-reloaded: "§a✓ Konfiguration neu geladen!"
+  config-value: "§7%path%: §e%value%"
+  config-set: "§a✓ Setze §e%path% §aauf §e%value%"
+  config-invalid-path: "§cUngültiger Konfigurationspfad: %path%"
+  feature-enabled: "§a✓ %feature% aktiviert!"
+  feature-disabled: "§c✗ %feature% deaktiviert!"
+  apple-given: "§aGab %amount% Beschwörungsapfel(äpfel) an %player%"
+  apple-received: "§6🍎 Du hast %amount% Truhen-Beschwörungsapfel(äpfel) erhalten!"
+  legendary-items-given: "§a✓ Du hast alle legendären Gegenstände erhalten!"
+  no-permission: "§c❌ Dafür hast du keine Berechtigung!"
+  player-not-found: "§c❌ Spieler nicht gefunden: %player%"
+  player-only: "§cDieser Befehl kann nur von Spielern verwendet werden!"
+  invalid-usage: "§cVerwendung: %usage%"
+  world-not-found: "§c❌ Welt nicht gefunden!"
+  
+  # Zusätzliche Nachrichten
+  searching-location: "§eSuche nach Truhen-Standort..."
+  spawn-interval-set: "§aSpawn-Intervall auf %seconds% Sekunden gesetzt."
+  enter-valid-number: "§cGib eine gültige Zahl ein!"
+  timer-reset: "§aTimer zurückgesetzt! Truhe erscheint in 10 Sekunden."
+  language-reloaded: "§7Sprache: §e%code% §7(%name%)"
+  stats-disabled: "§cStatistiken sind deaktiviert!"
+  players-only: "§cNur Spieler!"
+  status-on: "§aEIN"
+  status-off: "§cAUS"
+  
+  # Konfigurationshilfe
+  config-help-header: "§6=== ChestConfig Befehle ==="
+  config-help-get: "§e/chestconfig get <Pfad> §7- Konfigurationswert abrufen"
+  config-help-set: "§e/chestconfig set <Pfad> <Wert> §7- Konfigurationswert setzen"
+  config-help-toggle: "§e/chestconfig toggle <Pfad> §7- Boolean umschalten"
+  config-help-reload: "§e/chestconfig reload §7- Konfiguration neu laden"
+  config-help-list: "§e/chestconfig list [Abschnitt] §7- Werte auflisten"
+  config-help-examples: "§7Beispiele:"
+  config-help-example1: "§7  /chestconfig toggle features.guardians.enabled"
+  config-help-example2: "§7  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
+  
+  # Konfigurationsliste
+  config-list-header: "§6=== Konfiguration: %section% ==="
+  config-list-master-toggle: "§7Master-Schalter: §e%value%"
+  
+  # Truhen-Statistik Befehl
+  chest-stats-header: "§6=== Truhen-Statistiken ==="
+  chest-stats-common-chance: "§7Chance auf gewöhnliche Truhe: §f%chance%%"
+  chest-stats-rare-chance: "§9Chance auf seltene Truhe: §f%chance%%"
+  chest-stats-legendary-chance: "§6Chance auf legendäre Truhe: §f%chance%%"
+  chest-stats-guardians: "§7Wächter: %status%"
+  chest-stats-legendary-items: "§7Legendäre Gegenstände: %status%"
+  chest-stats-pvp-protection: "§7PvP-Schutz: %status%"
+  chest-stats-particles: "§7Partikel: %status%"
+  chest-stats-sounds: "§7Sounds: %status%"
+  chest-stats-statistics: "§7Statistiken: %status%"
+  chest-stats-active: "§7Aktive Truhen: §e%count%"
+  
+  # Testzonen-Befehl
+  test-zone-header: "§eTeste Truhen-Spawnzone..."
+  test-zone-min-dist: "§7Min. Entfernung: %min%, Max. Entfernung: %max%"
+  test-zone-bury: "§7Im Boden vergraben: %value%"
+  test-zone-worlds: "§7Aktivierte Welten: %worlds%"
+  test-zone-example: "§7Beispiel %num%: §fX=%x% Z=%z% §7(Entfernung: %dist%)"
+  
+  # Legendäre Gegenstände umschalten
+  legendary-all-toggled: "§6Alle legendären Gegenstände: %status%"
+  legendary-item-toggled: "§6%item%: %status%"
+  legendary-unknown-item: "§cUnbekannter Gegenstand: %item%"
+  legendary-available-items: "§7Verfügbar: dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
+  
+  # Features umschalten
+  features-available-header: "§6Verfügbare Features:"
+  features-list-guardians: "§e- guardians §7(features.guardians.enabled)"
+  features-list-particles: "§e- particles §7(features.effects.particles)"
+  features-list-sounds: "§e- sounds §7(features.effects.sounds)"
+  features-list-lightning: "§e- lightning §7(features.effects.lightning-on-legendary)"
+  features-list-announcements: "§e- announcements §7(features.broadcasts.chest-spawn-announcement)"
+  features-list-titles: "§e- titles §7(features.broadcasts.title-on-spawn)"
+  features-list-pvp: "§e- pvp-protection §7(abilities.pvp-protection)"
+  features-list-cooldown-msg: "§e- cooldown-messages §7(abilities.show-cooldown-messages)"
+  features-list-activation-msg: "§e- activation-messages §7(abilities.show-activation-messages)"
+  features-list-stats: "§e- statistics §7(statistics.enabled)"
+  features-unknown: "§cUnbekanntes Feature: %feature%"
+  
+  # Legendäre Gegenstände Befehl
+  legendary-received: "§6✨ Du hast alle aktivierten legendären Gegenstände erhalten!"
+  legendary-use-cooldowns: "§eVerwende §f/cooldowns §ezum Überprüfen der Abklingzeiten!"
+  
+  # Verwendungsnachrichten
+  usage-giveapple: "§cVerwendung: /giveapple <Spieler> [Anzahl]"
+  usage-chestconfig-get: "§cVerwendung: /chestconfig get <Pfad>"
+  usage-chestconfig-set: "§cVerwendung: /chestconfig set <Pfad> <Wert>"
+  usage-setchesttimer: "§cVerwendung: /setchesttimer <Sekunden>"
+  invalid-number: "§cUngültige Zahl!"
+
+# ============================================
+# STATISTIKEN
+# ============================================
+stats:
+  header: "§6══════ Deine Statistiken ══════"
+  chests-opened: "§7Geöffnete Truhen: §e%count%"
+  common-opened: "§7  Gewöhnliche: §f%count%"
+  rare-opened: "§7  Seltene: §9%count%"
+  legendary-opened: "§7  Legendäre: §6%count%"
+  legendaries-found: "§7Legendäre Gegenstände gefunden: §d%count%"
+  guardians-killed: "§7Getötete Wächter: §c%count%"
+  apples-used: "§7Verwendete Beschwörungsäpfel: §a%count%"
+  score: "§7Gesamtpunktzahl: §e%score%"
+  rank: "§7Dein Rang: §e#%rank%"
+  footer: "§6═══════════════════════════"
+  leaderboard-header: "§6══════ Top Schatzsucher ══════"
+  leaderboard-entry: "§e#%rank% §f%player% §7- §a%score% Punkte"
+  leaderboard-empty: "§7Noch keine Statistiken..."
+  leaderboard-footer: "§6══════════════════════════════════"
+
+# ============================================
+# ABKLINGZEITEN
+# ============================================
+cooldowns:
+  header: "§6=== Fähigkeiten-Abklingzeiten ==="
+  ready: "§aBereit"
+  seconds-left: "§c%seconds%s"
+  item-entry: "§7%item%: %status%"
+  footer: "§6═══════════════════════════"
+  on-cooldown: "§c⏳ %item% hat noch Abklingzeit! §e%seconds%s §cverbleibend."
+  cooldown-ready: "§a✓ %item% ist einsatzbereit!"
+  
+  # Individuelle Abklingnachrichten (für Fähigkeiten)
+  sword-recharging: "§c⚔ Schwert lädt auf! %time%"
+  axe-recharging: "§c🪓 Axt lädt auf! %time%"
+  hammer-recharging: "§c⚡ Hammer lädt auf! %time%"
+  bow-recharging: "§c🏹 Bogen lädt auf! %time%"
+  shovel-recharging: "§c🕳 Schaufel lädt auf! %time%"
+  tree-cutting-recharging: "§c🌳 Baumfällen lädt auf! %time%"
+  trident-recharging: "§c🔱 Dreizack lädt auf! %time%"
+  
+  # Abklingzeit-Listeneinträge (für /cooldowns Befehl)
+  dragon-slayer: "§6⚔ Drachenjägerschwert: %status%"
+  titan-axe: "§4🪓 Titanenaxt: %status%"
+  storm-hammer: "§9⚡ Sturmhammer: %status%"
+  guardian-bow: "§a🏹 Wächterbogen: %status%"
+  void-shovel: "§5🕳 Leerenschaufel: %status%"
+  master-pickaxe: "§b⛏ Meisterspitzhacke: %status%"
+  tree-cutting: "§4🌳 Baumfällen: %status%"
+  poseidon-trident: "§b🔱 Poseidons Dreizack: %status%"
+
+# ============================================
+# FÄHIGKEITEN
+# ============================================
+abilities:
+  # Schwert
+  sword-activated: "§c🔥 Drachenjägerschwert entzündet deinen Feind!"
+  sword-activated-cooldown: "§6⚔ Drachenjägerschwert entflammt! Abklingzeit: %cooldown%s"
+  
+  # Spitzhacke
+  pickaxe-smelted: "§6⛏ Erz automatisch geschmolzen!"
+  pickaxe-double: "§e⛏ Doppelte Beute!"
+  
+  # Axt
+  axe-tree-felled: "§a🪓 Baum gefällt! §7(%blocks% Blöcke)"
+  axe-tree-felled-cooldown: "§4🪓 Titanenaxt fällt den Baum! Abklingzeit: %cooldown%s"
+  axe-combat: "§c🪓 Titanenaxt schlägt mit Wut zu!"
+  axe-combat-cooldown: "§4🪓 Titanenaxt zerschmettert! Abklingzeit: %cooldown%s"
+  
+  # Schaufel
+  shovel-excavate: "§b🪏 Bereich ausgehoben! §7(%blocks% Blöcke)"
+  shovel-excavate-full: "§5🕳 Leerenschaufel grub %blocks% Blöcke!"
+  
+  # Hammer
+  hammer-lightning: "§e⚡ Sturmhammer beschwört Blitz!"
+  hammer-shockwave: "§e⚡ Druckwelle schädigt nahe Feinde!"
+  hammer-activated-cooldown: "§9⚡ Sturmhammer donnert! Abklingzeit: %cooldown%s"
+  
+  # Bogen
+  bow-double-shot: "§d🏹 Doppelpfeil abgeschossen!"
+  bow-double-shot-cooldown: "§a🏹 Wächterbogen: Doppelschuss! Abklingzeit: %cooldown%s"
+  bow-homing: "§d🏹 Lenkpfeil sucht Ziel!"
+  
+  # Buch
+  book-used: "§6📖 Alte Weisheit verzaubert deine Ausrüstung!"
+  book-enchanted: "§d📚 Buch der Weisheit verzauberte %count% Gegenstände!"
+  book-no-items: "§c📚 Keine geeigneten Gegenstände zum Verzaubern!"
+  
+  # Phönixfeder
+  phoenix-resurrect: "§d🪶 Phönixfeder rettete dich vor dem Tod!"
+  phoenix-fire-immune: "§6🪶 Phönixfeder schützt dich vor Feuer!"
+  phoenix-resurrect-message: "§c🔥 Phönixfeder rettet dich vor dem Tod!"
+  phoenix-resurrect-broadcast: "§6%player% wurde durch die Phönixfeder wiederbelebt!"
+  
+  # Dreizack
+  trident-lightning: "§b🔱 Poseidons Zorn trifft deinen Feind!"
+  trident-lightning-cooldown: "§b🔱 Poseidon schlägt mit Blitz! Abklingzeit: %cooldown%s"
+  trident-rain: "§b🔱 Regen wirbelt um dich..."
+
+# ============================================
+# LEGENDÄRE GEGENSTÄNDE
+# ============================================
+items:
+  summoner-apple:
+    name: "§d🍎 Truhen-Beschwörungsapfel"
+    lore:
+      - "§7Ein magischer Apfel erfüllt mit"
+      - "§7der Essenz des Schatzes."
+      - ""
+      - "§e⚡ Iss, um eine Truhe zu beschwören!"
+      - "§7(Setzt Haupttimer nicht zurück)"
+      - ""
+      - "§dSpezieller Spender-Gegenstand"
+  
+  dragon-slayer-sword:
+    name: "§6⚔ Drachenjägerschwert ⚔"
+    lore:
+      - "§7Legendäres Schwert geschmiedet"
+      - "§7aus dem Herzen eines Drachen."
+      - "§7Brennt mit ewiger Flamme."
+      - ""
+      - "§c+%damage% Bonus-Schaden"
+      - "§e⚡ Entzündet Feinde"
+      - "§8Abklingzeit: %cooldown%s"
+      - ""
+      - "§6Legendärer Gegenstand"
+  
+  master-pickaxe:
+    name: "§b⛏ Meisterspitzhacke ⛏"
+    lore:
+      - "§7Werkzeug eines legendären Bergmanns,"
+      - "§7fähig, Reichtümer in jedem"
+      - "§7Gestein zu finden."
+      - ""
+      - "§e⚡ Schmilzt Erze automatisch"
+      - "§e⚡ Chance auf doppelte Beute"
+      - "§8Abklingzeit: %cooldown%s"
+      - ""
+      - "§6Legendärer Gegenstand"
+  
+  titan-axe:
+    name: "§4🪓 Titanenaxt 🪓"
+    lore:
+      - "§7Massive Axt der Titanen."
+      - "§7Ein Schwung fällt ganze Bäume."
+      - ""
+      - "§c+%damage% Kampfschaden"
+      - "§e⚡ Fällt ganze Bäume"
+      - "§8Baum-Abklingzeit: %tree_cooldown%s"
+      - "§8Kampf-Abklingzeit: %combat_cooldown%s"
+      - ""
+      - "§6Legendärer Gegenstand"
+  
+  void-shovel:
+    name: "§5🕳 Leerenschaufel 🕳"
+    lore:
+      - "§7Von der Leere berührte Schaufel."
+      - "§7Verschlingt Erde in einem großen Bereich."
+      - ""
+      - "§e⚡ %size%x%size% Bereichs-Graben (SHIFT)"
+      - "§e⚡ Sammelt Beute automatisch"
+      - "§8Abklingzeit: %cooldown%s"
+      - ""
+      - "§6Legendärer Gegenstand"
+  
+  storm-hammer:
+    name: "§9⚡ Sturmhammer ⚡"
+    lore:
+      - "§7Hammer der Sturmlords."
+      - "§7Beherrscht den Blitz selbst."
+      - ""
+      - "§c+%damage% Bonus-Schaden"
+      - "§e⚡ Beschwört Blitze"
+      - "§e⚡ Flächenschaden durch Druckwelle"
+      - "§8Abklingzeit: %cooldown%s"
+      - ""
+      - "§6Legendärer Gegenstand"
+  
+  guardian-bow:
+    name: "§a🏹 Wächterbogen 🏹"
+    lore:
+      - "§7Von Wächtern gesegneter Bogen."
+      - "§7Pfeile suchen ihre Ziele."
+      - ""
+      - "§e⚡ Schießt Doppelpfeile"
+      - "§e⚡ Lenkpfeil-Fähigkeit"
+      - "§8Abklingzeit: %cooldown%s"
+      - ""
+      - "§6Legendärer Gegenstand"
+  
+  wisdom-book:
+    name: "§d📖 Buch der Alten Weisheit 📖"
+    lore:
+      - "§7Enthält das Wissen"
+      - "§7alter Zivilisationen."
+      - ""
+      - "§e⚡ Rechtsklick zum Verzaubern"
+      - "§e⚡ aller Ausrüstung im Inventar"
+      - "§c⚠ Einmalige Verwendung"
+      - ""
+      - "§6Legendärer Gegenstand"
+  
+  phoenix-feather:
+    name: "§c🔥 Phönixfeder 🔥"
+    lore:
+      - "§7Feder des unsterblichen Phönix."
+      - "§7Gewährt eine zweite Lebenschance."
+      - ""
+      - "§e⚡ Auto-Wiederbelebung bei Tod"
+      - "§e⚡ Feuerimmunität während des Haltens"
+      - "§8Abklingzeit: %cooldown%s"
+      - ""
+      - "§6Legendärer Gegenstand"
+  
+  poseidon-trident:
+    name: "§b🔱 Poseidons Dreizack 🔱"
+    lore:
+      - "§7Waffe des Meergottes."
+      - "§7Beherrscht Stürme und Meere."
+      - ""
+      - "§e⚡ Regen-Aura (%radius% Blöcke)"
+      - "§e⚡ Blitzeinschlag bei Treffer"
+      - "§b+%damage% Blitzschaden"
+      - "§8Abklingzeit: %cooldown%s"
+      - ""
+      - "§6Legendärer Gegenstand"
+
+# ============================================
+# BENUTZERDEFINIERTE TRÄNKE
+# ============================================
+potions:
+  strength-3:
+    name: "§c⚔ Trank der Stärke III"
+    lore:
+      - "§7Stärke III (2:00)"
+      - "§6Benutzerdefinierter Trank"
+  
+  haste-2:
+    name: "§e⛏ Trank der Eile II"
+    lore:
+      - "§7Eile II (3:00)"
+      - "§6Benutzerdefinierter Trank"
+  
+  luck-2:
+    name: "§a🍀 Trank des Glücks II"
+    lore:
+      - "§7Glück II (5:00)"
+      - "§6Benutzerdefinierter Trank"
+  
+  dolphins-grace:
+    name: "§b🐬 Trank der Delfingrazie"
+    lore:
+      - "§7Delfingrazie (3:00)"
+      - "§6Benutzerdefinierter Trank"
+  
+  turtle-master:
+    name: "§a🐢 Erweiterter Schildkrötenmeister"
+    lore:
+      - "§7Langsamkeit IV (1:00)"
+      - "§7Widerstand III (1:00)"
+      - "§6Benutzerdefinierter Trank"
+  
+  wither-resistance:
+    name: "§8💀 Trank des Witherabwehr"
+    lore:
+      - "§7Regeneration II (0:30)"
+      - "§7Widerstand II (1:00)"
+      - "§6Benutzerdefinierter Trank"
+
+# ============================================
+# ERFOLGE
+# ============================================
+achievements:
+  first-chest:
+    name: "§eErster Fund"
+    description: "Öffne deine erste Truhe"
+    reward-message: "§6+50 XP Bonus!"
+  
+  treasure-hunter:
+    name: "§6Schatzsucher"
+    description: "Öffne 10 Truhen"
+    reward-message: "§6+200 XP Bonus!"
+  
+  chest-master:
+    name: "§cTruhenmeister"
+    description: "Öffne 50 Truhen"
+    reward-message: "§6+500 XP Bonus!"
+  
+  legendary-finder:
+    name: "§5Legendärenfinder"
+    description: "Finde einen legendären Gegenstand"
+    reward-message: "§6+300 XP Bonus!"
+  
+  guardian-slayer:
+    name: "§4Wächterjäger"
+    description: "Töte 25 Truhenwächter"
+    reward-message: "§6+400 XP Bonus!"
+
+# ============================================
+# BENUTZERDEFINIERTE BEUTEOBERFLÄCHE
+# ============================================
+gui:
+  # Hauptmenü
+  custom-loot-title: "§6Benutzerdefinierte Truhenbeute"
+  
+  # Bearbeitungsmenüs
+  edit-common: "§fBearbeite Gewöhnliche Truhenbeute"
+  edit-rare: "§9Bearbeite Seltene Truhenbeute"
+  edit-legendary: "§6Bearbeite Legendäre Truhenbeute"
+  
+  # Hauptmenü-Gegenstandsnamen
+  common-chest-name: "§fGewöhnliche Truhe"
+  rare-chest-name: "§9Seltene Truhe"
+  legendary-chest-name: "§6Legendäre Truhe"
+  
+  # Hauptmenü-Beschreibung
+  click-to-edit: "§7Klicke zum Bearbeiten der Beute"
+  custom-enabled: "§aBenutzerdefinierte Beute: AKTIVIERT"
+  custom-disabled: "§cBenutzerdefinierte Beute: DEAKTIVIERT"
+  using-default: "§7Verwende standardmäßige Zufallsbeute"
+  items-count: "§7Gegenstände: %count%"
+  
+  # Steuerungsknöpfe
+  save-button: "§a✓ Speichern & Aktivieren"
+  save-lore:
+    - "§7Klicke zum Speichern von Gegenständen und"
+    - "§7Aktivieren benutzerdefinierter Beute für diese Stufe"
+  
+  reset-button: "§c✗ Zurücksetzen & Deaktivieren"
+  reset-lore:
+    - "§7Klicke zum Löschen von Gegenständen und"
+    - "§7Verwenden standardmäßiger Zufallsbeute"
+  
+  back-button: "§7← Zurück"
+  
+  # Nachrichten
+  saved: "§a✓ %count% Gegenstände für %tier%-Truhen gespeichert!"
+  reset-done: "§c✗ Benutzerdefinierte Beute für %tier%-Truhen gelöscht."
+
+# ============================================
+# TRUHENINTERAKTION
+# ============================================
+chest:
+  first-opener: "§e✨ Du warst der Erste, der diese Truhe geöffnet hat!"
+  guardian-spawned: "§cEin Wächter ist erschienen!"
+  proximity-hint: "§7Du hörst etwas in der Nähe..."
+
+# ============================================
+# SONSTIGES
+# ============================================
+misc:
+  chest-opening: "§eÖffne Truhe..."
+  guardian-spawned: "§cEin Wächter ist erschienen!"
+  proximity-hint: "§7Du hörst etwas in der Nähe..."

@@ -1,0 +1,549 @@
+# ============================================
+# SpawnChestPlugin - Fichier de Langue Français
+# Langue: Français (fr)
+# Version: 4.1.5 FULL
+# ============================================
+
+# ============================================
+# NOMS DES NIVEAUX
+# ============================================
+tiers:
+  common:
+    name: "§fCoffre Commun"
+    guardian-name: "§fGardien du Coffre Commun"
+  rare:
+    name: "§9Coffre Rare"
+    guardian-name: "§9Gardien du Coffre Rare"
+  legendary:
+    name: "§6Coffre Légendaire"
+    guardian-name: "§6Gardien du Coffre Légendaire"
+
+# ============================================
+# MESSAGES SYSTÈME (logs et internes)
+# ============================================
+system:
+  # Statistiques
+  stats-saved: "Statistiques sauvegardées pour %count% joueurs."
+  stats-save-error: "Échec de sauvegarde des statistiques pour %player% : %error%"
+  player-unknown: "Inconnu"
+  
+  # Adaptateur de version
+  version-adapter-init: "VersionAdapter initialisé :"
+  version-minecraft: "  - Minecraft : %version%"
+  version-server: "  - Serveur : %type%"
+  version-full: "  - Version complète : %version%"
+  version-java: "  - Java : %version%"
+  version-chunk-error: "Échec du chargement asynchrone des chunks : %error%"
+  
+  # Apparition des coffres
+  chest-spawn-started: "Apparition du coffre en cours (il y a %elapsed%s)"
+  chest-spawn-stuck: "L'apparition était bloquée pendant %seconds%s, réinitialisation..."
+  chest-invalid-world: "Aucun monde valide trouvé pour l'apparition du coffre !"
+  chest-spawn-attempt: "Tentative %attempt% : essai X=%x% Z=%z% (dist=%dist%)"
+  chest-location-found: "Emplacement du coffre trouvé : X=%x% Y=%y% Z=%z%"
+  chest-ground-level: "Apparition du coffre à X=%x% Y=%y% Z=%z% (sol=%ground%)"
+  chest-filled: "Coffre rempli avec succès à %x%, %y%, %z%"
+  chest-state-error: "Impossible d'obtenir l'état du Coffre, type est : %type%"
+  chest-spawn-error: "Erreur lors de l'apparition du coffre : %error%"
+  chest-spawn-failed-attempts: "Impossible de trouver un emplacement après %attempts% tentatives, abandon"
+  chest-block-not-chest: "Le bloc n'est pas un coffre, forçage à nouveau..."
+  chest-highest-solid-not-found: "Impossible de trouver un bloc solide à X=%x% Z=%z%, utilisation de Y=64"
+  
+  # Minuteur
+  timer-loaded: "Dernier temps d'apparition chargé : %time%"
+  timer-first-run: "Première exécution détectée, le coffre apparaîtra dans 30 secondes"
+  timer-save-error: "Échec de sauvegarde du minuteur : %error%"
+  timer-load-error: "Échec de chargement du minuteur : %error%"
+  timer-spawn-reset: "Minuteur : L'apparition était bloquée, réinitialisation..."
+  
+  # Butin personnalisé
+  custom-loot-using: "Utilisation du butin personnalisé pour le coffre %tier% : %count% objets"
+  custom-loot-no-file: "Aucun fichier de butin personnalisé trouvé, utilisation des valeurs par défaut."
+  custom-loot-loaded: "Configuration du butin personnalisé chargée."
+  custom-loot-saved: "Butin personnalisé sauvegardé dans le fichier."
+  custom-loot-load-error: "Erreur lors du chargement du butin personnalisé : %error%"
+  custom-loot-save-error: "Erreur lors de la sauvegarde du butin personnalisé : %error%"
+  
+  # Cycle de vie du plugin
+  plugin-enabled: "SpawnChestPlugin v4.0 FULL activé !"
+  plugin-disabled: "SpawnChestPlugin désactivé."
+  plugin-version-too-old: "Ce plugin nécessite Minecraft 1.18 ou supérieur !"
+  plugin-version-detected: "Version détectée : %version%"
+  plugin-version-update: "Veuillez mettre à jour votre serveur vers MC 1.18+"
+
+# ============================================
+# DIFFUSIONS
+# ============================================
+broadcasts:
+  chest-spawned: "§6🎁 %tier% §aest apparu à : §eX : %x% Y : %y% Z : %z%"
+  chest-disappeared: "§c💨 Un coffre a disparu ! Trop tard..."
+  chest-opened: "§a%player% a ouvert un %tier% !"
+  legendary-found: "§6§l✨ %player% a trouvé un objet LÉGENDAIRE : %item% ! ✨"
+  minutes-left: "§e⏰ %minutes% minute(s) avant l'apparition du prochain coffre !"
+  countdown: "§c⚡ %seconds% seconde(s) avant l'apparition du coffre !"
+  spawn-title: "§6✨ Un Coffre est Apparu ! ✨"
+  spawn-subtitle: "§eCoordonnées : §fX : %x% Y : %y% Z : %z%"
+  apple-used: "§6🍎 %player% a invoqué un coffre avec la pomme magique !"
+  resurrection: "§d🪶 %player% a été ressuscité par la Plume de Phénix !"
+  achievement-unlocked: "§6%player% a débloqué le succès : §e%achievement%"
+  achievement-title: "§6§l★ SUCCÈS DÉBLOQUÉ ★"
+  achievement-subtitle: "§e%name%"
+
+# ============================================
+# COMMANDES
+# ============================================
+commands:
+  # Commandes de base
+  next-chest: "§6⏰ Temps avant le prochain coffre : §e%minutes% min. %seconds% sec."
+  next-chest-now: "§aUn coffre apparaît maintenant !"
+  chest-spawned: "§a✅ Un coffre a été généré !"
+  chest-spawn-failed: "§cÉchec de la génération du coffre. Réessayez."
+  chest-spawn-in-progress: "§eLa génération du coffre est déjà en cours..."
+  timer-set: "§aMinuteur du coffre défini sur §e%seconds% §asecondes (%minutes% min)."
+  timer-invalid: "§c❌ Veuillez entrer un nombre valide !"
+  config-reloaded: "§a✓ Configuration rechargée !"
+  config-value: "§7%path% : §e%value%"
+  config-set: "§a✓ Défini §e%path% §asur §e%value%"
+  config-invalid-path: "§cChemin de configuration invalide : %path%"
+  feature-enabled: "§a✓ %feature% activé !"
+  feature-disabled: "§c✗ %feature% désactivé !"
+  apple-given: "§aDonné %amount% Pomme(s) d'Invocation à %player%"
+  apple-received: "§6🍎 Vous avez reçu %amount% Pomme(s) d'Invocation de Coffres !"
+  legendary-items-given: "§a✓ Vous avez reçu tous les objets légendaires !"
+  no-permission: "§c❌ Vous n'avez pas la permission de faire cela !"
+  player-not-found: "§c❌ Joueur non trouvé : %player%"
+  player-only: "§cCette commande ne peut être utilisée que par des joueurs !"
+  invalid-usage: "§cUtilisation : %usage%"
+  world-not-found: "§c❌ Monde non trouvé !"
+  
+  # Messages supplémentaires
+  searching-location: "§eRecherche d'un emplacement pour le coffre..."
+  spawn-interval-set: "§aIntervalle d'apparition défini sur %seconds% secondes."
+  enter-valid-number: "§cEntrez un nombre valide !"
+  timer-reset: "§aMinuteur réinitialisé ! Le coffre apparaîtra dans 10 secondes."
+  language-reloaded: "§7Langue : §e%code% §7(%name%)"
+  stats-disabled: "§cLes statistiques sont désactivées !"
+  players-only: "§cJoueurs uniquement !"
+  status-on: "§aACTIVÉ"
+  status-off: "§cDÉSACTIVÉ"
+  
+  # Aide de configuration
+  config-help-header: "§6=== Commandes ChestConfig ==="
+  config-help-get: "§e/chestconfig get <chemin> §7- Obtenir une valeur de configuration"
+  config-help-set: "§e/chestconfig set <chemin> <valeur> §7- Définir une valeur de configuration"
+  config-help-toggle: "§e/chestconfig toggle <chemin> §7- Basculer une valeur booléenne"
+  config-help-reload: "§e/chestconfig reload §7- Recharger la configuration"
+  config-help-list: "§e/chestconfig list [section] §7- Lister les valeurs"
+  config-help-examples: "§7Exemples :"
+  config-help-example1: "§7  /chestconfig toggle features.guardians.enabled"
+  config-help-example2: "§7  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
+  
+  # Liste de configuration
+  config-list-header: "§6=== Configuration : %section% ==="
+  config-list-master-toggle: "§7Interrupteur principal : §e%value%"
+  
+  # Commande de statistiques des coffres
+  chest-stats-header: "§6=== Statistiques des Coffres ==="
+  chest-stats-common-chance: "§7Chance de coffre commun : §f%chance%%"
+  chest-stats-rare-chance: "§9Chance de coffre rare : §f%chance%%"
+  chest-stats-legendary-chance: "§6Chance de coffre légendaire : §f%chance%%"
+  chest-stats-guardians: "§7Gardiens : %status%"
+  chest-stats-legendary-items: "§7Objets légendaires : %status%"
+  chest-stats-pvp-protection: "§7Protection PvP : %status%"
+  chest-stats-particles: "§7Particules : %status%"
+  chest-stats-sounds: "§7Sons : %status%"
+  chest-stats-statistics: "§7Statistiques : %status%"
+  chest-stats-active: "§7Coffres actifs : §e%count%"
+  
+  # Commande de zone de test
+  test-zone-header: "§eTest de la zone d'apparition des coffres..."
+  test-zone-min-dist: "§7Distance minimale : %min%, Distance maximale : %max%"
+  test-zone-bury: "§7Enterrer dans le sol : %value%"
+  test-zone-worlds: "§7Mondes activés : %worlds%"
+  test-zone-example: "§7Exemple %num% : §fX=%x% Z=%z% §7(distance : %dist%)"
+  
+  # Commande de basculement des objets légendaires
+  legendary-all-toggled: "§6Tous les objets légendaires : %status%"
+  legendary-item-toggled: "§6%item% : %status%"
+  legendary-unknown-item: "§cObjet inconnu : %item%"
+  legendary-available-items: "§7Disponibles : dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
+  
+  # Commande de basculement des fonctionnalités
+  features-available-header: "§6Fonctionnalités disponibles :"
+  features-list-guardians: "§e- guardians §7(features.guardians.enabled)"
+  features-list-particles: "§e- particles §7(features.effects.particles)"
+  features-list-sounds: "§e- sounds §7(features.effects.sounds)"
+  features-list-lightning: "§e- lightning §7(features.effects.lightning-on-legendary)"
+  features-list-announcements: "§e- announcements §7(features.broadcasts.chest-spawn-announcement)"
+  features-list-titles: "§e- titles §7(features.broadcasts.title-on-spawn)"
+  features-list-pvp: "§e- pvp-protection §7(abilities.pvp-protection)"
+  features-list-cooldown-msg: "§e- cooldown-messages §7(abilities.show-cooldown-messages)"
+  features-list-activation-msg: "§e- activation-messages §7(abilities.show-activation-messages)"
+  features-list-stats: "§e- statistics §7(statistics.enabled)"
+  features-unknown: "§cFonctionnalité inconnue : %feature%"
+  
+  # Commande des objets légendaires
+  legendary-received: "§6✨ Vous avez reçu tous les objets légendaires activés !"
+  legendary-use-cooldowns: "§eUtilisez §f/cooldowns §epour vérifier les temps de recharge !"
+  
+  # Messages d'utilisation
+  usage-giveapple: "§cUtilisation : /giveapple <joueur> [quantité]"
+  usage-chestconfig-get: "§cUtilisation : /chestconfig get <chemin>"
+  usage-chestconfig-set: "§cUtilisation : /chestconfig set <chemin> <valeur>"
+  usage-setchesttimer: "§cUtilisation : /setchesttimer <secondes>"
+  invalid-number: "§cNombre invalide !"
+
+# ============================================
+# STATISTIQUES
+# ============================================
+stats:
+  header: "§6══════ Vos Statistiques ══════"
+  chests-opened: "§7Coffres ouverts : §e%count%"
+  common-opened: "§7  Communs : §f%count%"
+  rare-opened: "§7  Rares : §9%count%"
+  legendary-opened: "§7  Légendaires : §6%count%"
+  legendaries-found: "§7Objets légendaires trouvés : §d%count%"
+  guardians-killed: "§7Gardiens tués : §c%count%"
+  apples-used: "§7Pommes d'invocation utilisées : §a%count%"
+  score: "§7Score total : §e%score%"
+  rank: "§7Votre rang : §e#%rank%"
+  footer: "§6═══════════════════════════"
+  leaderboard-header: "§6══════ Top Chasseurs de Trésors ══════"
+  leaderboard-entry: "§e#%rank% §f%player% §7- §a%score% points"
+  leaderboard-empty: "§7Pas encore de statistiques..."
+  leaderboard-footer: "§6══════════════════════════════════"
+
+# ============================================
+# TEMPS DE RECHARGE
+# ============================================
+cooldowns:
+  header: "§6=== Temps de Recharge des Capacités ==="
+  ready: "§aPrêt"
+  seconds-left: "§c%seconds%s"
+  item-entry: "§7%item% : %status%"
+  footer: "§6═══════════════════════════"
+  on-cooldown: "§c⏳ %item% est en recharge ! §e%seconds%s §crestant."
+  cooldown-ready: "§a✓ %item% est prêt à être utilisé !"
+  
+  # Messages de recharge individuels (pour les capacités)
+  sword-recharging: "§c⚔ Épée en recharge ! %time%"
+  axe-recharging: "§c🪓 Hache en recharge ! %time%"
+  hammer-recharging: "§c⚡ Marteau en recharge ! %time%"
+  bow-recharging: "§c🏹 Arc en recharge ! %time%"
+  shovel-recharging: "§c🕳 Pelle en recharge ! %time%"
+  tree-cutting-recharging: "§c🌳 Abattage d'arbre en recharge ! %time%"
+  trident-recharging: "§c🔱 Trident en recharge ! %time%"
+  
+  # Entrées de liste de recharge (pour la commande /cooldowns)
+  dragon-slayer: "§6⚔ Épée Tueuse de Dragon : %status%"
+  titan-axe: "§4🪓 Hache de Titan : %status%"
+  storm-hammer: "§9⚡ Marteau de Tempête : %status%"
+  guardian-bow: "§a🏹 Arc du Gardien : %status%"
+  void-shovel: "§5🕳 Pelle du Vide : %status%"
+  master-pickaxe: "§b⛏ Pioche de Maître : %status%"
+  tree-cutting: "§4🌳 Abattage d'arbre : %status%"
+  poseidon-trident: "§b🔱 Trident de Poséidon : %status%"
+
+# ============================================
+# CAPACITÉS
+# ============================================
+abilities:
+  # Épée
+  sword-activated: "§c🔥 L'Épée Tueuse de Dragon enflamme votre ennemi !"
+  sword-activated-cooldown: "§6⚔ L'Épée Tueuse de Dragon s'enflamme ! Recharge : %cooldown%s"
+  
+  # Pioche
+  pickaxe-smelted: "§6⛏ Minerais fondus automatiquement !"
+  pickaxe-double: "§e⛏ Double butin !"
+  
+  # Hache
+  axe-tree-felled: "§a🪓 Arbre abattu ! §7(%blocks% blocs)"
+  axe-tree-felled-cooldown: "§4🪓 La Hache de Titan abat l'arbre ! Recharge : %cooldown%s"
+  axe-combat: "§c🪓 La Hache de Titan frappe avec fureur !"
+  axe-combat-cooldown: "§4🪓 La Hache de Titan écrase ! Recharge : %cooldown%s"
+  
+  # Pelle
+  shovel-excavate: "§b🪏 Zone excavée ! §7(%blocks% blocs)"
+  shovel-excavate-full: "§5🕳 La Pelle du Vide a creusé %blocks% blocs !"
+  
+  # Marteau
+  hammer-lightning: "§e⚡ Le Marteau de Tempête invoque la foudre !"
+  hammer-shockwave: "§e⚡ L'onde de choc blesse les ennemis proches !"
+  hammer-activated-cooldown: "§9⚡ Le Marteau de Tempête tonne ! Recharge : %cooldown%s"
+  
+  # Arc
+  bow-double-shot: "§d🏹 Flèche double tirée !"
+  bow-double-shot-cooldown: "§a🏹 L'Arc du Gardien : tir double ! Recharge : %cooldown%s"
+  bow-homing: "§d🏹 Flèche guidée cherche sa cible !"
+  
+  # Livre
+  book-used: "§6📖 La sagesse ancienne enchante votre équipement !"
+  book-enchanted: "§d📚 Le Livre de la Sagesse a enchanté %count% objets !"
+  book-no-items: "§c📚 Aucun objet approprié à enchanter !"
+  
+  # Plume de Phénix
+  phoenix-resurrect: "§d🪶 La Plume de Phénix vous a sauvé de la mort !"
+  phoenix-fire-immune: "§6🪶 La Plume de Phénix vous protège du feu !"
+  phoenix-resurrect-message: "§c🔥 La Plume de Phénix vous sauve de la mort !"
+  phoenix-resurrect-broadcast: "§6%player% a été ressuscité par la Plume de Phénix !"
+  
+  # Trident
+  trident-lightning: "§b🔱 La colère de Poséidon frappe votre ennemi !"
+  trident-lightning-cooldown: "§b🔱 Poséidon frappe avec la foudre ! Recharge : %cooldown%s"
+  trident-rain: "§b🔱 La pluie tourbillonne autour de vous..."
+
+# ============================================
+# OBJETS LÉGENDAIRES
+# ============================================
+items:
+  summoner-apple:
+    name: "§d🍎 Pomme d'Invocation de Coffres"
+    lore:
+      - "§7Une pomme magique imprégnée"
+      - "§7de l'essence du trésor."
+      - ""
+      - "§e⚡ Mangez pour invoquer un coffre !"
+      - "§7(Ne réinitialise pas le minuteur principal)"
+      - ""
+      - "§dObjet Spécial Donateur"
+  
+  dragon-slayer-sword:
+    name: "§6⚔ Épée Tueuse de Dragon ⚔"
+    lore:
+      - "§7Épée légendaire forgée"
+      - "§7dans le cœur d'un dragon."
+      - "§7Brûle d'une flamme éternelle."
+      - ""
+      - "§c+%damage% Dégâts Supplémentaires"
+      - "§e⚡ Enflamme les ennemis"
+      - "§8Recharge : %cooldown%s"
+      - ""
+      - "§6Objet Légendaire"
+  
+  master-pickaxe:
+    name: "§b⛏ Pioche de Maître ⛏"
+    lore:
+      - "§7Outil d'un mineur légendaire,"
+      - "§7capable de trouver des richesses"
+      - "§7dans n'importe quelle pierre."
+      - ""
+      - "§e⚡ Fond les minerais automatiquement"
+      - "§e⚡ Chance de double butin"
+      - "§8Recharge : %cooldown%s"
+      - ""
+      - "§6Objet Légendaire"
+  
+  titan-axe:
+    name: "§4🪓 Hache de Titan 🪓"
+    lore:
+      - "§7Hache massive des titans."
+      - "§7Un coup abat des arbres entiers."
+      - ""
+      - "§c+%damage% Dégâts de Combat"
+      - "§e⚡ Abat des arbres entiers"
+      - "§8Recharge arbre : %tree_cooldown%s"
+      - "§8Recharge combat : %combat_cooldown%s"
+      - ""
+      - "§6Objet Légendaire"
+  
+  void-shovel:
+    name: "§5🕳 Pelle du Vide 🕳"
+    lore:
+      - "§7Pelle touchée par le vide."
+      - "§7Consume la terre sur une large zone."
+      - ""
+      - "§e⚡ Creuse une zone %size%x%size% (SHIFT)"
+      - "§e⚡ Collecte automatiquement le butin"
+      - "§8Recharge : %cooldown%s"
+      - ""
+      - "§6Objet Légendaire"
+  
+  storm-hammer:
+    name: "§9⚡ Marteau de Tempête ⚡"
+    lore:
+      - "§7Marteau des seigneurs des tempêtes."
+      - "§7Commande à la foudre elle-même."
+      - ""
+      - "§c+%damage% Dégâts Supplémentaires"
+      - "§e⚡ Invoque la foudre"
+      - "§e⚡ Dégâts de zone par onde de choc"
+      - "§8Recharge : %cooldown%s"
+      - ""
+      - "§6Objet Légendaire"
+  
+  guardian-bow:
+    name: "§a🏹 Arc du Gardien 🏹"
+    lore:
+      - "§7Arc béni par les gardiens."
+      - "§7Les flèches cherchent leurs cibles."
+      - ""
+      - "§e⚡ Tire des flèches doubles"
+      - "§e⚡ Capacité de flèche guidée"
+      - "§8Recharge : %cooldown%s"
+      - ""
+      - "§6Objet Légendaire"
+  
+  wisdom-book:
+    name: "§d📖 Livre de la Sagesse Ancienne 📖"
+    lore:
+      - "§7Contient la connaissance"
+      - "§7des civilisations anciennes."
+      - ""
+      - "§e⚡ Clic droit pour enchanter"
+      - "§e⚡ tout l'équipement dans l'inventaire"
+      - "§c⚠ Usage unique"
+      - ""
+      - "§6Objet Légendaire"
+  
+  phoenix-feather:
+    name: "§c🔥 Plume de Phénix 🔥"
+    lore:
+      - "§7Plume du phénix immortel."
+      - "§7Accorde une seconde chance de vie."
+      - ""
+      - "§e⚡ Auto-résurrection à la mort"
+      - "§e⚡ Immunité au feu lorsqu'elle est tenue"
+      - "§8Recharge : %cooldown%s"
+      - ""
+      - "§6Objet Légendaire"
+  
+  poseidon-trident:
+    name: "§b🔱 Trident de Poséidon 🔱"
+    lore:
+      - "§7Arme du dieu de la mer."
+      - "§7Commande aux tempêtes et aux mers."
+      - ""
+      - "§e⚡ Aura de pluie (%radius% blocs)"
+      - "§e⚡ Coup de foudre lors d'un impact"
+      - "§b+%damage% Dégâts de foudre"
+      - "§8Recharge : %cooldown%s"
+      - ""
+      - "§6Objet Légendaire"
+
+# ============================================
+# POTIONS PERSONNALISÉES
+# ============================================
+potions:
+  strength-3:
+    name: "§c⚔ Potion de Force III"
+    lore:
+      - "§7Force III (2:00)"
+      - "§6Potion Personnalisée"
+  
+  haste-2:
+    name: "§e⛏ Potion de Célérité II"
+    lore:
+      - "§7Célérité II (3:00)"
+      - "§6Potion Personnalisée"
+  
+  luck-2:
+    name: "§a🍀 Potion de Chance II"
+    lore:
+      - "§7Chance II (5:00)"
+      - "§6Potion Personnalisée"
+  
+  dolphins-grace:
+    name: "§b🐬 Potion de Grâce du Dauphin"
+    lore:
+      - "§7Grâce du dauphin (3:00)"
+      - "§6Potion Personnalisée"
+  
+  turtle-master:
+    name: "§a🐢 Maître Tortue Étendue"
+    lore:
+      - "§7Lenteur IV (1:00)"
+      - "§7Résistance III (1:00)"
+      - "§6Potion Personnalisée"
+  
+  wither-resistance:
+    name: "§8💀 Potion de Résistance au Wither"
+    lore:
+      - "§7Régénération II (0:30)"
+      - "§7Résistance II (1:00)"
+      - "§6Potion Personnalisée"
+
+# ============================================
+# SUCCÈS
+# ============================================
+achievements:
+  first-chest:
+    name: "§ePremière Trouvaille"
+    description: "Ouvrez votre premier coffre"
+    reward-message: "§6+50 XP bonus !"
+  
+  treasure-hunter:
+    name: "§6Chasseur de Trésors"
+    description: "Ouvrez 10 coffres"
+    reward-message: "§6+200 XP bonus !"
+  
+  chest-master:
+    name: "§cMaître des Coffres"
+    description: "Ouvrez 50 coffres"
+    reward-message: "§6+500 XP bonus !"
+  
+  legendary-finder:
+    name: "§5Trouveur Légendaire"
+    description: "Trouvez un objet légendaire"
+    reward-message: "§6+300 XP bonus !"
+  
+  guardian-slayer:
+    name: "§4Pourfendeur de Gardiens"
+    description: "Tuez 25 gardiens de coffres"
+    reward-message: "§6+400 XP bonus !"
+
+# ============================================
+# INTERFACE DE BUTIN PERSONNALISÉ
+# ============================================
+gui:
+  # Menu principal
+  custom-loot-title: "§6Butin Personnalisé de Coffres"
+  
+  # Menus d'édition
+  edit-common: "§fModifier le Butin du Coffre Commun"
+  edit-rare: "§9Modifier le Butin du Coffre Rare"
+  edit-legendary: "§6Modifier le Butin du Coffre Légendaire"
+  
+  # Noms des objets du menu principal
+  common-chest-name: "§fCoffre Commun"
+  rare-chest-name: "§9Coffre Rare"
+  legendary-chest-name: "§6Coffre Légendaire"
+  
+  # Description du menu principal
+  click-to-edit: "§7Cliquez pour modifier le butin"
+  custom-enabled: "§aButin personnalisé : ACTIVÉ"
+  custom-disabled: "§cButin personnalisé : DÉSACTIVÉ"
+  using-default: "§7Utilisation du butin aléatoire par défaut"
+  items-count: "§7Objets : %count%"
+  
+  # Boutons de contrôle
+  save-button: "§a✓ Sauvegarder & Activer"
+  save-lore:
+    - "§7Cliquez pour sauvegarder les objets et"
+    - "§7activer le butin personnalisé pour ce niveau"
+  
+  reset-button: "§c✗ Réinitialiser & Désactiver"
+  reset-lore:
+    - "§7Cliquez pour effacer les objets et"
+    - "§7utiliser le butin aléatoire par défaut"
+  
+  back-button: "§7← Retour"
+  
+  # Messages
+  saved: "§a✓ %count% objets sauvegardés pour les coffres %tier% !"
+  reset-done: "§c✗ Butin personnalisé effacé pour les coffres %tier%."
+
+# ============================================
+# INTERACTION AVEC LES COFFRES
+# ============================================
+chest:
+  first-opener: "§e✨ Vous êtes le premier à ouvrir ce coffre !"
+  guardian-spawned: "§cUn gardien est apparu !"
+  proximity-hint: "§7Vous entendez quelque chose à proximité..."
+
+# ============================================
+# DIVERS
+# ============================================
+misc:
+  chest-opening: "§eOuverture du coffre..."
+  guardian-spawned: "§cUn gardien est apparu !"
+  proximity-hint: "§7Vous entendez quelque chose à proximité..."

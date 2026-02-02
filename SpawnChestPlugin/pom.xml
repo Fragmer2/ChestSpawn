@@ -8,23 +8,26 @@
     <!-- Информация о проекте -->
     <groupId>com.myplugin</groupId>
     <artifactId>SpawnChestPlugin</artifactId>
-    <version>2.0.0</version>
+    <version>4.1.5</version>
     <packaging>jar</packaging>
 
     <name>SpawnChestPlugin</name>
-    <description>Эпичный плагин для спавна сундуков с лутом, охранниками и эффектами!</description>
-    <url>https://github.com/yourname/spawnchest</url>
+    <description>Multi-version Chest Plugin (MC 1.18-1.21.x) - Made by Ukrainian Developer!</description>
 
     <!-- Свойства проекта -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
+        <!-- Java 17 - минимум для MC 1.18-1.20.4 -->
+        <!-- Java 21 - для MC 1.20.5+ -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.release>17</maven.compiler.release>
         
         <!-- Версии зависимостей -->
-        <paper.version>1.20.6-R0.1-SNAPSHOT</paper.version>
+        <!-- Используем Spigot API 1.18.2 для максимальной совместимости -->
+        <spigot.version>1.18.2-R0.1-SNAPSHOT</spigot.version>
         <junit.version>5.10.1</junit.version>
         <maven.shade.version>3.5.1</maven.shade.version>
         <maven.compiler.version>3.11.0</maven.compiler.version>
@@ -33,11 +36,12 @@
 
     <!-- Зависимости -->
     <dependencies>
-        <!-- Paper API (основная зависимость) -->
+        <!-- Spigot API (базовая зависимость для всех ядер) -->
+        <!-- ВАЖНО: НЕ используем Paper API, чтобы избежать Adventure Components -->
         <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>${paper.version}</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -59,22 +63,22 @@
 
     <!-- Репозитории -->
     <repositories>
-        <!-- PaperMC Repository -->
+        <!-- Spigot Repository -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        
+        <!-- PaperMC Repository (для Paper-specific features, если нужно) -->
         <repository>
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         
-        <!-- Sonatype Repository (дополнительно) -->
+        <!-- Sonatype Repository -->
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
-        </repository>
-        
-        <!-- JitPack Repository (для GitHub зависимостей) -->
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -119,8 +123,9 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <compilerArgs>
                         <arg>-parameters</arg>
-                        <arg>-Xlint:all</arg>
-                        <arg>-Xlint:-processing</arg>
+                        <!-- Отключаем некоторые warning для мультиверсионности -->
+                        <arg>-Xlint:deprecation</arg>
+                        <arg>-Xlint:unchecked</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
@@ -152,16 +157,8 @@
                         </filter>
                     </filters>
                     
-                    <!-- Перемещение пакетов (если нужно избежать конфликтов) -->
-                    <relocations>
-                        <!-- Пример перемещения, если используешь внешние библиотеки -->
-                        <!-- 
-                        <relocation>
-                            <pattern>org.example.library</pattern>
-                            <shadedPattern>com.myplugin.libs.library</shadedPattern>
-                        </relocation>
-                        -->
-                    </relocations>
+                    <!-- Минимизация JAR для уменьшения размера -->
+                    <minimizeJar>false</minimizeJar>
                 </configuration>
                 <executions>
                     <execution>
@@ -186,7 +183,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Resources Plugin для правильной обработки ресурсов -->
+            <!-- Resources Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -196,48 +193,73 @@
                 </configuration>
             </plugin>
 
+            <!-- JAR Plugin для правильного манифеста -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Built-By>Ukrainian Developer</Built-By>
+                            <Implementation-Title>${project.name}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
             <!-- Clean Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.3.2</version>
             </plugin>
-
-            <!-- Install Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>3.1.1</version>
-            </plugin>
-
-            <!-- Deploy Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.1</version>
-            </plugin>
-
-            <!-- Site Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>4.0.0-M13</version>
-            </plugin>
         </plugins>
     </build>
 
-    <!-- Профили для разных окружений -->
+    <!-- Профили для разных Java версий -->
     <profiles>
-        <!-- Профиль для разработки -->
+        <!-- Java 17 (MC 1.18-1.20.4) -->
         <profile>
-            <id>development</id>
+            <id>java17</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
+                <jdk>17</jdk>
             </activation>
             <properties>
-                <maven.compiler.debug>true</maven.compiler.debug>
-                <maven.compiler.optimize>false</maven.compiler.optimize>
+                <maven.compiler.source>17</maven.compiler.source>
+                <maven.compiler.target>17</maven.compiler.target>
+                <maven.compiler.release>17</maven.compiler.release>
             </properties>
+        </profile>
+
+        <!-- Java 21 (MC 1.20.5+) -->
+        <profile>
+            <id>java21</id>
+            <activation>
+                <jdk>21</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>17</maven.compiler.source>
+                <maven.compiler.target>17</maven.compiler.target>
+                <maven.compiler.release>17</maven.compiler.release>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <!-- Компилируем под Java 17, но можем запускать на Java 21 -->
+                            <source>17</source>
+                            <target>17</target>
+                            <release>17</release>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <!-- Профиль для продакшена -->
@@ -249,7 +271,6 @@
             </properties>
             <build>
                 <plugins>
-                    <!-- Дополнительная минификация для продакшена -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-shade-plugin</artifactId>
@@ -260,45 +281,18 @@
                 </plugins>
             </build>
         </profile>
-
-        <!-- Профиль для тестирования -->
-        <profile>
-            <id>testing</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.11</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>report</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
     <!-- Информация о разработчике -->
     <developers>
         <developer>
-            <id>yourname</id>
-            <name>Your Name</name>
-            <email>your.email@example.com</email>
+            <id>Fragmer2</id>
+            <name>Bohdan Stepantsov</name>
+            <email>jj.bogd.step@gmail.com</email>
             <roles>
                 <role>developer</role>
             </roles>
+            <timezone>Europe/Kyiv</timezone>
         </developer>
     </developers>
 
@@ -310,17 +304,4 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
-    <!-- SCM информация -->
-    <scm>
-        <connection>scm:git:git://github.com/yourname/spawnchest.git</connection>
-        <developerConnection>scm:git:ssh://github.com/yourname/spawnchest.git</developerConnection>
-        <url>https://github.com/yourname/spawnchest</url>
-    </scm>
-
-    <!-- Issue Management -->
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/yourname/spawnchest/issues</url>
-    </issueManagement>
 </project>

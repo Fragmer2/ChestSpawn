@@ -1,100 +1,78 @@
 name: SpawnChestPlugin
+version: 4.1.5
 main: com.myplugin.SpawnChestPlugin
-version: 2.0.0
-api-version: 1.20
-author: YourName
-description: "Эпичный плагин для спавна сундуков с лутом, охранниками и эффектами! СБАЛАНСИРОВАННАЯ ВЕРСИЯ"
-website: https://github.com/yourname/spawnchest
+api-version: '1.18'
+description: Treasure chest events with legendary items, guardians, achievements. Supports 1.18-1.21+
+author: Bohdan Stepantsov
 
 commands:
+  chestnow:
+    description: Spawn a chest immediately
+    permission: spawnchest.admin
+    aliases: [spawnchestnow]
   nextchest:
-    description: "Показывает время до появления следующего сундука"
-    usage: "/nextchest"
-    aliases: ["nc", "чест"]
-    
-  spawnchestnow:
-    description: "Мгновенно создает сундук (только для администраторов)"
-    usage: "/spawnchestnow"
-    aliases: ["chestnow", "спавнчест"]
-    permission: spawnchest.spawnchestnow
-    
+    description: Show time until next chest
+    permission: spawnchest.use
+    aliases: [nc]
   setchesttimer:
-    description: "Изменяет интервал появления сундуков"
-    usage: "/setchesttimer <секунды>"
-    aliases: ["settimer", "таймер"]
-    permission: spawnchest.setchesttimer
-    
+    description: Set the chest spawn interval
+    permission: spawnchest.admin
+  chestconfig:
+    description: View or modify configuration
+    permission: spawnchest.admin
+    aliases: [cc]
+  togglelegendary:
+    description: Toggle legendary items on/off
+    permission: spawnchest.admin
+  togglefeature:
+    description: Toggle features on/off
+    permission: spawnchest.admin
   reloadchestconfig:
-    description: "Перезагружает конфигурацию плагина"
-    usage: "/reloadchestconfig"
-    aliases: ["chestconfigreload", "ccr"]
-    permission: spawnchest.reloadchestconfig
-    
+    description: Reload the configuration and language
+    permission: spawnchest.admin
   cheststats:
-    description: "Показывает статистику и информацию о сундуках"
-    usage: "/cheststats"
-    aliases: ["cstats", "статчест"]
-    
-  testchestzone:
-    description: "Тестирует зону спавна сундуков"
-    usage: "/testchestzone"
-    permission: spawnchest.testchestzone
-    
+    description: View chest statistics
+    permission: spawnchest.admin
+  cooldowns:
+    description: View your legendary item cooldowns
+    permission: spawnchest.use
+    aliases: [cd]
   getlegendaryitems:
-    description: "Получить все легендарные предметы для тестирования"
-    usage: "/getlegendaryitems"
-    aliases: ["getlegendary", "testgear"]
-    permission: spawnchest.getlegendaryitems
+    description: Get all legendary items
+    permission: spawnchest.admin
+    aliases: [getlegendary, gli]
+  testchestzone:
+    description: Test chest spawn zone
+    permission: spawnchest.admin
+  giveapple:
+    description: Give a Summoner Apple
+    permission: spawnchest.admin
+  mystats:
+    description: View your statistics
+    permission: spawnchest.use
+    aliases: [stats]
+  leaderboard:
+    description: View the leaderboard
+    permission: spawnchest.use
+    aliases: [lb, top]
+  putintothechest:
+    description: Open custom loot editor GUI
+    permission: spawnchest.admin
+    aliases: [customloot, chestloot, editloot]
 
 permissions:
-  spawnchest.*:
-    description: "Доступ ко всем командам SpawnChest"
-    children:
-      spawnchest.nextchest: true
-      spawnchest.spawnchestnow: true
-      spawnchest.setchesttimer: true
-      spawnchest.reloadchestconfig: true
-      spawnchest.cheststats: true
-      spawnchest.testchestzone: true
-      spawnchest.getlegendaryitems: true
-    default: op
-    
-  spawnchest.nextchest:
-    description: "Позволяет использовать команду /nextchest"
+  spawnchest.use:
+    description: Basic permissions
     default: true
-    
-  spawnchest.spawnchestnow:
-    description: "Позволяет мгновенно создавать сундуки"
+  spawnchest.admin:
+    description: Admin permissions
     default: op
-    
-  spawnchest.setchesttimer:
-    description: "Позволяет изменять интервал спавна"
-    default: op
-    
-  spawnchest.reloadchestconfig:
-    description: "Позволяет перезагружать конфигурацию"
-    default: op
-    
-  spawnchest.cheststats:
-    description: "Позволяет просматривать статистику"
+  spawnchest.legendary:
+    description: Can receive legendary items
     default: true
-    
-  spawnchest.testchestzone:
-    description: "Позволяет тестировать зону спавна"
+  spawnchest.apple:
+    description: Can use Summoner Apple
+    default: true
+  spawnchest.bypass:
+    description: Bypass cooldowns
     default: op
-    
-  spawnchest.getlegendaryitems:
-    description: "Позволяет получать все легендарные предметы"
-    default: op
-
-depend: []
-softdepend: []
-loadbefore: []
-
-# Дополнительная информация
-commands-help:
-  - "§6=== SpawnChest v2.0 ==="
-  - "§e/nextchest §7- Время до следующего сундука"
-  - "§e/cheststats §7- Статистика сундуков"
-  - "§e/spawnchestnow §7- Создать сундук сейчас §c(Админ)"
-  - "§e/setchesttimer §7- Изменить таймер §c(Админ)"

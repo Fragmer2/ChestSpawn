@@ -1,62 +1,171 @@
-# Конфигурация SpawnChestPlugin v2.0
-# Эпичные сундуки с лутом и охранниками!
+# ╔═══════════════════════════════════════════════════════════════╗
+# ║           SpawnChestPlugin v4.1.5 - Configuration               ║
+# ╚═══════════════════════════════════════════════════════════════╝
 
+# ============================================
+# LANGUAGE SETTING
+# ============================================
+# Available languages:
+#   en - English
+#   ru - Русский (Russian)
+#   ua - Українська (Ukrainian)
+#   es - Español (Spanish)
+#   de - Deutsch (German)
+#   fr - Français (French)
+#   zh - 中文 (Chinese)
+#   pt - Português (Portuguese)
+#   pl - Polski (Polish)
+#   it - Italiano (Italian)
+#
+# Language files are located in: plugins/SpawnChestPlugin/lang/
+# You can edit them or create your own!
+language: en
+
+# ============================================
+# MAIN SETTINGS
+# ============================================
 settings:
-  # Интервал спавна сундуков в секундах (по умолчанию 30 минут)
+  # Time between chest spawns (in seconds)
+  # 14400 = 4 hours, 3600 = 1 hour, 600 = 10 minutes
   spawn-interval-seconds: 14400
   
-  # Зона спавна (от центра мира)
+  # How long until chest disappears (in minutes)
+  chest-disappear-minutes: 30
+  
+  # Spawn zone configuration
   spawn-zone:
-    min-distance: 400    # Минимальное расстояние от центра
-    max-distance: 2000   # Максимальное расстояние от центра
-    min-height: 60       # Минимальная высота спавна
-    max-height: 200      # Максимальная высота спавна
+    min-distance: 400
+    max-distance: 2000
+    min-distance-from-center: 100
+    min-height: 50
+    max-height: 200
+    bury-in-ground: false
   
-  # Шансы на разные типы сундуков (должно в сумме давать 1.0)
+  enabled-worlds:
+    - "world"
+  
   chest-chances:
-    common: 0.70     # 70% - обычные сундуки
-    rare: 0.25       # 25% - редкие сундуки  
-    legendary: 0.05  # 5% - легендарные сундуки
-  
-  # Настройки охранников
+    common: 0.50
+    rare: 0.35
+    legendary: 0.15
+
+# ============================================
+# FEATURES
+# ============================================
+features:
   guardians:
     enabled: true
-    common-count: 1      # Количество охранников у обычного сундука
-    rare-count: 2        # Количество охранников у редкого сундука
-    legendary-count: 3   # Количество охранников у легендарного сундука
+    common-count: 1
+    rare-count: 2
+    legendary-count: 3
   
-  # Эффекты
   effects:
-    particles: true      # Включить эффекты частиц
-    lightning: true      # Молния для легендарных сундуков
-    sounds: true         # Звуковые эффекты
+    particles: true
+    lightning-on-legendary: true
+    sounds: true
+    chest-glow-particles: true
+    chest-beacon-beam: true
+  
+  broadcasts:
+    chest-spawn-announcement: true
+    title-on-spawn: true
+    countdown-warnings: true
+    resurrection-announcement: true
+    achievement-announcement: true
 
-messages:
-  # Основные сообщения
-  spawn-title: "§6✨ Сундук появился! ✨"
-  spawn-subtitle: "§eКоординаты: §fX: %x% Y: %y% Z: %z%"
+summoner-apple:
+  enabled: true
+  drop-in-chests: true
+  drop-chance: 0.05
+  spawn-guardians: true
+  spawn-effects: true
+
+proximity-sounds:
+  enabled: true
+  max-distance: 50
+  min-distance: 5
+  sound: "BLOCK_NOTE_BLOCK_CHIME"
+  interval-ticks: 40
+
+statistics:
+  enabled: true
+  achievements:
+    enabled: true
+
+# ============================================
+# LEGENDARY ITEMS
+# ============================================
+legendary-items:
+  enabled: true
   
-  # Сообщения о спавне
-  chest-spawned: "§6🎁 %tier% §aпоявился по координатам: §e%coords%"
-  chest-now: "§a✅ Сундук был создан немедленно!"
+  dragon-slayer-sword:
+    enabled: true
+    bonus-damage: 4.0
+    fire-duration-ticks: 100
+    cooldown-ms: 3000
   
-  # Предупреждения
-  minutes-left: "§e⏰ %minutes% минут до появления следующего сундука!"
-  seconds-left: "§e⏰ %seconds% секунд до появления сундука!"
-  countdown: "§c⚡ %seconds% секунд до появления сундука!"
+  master-pickaxe:
+    enabled: true
+    auto-smelt: true
+    double-drop-chance: 0.5
+    cooldown-ms: 1000
   
-  # Команды
-  next-chest: "§6⏰ До следующего сундука: §e%minutes% мин. %seconds% сек."
+  titan-axe:
+    enabled: true
+    bonus-damage: 3.0
+    tree-felling: true
+    combat-cooldown-ms: 4000
+    tree-cooldown-ms: 6000
   
-  # Ошибки
-  no-permission: "§c❌ У вас нет прав на использование этой команды!"
-  invalid-number: "§c❌ Введите корректное число!"
-  world-not-found: "§c❌ Мир не найден!"
+  void-shovel:
+    enabled: true
+    area-size: 3
+    auto-collect: true
+    cooldown-ms: 5000
   
-  # Помощь
-  help-header: "§6=== SpawnChest Команды ==="
-  help-nextchest: "§e/nextchest §7- Показать время до следующего сундука"
-  help-spawn: "§e/spawnchestnow §7- Создать сундук немедленно"
-  help-timer: "§e/setchesttimer <секунды> §7- Изменить интервал"
-  help-reload: "§e/reloadchestconfig §7- Перезагрузить конфиг"
-  help-stats: "§e/cheststats §7- Показать статистику сундуков"
+  storm-hammer:
+    enabled: true
+    bonus-damage: 5.0
+    lightning-effect: true
+    area-damage-radius: 3.0
+    area-damage-amount: 4.0
+    cooldown-ms: 8000
+  
+  guardian-bow:
+    enabled: true
+    double-shot: true
+    homing-arrows: true
+    homing-range: 5.0
+    cooldown-ms: 2000
+  
+  wisdom-book:
+    enabled: true
+  
+  phoenix-feather:
+    enabled: true
+    resurrection: true
+    fire-immunity-passive: true
+    full-heal-on-resurrect: true
+    cooldown-ms: 300000
+  
+  poseidon-trident:
+    enabled: true
+    rain-radius: 5
+    lightning-on-hit: true
+    lightning-damage: 6.0
+    cooldown-ms: 10000
+
+custom-potions:
+  enabled: true
+
+warning-times:
+  - 72000
+  - 36000
+  - 12000
+  - 6000
+  - 2400
+  - 1200
+  - 200
+  - 60
+  - 40
+  - 20
