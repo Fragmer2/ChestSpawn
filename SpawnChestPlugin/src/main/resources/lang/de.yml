@@ -1,7 +1,7 @@
 # ============================================
 # SpawnChestPlugin - Deutsche Sprachdatei
 # Sprache: Deutsch (de)
-# Version: 4.1.5 FULL
+# Version: 4.2 FULL
 # ============================================
 
 # ============================================
@@ -496,41 +496,132 @@ achievements:
 # ============================================
 gui:
   # Hauptmenü
-  custom-loot-title: "§6Benutzerdefinierte Truhenbeute"
-  
-  # Bearbeitungsmenüs
-  edit-common: "§fBearbeite Gewöhnliche Truhenbeute"
-  edit-rare: "§9Bearbeite Seltene Truhenbeute"
-  edit-legendary: "§6Bearbeite Legendäre Truhenbeute"
-  
-  # Hauptmenü-Gegenstandsnamen
+  custom-loot-title: "§6Benutzerdefinierte Truhen-Beute"
+  edit-common: "§fGewöhnliche Truhen-Beute bearbeiten"
+  edit-rare: "§9Seltene Truhen-Beute bearbeiten"
+  edit-legendary: "§6Legendäre Truhen-Beute bearbeiten"
+
   common-chest-name: "§fGewöhnliche Truhe"
   rare-chest-name: "§9Seltene Truhe"
   legendary-chest-name: "§6Legendäre Truhe"
-  
-  # Hauptmenü-Beschreibung
-  click-to-edit: "§7Klicke zum Bearbeiten der Beute"
+
+  click-to-edit: "§7Klicken, um Beute zu bearbeiten"
   custom-enabled: "§aBenutzerdefinierte Beute: AKTIVIERT"
   custom-disabled: "§cBenutzerdefinierte Beute: DEAKTIVIERT"
-  using-default: "§7Verwende standardmäßige Zufallsbeute"
+  using-default: "§7Standard-Zufallsbeute wird verwendet"
   items-count: "§7Gegenstände: %count%"
-  
-  # Steuerungsknöpfe
+
+  # Truhentyp
+  chest-type-toggle: "§eTruhentyp"
+  current-type: "§7Aktuell: %type%"
+  chest-type-info: "§7Klicken, um zwischen folgenden zu wechseln:"
+  chest-type-single: "§fEinfache Truhe §7(27 Slots)"
+  chest-type-double: "§bDoppelte Truhe §7(54 Slots)"
+  chest-type-single-desc: "§f  ■ Einfach §7- 27 Slots (3 Reihen)"
+  chest-type-double-desc: "§b  ■ Doppelt §7- 54 Slots (6 Reihen)"
+  chest-type-changed: "§aTruhentyp geändert zu %type%"
+  chest-type-change-error: "§cFehler beim Ändern des Truhentyps!"
+  chest-type-display: "§7Typ: %type%"
+
+  # Bruchteilsteuerung
+  fraction-increase: "§a→ Nächster Bruchteil"
+  fraction-increase-lore:
+    - "§7Klicken, um Bruchteil zu erhöhen"
+    - "§7(mehr Gegenstände pro Truhe)"
+
+  fraction-decrease: "§c← Vorheriger Bruchteil"
+  fraction-decrease-lore:
+    - "§7Klicken, um Bruchteil zu verringern"
+    - "§7(weniger Gegenstände pro Truhe)"
+
+  current-fraction: "§eGegenstands-Drop-Rate"
+  fraction-info: "§7So viele Gegenstände werden erscheinen"
+  fraction-changed: "§aBruchteil geändert zu %fraction%"
+  fraction-change-error: "§cFehler beim Ändern des Bruchteils!"
+  item-fraction-display: "§7Drop-Rate: %fraction%"
+
+  # Bruchteilnamen
+  fraction:
+    all: "§aAlle Gegenstände (gemischt)"
+    one-half: "§e1/2 - Hälfte der Gegenstände"
+    one-third: "§61/3 - Ein Drittel"
+    one-fourth: "§c1/4 - Ein Viertel"
+    one-fifth: "§91/5 - Ein Fünftel"
+    one-sixth: "§31/6 - Ein Sechstel"
+    one-seventh: "§51/7 - Ein Siebtel"
+    one-eighth: "§41/8 - Ein Achtel"
+    one-ninth: "§d1/9 - Ein Neuntel"
+    one-tenth: "§b1/10 - Ein Zehntel"
+
+  # Buttons
   save-button: "§a✓ Speichern & Aktivieren"
   save-lore:
-    - "§7Klicke zum Speichern von Gegenständen und"
-    - "§7Aktivieren benutzerdefinierter Beute für diese Stufe"
-  
+    - "§7Klicken, um Gegenstände zu speichern und"
+    - "§7benutzerdefinierte Beute für diese Stufe zu aktivieren"
+
   reset-button: "§c✗ Zurücksetzen & Deaktivieren"
   reset-lore:
-    - "§7Klicke zum Löschen von Gegenständen und"
-    - "§7Verwenden standardmäßiger Zufallsbeute"
-  
+    - "§7Klicken, um Gegenstände zu löschen und"
+    - "§7Standard-Zufallsbeute zu verwenden"
+
   back-button: "§7← Zurück"
-  
+
   # Nachrichten
   saved: "§a✓ %count% Gegenstände für %tier%-Truhen gespeichert!"
   reset-done: "§c✗ Benutzerdefinierte Beute für %tier%-Truhen gelöscht."
+  chest-size-items-dropped: "§e%count% Gegenstände passten nicht und wurden vor dir fallen gelassen!"
+  
+  # Zurücksetzungsbestätigung
+  reset-confirm-title-common: "Gewöhnlich"
+  reset-confirm-title-rare: "Selten"
+  reset-confirm-title-legendary: "Legendär"
+  
+  # Erstes Bestätigungsmenü
+  reset-first-menu-title: "§6⚠ Zurücksetzungsbestätigung: %tier%"
+  reset-first-warning: "§e§l⚠ Erste Warnung"
+  reset-first-warning-lore:
+    - "§7Du möchtest die §e%tier%§7-Stufe zurücksetzen"
+    - "§7Aktuelle Gegenstände: §e%count%"
+    - ""
+    - "§6EINSTELLUNGEN werden BEIBEHALTEN:"
+    - "§7  • Truhentyp (einfach/doppelt)"
+    - "§7  • Drop-Rate-Bruchteil"
+    - ""
+    - "§cNur Gegenstände werden gelöscht!"
+    - "§7Alle Gegenstände fallen vor dir"
+  
+  reset-continue: "§e→ Fortfahren"
+  reset-continue-lore:
+    - "§7Zur finalen Bestätigung"
+  
+  # Finales Bestätigungsmenü
+  reset-final-menu-title: "§4§l⚠ FINALE WARNUNG: %tier%"
+  reset-final-warning: "§c§l⚠ LETZTE CHANCE!"
+  reset-final-warning-lore:
+    - "§c§lDAS IST DEINE LETZTE CHANCE!"
+    - ""
+    - "§7Stufe: §e%tier%"
+    - "§7Zu löschende Gegenstände: §c%count%"
+    - ""
+    - "§a§lEINSTELLUNGEN WERDEN BEIBEHALTEN"
+    - "§a§lNUR GEGENSTÄNDE WERDEN GELÖSCHT"
+    - ""
+    - "§7Alle Gegenstände fallen vor dir"
+  
+  reset-confirm-final: "§c§l✖ ZURÜCKSETZUNG BESTÄTIGEN"
+  reset-confirm-final-lore:
+    - "§c§lALLE GEGENSTÄNDE LÖSCHEN"
+    - "§7(Einstellungen bleiben)"
+    - ""
+    - "§c§lKlicken zum Bestätigen"
+  
+  reset-cancel: "§a§l✔ Abbrechen"
+  reset-cancel-lore:
+    - "§7Zurück zur Bearbeitung"
+    - "§7Nichts wird geändert"
+  
+  reset-items-dropped: "§e%count% Gegenstände wurden vor dir fallen gelassen!"
+  reset-complete: "§a✔ Benutzerdefinierte Beute für %tier% wurde zurückgesetzt!"
 
 # ============================================
 # TRUHENINTERAKTION

@@ -1,7 +1,7 @@
 # ============================================
 # SpawnChestPlugin - Arquivo de Idioma Português
 # Idioma: Português (pt)
-# Versão: 4.1.5 FULL
+# Versão: 4.2 FULL
 # ============================================
 
 # ============================================
@@ -496,41 +496,132 @@ achievements:
 # ============================================
 gui:
   # Menu principal
-  custom-loot-title: "§6Saque Personalizado de Baús"
-  
-  # Menus de edição
-  edit-common: "§fEditar Saque do Baú Comum"
-  edit-rare: "§9Editar Saque do Baú Raro"
-  edit-legendary: "§6Editar Saque do Baú Lendário"
-  
-  # Nomes dos itens do menu principal
+  custom-loot-title: "§6Saque Personalizado de Baú"
+  edit-common: "§fEditar Saque de Baú Comum"
+  edit-rare: "§9Editar Saque de Baú Raro"
+  edit-legendary: "§6Editar Saque de Baú Lendário"
+
   common-chest-name: "§fBaú Comum"
   rare-chest-name: "§9Baú Raro"
   legendary-chest-name: "§6Baú Lendário"
-  
-  # Descrição do menu principal
+
   click-to-edit: "§7Clique para editar saque"
   custom-enabled: "§aSaque personalizado: ATIVADO"
   custom-disabled: "§cSaque personalizado: DESATIVADO"
   using-default: "§7Usando saque aleatório padrão"
   items-count: "§7Itens: %count%"
-  
-  # Botões de controle
+
+  # Tipo de baú
+  chest-type-toggle: "§eTipo de Baú"
+  current-type: "§7Atual: %type%"
+  chest-type-info: "§7Clique para alternar entre:"
+  chest-type-single: "§fBaú Simples §7(27 slots)"
+  chest-type-double: "§bBaú Duplo §7(54 slots)"
+  chest-type-single-desc: "§f  ■ Simples §7- 27 slots (3 fileiras)"
+  chest-type-double-desc: "§b  ■ Duplo §7- 54 slots (6 fileiras)"
+  chest-type-changed: "§aTipo de baú alterado para %type%"
+  chest-type-change-error: "§cFalha ao alterar tipo de baú!"
+  chest-type-display: "§7Tipo: %type%"
+
+  # Controle de fração
+  fraction-increase: "§a→ Próxima Fração"
+  fraction-increase-lore:
+    - "§7Clique para aumentar fração"
+    - "§7(mais itens por baú)"
+
+  fraction-decrease: "§c← Fração Anterior"
+  fraction-decrease-lore:
+    - "§7Clique para diminuir fração"
+    - "§7(menos itens por baú)"
+
+  current-fraction: "§eTaxa de Drops"
+  fraction-info: "§7Esta quantidade de itens aparecerá"
+  fraction-changed: "§aFração alterada para %fraction%"
+  fraction-change-error: "§cFalha ao alterar fração!"
+  item-fraction-display: "§7Taxa: %fraction%"
+
+  # Nomes das frações
+  fraction:
+    all: "§aTodos os itens (embaralhados)"
+    one-half: "§e1/2 - Metade dos itens"
+    one-third: "§61/3 - Um terço"
+    one-fourth: "§c1/4 - Um quarto"
+    one-fifth: "§91/5 - Um quinto"
+    one-sixth: "§31/6 - Um sexto"
+    one-seventh: "§51/7 - Um sétimo"
+    one-eighth: "§41/8 - Um oitavo"
+    one-ninth: "§d1/9 - Um nono"
+    one-tenth: "§b1/10 - Um décimo"
+
+  # Botões
   save-button: "§a✓ Salvar & Ativar"
   save-lore:
     - "§7Clique para salvar itens e"
     - "§7ativar saque personalizado para este nível"
-  
-  reset-button: "§c✗ Reiniciar & Desativar"
+
+  reset-button: "§c✗ Redefinir & Desativar"
   reset-lore:
     - "§7Clique para limpar itens e"
     - "§7usar saque aleatório padrão"
-  
+
   back-button: "§7← Voltar"
-  
+
   # Mensagens
   saved: "§a✓ %count% itens salvos para baús %tier%!"
   reset-done: "§c✗ Saque personalizado limpo para baús %tier%."
+  chest-size-items-dropped: "§e%count% itens não couberam e foram dropados a seus pés!"
+  
+  # Confirmação de redefinição
+  reset-confirm-title-common: "Comum"
+  reset-confirm-title-rare: "Raro"
+  reset-confirm-title-legendary: "Lendário"
+  
+  # Primeiro menu de confirmação
+  reset-first-menu-title: "§6⚠ Confirmação de Redefinição: %tier%"
+  reset-first-warning: "§e§l⚠ Primeiro Aviso"
+  reset-first-warning-lore:
+    - "§7Você quer redefinir o nível §e%tier%"
+    - "§7Itens atuais: §e%count%"
+    - ""
+    - "§6CONFIGURAÇÕES serão MANTIDAS:"
+    - "§7  • Tipo de baú (simples/duplo)"
+    - "§7  • Fração da taxa de drops"
+    - ""
+    - "§cApenas itens serão deletados!"
+    - "§7Todos os itens cairão a seus pés"
+  
+  reset-continue: "§e→ Continuar"
+  reset-continue-lore:
+    - "§7Prosseguir para confirmação final"
+  
+  # Menu de confirmação final
+  reset-final-menu-title: "§4§l⚠ AVISO FINAL: %tier%"
+  reset-final-warning: "§c§l⚠ ÚLTIMA CHANCE!"
+  reset-final-warning-lore:
+    - "§c§lESTA É SUA ÚLTIMA CHANCE!"
+    - ""
+    - "§7Nível: §e%tier%"
+    - "§7Itens a deletar: §c%count%"
+    - ""
+    - "§a§lCONFIGURAÇÕES SERÃO MANTIDAS"
+    - "§a§lAPENAS ITENS SERÃO DELETADOS"
+    - ""
+    - "§7Todos os itens cairão a seus pés"
+  
+  reset-confirm-final: "§c§l✖ CONFIRMAR REDEFINIÇÃO"
+  reset-confirm-final-lore:
+    - "§c§lDELETAR TODOS OS ITENS"
+    - "§7(configurações permanecem)"
+    - ""
+    - "§c§lClique para confirmar"
+  
+  reset-cancel: "§a§l✔ Cancelar"
+  reset-cancel-lore:
+    - "§7Voltar para edição"
+    - "§7Nada será alterado"
+  
+  reset-items-dropped: "§e%count% itens foram dropados a seus pés!"
+  reset-complete: "§a✔ Saque personalizado para %tier% redefinido!"
 
 # ============================================
 # INTERAÇÃO COM BAÚS

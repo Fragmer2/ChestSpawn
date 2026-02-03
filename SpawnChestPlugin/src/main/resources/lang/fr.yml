@@ -1,7 +1,7 @@
 # ============================================
 # SpawnChestPlugin - Fichier de Langue Français
 # Langue: Français (fr)
-# Version: 4.1.5 FULL
+# Version: 4.2 FULL
 # ============================================
 
 # ============================================
@@ -496,42 +496,133 @@ achievements:
 # ============================================
 gui:
   # Menu principal
-  custom-loot-title: "§6Butin Personnalisé de Coffres"
-  
-  # Menus d'édition
-  edit-common: "§fModifier le Butin du Coffre Commun"
-  edit-rare: "§9Modifier le Butin du Coffre Rare"
-  edit-legendary: "§6Modifier le Butin du Coffre Légendaire"
-  
-  # Noms des objets du menu principal
+  custom-loot-title: "§6Butin Personnalisé de Coffre"
+  edit-common: "§fModifier le Butin des Coffres Communs"
+  edit-rare: "§9Modifier le Butin des Coffres Rares"
+  edit-legendary: "§6Modifier le Butin des Coffres Légendaires"
+
   common-chest-name: "§fCoffre Commun"
   rare-chest-name: "§9Coffre Rare"
   legendary-chest-name: "§6Coffre Légendaire"
-  
-  # Description du menu principal
-  click-to-edit: "§7Cliquez pour modifier le butin"
-  custom-enabled: "§aButin personnalisé : ACTIVÉ"
-  custom-disabled: "§cButin personnalisé : DÉSACTIVÉ"
+
+  click-to-edit: "§7Cliquer pour modifier le butin"
+  custom-enabled: "§aButin personnalisé: ACTIVÉ"
+  custom-disabled: "§cButin personnalisé: DÉSACTIVÉ"
   using-default: "§7Utilisation du butin aléatoire par défaut"
-  items-count: "§7Objets : %count%"
-  
-  # Boutons de contrôle
-  save-button: "§a✓ Sauvegarder & Activer"
+  items-count: "§7Objets: %count%"
+
+  # Type de coffre
+  chest-type-toggle: "§eType de Coffre"
+  current-type: "§7Actuel: %type%"
+  chest-type-info: "§7Cliquer pour basculer entre:"
+  chest-type-single: "§fCoffre Simple §7(27 emplacements)"
+  chest-type-double: "§bCoffre Double §7(54 emplacements)"
+  chest-type-single-desc: "§f  ■ Simple §7- 27 emplacements (3 rangées)"
+  chest-type-double-desc: "§b  ■ Double §7- 54 emplacements (6 rangées)"
+  chest-type-changed: "§aType de coffre changé en %type%"
+  chest-type-change-error: "§cÉchec du changement de type de coffre!"
+  chest-type-display: "§7Type: %type%"
+
+  # Contrôle de fraction
+  fraction-increase: "§a→ Fraction Suivante"
+  fraction-increase-lore:
+    - "§7Cliquer pour augmenter la fraction"
+    - "§7(plus d'objets par coffre)"
+
+  fraction-decrease: "§c← Fraction Précédente"
+  fraction-decrease-lore:
+    - "§7Cliquer pour diminuer la fraction"
+    - "§7(moins d'objets par coffre)"
+
+  current-fraction: "§eTaux d'Apparition"
+  fraction-info: "§7Autant d'objets apparaîtront"
+  fraction-changed: "§aFraction changée en %fraction%"
+  fraction-change-error: "§cÉchec du changement de fraction!"
+  item-fraction-display: "§7Taux: %fraction%"
+
+  # Noms des fractions
+  fraction:
+    all: "§aTous les objets (mélangés)"
+    one-half: "§e1/2 - Moitié des objets"
+    one-third: "§61/3 - Un tiers"
+    one-fourth: "§c1/4 - Un quart"
+    one-fifth: "§91/5 - Un cinquième"
+    one-sixth: "§31/6 - Un sixième"
+    one-seventh: "§51/7 - Un septième"
+    one-eighth: "§41/8 - Un huitième"
+    one-ninth: "§d1/9 - Un neuvième"
+    one-tenth: "§b1/10 - Un dixième"
+
+  # Boutons
+  save-button: "§a✓ Enregistrer & Activer"
   save-lore:
-    - "§7Cliquez pour sauvegarder les objets et"
-    - "§7activer le butin personnalisé pour ce niveau"
-  
+    - "§7Cliquer pour enregistrer les objets et"
+    - "§7activer le butin personnalisé pour ce rang"
+
   reset-button: "§c✗ Réinitialiser & Désactiver"
   reset-lore:
-    - "§7Cliquez pour effacer les objets et"
+    - "§7Cliquer pour effacer les objets et"
     - "§7utiliser le butin aléatoire par défaut"
-  
-  back-button: "§7← Retour"
-  
-  # Messages
-  saved: "§a✓ %count% objets sauvegardés pour les coffres %tier% !"
-  reset-done: "§c✗ Butin personnalisé effacé pour les coffres %tier%."
 
+  back-button: "§7← Retour"
+
+  # Messages
+  saved: "§a✓ %count% objets enregistrés pour les coffres %tier%!"
+  reset-done: "§c✗ Butin personnalisé effacé pour les coffres %tier%."
+  chest-size-items-dropped: "§e%count% objets ne tenaient pas et ont été lâchés à vos pieds!"
+  
+  # Confirmation de réinitialisation
+  reset-confirm-title-common: "Commun"
+  reset-confirm-title-rare: "Rare"
+  reset-confirm-title-legendary: "Légendaire"
+  
+  # Premier menu de confirmation
+  reset-first-menu-title: "§6⚠ Confirmation de Réinitialisation: %tier%"
+  reset-first-warning: "§e§l⚠ Premier Avertissement"
+  reset-first-warning-lore:
+    - "§7Vous voulez réinitialiser le rang §e%tier%"
+    - "§7Objets actuels: §e%count%"
+    - ""
+    - "§6Les PARAMÈTRES seront CONSERVÉS:"
+    - "§7  • Type de coffre (simple/double)"
+    - "§7  • Fraction du taux d'apparition"
+    - ""
+    - "§cSeuls les objets seront supprimés!"
+    - "§7Tous les objets tomberont à vos pieds"
+  
+  reset-continue: "§e→ Continuer"
+  reset-continue-lore:
+    - "§7Procéder à la confirmation finale"
+  
+  # Menu de confirmation final
+  reset-final-menu-title: "§4§l⚠ AVERTISSEMENT FINAL: %tier%"
+  reset-final-warning: "§c§l⚠ DERNIÈRE CHANCE!"
+  reset-final-warning-lore:
+    - "§c§lC'EST VOTRE DERNIÈRE CHANCE!"
+    - ""
+    - "§7Rang: §e%tier%"
+    - "§7Objets à supprimer: §c%count%"
+    - ""
+    - "§a§lLES PARAMÈTRES SERONT CONSERVÉS"
+    - "§a§lSEULS LES OBJETS SERONT SUPPRIMÉS"
+    - ""
+    - "§7Tous les objets tomberont à vos pieds"
+  
+  reset-confirm-final: "§c§l✖ CONFIRMER LA RÉINITIALISATION"
+  reset-confirm-final-lore:
+    - "§c§lSUPPRIMER TOUS LES OBJETS"
+    - "§7(les paramètres restent)"
+    - ""
+    - "§c§lCliquer pour confirmer"
+  
+  reset-cancel: "§a§l✔ Annuler"
+  reset-cancel-lore:
+    - "§7Retourner à l'édition"
+    - "§7Rien ne sera changé"
+  
+  reset-items-dropped: "§e%count% objets ont été lâchés à vos pieds!"
+  reset-complete: "§a✔ Butin personnalisé pour %tier% réinitialisé!"
+  
 # ============================================
 # INTERACTION AVEC LES COFFRES
 # ============================================

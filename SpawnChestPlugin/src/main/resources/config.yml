@@ -1,5 +1,5 @@
 # ╔═══════════════════════════════════════════════════════════════╗
-# ║           SpawnChestPlugin v4.1.5 - Configuration               ║
+# ║           SpawnChestPlugin v4.2 - Configuration               ║
 # ╚═══════════════════════════════════════════════════════════════╝
 
 # ============================================
@@ -169,3 +169,27 @@ warning-times:
   - 60
   - 40
   - 20
+  
+  
+#=============================
+#-------Custom Loot-----------
+#=============================
+
+
+common:
+  enabled: false
+  double-chest: false  # true = 54 slots, false = 27 slots
+  item-fraction: "one-third"
+  items: []
+
+rare:
+  enabled: false
+  double-chest: false
+  item-fraction: "one-third"
+  items: []
+
+legendary:
+  enabled: false
+  double-chest: false
+  item-fraction: "one-third"
+  items: []

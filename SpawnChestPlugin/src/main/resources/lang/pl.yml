@@ -1,7 +1,7 @@
 # ============================================
 # SpawnChestPlugin - Polski plik językowy
 # Język: Polski (pl)
-# Wersja: 4.1.5 FULL
+# Wersja: 4.2 FULL
 # ============================================
 
 # ============================================
@@ -496,41 +496,132 @@ achievements:
 # ============================================
 gui:
   # Menu główne
-  custom-loot-title: "§6Niestandardowy Łup Skrzyń"
-  
-  # Menu edycji
-  edit-common: "§fEdytuj Łup Zwykłej Skrzyni"
-  edit-rare: "§9Edytuj Łup Rzadkiej Skrzyni"
-  edit-legendary: "§6Edytuj Łup Legendarnej Skrzyni"
-  
-  # Nazwy przedmiotów menu głównego
+  custom-loot-title: "§6Niestandardowy Łup ze Skrzyni"
+  edit-common: "§fEdytuj Łup ze Zwykłych Skrzyń"
+  edit-rare: "§9Edytuj Łup z Rzadkich Skrzyń"
+  edit-legendary: "§6Edytuj Łup z Legendarnych Skrzyń"
+
   common-chest-name: "§fZwykła Skrzynia"
   rare-chest-name: "§9Rzadka Skrzynia"
   legendary-chest-name: "§6Legendarna Skrzynia"
-  
-  # Opis menu głównego
-  click-to-edit: "§7Kliknij, by edytować łup"
+
+  click-to-edit: "§7Kliknij, aby edytować łup"
   custom-enabled: "§aNiestandardowy łup: WŁĄCZONY"
   custom-disabled: "§cNiestandardowy łup: WYŁĄCZONY"
-  using-default: "§7Używam domyślnego losowego łupu"
+  using-default: "§7Używanie domyślnego losowego łupu"
   items-count: "§7Przedmioty: %count%"
-  
-  # Przyciski kontrolne
-  save-button: "§a✓ Zapisz i Włącz"
+
+  # Typ skrzyni
+  chest-type-toggle: "§eTyp Skrzyni"
+  current-type: "§7Aktualny: %type%"
+  chest-type-info: "§7Kliknij, aby przełączyć między:"
+  chest-type-single: "§fPojedyncza Skrzynia §7(27 slotów)"
+  chest-type-double: "§bPodwójna Skrzynia §7(54 sloty)"
+  chest-type-single-desc: "§f  ■ Pojedyncza §7- 27 slotów (3 rzędy)"
+  chest-type-double-desc: "§b  ■ Podwójna §7- 54 sloty (6 rzędów)"
+  chest-type-changed: "§aTyp skrzyni zmieniony na %type%"
+  chest-type-change-error: "§cNie udało się zmienić typu skrzyni!"
+  chest-type-display: "§7Typ: %type%"
+
+  # Kontrola ułamka
+  fraction-increase: "§a→ Następny Ułamek"
+  fraction-increase-lore:
+    - "§7Kliknij, aby zwiększyć ułamek"
+    - "§7(więcej przedmiotów na skrzynię)"
+
+  fraction-decrease: "§c← Poprzedni Ułamek"
+  fraction-decrease-lore:
+    - "§7Kliknij, aby zmniejszyć ułamek"
+    - "§7(mniej przedmiotów na skrzynię)"
+
+  current-fraction: "§eWspółczynnik Dropsów"
+  fraction-info: "§7Tyle przedmiotów się pojawi"
+  fraction-changed: "§aUłamek zmieniony na %fraction%"
+  fraction-change-error: "§cNie udało się zmienić ułamka!"
+  item-fraction-display: "§7Współczynnik: %fraction%"
+
+  # Nazwy ułamków
+  fraction:
+    all: "§aWszystkie przedmioty (przetasowane)"
+    one-half: "§e1/2 - Połowa przedmiotów"
+    one-third: "§61/3 - Jedna trzecia"
+    one-fourth: "§c1/4 - Jedna czwarta"
+    one-fifth: "§91/5 - Jedna piąta"
+    one-sixth: "§31/6 - Jedna szósta"
+    one-seventh: "§51/7 - Jedna siódma"
+    one-eighth: "§41/8 - Jedna ósma"
+    one-ninth: "§d1/9 - Jedna dziewiąta"
+    one-tenth: "§b1/10 - Jedna dziesiąta"
+
+  # Przyciski
+  save-button: "§a✓ Zapisz & Włącz"
   save-lore:
-    - "§7Kliknij, by zapisać przedmioty i"
-    - "§7włączyć niestandardowy łup dla tego poziomu"
-  
-  reset-button: "§c✗ Resetuj i Wyłącz"
+    - "§7Kliknij, aby zapisać przedmioty i"
+    - "§7włączyć niestandardowy łup dla tej klasy"
+
+  reset-button: "§c✗ Resetuj & Wyłącz"
   reset-lore:
-    - "§7Kliknij, by wyczyścić przedmioty i"
+    - "§7Kliknij, aby wyczyścić przedmioty i"
     - "§7użyć domyślnego losowego łupu"
-  
-  back-button: "§7← Wróć"
-  
-  # Wiadomości
+
+  back-button: "§7← Wstecz"
+
+  # Komunikaty
   saved: "§a✓ Zapisano %count% przedmiotów dla skrzyń %tier%!"
   reset-done: "§c✗ Niestandardowy łup wyczyszczony dla skrzyń %tier%."
+  chest-size-items-dropped: "§e%count% przedmiotów się nie zmieściło i zostało upuszczonych pod twoje stopy!"
+  
+  # Potwierdzenie resetu
+  reset-confirm-title-common: "Zwykła"
+  reset-confirm-title-rare: "Rzadka"
+  reset-confirm-title-legendary: "Legendarna"
+  
+  # Pierwsze menu potwierdzenia
+  reset-first-menu-title: "§6⚠ Potwierdzenie Resetu: %tier%"
+  reset-first-warning: "§e§l⚠ Pierwsze Ostrzeżenie"
+  reset-first-warning-lore:
+    - "§7Chcesz zresetować klasę §e%tier%"
+    - "§7Aktualne przedmioty: §e%count%"
+    - ""
+    - "§6USTAWIENIA zostaną ZACHOWANE:"
+    - "§7  • Typ skrzyni (pojedyncza/podwójna)"
+    - "§7  • Ułamek współczynnika dropsów"
+    - ""
+    - "§cTylko przedmioty zostaną usunięte!"
+    - "§7Wszystkie przedmioty spadną pod twoje stopy"
+  
+  reset-continue: "§e→ Kontynuuj"
+  reset-continue-lore:
+    - "§7Przejdź do finalnego potwierdzenia"
+  
+  # Finalne menu potwierdzenia
+  reset-final-menu-title: "§4§l⚠ OSTRZEŻENIE KOŃCOWE: %tier%"
+  reset-final-warning: "§c§l⚠ OSTATNIA SZANSA!"
+  reset-final-warning-lore:
+    - "§c§lTO TWOJA OSTATNIA SZANSA!"
+    - ""
+    - "§7Klasa: §e%tier%"
+    - "§7Przedmioty do usunięcia: §c%count%"
+    - ""
+    - "§a§lUSTAWIENIA ZOSTANĄ ZACHOWANE"
+    - "§a§lTYLKO PRZEDMIOTY ZOSTANĄ USUNIĘTE"
+    - ""
+    - "§7Wszystkie przedmioty spadną pod twoje stopy"
+  
+  reset-confirm-final: "§c§l✖ POTWIERDŹ RESET"
+  reset-confirm-final-lore:
+    - "§c§lUSUŃ WSZYSTKIE PRZEDMIOTY"
+    - "§7(ustawienia pozostają)"
+    - ""
+    - "§c§lKliknij, aby potwierdzić"
+  
+  reset-cancel: "§a§l✔ Anuluj"
+  reset-cancel-lore:
+    - "§7Wróć do edycji"
+    - "§7Nic nie zostanie zmienione"
+  
+  reset-items-dropped: "§e%count% przedmiotów zostało upuszczonych pod twoje stopy!"
+  reset-complete: "§a✔ Niestandardowy łup dla %tier% został zresetowany!"
 
 # ============================================
 # INTERAKCJA ZE SKRZYNIAMI
