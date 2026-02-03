@@ -8,7 +8,7 @@
     <!-- Информация о проекте -->
     <groupId>com.myplugin</groupId>
     <artifactId>SpawnChestPlugin</artifactId>
-    <version>4.1.5</version>
+    <version>4.2</version>
     <packaging>jar</packaging>
 
     <name>SpawnChestPlugin</name>
