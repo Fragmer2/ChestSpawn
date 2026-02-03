@@ -35,6 +35,12 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Event;
+import org.bukkit.event.inventory.InventoryType;
+
 
 import java.io.File;
 import java.io.FileReader;
@@ -1936,76 +1942,262 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         }
     }
     
-    // ==================== CUSTOM LOOT GUI HANDLERS ====================
-    
-    @EventHandler
+ // ==================== CUSTOM LOOT GUI HANDLERS ====================
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player)) return;
         Player player = (Player) event.getWhoClicked();
         
-        // Get title using legacy method
+        String title = event.getView().getTitle();
+        int slot = event.getRawSlot();
+        
+        // ==================== MAIN MENU ====================
+        if (title.contains(getMessage("gui.custom-loot-title"))) {
+            event.setCancelled(true); // Block everything
+            
+            // Only process LEFT clicks on tier icons
+            if (event.getClick().name().equals("LEFT")) {
+                if (slot == 11) {
+                    customLootManager.openEditMenu(player, "common");
+                } else if (slot == 13) {
+                    customLootManager.openEditMenu(player, "rare");
+                } else if (slot == 15) {
+                    customLootManager.openEditMenu(player, "legendary");
+                }
+            }
+            return; // Always return after main menu
+        }
+        
+        // ==================== FIRST CONFIRMATION MENU ====================
+        if (customLootManager.isFirstConfirmMenu(title)) {
+            event.setCancelled(true); // Block everything
+            
+            String tier = customLootManager.getTierFromConfirmMenu(title);
+            if (tier == null) return;
+            
+            // Only process LEFT clicks
+            if (!event.getClick().name().equals("LEFT")) {
+                return;
+            }
+            
+            if (slot == 11) {
+                // Continue to final confirmation
+                player.closeInventory();
+                Bukkit.getScheduler().runTaskLater(this, () -> {
+                    customLootManager.openResetFinalConfirm(player, tier);
+                }, 1L);
+            } else if (slot == 15) {
+                // Cancel - return to edit menu
+                player.closeInventory();
+                Bukkit.getScheduler().runTaskLater(this, () -> {
+                    customLootManager.openEditMenu(player, tier);
+                }, 1L);
+            }
+            return; // Always return after first confirmation menu
+        }
+        
+        // ==================== FINAL CONFIRMATION MENU ====================
+        if (customLootManager.isFinalConfirmMenu(title)) {
+            event.setCancelled(true); // Block everything
+            
+            String tier = customLootManager.getTierFromConfirmMenu(title);
+            if (tier == null) return;
+            
+            // Only process LEFT clicks
+            if (!event.getClick().name().equals("LEFT")) {
+                return;
+            }
+            
+            if (slot == 11) {
+                // Confirm - execute reset
+                customLootManager.resetCustomLootWithDrop(player, tier);
+                player.closeInventory();
+                
+                Bukkit.getScheduler().runTaskLater(this, () -> {
+                    customLootManager.openMainMenu(player);
+                }, 2L);
+            } else if (slot == 15) {
+                // Cancel - return to edit menu
+                player.closeInventory();
+                Bukkit.getScheduler().runTaskLater(this, () -> {
+                    customLootManager.openEditMenu(player, tier);
+                }, 1L);
+            }
+            return; // Always return after final confirmation menu
+        }
+        
+        // ==================== EDIT MENU ====================
+        if (customLootManager.isEditingInventory(title)) {
+            String tier = customLootManager.getEditingTier(player.getUniqueId());
+            if (tier == null) {
+                event.setCancelled(true);
+                return;
+            }
+            
+            int inventorySize = customLootManager.getChestSize(tier);
+            int chestArea = customLootManager.getChestAreaSize(tier);
+            
+            // Check if clicking in control area (last row)
+            boolean isControlArea = (slot >= chestArea && slot < inventorySize);
+            
+            // -------- CONTROL BUTTONS AREA --------
+            if (isControlArea) {
+                event.setCancelled(true); // Block all clicks in control area
+                
+                // Only process LEFT clicks
+                if (!event.getClick().name().equals("LEFT")) {
+                    return;
+                }
+                
+                // Calculate position in control row (0-8)
+                int controlSlot = slot - chestArea;
+                
+                // Handle button clicks
+                switch (controlSlot) {
+                    case 1: // Chest type toggle
+                        customLootManager.handleChestTypeToggle(player, tier);
+                        break;
+                        
+                    case 3: // Fraction decrease
+                        customLootManager.handleFractionChange(player, tier, false);
+                        break;
+                        
+                    case 5: // Fraction increase
+                        customLootManager.handleFractionChange(player, tier, true);
+                        break;
+                        
+                    case 6: // Save button
+                        customLootManager.saveCustomLoot(tier, event.getInventory());
+                        player.closeInventory();
+                        sendMessage(player, "gui.saved", 
+                            "%count%", String.valueOf(customLootManager.getCustomLootCount(tier)),
+                            "%tier%", tier);
+                        
+                        Bukkit.getScheduler().runTaskLater(this, () -> {
+                            customLootManager.openMainMenu(player);
+                        }, 2L);
+                        break;
+                        
+                    case 7: // Back button
+                        player.closeInventory();
+                        Bukkit.getScheduler().runTaskLater(this, () -> {
+                            customLootManager.openMainMenu(player);
+                        }, 2L);
+                        break;
+                        
+                    case 8: // Reset button - opens first confirmation menu
+                        player.closeInventory();
+                        Bukkit.getScheduler().runTaskLater(this, () -> {
+                            customLootManager.openResetConfirmMenu(player, tier);
+                        }, 1L);
+                        break;
+                }
+                return; // Always return after handling control buttons
+            }
+            
+            // -------- CHEST AREA (editing zone) --------
+            if (slot >= 0 && slot < chestArea) {
+                // DON'T cancel - allow normal interaction
+                return;
+            }
+            
+            // -------- SHIFT-CLICK FROM PLAYER INVENTORY --------
+            if (event.getClick().name().contains("SHIFT") && 
+                slot >= event.getView().getTopInventory().getSize()) {
+                
+                event.setCancelled(true); // Cancel default shift-click
+                
+                ItemStack clickedItem = event.getCurrentItem();
+                if (clickedItem != null && clickedItem.getType() != Material.AIR) {
+                    Inventory topInv = event.getView().getTopInventory();
+                    
+                    // Find first empty slot in chest area
+                    for (int i = 0; i < chestArea; i++) {
+                        ItemStack slotItem = topInv.getItem(i);
+                        if (slotItem == null || slotItem.getType() == Material.AIR) {
+                            topInv.setItem(i, clickedItem.clone());
+                            event.setCurrentItem(null);
+                            break;
+                        }
+                    }
+                }
+                return;
+            }
+            
+            // -------- PLAYER INVENTORY --------
+            if (slot >= event.getView().getTopInventory().getSize()) {
+                // DON'T cancel - allow normal interaction in player inventory
+                return;
+            }
+            
+            // If we got here, something unexpected happened - don't cancel
+            return;
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInventoryDrag(InventoryDragEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        
         String title = event.getView().getTitle();
         
-        // Main menu handling
+        // Block ALL dragging in main menu
         if (title.contains(getMessage("gui.custom-loot-title"))) {
             event.setCancelled(true);
-            
-            int slot = event.getRawSlot();
-            if (slot == 11) {
-                customLootManager.openEditMenu(player, "common");
-            } else if (slot == 13) {
-                customLootManager.openEditMenu(player, "rare");
-            } else if (slot == 15) {
-                customLootManager.openEditMenu(player, "legendary");
-            }
             return;
         }
         
-        // Edit menu handling
-        String editCommon = getMessage("gui.edit-common");
-        String editRare = getMessage("gui.edit-rare");
-        String editLegendary = getMessage("gui.edit-legendary");
+        // Block ALL dragging in first confirmation menu
+        if (customLootManager.isFirstConfirmMenu(title)) {
+            event.setCancelled(true);
+            return;
+        }
         
-        if (title.contains(editCommon) || title.contains(editRare) || title.contains(editLegendary)) {
-            int slot = event.getRawSlot();
-            
-            if (slot >= 45 && slot <= 53) {
+        // Block ALL dragging in final confirmation menu
+        if (customLootManager.isFinalConfirmMenu(title)) {
+            event.setCancelled(true);
+            return;
+        }
+        
+        // Block dragging in control area of edit menu
+        if (customLootManager.isEditingInventory(title)) {
+            String tier = customLootManager.getEditingTier(event.getWhoClicked().getUniqueId());
+            if (tier == null) {
                 event.setCancelled(true);
-                
-                String tier = null;
-                if (title.contains(editCommon)) tier = "common";
-                else if (title.contains(editRare)) tier = "rare";
-                else if (title.contains(editLegendary)) tier = "legendary";
-                
-                if (slot == 48 && tier != null) {
-                    customLootManager.saveCustomLoot(tier, event.getInventory());
-                    player.closeInventory();
-                    customLootManager.openMainMenu(player);
-                }
-                
-                if (slot == 49) {
-                    player.closeInventory();
-                    customLootManager.openMainMenu(player);
-                }
-                
-                if (slot == 50 && tier != null) {
-                    customLootManager.resetCustomLoot(tier);
-                    player.closeInventory();
-                    customLootManager.openMainMenu(player);
+                return;
+            }
+            
+            int chestArea = customLootManager.getChestAreaSize(tier);
+            int inventorySize = customLootManager.getChestSize(tier);
+            
+            // Check if any dragged slots are in control area
+            for (int slot : event.getRawSlots()) {
+                if (slot >= chestArea && slot < inventorySize) {
+                    event.setCancelled(true);
+                    return;
                 }
             }
         }
     }
-    
+
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
         if (!(event.getPlayer() instanceof Player)) return;
         Player player = (Player) event.getPlayer();
         
-        // Clear editing state
-        customLootManager.clearEditingState(player.getUniqueId());
+        String closedTitle = event.getView().getTitle();
+        
+        // Delay clearing to check if a new inventory is opening
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            // Check if player still has an inventory open
+            if (player.getOpenInventory().getType() == org.bukkit.event.inventory.InventoryType.CRAFTING) {
+                // Player closed all GUIs - clear editing state
+                customLootManager.clearEditingState(player.getUniqueId());
+            }
+            // If another inventory is open, don't clear (they're switching between menus)
+        }, 1L);
     }
-    
 // ==================== ACHIEVEMENTS ====================
     
     private void checkAchievements(Player player) {

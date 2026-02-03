@@ -1,7 +1,7 @@
 # ============================================
 # SpawnChestPlugin - English Language File
 # Language: English (en)
-# Version: 4.1.5 FULL
+# Version: 4.2 FULL
 # ============================================
 
 # ============================================
@@ -497,41 +497,132 @@ achievements:
 gui:
   # Main menu
   custom-loot-title: "§6Custom Chest Loot"
-  
-  # Edit menus
   edit-common: "§fEdit Common Chest Loot"
   edit-rare: "§9Edit Rare Chest Loot"
   edit-legendary: "§6Edit Legendary Chest Loot"
-  
-  # Main menu item names
+
   common-chest-name: "§fCommon Chest"
   rare-chest-name: "§9Rare Chest"
   legendary-chest-name: "§6Legendary Chest"
-  
-  # Main menu lore
+
   click-to-edit: "§7Click to edit loot"
   custom-enabled: "§aCustom loot: ENABLED"
   custom-disabled: "§cCustom loot: DISABLED"
   using-default: "§7Using default random loot"
   items-count: "§7Items: %count%"
-  
-  # Control buttons
+
+  # Chest type
+  chest-type-toggle: "§eChest Type"
+  current-type: "§7Current: %type%"
+  chest-type-info: "§7Click to toggle between:"
+  chest-type-single: "§fSingle Chest §7(27 slots)"
+  chest-type-double: "§bDouble Chest §7(54 slots)"
+  chest-type-single-desc: "§f  ■ Single §7- 27 slots (3 rows)"
+  chest-type-double-desc: "§b  ■ Double §7- 54 slots (6 rows)"
+  chest-type-changed: "§aChest type changed to %type%"
+  chest-type-change-error: "§cFailed to change chest type!"
+  chest-type-display: "§7Type: %type%"
+
+  # Fraction control
+  fraction-increase: "§a→ Next Fraction"
+  fraction-increase-lore:
+    - "§7Click to increase fraction"
+    - "§7(more items per chest)"
+
+  fraction-decrease: "§c← Previous Fraction"
+  fraction-decrease-lore:
+    - "§7Click to decrease fraction"
+    - "§7(fewer items per chest)"
+
+  current-fraction: "§eItem Drop Rate"
+  fraction-info: "§7This many items will spawn"
+  fraction-changed: "§aFraction changed to %fraction%"
+  fraction-change-error: "§cFailed to change fraction!"
+  item-fraction-display: "§7Drop rate: %fraction%"
+
+  # Fraction names
+  fraction:
+    all: "§aAll items (shuffled)"
+    one-half: "§e1/2 - Half of items"
+    one-third: "§61/3 - One third"
+    one-fourth: "§c1/4 - One fourth"
+    one-fifth: "§91/5 - One fifth"
+    one-sixth: "§31/6 - One sixth"
+    one-seventh: "§51/7 - One seventh"
+    one-eighth: "§41/8 - One eighth"
+    one-ninth: "§d1/9 - One ninth"
+    one-tenth: "§b1/10 - One tenth"
+
+  # Buttons
   save-button: "§a✓ Save & Enable"
   save-lore:
     - "§7Click to save items and"
     - "§7enable custom loot for this tier"
-  
+
   reset-button: "§c✗ Reset & Disable"
   reset-lore:
     - "§7Click to clear items and"
     - "§7use default random loot"
-  
+
   back-button: "§7← Back"
-  
+
   # Messages
   saved: "§a✓ Saved %count% items for %tier% chests!"
   reset-done: "§c✗ Custom loot cleared for %tier% chests."
-
+  chest-size-items-dropped: "§e%count% items didn't fit and were dropped at your feet!"
+  
+  # Reset confirmation
+  reset-confirm-title-common: "Common"
+  reset-confirm-title-rare: "Rare"
+  reset-confirm-title-legendary: "Legendary"
+  
+  # First confirmation menu
+  reset-first-menu-title: "§6⚠ Reset Confirmation: %tier%"
+  reset-first-warning: "§e§l⚠ First Warning"
+  reset-first-warning-lore:
+    - "§7You want to reset §e%tier% §7tier"
+    - "§7Current items: §e%count%"
+    - ""
+    - "§6Settings will be KEPT:"
+    - "§7  • Chest type (single/double)"
+    - "§7  • Drop rate fraction"
+    - ""
+    - "§cOnly items will be deleted!"
+    - "§7All items will drop at your feet"
+  
+  reset-continue: "§e→ Continue"
+  reset-continue-lore:
+    - "§7Proceed to final confirmation"
+  
+  # Final confirmation menu
+  reset-final-menu-title: "§4§l⚠ FINAL WARNING: %tier%"
+  reset-final-warning: "§c§l⚠ LAST CHANCE!"
+  reset-final-warning-lore:
+    - "§c§lTHIS IS YOUR LAST CHANCE!"
+    - ""
+    - "§7Tier: §e%tier%"
+    - "§7Items to delete: §c%count%"
+    - ""
+    - "§a§lSETTINGS WILL BE KEPT"
+    - "§a§lONLY ITEMS WILL BE DELETED"
+    - ""
+    - "§7All items will drop at your feet"
+  
+  reset-confirm-final: "§c§l✖ CONFIRM RESET"
+  reset-confirm-final-lore:
+    - "§c§lDELETE ALL ITEMS"
+    - "§7(settings stay)"
+    - ""
+    - "§c§lClick to confirm"
+  
+  reset-cancel: "§a§l✔ Cancel"
+  reset-cancel-lore:
+    - "§7Go back to editing"
+    - "§7Nothing will be changed"
+  
+  reset-items-dropped: "§e%count% items were dropped at your feet!"
+  reset-complete: "§a✔ Custom loot for %tier% has been reset!"
+  
 # ============================================
 # CHEST INTERACTION
 # ============================================

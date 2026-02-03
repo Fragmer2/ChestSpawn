@@ -1,7 +1,7 @@
 # ============================================
 # SpawnChestPlugin - File di Lingua Italiano
 # Lingua: Italiano (it)
-# Versione: 4.1.5 FULL
+# Versione: 4.2 FULL
 # ============================================
 
 # ============================================
@@ -496,42 +496,133 @@ achievements:
 # ============================================
 gui:
   # Menu principale
-  custom-loot-title: "§6Bottino Personalizzato Bauli"
-  
-  # Menu modifica
-  edit-common: "§fModifica Bottino Baule Comune"
-  edit-rare: "§9Modifica Bottino Baule Raro"
-  edit-legendary: "§6Modifica Bottino Baule Leggendario"
-  
-  # Nomi oggetti menu principale
+  custom-loot-title: "§6Bottino Personalizzato dei Bauli"
+  edit-common: "§fModifica Bottino Bauli Comuni"
+  edit-rare: "§9Modifica Bottino Bauli Rari"
+  edit-legendary: "§6Modifica Bottino Bauli Leggendari"
+
   common-chest-name: "§fBaule Comune"
   rare-chest-name: "§9Baule Raro"
   legendary-chest-name: "§6Baule Leggendario"
-  
-  # Descrizione menu principale
+
   click-to-edit: "§7Clicca per modificare il bottino"
   custom-enabled: "§aBottino personalizzato: ATTIVO"
-  custom-disabled: "§cBottino personalizzato: DISATTIVO"
+  custom-disabled: "§cBottino personalizzato: DISATTIVATO"
   using-default: "§7Uso bottino casuale predefinito"
   items-count: "§7Oggetti: %count%"
-  
-  # Pulsanti controllo
-  save-button: "§a✓ Salva e Attiva"
+
+  # Tipo di baule
+  chest-type-toggle: "§eTipo di Baule"
+  current-type: "§7Attuale: %type%"
+  chest-type-info: "§7Clicca per alternare tra:"
+  chest-type-single: "§fBaule Singolo §7(27 slot)"
+  chest-type-double: "§bBaule Doppio §7(54 slot)"
+  chest-type-single-desc: "§f  ■ Singolo §7- 27 slot (3 righe)"
+  chest-type-double-desc: "§b  ■ Doppio §7- 54 slot (6 righe)"
+  chest-type-changed: "§aTipo baule cambiato in %type%"
+  chest-type-change-error: "§cErrore nel cambiare tipo baule!"
+  chest-type-display: "§7Tipo: %type%"
+
+  # Controllo frazione
+  fraction-increase: "§a→ Frazione Successiva"
+  fraction-increase-lore:
+    - "§7Clicca per aumentare la frazione"
+    - "§7(più oggetti per baule)"
+
+  fraction-decrease: "§c← Frazione Precedente"
+  fraction-decrease-lore:
+    - "§7Clicca per diminuire la frazione"
+    - "§7(meno oggetti per baule)"
+
+  current-fraction: "§eTasso di Drop"
+  fraction-info: "§7Questo numero di oggetti apparirà"
+  fraction-changed: "§aFrazione cambiata in %fraction%"
+  fraction-change-error: "§cErrore nel cambiare frazione!"
+  item-fraction-display: "§7Tasso: %fraction%"
+
+  # Nomi frazioni
+  fraction:
+    all: "§aTutti gli oggetti (mescolati)"
+    one-half: "§e1/2 - Metà degli oggetti"
+    one-third: "§61/3 - Un terzo"
+    one-fourth: "§c1/4 - Un quarto"
+    one-fifth: "§91/5 - Un quinto"
+    one-sixth: "§31/6 - Un sesto"
+    one-seventh: "§51/7 - Un settimo"
+    one-eighth: "§41/8 - Un ottavo"
+    one-ninth: "§d1/9 - Un nono"
+    one-tenth: "§b1/10 - Un decimo"
+
+  # Pulsanti
+  save-button: "§a✓ Salva & Attiva"
   save-lore:
     - "§7Clicca per salvare oggetti e"
     - "§7attivare bottino personalizzato per questo livello"
-  
-  reset-button: "§c✗ Resetta e Disattiva"
+
+  reset-button: "§c✗ Resetta & Disattiva"
   reset-lore:
     - "§7Clicca per cancellare oggetti e"
     - "§7usare bottino casuale predefinito"
-  
-  back-button: "§7← Indietro"
-  
-  # Messaggi
-  saved: "§a✓ %count% oggetti salvati per bauli %tier%!"
-  reset-done: "§c✗ Bottino personalizzato cancellato per bauli %tier%."
 
+  back-button: "§7← Indietro"
+
+  # Messaggi
+  saved: "§a✓ Salvati %count% oggetti per bauli %tier%!"
+  reset-done: "§c✗ Bottino personalizzato cancellato per bauli %tier%."
+  chest-size-items-dropped: "§e%count% oggetti non entravano e sono stati dropati ai tuoi piedi!"
+  
+  # Conferma reset
+  reset-confirm-title-common: "Comune"
+  reset-confirm-title-rare: "Raro"
+  reset-confirm-title-legendary: "Leggendario"
+  
+  # Primo menu conferma
+  reset-first-menu-title: "§6⚠ Conferma Reset: %tier%"
+  reset-first-warning: "§e§l⚠ Primo Avviso"
+  reset-first-warning-lore:
+    - "§7Vuoi resettare il livello §e%tier%"
+    - "§7Oggetti attuali: §e%count%"
+    - ""
+    - "§6IMPOSTAZIONI saranno MANTENUTE:"
+    - "§7  • Tipo baule (singolo/doppio)"
+    - "§7  • Frazione tasso di drop"
+    - ""
+    - "§cSolo gli oggetti saranno eliminati!"
+    - "§7Tutti gli oggetti cadranno ai tuoi piedi"
+  
+  reset-continue: "§e→ Continua"
+  reset-continue-lore:
+    - "§7Procedi alla conferma finale"
+  
+  # Menu conferma finale
+  reset-final-menu-title: "§4§l⚠ AVVISO FINALE: %tier%"
+  reset-final-warning: "§c§l⚠ ULTIMA OPPORTUNITÀ!"
+  reset-final-warning-lore:
+    - "§c§lQUESTA È LA TUA ULTIMA OPPORTUNITÀ!"
+    - ""
+    - "§7Livello: §e%tier%"
+    - "§7Oggetti da eliminare: §c%count%"
+    - ""
+    - "§a§lIMPOSTAZIONI SARANNO MANTENUTE"
+    - "§a§lSOLO OGGETTI SARANNO ELIMINATI"
+    - ""
+    - "§7Tutti gli oggetti cadranno ai tuoi piedi"
+  
+  reset-confirm-final: "§c§l✖ CONFERMA RESET"
+  reset-confirm-final-lore:
+    - "§c§lELIMINA TUTTI GLI OGGETTI"
+    - "§7(impostazioni restano)"
+    - ""
+    - "§c§lClicca per confermare"
+  
+  reset-cancel: "§a§l✔ Annulla"
+  reset-cancel-lore:
+    - "§7Torna alla modifica"
+    - "§7Niente sarà cambiato"
+  
+  reset-items-dropped: "§e%count% oggetti sono stati dropati ai tuoi piedi!"
+  reset-complete: "§a✔ Bottino personalizzato per %tier% resettato!"
+  
 # ============================================
 # INTERAZIONE CON I BAULI
 # ============================================

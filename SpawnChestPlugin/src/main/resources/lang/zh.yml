@@ -1,7 +1,7 @@
 # ============================================
 # SpawnChestPlugin - 中文语言文件
 # 语言: 中文 (zh-CN)
-# 版本: 4.1.5 FULL
+# 版本: 4.2 FULL
 # ============================================
 
 # ============================================
@@ -496,41 +496,132 @@ achievements:
 # ============================================
 gui:
   # 主菜单
-  custom-loot-title: "§6自定义宝箱战利品"
-  
-  # 编辑菜单
-  edit-common: "§f编辑普通宝箱战利品"
-  edit-rare: "§9编辑稀有宝箱战利品"
-  edit-legendary: "§6编辑传奇宝箱战利品"
-  
-  # 主菜单物品名称
-  common-chest-name: "§f普通宝箱"
-  rare-chest-name: "§9稀有宝箱"
-  legendary-chest-name: "§6传奇宝箱"
-  
-  # 主菜单描述
+  custom-loot-title: "§6自定义箱子战利品"
+  edit-common: "§f编辑普通箱子战利品"
+  edit-rare: "§9编辑稀有箱子战利品"
+  edit-legendary: "§6编辑传奇箱子战利品"
+
+  common-chest-name: "§f普通箱子"
+  rare-chest-name: "§9稀有箱子"
+  legendary-chest-name: "§6传奇箱子"
+
   click-to-edit: "§7点击编辑战利品"
-  custom-enabled: "§a自定义战利品: 启用"
-  custom-disabled: "§c自定义战利品: 禁用"
+  custom-enabled: "§a自定义战利品: 已启用"
+  custom-disabled: "§c自定义战利品: 已禁用"
   using-default: "§7使用默认随机战利品"
   items-count: "§7物品: %count%"
-  
-  # 控制按钮
+
+  # 箱子类型
+  chest-type-toggle: "§e箱子类型"
+  current-type: "§7当前: %type%"
+  chest-type-info: "§7点击切换:"
+  chest-type-single: "§f单箱子 §7(27格)"
+  chest-type-double: "§b双箱子 §7(54格)"
+  chest-type-single-desc: "§f  ■ 单箱子 §7- 27格 (3行)"
+  chest-type-double-desc: "§b  ■ 双箱子 §7- 54格 (6行)"
+  chest-type-changed: "§a箱子类型已更改为 %type%"
+  chest-type-change-error: "§c更改箱子类型失败!"
+  chest-type-display: "§7类型: %type%"
+
+  # 分数控制
+  fraction-increase: "§a→ 下一个比例"
+  fraction-increase-lore:
+    - "§7点击增加比例"
+    - "§7(每个箱子更多物品)"
+
+  fraction-decrease: "§c← 上一个比例"
+  fraction-decrease-lore:
+    - "§7点击减少比例"
+    - "§7(每个箱子更少物品)"
+
+  current-fraction: "§e物品生成率"
+  fraction-info: "§7将生成这么多物品"
+  fraction-changed: "§a比例已更改为 %fraction%"
+  fraction-change-error: "§c更改比例失败!"
+  item-fraction-display: "§7生成率: %fraction%"
+
+  # 比例名称
+  fraction:
+    all: "§a全部物品 (随机排序)"
+    one-half: "§e1/2 - 一半物品"
+    one-third: "§61/3 - 三分之一"
+    one-fourth: "§c1/4 - 四分之一"
+    one-fifth: "§91/5 - 五分之一"
+    one-sixth: "§31/6 - 六分之一"
+    one-seventh: "§51/7 - 七分之一"
+    one-eighth: "§41/8 - 八分之一"
+    one-ninth: "§d1/9 - 九分之一"
+    one-tenth: "§b1/10 - 十分之一"
+
+  # 按钮
   save-button: "§a✓ 保存并启用"
   save-lore:
     - "§7点击保存物品并"
-    - "§7为此等级启用自定义战利品"
-  
+    - "§7启用此等级的自定义战利品"
+
   reset-button: "§c✗ 重置并禁用"
   reset-lore:
     - "§7点击清除物品并"
     - "§7使用默认随机战利品"
-  
+
   back-button: "§7← 返回"
-  
+
   # 消息
-  saved: "§a✓ 为 %tier% 宝箱保存了 %count% 个物品!"
-  reset-done: "§c✗ 已清除 %tier% 宝箱的自定义战利品。"
+  saved: "§a✓ 已保存 %count% 个物品用于 %tier% 箱子!"
+  reset-done: "§c✗ %tier% 箱子的自定义战利品已清除"
+  chest-size-items-dropped: "§e%count% 个物品无法放入，已掉落至你脚下!"
+  
+  # 重置确认
+  reset-confirm-title-common: "普通"
+  reset-confirm-title-rare: "稀有"
+  reset-confirm-title-legendary: "传奇"
+  
+  # 首次确认菜单
+  reset-first-menu-title: "§6⚠ 重置确认: %tier%"
+  reset-first-warning: "§e§l⚠ 首次警告"
+  reset-first-warning-lore:
+    - "§7你要重置 §e%tier% §7等级"
+    - "§7当前物品: §e%count%"
+    - ""
+    - "§6设置将被保留:"
+    - "§7  • 箱子类型 (单/双)"
+    - "§7  • 生成率比例"
+    - ""
+    - "§c仅物品会被删除!"
+    - "§7所有物品将掉落至你脚下"
+  
+  reset-continue: "§e→ 继续"
+  reset-continue-lore:
+    - "§7进入最终确认"
+  
+  # 最终确认菜单
+  reset-final-menu-title: "§4§l⚠ 最终警告: %tier%"
+  reset-final-warning: "§c§l⚠ 最后机会!"
+  reset-final-warning-lore:
+    - "§c§l这是你的最后机会!"
+    - ""
+    - "§7等级: §e%tier%"
+    - "§7要删除的物品: §c%count%"
+    - ""
+    - "§a§l设置将被保留"
+    - "§a§l仅物品会被删除"
+    - ""
+    - "§7所有物品将掉落至你脚下"
+  
+  reset-confirm-final: "§c§l✖ 确认重置"
+  reset-confirm-final-lore:
+    - "§c§l删除所有物品"
+    - "§7(设置保留)"
+    - ""
+    - "§c§l点击确认"
+  
+  reset-cancel: "§a§l✔ 取消"
+  reset-cancel-lore:
+    - "§7返回编辑"
+    - "§7不会更改任何内容"
+  
+  reset-items-dropped: "§e%count% 个物品已掉落至你脚下!"
+  reset-complete: "§a✔ %tier% 的自定义战利品已重置!"
 
 # ============================================
 # 宝箱交互

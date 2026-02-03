@@ -1,7 +1,7 @@
 # ============================================
 # SpawnChestPlugin - Archivo de Idioma Español
 # Idioma: Español (es)
-# Versión: 4.1.5 FULL
+# Versión: 4.2 FULL
 # ============================================
 
 # ============================================
@@ -496,41 +496,132 @@ achievements:
 # ============================================
 gui:
   # Menú principal
-  custom-loot-title: "§6Botín Personalizado de Cofres"
-  
-  # Menús de edición
+  custom-loot-title: "§6Botín Personalizado de Cofre"
   edit-common: "§fEditar Botín de Cofre Común"
   edit-rare: "§9Editar Botín de Cofre Raro"
   edit-legendary: "§6Editar Botín de Cofre Legendario"
-  
-  # Nombres de ítems del menú principal
+
   common-chest-name: "§fCofre Común"
   rare-chest-name: "§9Cofre Raro"
   legendary-chest-name: "§6Cofre Legendario"
-  
-  # Descripción del menú principal
-  click-to-edit: "§7Clic para editar botín"
+
+  click-to-edit: "§7Haz clic para editar el botín"
   custom-enabled: "§aBotín personalizado: ACTIVADO"
   custom-disabled: "§cBotín personalizado: DESACTIVADO"
   using-default: "§7Usando botín aleatorio por defecto"
-  items-count: "§7Ítems: %count%"
-  
-  # Botones de control
-  save-button: "§a✓ Guardar & Activar"
+  items-count: "§7Objetos: %count%"
+
+  # Tipo de cofre
+  chest-type-toggle: "§eTipo de Cofre"
+  current-type: "§7Actual: %type%"
+  chest-type-info: "§7Haz clic para alternar entre:"
+  chest-type-single: "§fCofre Simple §7(27 espacios)"
+  chest-type-double: "§bCofre Doble §7(54 espacios)"
+  chest-type-single-desc: "§f  ■ Simple §7- 27 espacios (3 filas)"
+  chest-type-double-desc: "§b  ■ Doble §7- 54 espacios (6 filas)"
+  chest-type-changed: "§aTipo de cofre cambiado a %type%"
+  chest-type-change-error: "§c¡Error al cambiar el tipo de cofre!"
+  chest-type-display: "§7Tipo: %type%"
+
+  # Control de fracción
+  fraction-increase: "§a→ Siguiente Fracción"
+  fraction-increase-lore:
+    - "§7Haz clic para aumentar la fracción"
+    - "§7(más objetos por cofre)"
+
+  fraction-decrease: "§c← Fracción Anterior"
+  fraction-decrease-lore:
+    - "§7Haz clic para disminuir la fracción"
+    - "§7(menos objetos por cofre)"
+
+  current-fraction: "§eTasa de Aparición"
+  fraction-info: "§7Esta cantidad de objetos aparecerá"
+  fraction-changed: "§aFracción cambiada a %fraction%"
+  fraction-change-error: "§c¡Error al cambiar la fracción!"
+  item-fraction-display: "§7Tasa: %fraction%"
+
+  # Nombres de fracción
+  fraction:
+    all: "§aTodos los objetos (mezclados)"
+    one-half: "§e1/2 - Mitad de objetos"
+    one-third: "§61/3 - Un tercio"
+    one-fourth: "§c1/4 - Un cuarto"
+    one-fifth: "§91/5 - Un quinto"
+    one-sixth: "§31/6 - Un sexto"
+    one-seventh: "§51/7 - Un séptimo"
+    one-eighth: "§41/8 - Un octavo"
+    one-ninth: "§d1/9 - Un noveno"
+    one-tenth: "§b1/10 - Un décimo"
+
+  # Botones
+  save-button: "§a✓ Guardar y Activar"
   save-lore:
-    - "§7Clic para guardar ítems y"
-    - "§7activar botín personalizado para este nivel"
-  
-  reset-button: "§c✗ Reiniciar & Desactivar"
+    - "§7Haz clic para guardar objetos y"
+    - "§7activar el botín personalizado para este nivel"
+
+  reset-button: "§c✗ Restablecer y Desactivar"
   reset-lore:
-    - "§7Clic para limpiar ítems y"
-    - "§7usar botín aleatorio por defecto"
-  
+    - "§7Haz clic para borrar objetos y"
+    - "§7usar el botín aleatorio por defecto"
+
   back-button: "§7← Atrás"
-  
+
   # Mensajes
-  saved: "§a✓ ¡Guardados %count% ítems para cofres %tier%!"
-  reset-done: "§c✗ Botín personalizado limpiado para cofres %tier%."
+  saved: "§a✓ ¡Guardados %count% objetos para cofres %tier%!"
+  reset-done: "§c✗ Botín personalizado borrado para cofres %tier%."
+  chest-size-items-dropped: "§e¡%count% objetos no cabían y fueron soltados a tus pies!"
+  
+  # Confirmación de restablecimiento
+  reset-confirm-title-common: "Común"
+  reset-confirm-title-rare: "Raro"
+  reset-confirm-title-legendary: "Legendario"
+  
+  # Primer menú de confirmación
+  reset-first-menu-title: "§6⚠ Confirmación de Restablecimiento: %tier%"
+  reset-first-warning: "§e§l⚠ Primera Advertencia"
+  reset-first-warning-lore:
+    - "§7Quieres restablecer el nivel §e%tier%"
+    - "§7Objetos actuales: §e%count%"
+    - ""
+    - "§6Los AJUSTES se MANTENDRÁN:"
+    - "§7  • Tipo de cofre (simple/doble)"
+    - "§7  • Fracción de tasa de aparición"
+    - ""
+    - "§c¡Solo se borrarán los objetos!"
+    - "§7Todos los objetos caerán a tus pies"
+  
+  reset-continue: "§e→ Continuar"
+  reset-continue-lore:
+    - "§7Proceder a confirmación final"
+  
+  # Menú de confirmación final
+  reset-final-menu-title: "§4§l⚠ ADVERTENCIA FINAL: %tier%"
+  reset-final-warning: "§c§l⚠ ¡ÚLTIMA OPORTUNIDAD!"
+  reset-final-warning-lore:
+    - "§c§l¡ESTA ES TU ÚLTIMA OPORTUNIDAD!"
+    - ""
+    - "§7Nivel: §e%tier%"
+    - "§7Objetos a borrar: §c%count%"
+    - ""
+    - "§a§lLOS AJUSTES SE MANTENDRÁN"
+    - "§a§lSOLO SE BORRARÁN LOS OBJETOS"
+    - ""
+    - "§7Todos los objetos caerán a tus pies"
+  
+  reset-confirm-final: "§c§l✖ CONFIRMAR RESTABLECIMIENTO"
+  reset-confirm-final-lore:
+    - "§c§lBORRAR TODOS LOS OBJETOS"
+    - "§7(los ajustes permanecen)"
+    - ""
+    - "§c§lHaz clic para confirmar"
+  
+  reset-cancel: "§a§l✔ Cancelar"
+  reset-cancel-lore:
+    - "§7Volver a editar"
+    - "§7No se cambiará nada"
+  
+  reset-items-dropped: "§e¡%count% objetos fueron soltados a tus pies!"
+  reset-complete: "§a✔ ¡El botín personalizado para %tier% ha sido restablecido!"
 
 # ============================================
 # INTERACCIÓN CON COFRES
