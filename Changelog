@@ -1,0 +1,64 @@
+Changelog
+[4.3] — 2026-04-01
+Added
+Protection plugin integration (ProtectionManager.java)
+Chests no longer spawn inside protected territories. The plugin checks the spawn candidate location against any installed protection plugin before placing a chest. If the location is protected, a new random location is picked automatically. Integration works without any compile-time dependency — only softdepend in plugin.yml is required.
+Supported plugins:
+
+WorldGuard 7 — skips any location inside a named region (excluding __global__)
+GriefPrevention — skips any location inside a player claim
+GriefDefender 2 — skips any location inside a GD claim
+Lands 5+ — skips any location inside a land area
+
+Configuration (config.yml):
+yamlprotection:
+  enabled: true
+  check-worldguard: true
+  check-grief-prevention: true
+  check-grief-defender: true
+  check-lands: true
+  max-protection-retries: 20   # extra retries on top of the base 15
+Permission-based broadcast system
+All player-facing announcements now respect individual permissions. This fixes the common issue on servers where all permissions are denied by default — previously only operators saw announcements.
+PermissionControlsDefaultspawnchest.notify.spawnChest spawn message + titletruespawnchest.notify.coordinatesCoordinates shown in spawn messagetruespawnchest.notify.disappearChest disappear messagetruespawnchest.notify.countdownCountdown warningstruespawnchest.notify.bossbarBossBar visibilitytrue
+Players without spawnchest.notify.coordinates still receive the spawn announcement — it just omits the coordinates ("A Legendary Chest has appeared somewhere in the world!").
+New lang keys required in all language files:
+yamlbroadcasts:
+  chest-spawned-no-coords: "§6✦ §eA §6%tier% §ehas appeared somewhere in the world!"
+  spawn-subtitle-hidden: "§eExplore the world to find it!"
+system:
+  chest-location-protected: "§7[SpawnChest] Location %x%, %z% is protected, retrying..."
+BossBar (BossBarManager.java)
+Optional BossBar showing the chest timer and active chest info. Disabled by default.
+Configuration:
+yamlfeatures:
+  bossbar:
+    enabled: false           # opt-in
+    show-countdown: true     # time until next chest while idle
+    show-active-chest: true  # tier + coordinates + expiry while a chest is alive
+Behaviour:
+
+While no chest is active: yellow bar counting down to next spawn
+While a chest is active (unopened): green bar showing tier, coordinates, and time until despawn
+Only shown to players with spawnchest.notify.bossbar permission
+Automatically added/removed on join/quit
+
+New public API methods on SpawnChestPlugin
+javaplugin.getLastSpawnTime()        // long — epoch ms of last spawn
+plugin.getSpawnInterval()        // long — configured interval in ms
+plugin.getActiveChests()         // Map<String, ActiveChest>
+plugin.getTierNamePublic(tier)   // String — localised tier name
+Changed
+
+Max spawn attempts increased from 15 to 15 + protection.max-protection-retries (default 35). Prevents the plugin giving up too early on heavily claimed servers.
+plugin.yml permissions restructured: spawnchest.admin now uses children to inherit all sub-permissions (setchesttimer, resettimer, getlegendaryitems, testchestzone, giveapple) instead of duplicating default: op on each.
+softdepend added to plugin.yml: WorldGuard, GriefPrevention, GriefDefender, Lands.
+Plugin version bumped to 4.3 in plugin.yml.
+
+Fixed
+
+Broadcast methods no longer call Bukkit.broadcastMessage() for announcement types that have per-player permission gates. Each announcement iterates online players and checks the relevant spawnchest.notify.* node individually.
+
+
+[4.2] — previous release
+Initial public release with legendary items, guardian mobs, achievements, custom loot GUI, multi-language support, and version adapter for 1.18–1.21.Share
