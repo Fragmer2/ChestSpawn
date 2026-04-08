@@ -52,6 +52,8 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
     
     private volatile boolean spawnInProgress = false;
     private volatile long spawnStartTime = 0;
+    private final java.util.Queue<Runnable> batchQueue = new java.util.LinkedList<>();
+    private boolean batchRunning = false;
     private long lastSpawnTime = 0L;
     private long spawnInterval;
     private final Set<Long> warningTimes = new HashSet<>(Arrays.asList(24000L, 12000L, 6000L, 3600L, 1200L));
@@ -61,6 +63,9 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
     
     // Active chests tracking (for disappearing and effects)
     private final Map<String, ActiveChest> activeChests = new HashMap<>();
+    
+ // World-drop apple entity tracking (prevents despawn until pickup)
+    private final Set<UUID> trackedWorldApples = new HashSet<>();
     
     // Cooldown maps
     private final Map<UUID, Long> swordCooldown = new HashMap<>();
@@ -85,6 +90,9 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
     
     // Version adapter for multi-version support
     private VersionAdapter versionAdapter;
+    private ProtectionManager protectionManager;
+    private BossBarManager    bossBarManager;
+    private ProtectionZoneManager zoneManager;
     
     // NamespacedKeys
     private NamespacedKey LEGENDARY_SWORD_KEY;
@@ -97,8 +105,12 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
     private NamespacedKey WISDOM_BOOK_KEY;
     private NamespacedKey POSEIDON_TRIDENT_KEY;
     private NamespacedKey SUMMONER_APPLE_KEY;
+    private NamespacedKey SUMMONER_APPLE_COMMON_KEY;
+    private NamespacedKey SUMMONER_APPLE_RARE_KEY;
+    private NamespacedKey SUMMONER_APPLE_LEGENDARY_KEY;
     private NamespacedKey GUARDIAN_MOB_KEY;
     private NamespacedKey CUSTOM_POTION_KEY;
+    private NamespacedKey WORLD_APPLE_KEY;
     
     // Particle cache
     private Particle cachedHappyVillager;
@@ -169,28 +181,47 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
     public VersionAdapter getVersionAdapter() {
         return versionAdapter;
     }
-    
+
     public PlayerStats getPlayerStats() {
         return playerStats;
     }
+
+    public long getLastSpawnTime() { return lastSpawnTime; }
+    public long getSpawnInterval() { return spawnInterval; }
+    public Map<String, ActiveChest> getActiveChests() { return activeChests; }
+    public String getTierNamePublic(ChestTier tier) { return getTierName(tier); }
+    public ProtectionZoneManager getZoneManager() { return zoneManager; }
     
     public LanguageManager getLanguageManager() {
         return langManager;
     }
     
-    // Active chest data class
     public static class ActiveChest {
         public Location location;
         public ChestTier tier;
         public long spawnTime;
         public boolean opened = false;
         public String chestKey;
-        
+
+        // Pre-open timer fields
+        public boolean locked = true;          // chest starts locked
+        public boolean activating = false;     // countdown is running
+        public long activationStartTime = 0L;  // when countdown started
+        public String activatedByName = "";    // player who triggered countdown
+        public long openTime = 0L;
+
         public ActiveChest(Location loc, ChestTier tier) {
-            this.location = loc;
-            this.tier = tier;
+            this.location  = loc;
+            this.tier      = tier;
             this.spawnTime = System.currentTimeMillis();
-            this.chestKey = loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ();
+            this.chestKey  = loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ();
+        }
+
+        /** Remaining seconds in the pre-open countdown. -1 if not activating. */
+        public long getRemainingSeconds(int durationSeconds) {
+            if (!activating) return -1;
+            long elapsed = (System.currentTimeMillis() - activationStartTime) / 1000L;
+            return Math.max(0, durationSeconds - elapsed);
         }
     }
     
@@ -231,8 +262,12 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         WISDOM_BOOK_KEY = new NamespacedKey(this, "wisdom_book");
         POSEIDON_TRIDENT_KEY = new NamespacedKey(this, "poseidon_trident");
         SUMMONER_APPLE_KEY = new NamespacedKey(this, "summoner_apple");
+        SUMMONER_APPLE_COMMON_KEY    = new NamespacedKey(this, "summoner_apple_common");
+        SUMMONER_APPLE_RARE_KEY      = new NamespacedKey(this, "summoner_apple_rare");
+        SUMMONER_APPLE_LEGENDARY_KEY = new NamespacedKey(this, "summoner_apple_legendary");
         GUARDIAN_MOB_KEY = new NamespacedKey(this, "chest_guardian");
         CUSTOM_POTION_KEY = new NamespacedKey(this, "custom_potion");
+        WORLD_APPLE_KEY = new NamespacedKey(this, "world_apple_drop");
         
         if (!getDataFolder().exists()) {
             getDataFolder().mkdirs();
@@ -264,7 +299,12 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         customLootManager = new CustomLootManager(this);
         
         loadTimer();
-        
+
+        protectionManager = new ProtectionManager(this);
+        zoneManager       = new ProtectionZoneManager(this);
+        bossBarManager = new BossBarManager(this);
+        bossBarManager.start();
+
         Bukkit.getPluginManager().registerEvents(this, this);
         
         // Register tab completers
@@ -280,16 +320,17 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         new ProximitySoundTask().runTaskTimer(this, 0L, getConfig().getLong("proximity-sounds.interval-ticks", 40L));
         new ChestEffectsTask().runTaskTimer(this, 0L, 5L);
         new ChestDisappearTask().runTaskTimer(this, 0L, 20L);
+        new WorldAppleKeepaliveTask().runTaskTimer(this, 0L, 40L);
         
         getLogger().info(getMessage("system.plugin-enabled"));
     }
 
     @Override
     public void onDisable() {
+        if (bossBarManager != null) bossBarManager.stop();
+        if (zoneManager != null)    zoneManager.removeAllZones();  // ← ДОБАВИТЬ
         saveTimer();
-        if (playerStats != null) {
-            playerStats.saveAll();
-        }
+        if (playerStats != null) playerStats.saveAll();
         getLogger().info(getMessage("system.plugin-disabled"));
     }
 
@@ -447,6 +488,135 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
     
  // ==================== CHEST SPAWNING ====================
 
+    
+    /**
+     * Drops a Summoner Apple as a world item near the given chest location.
+     * The apple persists until a player picks it up.
+     * Called automatically after each chest spawn when world-apple-drop is enabled.
+     */
+    private void spawnWorldApple(Location chestLoc) {
+        if (!getConfig().getBoolean("world-apple-drop.enabled", false)) return;
+
+        String method    = getConfig().getString("world-apple-drop.spawn-method", "near-chest");
+        int    radius    = getConfig().getInt("world-apple-drop.radius", 15);
+        String appleType = getConfig().getString("world-apple-drop.apple-type", "random");
+        World  world     = chestLoc.getWorld();
+        if (world == null) return;
+
+        Location dropLoc = null;
+
+        switch (method.toLowerCase()) {
+
+            case "near-chest":
+                dropLoc = findDropLocationNear(world, chestLoc, radius);
+                break;
+
+            case "near-player":
+                // Find the nearest online player in the same world
+                Player nearest = null;
+                double minDist = Double.MAX_VALUE;
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    if (!p.getWorld().equals(world)) continue;
+                    double d = p.getLocation().distanceSquared(chestLoc);
+                    if (d < minDist) { minDist = d; nearest = p; }
+                }
+                if (nearest != null) {
+                    dropLoc = findDropLocationNear(world, nearest.getLocation(), radius);
+                }
+                // Fallback to near-chest if no players online in this world
+                if (dropLoc == null) {
+                    dropLoc = findDropLocationNear(world, chestLoc, radius);
+                }
+                break;
+
+            case "with-chest":
+            default:
+                // Completely separate random location — same algorithm as chest spawn
+                int minD     = getConfig().getInt("settings.spawn-zone.min-distance", 400);
+                int maxD     = getConfig().getInt("settings.spawn-zone.max-distance", 2000);
+                double dist  = minD + random.nextDouble() * (maxD - minD);
+                double angle = random.nextDouble() * 2 * Math.PI;
+                int rx = (int)(Math.cos(angle) * dist);
+                int rz = (int)(Math.sin(angle) * dist);
+                world.loadChunk(rx >> 4, rz >> 4);
+                int ry = getHighestSolidBlock(world, rx, rz) + 1;
+                dropLoc = new Location(world, rx + 0.5, ry, rz + 0.5);
+                break;
+        }
+
+        if (dropLoc == null) {
+            getLogger().warning(getMessage("system.world-apple-no-location",
+                "%attempts%", "10"));
+            return;
+        }
+
+        // Ensure chunk at drop location stays loaded
+        world.loadChunk(dropLoc.getBlockX() >> 4, dropLoc.getBlockZ() >> 4);
+
+        // Build the apple item with tracking marker
+        ItemStack apple = createSummonerApple(appleType);
+        ItemMeta meta = apple.getItemMeta();
+        if (meta != null) {
+            meta.getPersistentDataContainer()
+                .set(WORLD_APPLE_KEY, PersistentDataType.STRING, appleType);
+            apple.setItemMeta(meta);
+        }
+
+        final Location finalLoc = dropLoc;
+        Bukkit.getScheduler().runTask(this, () -> {
+            org.bukkit.entity.Item dropped = world.dropItem(finalLoc, apple);
+            dropped.setPickupDelay(0);
+
+            // Track for keepalive (prevents natural despawn)
+            if (getConfig().getBoolean("world-apple-drop.persist-until-pickup", true)) {
+                trackedWorldApples.add(dropped.getUniqueId());
+            }
+
+            // Broadcast coordinates to players with permission
+            if (getConfig().getBoolean("world-apple-drop.announce-coordinates", true)) {
+                String typeName = getMessage("items.summoner-apple-" + appleType + ".name");
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    if (p.hasPermission("spawnchest.notify.spawn")) {
+                        p.sendMessage(getMessage("broadcasts.world-apple-dropped",
+                            "%type%", typeName,
+                            "%x%",    String.valueOf(finalLoc.getBlockX()),
+                            "%y%",    String.valueOf(finalLoc.getBlockY()),
+                            "%z%",    String.valueOf(finalLoc.getBlockZ())));
+                    }
+                }
+            }
+
+            getLogger().info(getMessage("system.world-apple-spawned",
+                "%x%", String.valueOf(finalLoc.getBlockX()),
+                "%y%", String.valueOf(finalLoc.getBlockY()),
+                "%z%", String.valueOf(finalLoc.getBlockZ())));
+        });
+    }
+
+    /**
+     * Tries up to 10 random spots within 'radius' blocks of 'center'.
+     * Returns null if no valid surface found.
+     */
+    private Location findDropLocationNear(World world, Location center, int radius) {
+        for (int attempt = 0; attempt < 10; attempt++) {
+            double angle = random.nextDouble() * 2 * Math.PI;
+            double dist  = random.nextDouble() * radius;
+            int x = center.getBlockX() + (int)(Math.cos(angle) * dist);
+            int z = center.getBlockZ() + (int)(Math.sin(angle) * dist);
+
+            world.loadChunk(x >> 4, z >> 4);
+            int y = getHighestSolidBlock(world, x, z);
+
+            if (y < 1 || y > world.getMaxHeight() - 2) continue;
+            if (!isValidSurface(world.getBlockAt(x, y, z).getType())) continue;
+
+            return new Location(world, x + 0.5, y + 1, z + 0.5);
+        }
+        return null;
+    }
+
+    
+    
     private void spawnChest() {
         spawnChest(true, null);
     }
@@ -498,14 +668,228 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         findAndSpawnChestAsync(world, resetTimer, 0);
     }
     
-    // Async chest spawning with retry
-    private void findAndSpawnChestAsync(World world, boolean resetTimer, int attempt) {
-        if (attempt >= 15) {
-            getLogger().warning(getMessage("system.chest-spawn-failed-attempts", 
-                "%attempts%", "15"));
-            spawnInProgress = false; // IMPORTANT: Reset flag!
+    /**
+     * Spawns a chest of a specific forced tier (used by typed summoner apples).
+     */
+    private void spawnChestOfTier(boolean resetTimer, World world, ChestTier forcedTier) {
+        if (spawnInProgress) {
+            long elapsed = System.currentTimeMillis() - spawnStartTime;
+            if (elapsed > 30000) {
+                spawnInProgress = false;
+            } else {
+                return;
+            }
+        }
+        spawnInProgress = true;
+        spawnStartTime  = System.currentTimeMillis();
+
+        if (world == null) world = Bukkit.getWorld("world");
+        if (world == null || !isWorldEnabled(world.getName())) {
+            spawnInProgress = false;
             return;
         }
+
+        final World finalWorld = world;
+        final ChestTier tier   = forcedTier;
+        findAndSpawnChestAsyncWithTier(finalWorld, resetTimer, 0, tier);
+    }
+
+    private void findAndSpawnChestAsyncWithTier(World world, boolean resetTimer,
+                                                 int attempt, ChestTier forcedTier) {
+        int maxAttempts = 15 + getConfig().getInt("protection.max-protection-retries", 20);
+        if (attempt >= maxAttempts) {
+            getLogger().warning(getMessage("system.chest-spawn-failed-attempts",
+                "%attempts%", String.valueOf(maxAttempts)));
+            spawnInProgress = false;
+            return;
+        }
+
+        int minDist          = getConfig().getInt("settings.spawn-zone.min-distance", 400);
+        int maxDist          = getConfig().getInt("settings.spawn-zone.max-distance", 2000);
+        int minDistFromCenter = getConfig().getInt("settings.spawn-zone.min-distance-from-center", 100);
+
+        if (attempt > 5)  { minDist = Math.max(minDistFromCenter, 100); maxDist = Math.max(minDistFromCenter + 200, 500); }
+        if (attempt > 10) { minDist = Math.max(minDistFromCenter, 50);  maxDist = Math.max(minDistFromCenter + 100, 300); }
+
+        double distance = minDist + random.nextDouble() * (maxDist - minDist);
+        double angle    = random.nextDouble() * 2 * Math.PI;
+        int x = (int)(Math.cos(angle) * distance);
+        int z = (int)(Math.sin(angle) * distance);
+
+        double distFromCenter = Math.sqrt(x * x + z * z);
+        if (distFromCenter < minDistFromCenter) {
+            double scale = minDistFromCenter / distFromCenter;
+            x = (int)(x * scale);
+            z = (int)(z * scale);
+        }
+
+        final int fx = x, fz = z;
+
+        versionAdapter.getChunkAtAsync(world, x >> 4, z >> 4, chunk -> {
+            Bukkit.getScheduler().runTask(this, () -> {
+                int minH = getConfig().getInt("settings.spawn-zone.min-height", 50);
+                int maxH = getConfig().getInt("settings.spawn-zone.max-height", 200);
+                boolean bury = getConfig().getBoolean("settings.spawn-zone.bury-in-ground", false);
+
+                Location loc = getValidSpawnLocation(world, fx, fz, minH, maxH, bury);
+
+                if (loc != null) {
+                    if (protectionManager.isProtected(loc)) {
+                        findAndSpawnChestAsyncWithTier(world, resetTimer, attempt + 1, forcedTier);
+                        return;
+                    }
+                    spawnChestAtLocationWithTier(loc, resetTimer, forcedTier);
+                } else {
+                    findAndSpawnChestAsyncWithTier(world, resetTimer, attempt + 1, forcedTier);
+                }
+            });
+        });
+    }
+
+    private void spawnChestAtLocationWithTier(Location location, boolean resetTimer,
+                                               ChestTier forcedTier) {
+        // Reuse existing logic but override the tier
+        if (location == null || location.getWorld() == null) {
+            spawnInProgress = false;
+            return;
+        }
+
+        World world = location.getWorld();
+        int x = location.getBlockX();
+        int z = location.getBlockZ();
+        int chunkX = x >> 4, chunkZ = z >> 4;
+        if (!world.isChunkLoaded(chunkX, chunkZ)) world.loadChunk(chunkX, chunkZ);
+
+        int groundY  = getHighestSolidBlock(world, x, z);
+        boolean bury = getConfig().getBoolean("settings.spawn-zone.bury-in-ground", false);
+        int chestY   = bury ? groundY : groundY + 1;
+
+        Block chestBlock = world.getBlockAt(x, chestY, z);
+        chestBlock.setType(Material.AIR, false);
+        world.getBlockAt(x, chestY + 1, z).setType(Material.AIR, false);
+        chestBlock.setType(Material.CHEST, false);
+
+        Location chestLoc = new Location(world, x + 0.5, chestY, z + 0.5);
+
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            try {
+                Block block = world.getBlockAt(x, chestY, z);
+                if (block.getType() != Material.CHEST) block.setType(Material.CHEST, false);
+
+                org.bukkit.block.BlockState state = block.getState();
+                if (state instanceof Chest) {
+                    fillChestWithLoot(((Chest) state).getBlockInventory(), forcedTier);
+                }
+
+                spawnGuardians(chestLoc, forcedTier);
+                createSpawnEffects(chestLoc, forcedTier);
+                broadcastChestSpawn(chestLoc, forcedTier);
+
+                ActiveChest activeChest = new ActiveChest(chestLoc, forcedTier);
+                activeChests.put(activeChest.chestKey, activeChest);
+
+                // Create protection zone around the chest
+                zoneManager.createZone(chestLoc, activeChest.chestKey);
+
+                // Drop world apple if configured
+                spawnWorldApple(chestLoc);
+
+            } catch (Exception e) {
+                getLogger().severe(getMessage("system.chest-spawn-error",
+                    "%error%", e.getMessage()));
+            }
+
+            if (resetTimer) { lastSpawnTime = System.currentTimeMillis(); saveTimer(); }
+            spawnInProgress = false;
+        }, 2L);
+    }	
+    
+    /**
+     * Spawns a batch of chests based on chest-count-per-interval config.
+     * Each chest after the first is delayed by chest-spawn-delay-seconds
+     * to avoid overloading the server.
+     */
+    private void spawnChestBatch() {
+        int count = getConfig().getInt("settings.chest-count-per-interval", 1);
+        long delaySeconds = getConfig().getLong("settings.chest-spawn-delay-seconds", 5L);
+
+        if (count <= 1) {
+            spawnChest(true, null);
+            return;
+        }
+
+        getLogger().info(getMessage("system.chest-batch-start",
+            "%count%", String.valueOf(count),
+            "%delay%", String.valueOf(delaySeconds)));
+
+        // Announce batch spawn to players
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (p.hasPermission("spawnchest.notify.spawn")) {
+                p.sendMessage(getMessage("broadcasts.chest-spawn-batch",
+                    "%count%", String.valueOf(count)));
+            }
+        }
+
+        // Build queue — first chest resets the timer, rest do not
+        batchQueue.clear();
+        for (int i = 0; i < count; i++) {
+            final int index = i;
+            final boolean reset = (i == 0);
+            batchQueue.add(() -> {
+                getLogger().info(getMessage("system.chest-batch-spawn",
+                    "%index%", String.valueOf(index + 1),
+                    "%total%", String.valueOf(count)));
+                spawnChest(reset, null);
+            });
+        }
+
+        batchRunning = false;
+        runNextBatchChest(delaySeconds);
+    }
+
+    /**
+     * Runs the next chest in the batch queue.
+     * Waits until spawnInProgress is false before starting,
+     * then schedules the next chest after delaySeconds.
+     */
+    private void runNextBatchChest(long delaySeconds) {
+        if (batchQueue.isEmpty()) {
+            batchRunning = false;
+            return;
+        }
+
+        batchRunning = true;
+        Runnable next = batchQueue.poll();
+
+        // Wait until previous spawn is done, then run
+        new BukkitRunnable() {
+            int waited = 0;
+
+            @Override
+            public void run() {
+                waited++;
+                // Timeout after 40 seconds
+                if (!spawnInProgress || waited > 40) {
+                    cancel();
+                    next.run();
+                    // Schedule the next one after delaySeconds
+                    Bukkit.getScheduler().runTaskLater(SpawnChestPlugin.this,
+                        () -> runNextBatchChest(delaySeconds),
+                        delaySeconds * 20L);
+                }
+            }
+        }.runTaskTimer(this, 0L, 20L); // checks every second
+    }
+    
+    // Async chest spawning with retry
+    private void findAndSpawnChestAsync(World world, boolean resetTimer, int attempt) {
+    	int maxAttempts = 15 + getConfig().getInt("protection.max-protection-retries", 20);
+    	if (attempt >= maxAttempts) {
+    	    getLogger().warning(getMessage("system.chest-spawn-failed-attempts", 
+    	        "%attempts%", String.valueOf(maxAttempts)));
+    	    spawnInProgress = false;
+    	    return;
+    	}
         
         int minDist = getConfig().getInt("settings.spawn-zone.min-distance", 400);
         int maxDist = getConfig().getInt("settings.spawn-zone.max-distance", 2000);
@@ -560,6 +944,14 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
                 Location loc = getValidSpawnLocation(world, finalX, finalZ, minHeight, maxHeight, buryInGround);
                 
                 if (loc != null) {
+                    // Check if location is inside a protected claim/region
+                    if (protectionManager.isProtected(loc)) {
+                        getLogger().info(getMessage("system.chest-location-protected",
+                            "%x%", String.valueOf(loc.getBlockX()),
+                            "%z%", String.valueOf(loc.getBlockZ())));
+                        findAndSpawnChestAsync(world, resetTimer, attempt + 1);
+                        return;
+                    }
                     getLogger().info(getMessage("system.chest-location-found",
                         "%x%", String.valueOf(loc.getBlockX()),
                         "%y%", String.valueOf(loc.getBlockY()),
@@ -611,10 +1003,19 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
             Material type = block.getType();
             
             if (type.isAir()) continue;
-            if (type == Material.WATER || type == Material.LAVA) continue;
-            
-            // Version-safe vegetation check (using String comparison)
+
             String typeName = type.name();
+
+            // Water and lava — skip if excluded in config (default: skip both)
+            if (typeName.contains("WATER")) {
+                if (getConfig().getBoolean("settings.spawn-zone.exclude-surfaces.water", true)) continue;
+            }
+            if (typeName.contains("LAVA")) {
+                if (getConfig().getBoolean("settings.spawn-zone.exclude-surfaces.lava", true)) continue;
+            }
+
+            // Vegetation — always skip when searching for ground
+            // (these are never solid ground regardless of config)
             if (typeName.contains("LEAVES")) continue;
             if (typeName.contains("LOG") && !typeName.contains("STRIPPED")) continue;
             if (typeName.contains("VINE")) continue;
@@ -622,10 +1023,7 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
             if (typeName.contains("CARPET")) continue;
             if (typeName.contains("FLOWER")) continue;
             if (typeName.contains("TALL_") || typeName.contains("LARGE_")) continue;
-            
-            // Grass check (SHORT_GRASS in 1.20.3+, GRASS in older versions)
             if (typeName.equals("GRASS") || typeName.equals("SHORT_GRASS") || typeName.equals("TALL_GRASS")) continue;
-            
             if (typeName.contains("FERN")) continue;
             if (typeName.contains("BUSH")) continue;
             if (typeName.contains("SAPLING")) continue;
@@ -645,17 +1043,55 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         return 64;
     }
     
-    // Check if surface is valid for chest spawn
+    /**
+     * Checks whether a block material is a valid surface to spawn a chest on.
+     *
+     * Hard-coded exclusions (always blocked regardless of config):
+     *   BEDROCK, BARRIER, AIR — these can never be valid surfaces.
+     *
+     * Config-driven exclusions (exclude-surfaces section):
+     *   Each key maps to one or more material name fragments.
+     *   If the block's material name contains any of those fragments
+     *   AND the config flag is true, the surface is rejected.
+     */
     private boolean isValidSurface(Material surface) {
+        // Must be a solid block
         if (!surface.isSolid()) return false;
+
+        String name = surface.name();
+
+        // Hard exclusions — never valid regardless of config
         if (surface == Material.BEDROCK) return false;
         if (surface == Material.BARRIER) return false;
-        if (surface == Material.LAVA) return false;
-        if (surface.toString().contains("LEAVES")) return false;
-        if (surface.toString().contains("ICE")) return false;
-        if (surface.toString().contains("WATER")) return false;
-        if (surface.toString().contains("CACTUS")) return false;
-        if (surface.toString().contains("MAGMA")) return false;
+
+        // Config-driven exclusions
+        // Each entry: config key → material name fragments to match
+        String[][] checks = {
+            { "water",      "WATER"                          },
+            { "lava",       "LAVA"                           },
+            { "leaves",     "LEAVES"                         },
+            { "ice",        "ICE"                            },
+            { "magma",      "MAGMA"                          },
+            { "cactus",     "CACTUS"                         },
+            { "sand",       "SAND"                           },
+            { "gravel",     "GRAVEL"                         },
+            { "netherrack", "NETHERRACK"                     },
+        };
+
+        for (String[] check : checks) {
+            String configKey = "settings.spawn-zone.exclude-surfaces." + check[0];
+            // Default: exclude water, lava, leaves, ice, magma, cactus
+            // Default: allow sand, gravel, netherrack
+            boolean defaultExclude = check[0].equals("sand")
+                || check[0].equals("gravel")
+                || check[0].equals("netherrack")
+                ? false : true;
+
+            if (getConfig().getBoolean(configKey, defaultExclude)) {
+                if (name.contains(check[1])) return false;
+            }
+        }
+
         return true;
     }
 
@@ -732,12 +1168,18 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
                 spawnGuardians(chestLoc, tier);
                 createSpawnEffects(chestLoc, tier);
                 
-                // Broadcast with actual chest position (not +1, broadcastChestSpawn adds +1)
+                // Broadcast with actual chest position
                 broadcastChestSpawn(chestLoc, tier);
                 
                 // Track active chest
                 ActiveChest activeChest = new ActiveChest(chestLoc, tier);
                 activeChests.put(activeChest.chestKey, activeChest);
+                
+                // Create protection zone around the chest
+                zoneManager.createZone(chestLoc, activeChest.chestKey);
+                
+                // Drop world apple if configured
+                spawnWorldApple(chestLoc);
                 
             } catch (Exception e) {
                 getLogger().severe(getMessage("system.chest-spawn-error",
@@ -839,18 +1281,28 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         
         if (tier == ChestTier.LEGENDARY) {
             loot.addAll(getLegendaryItems());
-            
-            // Summoner Apple chance
-            if (isFeatureEnabled("summoner-apple.enabled") && 
-                getConfig().getBoolean("summoner-apple.drop-in-chests", true)) {
-                double dropChance = getConfig().getDouble("summoner-apple.drop-chance", 0.05);
-                if (random.nextDouble() < dropChance) {
-                    loot.add(createSummonerApple());
-                }
-            }
         }
+
+        // Apple drops for all tiers (configured per apple type and tier)
+        loot.addAll(getAppleDrops(tier));
         
         return loot;
+    }
+    
+    private List<ItemStack> getAppleDrops(ChestTier tier) {
+        List<ItemStack> drops = new ArrayList<>();
+        String tierKey = tier.configKey; // "common", "rare", "legendary"
+
+        for (String appleType : Arrays.asList("random", "common", "rare", "legendary")) {
+            if (!getConfig().getBoolean("summoner-apple." + appleType + ".enabled", true)) continue;
+            if (!getConfig().getBoolean("summoner-apple." + appleType + ".drop-in-" + tierKey, false)) continue;
+
+            double chance = getConfig().getDouble("summoner-apple." + appleType + ".drop-chance", 0.05);
+            if (random.nextDouble() < chance) {
+                drops.add(createSummonerApple(appleType));
+            }
+        }
+        return drops;
     }
     
 // ==================== LOOT GENERATION ====================
@@ -1428,13 +1880,40 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         return trident;
     }
 
+ // ── Apple creation ────────────────────────────────────────────────────────
+
     private ItemStack createSummonerApple() {
-        ItemStack apple = new ItemStack(Material.GOLDEN_APPLE);
+        return createSummonerApple("random");
+    }
+
+    private ItemStack createSummonerApple(String type) {
+        switch (type.toLowerCase()) {
+            case "common":    return createAppleOfType(
+                Material.APPLE,
+                "items.summoner-apple-common",
+                SUMMONER_APPLE_COMMON_KEY);
+            case "rare":      return createAppleOfType(
+                Material.GOLDEN_APPLE,
+                "items.summoner-apple-rare",
+                SUMMONER_APPLE_RARE_KEY);
+            case "legendary": return createAppleOfType(
+                Material.ENCHANTED_GOLDEN_APPLE,
+                "items.summoner-apple-legendary",
+                SUMMONER_APPLE_LEGENDARY_KEY);
+            default:          return createAppleOfType(
+                Material.GOLDEN_APPLE,
+                "items.summoner-apple-random",
+                SUMMONER_APPLE_KEY);
+        }
+    }
+
+    private ItemStack createAppleOfType(Material material, String langPath, NamespacedKey key) {
+        ItemStack apple = new ItemStack(material);
         ItemMeta meta = apple.getItemMeta();
         if (meta != null) {
-            meta.setDisplayName(getMessage("items.summoner-apple.name"));
-            meta.setLore(getLoreList("items.summoner-apple.lore"));
-            meta.getPersistentDataContainer().set(SUMMONER_APPLE_KEY, PersistentDataType.STRING, "true");
+            meta.setDisplayName(getMessage(langPath + ".name"));
+            meta.setLore(getLoreList(langPath + ".lore"));
+            meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "true");
             apple.setItemMeta(meta);
         }
         return apple;
@@ -1448,6 +1927,7 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
             Player player = event.getPlayer();
             playerStats.getStats(player.getUniqueId(), player.getName());
         }
+        bossBarManager.addPlayer(event.getPlayer());
     }
     
     @EventHandler
@@ -1455,41 +1935,121 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         if (isStatsEnabled()) {
             playerStats.saveStats(event.getPlayer().getUniqueId());
         }
+        bossBarManager.removePlayer(event.getPlayer());
+    }
+    
+    @EventHandler
+    public void onItemPickup(org.bukkit.event.entity.EntityPickupItemEvent event) {
+        if (!(event.getEntity() instanceof Player)) return;
+
+        org.bukkit.entity.Item item = event.getItem();
+        if (!trackedWorldApples.contains(item.getUniqueId())) return;
+
+        if (!item.getItemStack().hasItemMeta()) return;
+        if (!item.getItemStack().getItemMeta()
+                .getPersistentDataContainer()
+                .has(WORLD_APPLE_KEY, PersistentDataType.STRING)) return;
+
+        trackedWorldApples.remove(item.getUniqueId());
+    }
+
+    // ↓↓↓ ДОБАВИТЬ ЭТИ ДВА HANDLER ↓↓↓
+
+    @EventHandler(ignoreCancelled = true)
+    public void onBlockBreakInZone(BlockBreakEvent event) {
+        if (!getConfig().getBoolean("chest-protection-zone.enabled", true)) return;
+
+        // Ops can always break blocks
+        if (event.getPlayer().isOp()) return;
+
+        if (zoneManager.isInsideZone(event.getBlock().getLocation())) {
+            event.setCancelled(true);
+            if (getConfig().getBoolean("chest-protection-zone.notify-players", true)) {
+                event.getPlayer().sendMessage(
+                    getMessage("broadcasts.zone-break-blocked"));
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onBlockPlaceInZone(org.bukkit.event.block.BlockPlaceEvent event) {
+        if (!getConfig().getBoolean("chest-protection-zone.enabled", true)) return;
+
+        // Ops can always place blocks
+        if (event.getPlayer().isOp()) return;
+
+        if (zoneManager.isInsideZone(event.getBlock().getLocation())) {
+            event.setCancelled(true);
+            if (getConfig().getBoolean("chest-protection-zone.notify-players", true)) {
+                event.getPlayer().sendMessage(
+                    getMessage("broadcasts.zone-place-blocked"));
+            }
+        }
     }
     
     @EventHandler
     public void onPlayerEat(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
-        
-        // Summoner Apple
+
+        // Determine which apple type was eaten
+        String appleType = null;
+        ChestTier forcedTier = null;
+
         if (hasCustomKey(item, SUMMONER_APPLE_KEY)) {
-            event.setCancelled(true);
-            
-            // Remove one apple
-            if (item.getAmount() > 1) {
-                item.setAmount(item.getAmount() - 1);
-            } else {
-                player.getInventory().setItemInMainHand(null);
-            }
-            
-            // Spawn chest without resetting timer
-            broadcastMessage("broadcasts.apple-used", "%player%", player.getName());
-            
-            if (isStatsEnabled()) {
-                playerStats.incrementApplesUsed(player.getUniqueId(), player.getName());
-            }
-            
-            // Effects
-            if (isSoundsEnabled()) {
-                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_BURP, 1.0f, 1.0f);
-            }
-            if (isParticlesEnabled()) {
-                player.getWorld().spawnParticle(Particle.TOTEM, player.getLocation().add(0, 1, 0), 30, 0.5, 0.5, 0.5, 0.1);
-            }
-            
-            // Spawn chest in player's world
+            appleType = "random";
+        } else if (hasCustomKey(item, SUMMONER_APPLE_COMMON_KEY)) {
+            appleType = "common";
+            forcedTier = ChestTier.COMMON;
+        } else if (hasCustomKey(item, SUMMONER_APPLE_RARE_KEY)) {
+            appleType = "rare";
+            forcedTier = ChestTier.RARE;
+        } else if (hasCustomKey(item, SUMMONER_APPLE_LEGENDARY_KEY)) {
+            appleType = "legendary";
+            forcedTier = ChestTier.LEGENDARY;
+        }
+
+        if (appleType == null) return;
+
+        // Check if this apple type is enabled
+        if (!getConfig().getBoolean("summoner-apple." + appleType + ".enabled", true)) return;
+
+        event.setCancelled(true);
+
+        // Consume one apple
+        if (item.getAmount() > 1) {
+            item.setAmount(item.getAmount() - 1);
+        } else {
+            player.getInventory().setItemInMainHand(null);
+        }
+
+        // Broadcast
+        broadcastMessage("broadcasts.apple-used-" + appleType,
+            "%player%", player.getName());
+
+        // Statistics
+        if (isStatsEnabled()) {
+            playerStats.incrementApplesUsed(player.getUniqueId(), player.getName());
+        }
+
+        // Effects
+        if (isSoundsEnabled()) {
+            player.getWorld().playSound(
+                player.getLocation(), Sound.ENTITY_PLAYER_BURP, 1.0f, 1.0f);
+        }
+        if (isParticlesEnabled()) {
+            player.getWorld().spawnParticle(
+                Particle.TOTEM,
+                player.getLocation().add(0, 1, 0),
+                30, 0.5, 0.5, 0.5, 0.1);
+        }
+
+        // Spawn chest — forced tier or random
+        final ChestTier tier = forcedTier;
+        if (tier == null) {
             spawnChest(false, player.getWorld());
+        } else {
+            spawnChestOfTier(false, player.getWorld(), tier);
         }
     }
     
@@ -1556,7 +2116,7 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
             setCooldown(axeCooldown, playerId);
             
             if (isParticlesEnabled()) {
-                target.getWorld().spawnParticle(Particle.BLOCK_CRACK, target.getLocation(), 8, 0.3, 0.3, 0.3, 0.1, Material.STONE.createBlockData());
+            	target.getWorld().spawnParticle(Particle.CRIT, target.getLocation(), 8, 0.3, 0.3, 0.3, 0.1);
             }
             if (isSoundsEnabled()) {
                 target.getWorld().playSound(target.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.8f, 1.0f);
@@ -1900,29 +2460,70 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         if (!(event.getInventory().getHolder() instanceof Chest)) return;
         if (!(event.getPlayer() instanceof Player)) return;
 
-        Player player = (Player) event.getPlayer();
-        Chest chest = (Chest) event.getInventory().getHolder();
+        Player player   = (Player) event.getPlayer();
+        Chest chest     = (Chest) event.getInventory().getHolder();
         Location chestLoc = chest.getLocation();
-        String chestKey = chestLoc.getBlockX() + "," + chestLoc.getBlockY() + "," + chestLoc.getBlockZ();
+        String chestKey = chestLoc.getBlockX() + ","
+                        + chestLoc.getBlockY() + ","
+                        + chestLoc.getBlockZ();
 
         ActiveChest activeChest = activeChests.get(chestKey);
-        if (activeChest != null && !activeChest.opened) {
-            activeChest.opened = true;
-            
-            sendMessage(player, "chest.first-opener");
-            
-            // Update statistics
-            if (isStatsEnabled()) {
-                playerStats.incrementChestsOpened(player.getUniqueId(), player.getName(), activeChest.tier.configKey);
-                
-                // Check for legendary items in chest
-                for (ItemStack item : event.getInventory().getContents()) {
-                    if (item != null && isLegendaryItem(item)) {
-                        playerStats.incrementLegendaryFound(player.getUniqueId(), player.getName());
+
+        if (activeChest != null) {
+
+            // Block opening if still locked (pre-open timer not done)
+            if (activeChest.locked) {
+                event.setCancelled(true);
+                if (activeChest.activating) {
+                    int duration   = getConfig().getInt("pre-open-timer.duration-seconds", 30);
+                    long remaining = activeChest.getRemainingSeconds(duration);
+                    player.sendMessage(getMessage("chest.already-activating",
+                        "%seconds%", String.valueOf(remaining)));
+                } else {
+                    player.sendMessage(getMessage("chest.locked"));
+                }
+                return;
+            }
+
+            if (!activeChest.opened) {
+                activeChest.opened = true;
+                activeChest.openTime = System.currentTimeMillis();
+
+                sendMessage(player, "chest.first-opener");
+
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    if (p.hasPermission("spawnchest.notify.spawn")) {
+                        p.sendMessage(getMessage("broadcasts.chest-opened-by",
+                            "%player%", player.getName(),
+                            "%tier%",   getTierName(activeChest.tier)));
                     }
                 }
-                
-                checkAchievements(player);
+
+                // Remove protection zone — chest is now open
+                zoneManager.removeZone(activeChest.chestKey, activeChest.location);
+
+                // Statistics
+                if (isStatsEnabled()) {
+                    playerStats.incrementChestsOpened(
+                        player.getUniqueId(), player.getName(),
+                        activeChest.tier.configKey);
+
+                    for (ItemStack item : event.getInventory().getContents()) {
+                        if (item != null && isLegendaryItem(item)) {
+                            playerStats.incrementLegendaryFound(
+                                player.getUniqueId(), player.getName());
+                        }
+                    }
+
+                    checkAchievements(player);
+                }
+
+            } else {
+                // Chest already opened by someone else
+                player.sendMessage(getMessage("chest.already-opened",
+                    "%player%", activeChest.activatedByName.isEmpty()
+                        ? getMessage("system.player-unknown")
+                        : activeChest.activatedByName));
             }
         }
     }
@@ -1930,10 +2531,66 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+
+        // ── Pre-open timer: right-click on locked chest ────────────────────────
+        if (event.getAction() == org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK
+                && event.getClickedBlock() != null
+                && event.getClickedBlock().getType() == Material.CHEST
+                && getConfig().getBoolean("pre-open-timer.enabled", true)) {
+
+            Location clickedLoc = event.getClickedBlock().getLocation();
+            String clickedKey   = clickedLoc.getBlockX() + ","
+                                + clickedLoc.getBlockY() + ","
+                                + clickedLoc.getBlockZ();
+
+            ActiveChest activeChest = activeChests.get(clickedKey);
+
+            if (activeChest != null && activeChest.locked) {
+                event.setCancelled(true); // prevent opening
+
+                if (activeChest.activating) {
+                    // Countdown already running — just inform the player
+                    int duration = getConfig().getInt("pre-open-timer.duration-seconds", 30);
+                    long remaining = activeChest.getRemainingSeconds(duration);
+                    player.sendMessage(getMessage("chest.already-activating",
+                        "%seconds%", String.valueOf(remaining)));
+                } else {
+                    // First click — start the countdown
+                    activeChest.activating          = true;
+                    activeChest.activationStartTime = System.currentTimeMillis();
+                    activeChest.activatedByName     = player.getName();
+
+                    getLogger().info(getMessage("system.pre-open-timer-started",
+                        "%x%",      String.valueOf(clickedLoc.getBlockX()),
+                        "%y%",      String.valueOf(clickedLoc.getBlockY()),
+                        "%z%",      String.valueOf(clickedLoc.getBlockZ()),
+                        "%player%", player.getName()));
+
+                    // Announce to all players
+                    int duration = getConfig().getInt("pre-open-timer.duration-seconds", 30);
+                    double notifyRadius = getConfig().getDouble("pre-open-timer.notify-radius", 200.0);
+                    Location chestLocation = activeChest.location;
+
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        if (!p.hasPermission("spawnchest.notify.spawn")) continue;
+                        // Активацию видят все — это важное событие
+                        p.sendMessage(getMessage("broadcasts.chest-activating",
+                            "%player%",  player.getName(),
+                            "%seconds%", String.valueOf(duration)));
+                    }
+
+                    // Start countdown task
+                    new PreOpenTimerTask(activeChest).runTaskTimer(
+                        this, 20L, 20L); // starts after 1s, fires every second
+                }
+                return;
+            }
+        }
+
+        // ── Wisdom Book ────────────────────────────────────────────────────────
         ItemStack item = event.getItem();
-        
         if (item == null || !item.hasItemMeta()) return;
-        
+
         if (hasCustomKey(item, WISDOM_BOOK_KEY) && isItemEnabled("wisdom-book")) {
             if (event.getAction().toString().contains("RIGHT_CLICK")) {
                 event.setCancelled(true);
@@ -2446,34 +3103,40 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
     
     private void broadcastChestSpawn(Location location, ChestTier tier) {
         if (!isFeatureEnabled("features.broadcasts.chest-spawn-announcement")) return;
-        
-        int displayY = location.getBlockY();
+
         String tierName = getTierName(tier);
         String x = String.valueOf(location.getBlockX());
-        String y = String.valueOf(displayY);
+        String y = String.valueOf(location.getBlockY());
         String z = String.valueOf(location.getBlockZ());
-        
-        // Broadcast message
-        broadcastMessage("broadcasts.chest-spawned",
-            "%tier%", tierName,
-            "%x%", x,
-            "%y%", y,
-            "%z%", z);
-        
+
+        String msgCoords = getMessage("broadcasts.chest-spawned",
+            "%tier%", tierName, "%x%", x, "%y%", y, "%z%", z);
+        String msgHidden = getMessage("broadcasts.chest-spawned-no-coords",
+            "%tier%", tierName);
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (!player.hasPermission("spawnchest.notify.spawn")) continue;
+            player.sendMessage(
+                player.hasPermission("spawnchest.notify.coordinates") ? msgCoords : msgHidden);
+        }
+
         if (isFeatureEnabled("features.broadcasts.title-on-spawn")) {
-            String titleText = getMessage("broadcasts.spawn-title");
-            String subtitleText = getMessage("broadcasts.spawn-subtitle",
-                "%x%", x,
-                "%y%", y,
-                "%z%", z);
-            
+            String title          = getMessage("broadcasts.spawn-title");
+            String subtitleCoords = getMessage("broadcasts.spawn-subtitle",
+                "%x%", x, "%y%", y, "%z%", z);
+            String subtitleHidden = getMessage("broadcasts.spawn-subtitle-hidden");
+
             for (Player player : Bukkit.getOnlinePlayers()) {
-                player.sendTitle(titleText, subtitleText, 10, 70, 20);
-                
+                if (!player.hasPermission("spawnchest.notify.spawn")) continue;
+                String sub = player.hasPermission("spawnchest.notify.coordinates")
+                    ? subtitleCoords : subtitleHidden;
+                player.sendTitle(title, sub, 10, 70, 20);
+
                 if (isSoundsEnabled()) {
-                    Sound playerSound = tier == ChestTier.LEGENDARY ? Sound.UI_TOAST_CHALLENGE_COMPLETE :
-                                       tier == ChestTier.RARE ? Sound.ENTITY_PLAYER_LEVELUP : Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
-                    player.playSound(player.getLocation(), playerSound, 1.0f, 1.0f);
+                    Sound sound = tier == ChestTier.LEGENDARY ? Sound.UI_TOAST_CHALLENGE_COMPLETE :
+                                  tier == ChestTier.RARE      ? Sound.ENTITY_PLAYER_LEVELUP
+                                                              : Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
+                    player.playSound(player.getLocation(), sound, 1.0f, 1.0f);
                 }
             }
         }
@@ -2721,43 +3384,55 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         
         // /giveapple
-        if (cmd.getName().equalsIgnoreCase("giveapple")) {
-            if (!sender.hasPermission("spawnchest.giveapple")) {
-                sendMessage(sender, "commands.no-permission");
-                return true;
-            }
-            
-            if (args.length < 1) {
-                sendMessage(sender, "commands.usage-giveapple");
-                return true;
-            }
-            
-            Player target = Bukkit.getPlayer(args[0]);
-            if (target == null) {
-                sendMessage(sender, "commands.player-not-found", "%player%", args[0]);
-                return true;
-            }
-            
-            int amount = 1;
-            if (args.length > 1) {
-                try {
-                    amount = Integer.parseInt(args[1]);
-                } catch (NumberFormatException e) {
-                    sendMessage(sender, "commands.invalid-number");
-                    return true;
-                }
-            }
-            
-            for (int i = 0; i < amount; i++) {
-                target.getInventory().addItem(createSummonerApple());
-            }
-            
-            sendMessage(target, "commands.apple-received", "%amount%", String.valueOf(amount));
-            sendMessage(sender, "commands.apple-given", 
-                "%amount%", String.valueOf(amount), 
-                "%player%", target.getName());
-            return true;
-        }
+    	if (cmd.getName().equalsIgnoreCase("giveapple")) {
+    	    if (!sender.hasPermission("spawnchest.giveapple")) {
+    	        sendMessage(sender, "commands.no-permission");
+    	        return true;
+    	    }
+
+    	    // Usage: /giveapple <random|common|rare|legendary> <player> [amount]
+    	    if (args.length < 2) {
+    	        sendMessage(sender, "commands.usage-giveapple");
+    	        return true;
+    	    }
+
+    	    String appleType = args[0].toLowerCase();
+    	    if (!appleType.equals("random") && !appleType.equals("common")
+    	            && !appleType.equals("rare") && !appleType.equals("legendary")) {
+    	        sendMessage(sender, "commands.apple-unknown-type");
+    	        return true;
+    	    }
+
+    	    Player target = Bukkit.getPlayer(args[1]);
+    	    if (target == null) {
+    	        sendMessage(sender, "commands.player-not-found", "%player%", args[1]);
+    	        return true;
+    	    }
+
+    	    int amount = 1;
+    	    if (args.length > 2) {
+    	        try {
+    	            amount = Integer.parseInt(args[2]);
+    	        } catch (NumberFormatException e) {
+    	            sendMessage(sender, "commands.invalid-number");
+    	            return true;
+    	        }
+    	    }
+
+    	    ItemStack apple = createSummonerApple(appleType);
+    	    apple.setAmount(Math.min(amount, 64));
+    	    target.getInventory().addItem(apple);
+
+    	    String typeName = getMessage("items.summoner-apple-" + appleType + ".name");
+    	    sendMessage(target, "commands.apple-received-typed",
+    	        "%amount%", String.valueOf(amount),
+    	        "%type%", typeName);
+    	    sendMessage(sender, "commands.apple-given-typed",
+    	        "%amount%", String.valueOf(amount),
+    	        "%type%", typeName,
+    	        "%player%", target.getName());
+    	    return true;
+    	}
         
         // /mystats
         if (cmd.getName().equalsIgnoreCase("mystats")) {
@@ -2887,6 +3562,8 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
                     reloadConfig();
                     spawnInterval = getConfig().getLong("settings.spawn-interval-seconds", 600L) * 1000L;
                     langManager.reload();
+                    bossBarManager.stop();
+                    bossBarManager.start();
                     sendMessage(sender, "commands.config-reloaded");
                     break;
                     
@@ -3014,8 +3691,8 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
             }
 
             sendMessage(sender, "commands.searching-location");
-            
-            spawnChest(true, null);
+
+            spawnChestBatch();
             warned.clear();
             lastSecondsWarned.clear();
             sendMessage(sender, "commands.chest-spawned");
@@ -3072,6 +3749,8 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
             reloadConfig();
             langManager.reload();
             spawnInterval = getConfig().getLong("settings.spawn-interval-seconds", 600L) * 1000L;
+            bossBarManager.stop();
+            bossBarManager.start();
             sendMessage(sender, "commands.config-reloaded");
             sendMessage(sender, "commands.language-reloaded",
                 "%code%", langManager.getCurrentLanguage(),
@@ -3175,7 +3854,15 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
             if (isItemEnabled("wisdom-book")) player.getInventory().addItem(createWisdomBook());
             if (isItemEnabled("phoenix-feather")) player.getInventory().addItem(createPhoenixFeather());
             if (isItemEnabled("poseidon-trident")) player.getInventory().addItem(createPoseidonTrident());
-            if (isFeatureEnabled("summoner-apple.enabled")) player.getInventory().addItem(createSummonerApple());
+            if (isFeatureEnabled("summoner-apple.random.enabled"))
+                player.getInventory().addItem(createSummonerApple("random"));
+            if (isFeatureEnabled("summoner-apple.common.enabled"))
+                player.getInventory().addItem(createSummonerApple("common"));
+            if (isFeatureEnabled("summoner-apple.rare.enabled"))
+                player.getInventory().addItem(createSummonerApple("rare"));
+            if (isFeatureEnabled("summoner-apple.legendary.enabled"))
+                player.getInventory().addItem(createSummonerApple("legendary"));
+            
 
             player.getInventory().addItem(new ItemStack(Material.ARROW, 64));
 
@@ -3367,11 +4054,14 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
             }
         } else if (cmd.getName().equalsIgnoreCase("giveapple")) {
             if (args.length == 1) {
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    completions.add(p.getName());
-                }
+                completions.addAll(Arrays.asList("random", "common", "rare", "legendary"));
+            } else if (args.length == 2) {
+                for (Player p : Bukkit.getOnlinePlayers()) completions.add(p.getName());
+            } else if (args.length == 3) {
+                completions.addAll(Arrays.asList("1", "2", "3", "5", "10"));
             }
         }
+        
         
         String input = args.length > 0 ? args[args.length - 1].toLowerCase() : "";
         completions.removeIf(s -> !s.toLowerCase().startsWith(input));
@@ -3390,47 +4080,53 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
             
             // Warnings
             if (isFeatureEnabled("features.broadcasts.countdown-warnings")) {
-                for (long warnTick : warningTimes) {
-                    long warnTime = warnTick * 50L;
-                    if (remainingTime <= warnTime && remainingTime > warnTime - 1000L && !warned.contains(warnTick)) {
-                        int minutes = (int) (warnTick / 1200L);
-                        broadcastMessage("broadcasts.minutes-left", "%minutes%", String.valueOf(minutes));
-                        warned.add(warnTick);
-                    }
-                }
+            	for (long warnTick : warningTimes) {
+            	    long warnTime = warnTick * 50L;
+            	    if (remainingTime <= warnTime && remainingTime > warnTime - 1000L && !warned.contains(warnTick)) {
+            	        int minutes = (int) (warnTick / 1200L);
+            	        String warnMsg = getMessage("broadcasts.minutes-left", "%minutes%", String.valueOf(minutes));
+            	        for (Player p : Bukkit.getOnlinePlayers()) {
+            	            if (p.hasPermission("spawnchest.notify.countdown")) {
+            	                p.sendMessage(warnMsg);
+            	            }
+            	        }
+            	        warned.add(warnTick);
+            	    }
+            	}
                 
                 if (remainingTime <= 60000L && remainingTime > 0L) {
                     int seconds = (int) (remainingTime / 1000L);
                     if (remainingTime % 1000L < 50L && !lastSecondsWarned.contains(seconds)) {
-                        if (seconds <= 10 || seconds == 30 || seconds == 60) {
-                            broadcastMessage("broadcasts.countdown", "%seconds%", String.valueOf(seconds));
-                            
-                            if (isSoundsEnabled()) {
-                                for (Player p : Bukkit.getOnlinePlayers()) {
-                                    p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.5f, 1.0f);
-                                }
-                            }
-                        }
+                    	if (seconds <= 10 || seconds == 30 || seconds == 60) {
+                    	    String cdMsg = getMessage("broadcasts.countdown", "%seconds%", String.valueOf(seconds));
+                    	    for (Player p : Bukkit.getOnlinePlayers()) {
+                    	        if (p.hasPermission("spawnchest.notify.countdown")) {
+                    	            p.sendMessage(cdMsg);
+                    	            if (isSoundsEnabled()) {
+                    	                p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.5f, 1.0f);
+                    	            }
+                    	        }
+                    	    }
+                    	}
                         lastSecondsWarned.add(seconds);
                     }
                 }
             }
             
             if (remainingTime <= 0L) {
-                // Check if spawn is stuck
                 if (spawnInProgress) {
                     long elapsed = System.currentTimeMillis() - spawnStartTime;
                     if (elapsed > 30000) {
                         getLogger().warning(getMessage("system.timer-spawn-reset"));
                         spawnInProgress = false;
                     } else {
-                        return; // Spawn still in progress, wait
+                        return;
                     }
                 }
-                
-                // spawnChest() will set spawnInProgress = true
+
                 lastSpawnTime = System.currentTimeMillis();
-                spawnChest();
+                saveTimer();
+                spawnChestBatch();
                 warned.clear();
                 lastSecondsWarned.clear();
             }
@@ -3548,10 +4244,16 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
                     world.spawnParticle(particle, x, y, z, 1, 0, 0, 0, 0);
                 }
                 
-                // Beacon beam effect
+             // Beacon beam effect
                 if (isFeatureEnabled("features.effects.chest-beacon-beam") && tick % 5 == 0) {
                     for (int y = 0; y < 30; y++) {
-                        world.spawnParticle(Particle.END_ROD, loc.getX(), loc.getY() + y, loc.getZ(), 1, 0.1, 0, 0.1, 0);
+                        try {
+                            world.spawnParticle(Particle.END_ROD,
+                                loc.getX(), loc.getY() + y, loc.getZ(),
+                                1, 0.1, 0.0, 0.1, 0.0f);
+                        } catch (Exception ignored) {
+                            // Particle not supported on this version
+                        }
                     }
                 }
             }
@@ -3563,39 +4265,58 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         public void run() {
             int disappearMinutes = getConfig().getInt("settings.chest-disappear-minutes", 30);
             if (disappearMinutes <= 0) return;
-            
-            long disappearTime = disappearMinutes * 60 * 1000L;
+
+            long disappearMs = disappearMinutes * 60 * 1000L;
             long now = System.currentTimeMillis();
-            
+
             Iterator<Map.Entry<String, ActiveChest>> it = activeChests.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry<String, ActiveChest> entry = it.next();
                 ActiveChest chest = entry.getValue();
-                
-                if (!chest.opened && (now - chest.spawnTime) > disappearTime) {
-                    // Remove chest
+
+                boolean shouldRemove;
+
+                if (!chest.opened) {
+                    // Unopened chest — 30 min from spawnTime
+                    // But if locked (pre-open timer not yet triggered), use spawnTime
+                    // If activating or unlocked but still unopened, still count from spawnTime
+                    shouldRemove = (now - chest.spawnTime) > disappearMs;
+                } else {
+                    // Opened chest — 30 min from openTime (fresh timer after opening)
+                    shouldRemove = chest.openTime > 0
+                        && (now - chest.openTime) > disappearMs;
+                }
+
+                if (shouldRemove) {
                     Block block = chest.location.getBlock();
                     if (block.getType() == Material.CHEST) {
-                        // Clear inventory
                         if (block.getState() instanceof Chest) {
                             ((Chest) block.getState()).getBlockInventory().clear();
                         }
                         block.setType(Material.AIR);
-                        
-                        // Effects
+
                         if (isParticlesEnabled()) {
-                            chest.location.getWorld().spawnParticle(Particle.SMOKE_NORMAL, 
-                                chest.location.clone().add(0.5, 0.5, 0.5), 20, 0.3, 0.3, 0.3, 0.05);
+                            chest.location.getWorld().spawnParticle(Particle.SMOKE_NORMAL,
+                                chest.location.clone().add(0.5, 0.5, 0.5),
+                                20, 0.3, 0.3, 0.3, 0.05);
                         }
                         if (isSoundsEnabled()) {
-                            chest.location.getWorld().playSound(chest.location, 
+                            chest.location.getWorld().playSound(chest.location,
                                 Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 0.5f);
                         }
-                        
-                        // Broadcast
-                        broadcastMessage("broadcasts.chest-disappeared");
+
+                        if (!chest.opened) {
+                            // Only broadcast disappear for unopened chests
+                            String disappearMsg = getMessage("broadcasts.chest-disappeared");
+                            for (Player p : Bukkit.getOnlinePlayers()) {
+                                if (p.hasPermission("spawnchest.notify.disappear")) {
+                                    p.sendMessage(disappearMsg);
+                                }
+                            }
+                        }
                     }
-                    
+
+                    zoneManager.removeZone(chest.chestKey, chest.location);
                     it.remove();
                 }
             }
@@ -3650,4 +4371,122 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         }
     }
     
-} // END OF CLASS
+    private class WorldAppleKeepaliveTask extends BukkitRunnable {
+        @Override
+        public void run() {
+            if (trackedWorldApples.isEmpty()) return;
+
+            trackedWorldApples.removeIf(uuid -> {
+                for (String worldName : getConfig().getStringList("settings.enabled-worlds")) {
+                    World w = Bukkit.getWorld(worldName);
+                    if (w == null) continue;
+
+                    for (org.bukkit.entity.Item item :
+                            w.getEntitiesByClass(org.bukkit.entity.Item.class)) {
+                        if (item.getUniqueId().equals(uuid)) {
+                            // Reset age — items despawn naturally at tick 6000
+                            item.setTicksLived(1);
+                            return false; // still alive, keep tracking
+                        }
+                    }
+                }
+                return true; // entity gone, remove from set
+            });
+        }
+    }
+    
+    /**
+     * Counts down the pre-open timer for a single active chest.
+     *
+     * Fires every second (20 ticks). When the countdown reaches zero:
+     *   - chest.locked is set to false
+     *   - all players are notified
+     *   - BossBar switches back to normal mode
+     *   - chest-disappear countdown begins from this moment
+     *
+     * The task cancels itself when done or if the chest disappears.
+     */
+    private class PreOpenTimerTask extends BukkitRunnable {
+
+        private final ActiveChest chest;
+        private final int         durationSeconds;
+
+        public PreOpenTimerTask(ActiveChest chest) {
+            this.chest           = chest;
+            this.durationSeconds = getConfig().getInt(
+                "pre-open-timer.duration-seconds", 30);
+        }
+
+        @Override
+        public void run() {
+            // Chest was removed (disappeared or plugin disabled)
+            if (!activeChests.containsKey(chest.chestKey)) {
+                cancel();
+                return;
+            }
+
+            long remaining = chest.getRemainingSeconds(durationSeconds);
+
+            // ── Timer expired ──────────────────────────────────────────────────
+            if (remaining <= 0) {
+                chest.locked     = false;
+                chest.activating = false;
+
+
+                getLogger().info(getMessage("system.pre-open-timer-expired",
+                    "%x%", String.valueOf(chest.location.getBlockX()),
+                    "%y%", String.valueOf(chest.location.getBlockY()),
+                    "%z%", String.valueOf(chest.location.getBlockZ())));
+
+                // Notify all players
+                double radius = getConfig().getDouble("pre-open-timer.notify-radius", 20.0);
+                Location chestLoc = chest.location;
+
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    if (!p.hasPermission("spawnchest.notify.spawn")) continue;
+                    if (!p.getWorld().equals(chestLoc.getWorld())) continue;
+
+                    if (p.getLocation().distanceSquared(chestLoc) <= radius * radius) {
+                        p.sendMessage(getMessage("broadcasts.chest-unlocked"));
+                        if (isSoundsEnabled()) {
+                            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 2.0f);
+                        }
+                    }
+                }
+
+                cancel();
+                return;
+            }
+
+            // ── Announce at configured thresholds ──────────────────────────────
+            List<?> thresholds = getConfig().getList(
+                "pre-open-timer.announce-at-seconds", new ArrayList<>());
+
+            boolean shouldAnnounce = false;
+            for (Object t : thresholds) {
+                if (t instanceof Number && ((Number) t).longValue() == remaining) {
+                    shouldAnnounce = true;
+                    break;
+                }
+            }
+
+            if (shouldAnnounce) {
+                double radius = getConfig().getDouble("pre-open-timer.notify-radius", 20.0);
+                Location chestLoc = chest.location;
+
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    if (!p.hasPermission("spawnchest.notify.spawn")) continue;
+                    if (!p.getWorld().equals(chestLoc.getWorld())) continue;
+
+                    // Countdown видят только игроки в радиусе notify-radius блоков
+                    if (p.getLocation().distanceSquared(chestLoc) <= radius * radius) {
+                        p.sendMessage(getMessage("broadcasts.chest-countdown",
+                            "%seconds%", String.valueOf(remaining)));
+                    }
+                }
+            }
+        }
+    }
+
+    } // END OF CLASS
+    

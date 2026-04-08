@@ -31,6 +31,7 @@ public class VersionAdapter {
     private final int majorVersion;
     private final int minorVersion;
     private final ServerType serverType;
+    private final String displayVersion;
     
     // Cached reflection methods
     private Method getChunkAtAsyncMethod;
@@ -55,13 +56,26 @@ public class VersionAdapter {
         String version = Bukkit.getBukkitVersion();
         Pattern pattern = Pattern.compile("(\\d+)\\.(\\d+)");
         Matcher matcher = pattern.matcher(version);
-        
+
         if (matcher.find()) {
-            this.majorVersion = Integer.parseInt(matcher.group(1));
-            this.minorVersion = Integer.parseInt(matcher.group(2));
+            int v1 = Integer.parseInt(matcher.group(1));
+            int v2 = Integer.parseInt(matcher.group(2));
+
+            // New versioning scheme: 26.1, 26.2 etc (year.drop)
+            // Treat as equivalent to 1.21+ for compatibility checks
+            if (v1 >= 26) {
+                this.majorVersion = 1;
+                this.minorVersion = 99; // far above any real minor version
+                this.displayVersion = v1 + "." + v2; // preserve for display
+            } else {
+                this.majorVersion = v1;
+                this.minorVersion = v2;
+                this.displayVersion = null;
+            }
         } else {
             this.majorVersion = 1;
             this.minorVersion = 20;
+            this.displayVersion = null;
         }
         
         // Detect server type
@@ -77,7 +91,7 @@ public class VersionAdapter {
     private void logInitialization() {
         plugin.getLogger().info(lang.getMessage("system.version-adapter-init"));
         plugin.getLogger().info(lang.getMessage("system.version-minecraft",
-            "%version%", majorVersion + "." + minorVersion));
+            "%version%", displayVersion != null ? displayVersion : majorVersion + "." + minorVersion));
         plugin.getLogger().info(lang.getMessage("system.version-server",
             "%type%", serverType.name()));
         plugin.getLogger().info(lang.getMessage("system.version-full",
@@ -88,46 +102,59 @@ public class VersionAdapter {
     
     private ServerType detectServerType() {
         String serverVersion = Bukkit.getVersion().toLowerCase();
-        String serverName = Bukkit.getName().toLowerCase();
-        
-        // Check for Folia first (most specific)
+        String serverName = Bukkit.getName().toLowerCase();  // ← уже есть
+
+        // Check for Folia first
         try {
             Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
             return ServerType.FOLIA;
         } catch (ClassNotFoundException ignored) {}
-        
-        // Check for Pufferfish
+
         if (serverVersion.contains("pufferfish") || serverName.contains("pufferfish")) {
             return ServerType.PUFFERFISH;
         }
-        
-        // Check for Purpur
+
         if (serverVersion.contains("purpur") || serverName.contains("purpur")) {
             return ServerType.PURPUR;
         }
-        
-        // Check for Paper
+
         try {
             Class.forName("com.destroystokyo.paper.PaperConfig");
             return ServerType.PAPER;
         } catch (ClassNotFoundException ignored) {}
-        
+
         try {
             Class.forName("io.papermc.paper.configuration.Configuration");
             return ServerType.PAPER;
         } catch (ClassNotFoundException ignored) {}
-        
-        // Default to Spigot
+
+        try {
+            Class.forName("io.papermc.paper.ServerBuildInfo");
+            return ServerType.PAPER;
+        } catch (ClassNotFoundException ignored) {}
+
+        // Fallback: check server name string
+        if (serverName.contains("paper")) {  // ← используем уже объявленный serverName
+            return ServerType.PAPER;
+        }
+
         return ServerType.SPIGOT;
     }
     
     private void initReflection() {
         // Try to get World.getChunkAtAsync(int, int) for Paper
-        try {
-            getChunkAtAsyncMethod = World.class.getMethod("getChunkAtAsync", int.class, int.class);
-        } catch (NoSuchMethodException e) {
-            // Not available, will use sync
-        }
+    	// Try getChunkAtAsync — signature may differ across versions
+    	try {
+    	    // Paper 1.18+ signature
+    	    getChunkAtAsyncMethod = World.class.getMethod("getChunkAtAsync", int.class, int.class);
+    	} catch (NoSuchMethodException e) {
+    	    try {
+    	        // Alternative signature with boolean
+    	        getChunkAtAsyncMethod = World.class.getMethod("getChunkAtAsync", int.class, int.class, boolean.class);
+    	    } catch (NoSuchMethodException e2) {
+    	        // Will use sync fallback
+    	    }
+    	}
         
         // Try to get Location.getNearbyLivingEntities(double) for newer versions
         try {
@@ -168,7 +195,9 @@ public class VersionAdapter {
     }
     
     public String getVersionDisplay() {
-        return majorVersion + "." + minorVersion + " (" + serverType.name() + ")";
+        String ver = displayVersion != null ? displayVersion
+            : majorVersion + "." + minorVersion;
+        return ver + " (" + serverType.name() + ")";
     }
     
     public boolean isBelow(int major, int minor) {
@@ -202,7 +231,12 @@ public class VersionAdapter {
         // Try Paper async chunk loading
         if (getChunkAtAsyncMethod != null && isPaper() && !isFolia()) {
             try {
-                Object result = getChunkAtAsyncMethod.invoke(world, chunkX, chunkZ);
+            	Object result;
+            	if (getChunkAtAsyncMethod.getParameterCount() == 3) {
+            	    result = getChunkAtAsyncMethod.invoke(world, chunkX, chunkZ, true);
+            	} else {
+            	    result = getChunkAtAsyncMethod.invoke(world, chunkX, chunkZ);
+            	}
                 if (result instanceof CompletableFuture) {
                     ((CompletableFuture<Chunk>) result).thenAccept(callback);
                     return;
