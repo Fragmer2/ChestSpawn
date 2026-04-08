@@ -1,3 +1,176 @@
+# SpawnChestPlugin 4.4
+
+## What's new
+
+### Multi-chest spawning
+Spawn multiple chests per interval simultaneously. Each chest finds its own random location with a configurable delay between spawns to keep the server load even.
+
+```yaml
+settings:
+  chest-count-per-interval: 3   # spawn 3 chests at once
+  chest-spawn-delay-seconds: 5  # 5 seconds between each
+```
+
+### Four summoner apples
+The old generic Summoner Apple is now four distinct items — each forces a specific chest tier or picks one at random. All four can be given via command, configured to drop inside chests independently, and obtained through `/getlegendaryitems`.
+
+| Command | Result |
+|---|---|
+| `/giveapple random <player>` | Spawns a random-tier chest |
+| `/giveapple common <player>` | Always spawns a Common chest |
+| `/giveapple rare <player>` | Always spawns a Rare chest |
+| `/giveapple legendary <player>` | Always spawns a Legendary chest |
+
+### World apple drop
+When enabled, a Summoner Apple spawns as a physical item in the world each time a chest appears. Players see the coordinates in chat and race to pick it up. The item never despawns until collected.
+
+```yaml
+world-apple-drop:
+  enabled: false
+  spawn-method: near-chest   # near-chest | near-player | with-chest
+  radius: 15
+```
+
+### Pre-open timer
+Chests start locked. The first player to right-click starts a countdown visible to everyone nearby. Only after the countdown ends can anyone open the chest — giving distant players a chance to run. The chest-disappear timer begins only after the chest unlocks.
+
+```yaml
+pre-open-timer:
+  enabled: true
+  duration-seconds: 30
+  notify-radius: 20.0   # countdown messages visible within this range
+```
+
+### Chest protection zone
+Blocks around an active chest are protected from breaking and placing. Removed automatically when the chest disappears or is opened. Uses real WorldGuard regions when WorldGuard is installed; falls back to built-in event blocking otherwise.
+
+```yaml
+chest-protection-zone:
+  enabled: true
+  radius: 5   # 11×11 area
+```
+
+### Protection plugin integration
+Chests no longer spawn inside claimed territories. Detected automatically — no extra setup needed beyond having the plugin installed.
+
+**Supported:** WorldGuard · GriefPrevention · GriefDefender · Lands
+
+### Permission-based broadcasts
+All announcements now respect individual permission nodes. On servers where all permissions are denied by default, grant the `spawnchest.notify.*` nodes to the default group.
+
+| Permission | Controls |
+|---|---|
+| `spawnchest.notify.spawn` | Spawn announcement + title |
+| `spawnchest.notify.coordinates` | Coordinates in announcement |
+| `spawnchest.notify.disappear` | Disappear announcement |
+| `spawnchest.notify.countdown` | Countdown warnings |
+| `spawnchest.notify.bossbar` | BossBar visibility |
+
+### Chest lifetime overhaul
+- **Unopened chest** — disappears after `chest-disappear-minutes` from spawn time
+- **Opened chest** — disappears after another full `chest-disappear-minutes` from the moment it was opened
+
+The two timers are independent. Opening a chest gives players the full window to loot it.
+
+### BossBar improvements
+- Pre-open countdown shown in BossBar with configurable color
+- After chest is opened: bar switches to a dimmed "opened · disappears in Xs" state
+- `show-countdown` and `show-active-chest` flags now correctly hide the bar when both are off
+- BossBar re-initialises on `/reloadchestconfig` without a server restart
+
+### Minecraft 26.1 / 26.1.1 support
+Mojang introduced a new versioning scheme in 2026 (year.drop instead of 1.X). The version adapter now handles both formats transparently. No plugin changes needed on the server side — drop in the new jar and go.
+
+---
+
+## Bug fixes
+
+- **Batch spawning** — second and third chests in a batch were blocked by the `spawnInProgress` flag from the previous chest. Replaced fixed delays with a queue that waits for each spawn to finish before starting the next.
+- **Particle errors** — `END_ROD` and `BLOCK_CRACK` particles require explicit `Float` data in 1.21.10+. Fixed with correct types and a try-catch fallback for unsupported versions.
+- **Paper 26.1 detection** — the old `PaperConfig` class was removed in the Paper hard-fork. Added `ServerBuildInfo` and server-name fallback checks.
+- **BossBar visible when disabled** — the bar stayed visible after setting `show-countdown: false`. Bar now hides explicitly when there is nothing to show.
+
+---
+
+## Config changes
+
+New sections added — existing configs are fully backward-compatible. Add the new sections manually or delete `config.yml` to regenerate it.
+
+```yaml
+# New in 4.4
+settings:
+  chest-count-per-interval: 1
+  chest-spawn-delay-seconds: 5
+  spawn-zone:
+    exclude-surfaces:
+      water: true
+      lava: true
+      leaves: true
+      ice: true
+      magma: true
+      cactus: true
+      sand: false
+      gravel: false
+      netherrack: false
+
+pre-open-timer:
+  enabled: true
+  duration-seconds: 30
+  announce-at-seconds: [30, 20, 10, 5, 3, 2, 1]
+  show-in-bossbar: true
+  bossbar-color: PINK
+  notify-radius: 20.0
+
+chest-protection-zone:
+  enabled: true
+  radius: 5
+  use-worldguard: true
+  worldguard-region-prefix: "spawnchest"
+  notify-players: true
+
+protection:
+  enabled: true
+  check-worldguard: true
+  check-grief-prevention: true
+  check-grief-defender: true
+  check-lands: true
+  max-protection-retries: 20
+
+world-apple-drop:
+  enabled: false
+  apple-type: random
+  spawn-method: near-chest
+  radius: 15
+  announce-coordinates: true
+  persist-until-pickup: true
+
+summoner-apple:
+  random:
+    enabled: true
+    drop-in-legendary: true
+    drop-chance: 0.05
+  common:
+    enabled: true
+    drop-in-legendary: false
+  rare:
+    enabled: true
+    drop-in-legendary: false
+  legendary:
+    enabled: true
+    drop-in-legendary: false
+```
+
+---
+
+## Compatibility
+
+| | |
+|---|---|
+| Minecraft | 1.18 – 1.21.x · 26.1 · 26.1.1 |
+| Server software | Spigot · Paper · Purpur · Pufferfish |
+| Protection plugins | WorldGuard · GriefPrevention · GriefDefender · Lands |
+| Java | 17+ |
+
 Changelog
 [4.3] — 2026-04-01
 Added
