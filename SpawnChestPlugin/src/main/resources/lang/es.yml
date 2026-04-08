@@ -1,7 +1,7 @@
 # ============================================
-# SpawnChestPlugin - Archivo de Idioma Español
+# SpawnChestPlugin - Archivo de idioma (Español)
 # Idioma: Español (es)
-# Versión: 4.2 FULL
+# Versión: 4.4 FULL
 # ============================================
 
 # ============================================
@@ -10,457 +10,448 @@
 tiers:
   common:
     name: "§fCofre Común"
-    guardian-name: "§fGuardián del Cofre Común"
+    guardian-name: "§7Guardián Común"
   rare:
-    name: "§9Cofre Raro"
-    guardian-name: "§9Guardián del Cofre Raro"
+    name: "§bCofre Raro"
+    guardian-name: "§bGuardián Raro"
   legendary:
     name: "§6Cofre Legendario"
-    guardian-name: "§6Guardián del Cofre Legendario"
+    guardian-name: "§6Guardián Legendario"
 
 # ============================================
-# MENSAJES DEL SISTEMA (logs e internos)
+# MENSAJES DEL SISTEMA (solo en logs del servidor)
 # ============================================
 system:
-  # Estadísticas
-  stats-saved: "Estadísticas guardadas para %count% jugadores."
-  stats-save-error: "Error al guardar estadísticas para %player%: %error%"
+  chest-batch-start: "[SpawnChest] Generación en lote: %count% cofre(s), %delay%s de diferencia."
+  chest-batch-spawn: "[SpawnChest] Generando cofre %index% de %total%..."
+  chest-location-protected: "[SpawnChest] Ubicación %x%, %z% está protegida, reintentando..."
+  world-apple-no-location: "[SpawnChest] No se pudo encontrar una ubicación válida para la manzana mundial después de %attempts% intentos."
+  world-apple-spawned: "[SpawnChest] Manzana mundial generada en %x%, %y%, %z%"
+  zone-wg-create-error: "[SpawnChest] Error al crear la región de WorldGuard en %x% %y% %z%: %error%"
+  zone-wg-remove-error: "[SpawnChest] Error al eliminar la región de WorldGuard %name%: %error%"
+  pre-open-timer-started: "[SpawnChest] Temporizador de preapertura iniciado en %x% %y% %z% por %player%"
+  pre-open-timer-expired: "[SpawnChest] Temporizador de preapertura expirado en %x% %y% %z%"
+  stats-saved: "[SpawnChest] Estadísticas guardadas para %count% jugadores."
+  stats-save-error: "[SpawnChest] Error al guardar estadísticas para %player%: %error%"
   player-unknown: "Desconocido"
-  
-  # Adaptador de versión
-  version-adapter-init: "VersionAdapter inicializado:"
+  version-adapter-init: "[SpawnChest] VersionAdapter inicializado:"
   version-minecraft: "  - Minecraft: %version%"
   version-server: "  - Servidor: %type%"
   version-full: "  - Versión completa: %version%"
   version-java: "  - Java: %version%"
-  version-chunk-error: "Error al usar carga asíncrona de chunks: %error%"
-  
-  # Aparición de cofres
-  chest-spawn-started: "Generación de cofre en progreso (hace %elapsed%s)"
-  chest-spawn-stuck: "La generación estaba atascada por %seconds%s, reiniciando..."
-  chest-invalid-world: "¡No se encontró un mundo válido para generar el cofre!"
-  chest-spawn-attempt: "Intento %attempt%: probando X=%x% Z=%z% (dist=%dist%)"
-  chest-location-found: "Ubicación del cofre encontrada: X=%x% Y=%y% Z=%z%"
-  chest-ground-level: "Generando cofre en X=%x% Y=%y% Z=%z% (suelo=%ground%)"
-  chest-filled: "Cofre llenado exitosamente en %x%, %y%, %z%"
-  chest-state-error: "No se pudo obtener el estado del Cofre, tipo es: %type%"
-  chest-spawn-error: "Error generando cofre: %error%"
-  chest-spawn-failed-attempts: "No se encontró ubicación después de %attempts% intentos, abandonando"
-  chest-block-not-chest: "El bloque no es un cofre, forzando nuevamente..."
-  chest-highest-solid-not-found: "No se encontró bloque sólido en X=%x% Z=%z%, usando Y=64"
-  
-  # Temporizador
-  timer-loaded: "Tiempo de última generación cargado: %time%"
-  timer-first-run: "Primera ejecución detectada, el cofre aparecerá en 30 segundos"
-  timer-save-error: "Error al guardar temporizador: %error%"
-  timer-load-error: "Error al cargar temporizador: %error%"
-  timer-spawn-reset: "Temporizador: La generación estaba atascada, reiniciando..."
-  
-  # Botín personalizado
-  custom-loot-using: "Usando botín personalizado para cofre %tier%: %count% ítems"
-  custom-loot-no-file: "No se encontró archivo de botín personalizado, usando valores por defecto."
-  custom-loot-loaded: "Configuración de botín personalizado cargada."
-  custom-loot-saved: "Botín personalizado guardado en archivo."
-  custom-loot-load-error: "Error cargando botín personalizado: %error%"
-  custom-loot-save-error: "Error guardando botín personalizado: %error%"
-  
-  # Ciclo de vida del plugin
-  plugin-enabled: "¡SpawnChestPlugin v4.0 FULL activado!"
-  plugin-disabled: "SpawnChestPlugin desactivado."
-  plugin-version-too-old: "¡Este plugin requiere Minecraft 1.18 o superior!"
-  plugin-version-detected: "Versión detectada: %version%"
-  plugin-version-update: "¡Por favor actualice su servidor a MC 1.18+"
+  version-chunk-error: "[SpawnChest] Error al cargar chunk asíncrono: %error%"
+  chest-spawn-started: "[SpawnChest] Generación en progreso (hace %elapsed%s)"
+  chest-spawn-stuck: "[SpawnChest] Generación atascada por %seconds%s, reiniciando..."
+  chest-invalid-world: "[SpawnChest] No se encontró un mundo válido para generar el cofre."
+  chest-spawn-attempt: "[SpawnChest] Intento %attempt%: X=%x% Z=%z% (dist=%dist%)"
+  chest-location-found: "[SpawnChest] Ubicación encontrada: X=%x% Y=%y% Z=%z%"
+  chest-ground-level: "[SpawnChest] Colocando cofre en X=%x% Y=%y% Z=%z% (suelo=%ground%)"
+  chest-filled: "[SpawnChest] Cofre llenado en %x%, %y%, %z%"
+  chest-state-error: "[SpawnChest] No se pudo obtener el estado del cofre: %type%"
+  chest-spawn-error: "[SpawnChest] Error al generar cofre: %error%"
+  chest-spawn-failed-attempts: "[SpawnChest] No se pudo encontrar ubicación después de %attempts% intentos."
+  chest-block-not-chest: "[SpawnChest] El bloque no es un cofre, forzando..."
+  chest-highest-solid-not-found: "[SpawnChest] No hay bloque sólido en X=%x% Z=%z%, usando Y=64"
+  timer-loaded: "[SpawnChest] Temporizador cargado: %time%"
+  timer-first-run: "[SpawnChest] Primera ejecución — el cofre aparecerá en 30 segundos."
+  timer-save-error: "[SpawnChest] Error al guardar el temporizador: %error%"
+  timer-load-error: "[SpawnChest] Error al cargar el temporizador: %error%"
+  timer-spawn-reset: "[SpawnChest] La generación estaba atascada, reiniciando temporizador."
+  custom-loot-using: "[SpawnChest] Botín personalizado para %tier%: %count% objetos"
+  custom-loot-no-file: "[SpawnChest] No hay archivo de botín personalizado, usando valores predeterminados."
+  custom-loot-loaded: "[SpawnChest] Botín personalizado cargado."
+  custom-loot-saved: "[SpawnChest] Botín personalizado guardado."
+  custom-loot-load-error: "[SpawnChest] Error al cargar botín personalizado: %error%"
+  custom-loot-save-error: "[SpawnChest] Error al guardar botín personalizado: %error%"
+  plugin-enabled: "[SpawnChest] SpawnChestPlugin v4.4 habilitado."
+  plugin-disabled: "[SpawnChest] SpawnChestPlugin deshabilitado."
+  plugin-version-too-old: "[SpawnChest] Este plugin requiere Minecraft 1.18 o superior."
+  plugin-version-detected: "[SpawnChest] Versión detectada: %version%"
+  plugin-version-update: "[SpawnChest] Por favor, actualice su servidor a MC 1.18+"
 
 # ============================================
-# ANUNCIOS
+# TRANSMISIONES (enviadas a los jugadores)
 # ============================================
 broadcasts:
-  chest-spawned: "§6🎁 %tier% §aha aparecido en: §eX: %x% Y: %y% Z: %z%"
-  chest-disappeared: "§c💨 ¡Un cofre ha desaparecido! Demasiado tarde..."
-  chest-opened: "§a%player% abrió un %tier%!"
-  legendary-found: "§6§l✨ ¡%player% encontró un ítem LEGENDARIO: %item%! ✨"
-  minutes-left: "§e⏰ ¡%minutes% minuto(s) hasta que aparezca el próximo cofre!"
-  countdown: "§c⚡ ¡%seconds% segundo(s) hasta que aparezca el cofre!"
-  spawn-title: "§6✨ ¡Ha Aparecido un Cofre! ✨"
-  spawn-subtitle: "§eCoordenadas: §fX: %x% Y: %y% Z: %z%"
-  apple-used: "§6🍎 ¡%player% invocó un cofre con la manzana mágica!"
-  resurrection: "§d🪶 ¡%player% fue resucitado por la Pluma Fénix!"
-  achievement-unlocked: "§6%player% desbloqueó el logro: §e%achievement%"
-  achievement-title: "§6§l★ LOGRO DESBLOQUEADO ★"
+  # ── Generación de cofre ────────────────────────────────────────────
+  chest-spawned: "§6✦ §e%tier% §7ha aparecido §8— §fX: %x%  Y: %y%  Z: %z%"
+  chest-spawned-no-coords: "§6✦ §7Un §e%tier% §7ha aparecido en algún lugar del mundo."
+  chest-spawn-batch: "§6✦ §f%count% §echests §7han aparecido por todo el mundo."
+
+  # ── Ciclo de vida del cofre ─────────────────────────────────────────
+  chest-disappeared: "§7✦ Un cofre desapareció — nadie lo reclamó a tiempo."
+  chest-opened: "§7✦ %player% abrió un %tier%."
+
+  # ── Temporizador de preapertura ─────────────────────────────────────────
+  chest-activating: "§6✦ §f%player% §7activó un cofre §8— §eabre en §f%seconds%s"
+  chest-countdown: "§e✦ §7Abre en §f%seconds%s"
+  chest-unlocked: "§6✦ §e¡El cofre ya está abierto!"
+  chest-opened-by: "§6✦ §f%player% §7abrió el §e%tier%§7."
+
+  # ── Título / subtítulo de generación ─────────────────────────────────
+  spawn-title: "§6✦ ¡Ha aparecido un cofre!"
+  spawn-subtitle: "§7Dirígete a §fX: %x%  Y: %y%  Z: %z%"
+  spawn-subtitle-hidden: "§7Explora el mundo para encontrarlo."
+
+  # ── Advertencias de cuenta regresiva ─────────────────────────────────────
+  minutes-left: "§7✦ Siguiente cofre en §e%minutes% minuto(s)§7."
+  countdown: "§6✦ §7El cofre aparece en §f%seconds%s§7."
+
+  # ── Manzanas ─────────────────────────────────────────────────
+  apple-used: "§7✦ %player% invocó un cofre."
+  apple-used-random: "§7✦ %player% §7usó una Manzana Invocadora."
+  apple-used-common: "§7✦ %player% §7invocó un cofre §fComún§7."
+  apple-used-rare: "§7✦ %player% §7invocó un cofre §bRaro§7."
+  apple-used-legendary: "§7✦ %player% §7invocó un cofre §6Legendario§7."
+  world-apple-dropped: "§6✦ §7Una manzana §e%type% §7cayó en §fX: %x%  Y: %y%  Z: %z%§7."
+
+  # ── Legendario ──────────────────────────────────────────────
+  legendary-found: "§6✦ §f%player% §7encontró un objeto legendario §8— §e%item%"
+
+  # ── Resurrección ───────────────────────────────────────────
+  resurrection: "§7✦ %player% fue salvado por la Pluma Fénix."
+
+  # ── Logros ───────────────────────────────────────────
+  achievement-unlocked: "§6✦ §f%player% §7desbloqueó el logro §e%achievement%"
+  achievement-title: "§6Logro desbloqueado"
   achievement-subtitle: "§e%name%"
+
+  # ── Zona de protección ────────────────────────────────────────
+  zone-break-blocked: "§7Esta área está protegida mientras el cofre esté activo."
+  zone-place-blocked: "§7Esta área está protegida mientras el cofre esté activo."
+  zone-created: "[SpawnChest] Zona de protección creada en %x%, %y%, %z%"
+  zone-removed: "[SpawnChest] Zona de protección eliminada en %x%, %y%, %z%"
+
+# ============================================
+# BARRA DE JEFE
+# ============================================
+bossbar:
+  countdown-minutes: "§6✦  §7Siguiente cofre  §8·  §f%minutes%m %seconds%s"
+  countdown-seconds: "§6✦  §7Siguiente cofre  §8·  §e%seconds%s"
+  active-with-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%  §8·  %time%"
+  active-no-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%"
+  time-minutes: "§f%minutes%m %seconds%s"
+  time-seconds: "§e%seconds%s"
 
 # ============================================
 # COMANDOS
 # ============================================
 commands:
-  # Comandos básicos
-  next-chest: "§6⏰ Tiempo hasta el próximo cofre: §e%minutes% min. %seconds% seg."
-  next-chest-now: "§a¡Un cofre está apareciendo ahora!"
-  chest-spawned: "§a✅ ¡Se ha generado un cofre!"
-  chest-spawn-failed: "§cError al generar el cofre. Intente nuevamente."
-  chest-spawn-in-progress: "§eLa generación del cofre ya está en progreso..."
-  timer-set: "§aTemporizador del cofre establecido a §e%seconds% §asegundos (%minutes% min)."
-  timer-invalid: "§c❌ ¡Por favor ingrese un número válido!"
-  config-reloaded: "§a✓ ¡Configuración recargada!"
-  config-value: "§7%path%: §e%value%"
-  config-set: "§a✓ Establecido §e%path% §aa §e%value%"
-  config-invalid-path: "§cRuta de configuración inválida: %path%"
-  feature-enabled: "§a✓ ¡%feature% activado!"
-  feature-disabled: "§c✗ ¡%feature% desactivado!"
-  apple-given: "§aDadas %amount% Manzana(s) Invocadora(s) a %player%"
-  apple-received: "§6🍎 ¡Recibiste %amount% Manzana(s) Invocadora(s) de Cofres!"
-  legendary-items-given: "§a✓ ¡Recibiste todos los ítems legendarios!"
-  no-permission: "§c❌ ¡No tienes permiso para hacer eso!"
-  player-not-found: "§c❌ Jugador no encontrado: %player%"
-  player-only: "§c¡Este comando solo puede ser usado por jugadores!"
-  invalid-usage: "§cUso: %usage%"
-  world-not-found: "§c❌ ¡Mundo no encontrado!"
-  
-  # Mensajes adicionales
-  searching-location: "§eBuscando ubicación para el cofre..."
-  spawn-interval-set: "§aIntervalo de generación establecido a %seconds% segundos."
-  enter-valid-number: "§c¡Ingrese un número válido!"
-  timer-reset: "§a¡Temporizador reiniciado! El cofre aparecerá en 10 segundos."
-  language-reloaded: "§7Idioma: §e%code% §7(%name%)"
-  stats-disabled: "§c¡Las estadísticas están desactivadas!"
-  players-only: "§c¡Solo jugadores!"
-  status-on: "§aACTIVADO"
-  status-off: "§cDESACTIVADO"
-  
-  # Ayuda de configuración
-  config-help-header: "§6=== Comandos ChestConfig ==="
-  config-help-get: "§e/chestconfig get <ruta> §7- Obtener valor de configuración"
-  config-help-set: "§e/chestconfig set <ruta> <valor> §7- Establecer valor de configuración"
-  config-help-toggle: "§e/chestconfig toggle <ruta> §7- Alternar valor booleano"
-  config-help-reload: "§e/chestconfig reload §7- Recargar configuración"
-  config-help-list: "§e/chestconfig list [sección] §7- Listar valores"
-  config-help-examples: "§7Ejemplos:"
-  config-help-example1: "§7  /chestconfig toggle features.guardians.enabled"
-  config-help-example2: "§7  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
-  
-  # Lista de configuración
-  config-list-header: "§6=== Configuración: %section% ==="
-  config-list-master-toggle: "§7Interruptor maestro: §e%value%"
-  
-  # Comando de estadísticas de cofres
-  chest-stats-header: "§6=== Estadísticas de Cofres ==="
-  chest-stats-common-chance: "§7Probabilidad de cofre común: §f%chance%%"
-  chest-stats-rare-chance: "§9Probabilidad de cofre raro: §f%chance%%"
-  chest-stats-legendary-chance: "§6Probabilidad de cofre legendario: §f%chance%%"
-  chest-stats-guardians: "§7Guardianes: %status%"
-  chest-stats-legendary-items: "§7Ítems legendarios: %status%"
-  chest-stats-pvp-protection: "§7Protección PvP: %status%"
-  chest-stats-particles: "§7Partículas: %status%"
-  chest-stats-sounds: "§7Sonidos: %status%"
-  chest-stats-statistics: "§7Estadísticas: %status%"
-  chest-stats-active: "§7Cofres activos: §e%count%"
-  
-  # Comando de zona de prueba
-  test-zone-header: "§eProbando zona de generación de cofres..."
-  test-zone-min-dist: "§7Distancia mínima: %min%, Distancia máxima: %max%"
-  test-zone-bury: "§7Enterrar en el suelo: %value%"
-  test-zone-worlds: "§7Mundos habilitados: %worlds%"
-  test-zone-example: "§7Ejemplo %num%: §fX=%x% Z=%z% §7(distancia: %dist%)"
-  
-  # Comando de alternar legendarios
-  legendary-all-toggled: "§6Todos los ítems legendarios: %status%"
-  legendary-item-toggled: "§6%item%: %status%"
-  legendary-unknown-item: "§cÍtem desconocido: %item%"
-  legendary-available-items: "§7Disponibles: dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
-  
-  # Comando de alternar características
-  features-available-header: "§6Características disponibles:"
-  features-list-guardians: "§e- guardians §7(features.guardians.enabled)"
-  features-list-particles: "§e- particles §7(features.effects.particles)"
-  features-list-sounds: "§e- sounds §7(features.effects.sounds)"
-  features-list-lightning: "§e- lightning §7(features.effects.lightning-on-legendary)"
-  features-list-announcements: "§e- announcements §7(features.broadcasts.chest-spawn-announcement)"
-  features-list-titles: "§e- titles §7(features.broadcasts.title-on-spawn)"
-  features-list-pvp: "§e- pvp-protection §7(abilities.pvp-protection)"
-  features-list-cooldown-msg: "§e- cooldown-messages §7(abilities.show-cooldown-messages)"
-  features-list-activation-msg: "§e- activation-messages §7(abilities.show-activation-messages)"
-  features-list-stats: "§e- statistics §7(statistics.enabled)"
-  features-unknown: "§cCaracterística desconocida: %feature%"
-  
-  # Comando de ítems legendarios
-  legendary-received: "§6✨ ¡Recibiste todos los ítems legendarios habilitados!"
-  legendary-use-cooldowns: "§eUsa §f/cooldowns §epara verificar tiempos de reutilización!"
-  
-  # Mensajes de uso
-  usage-giveapple: "§cUso: /giveapple <jugador> [cantidad]"
-  usage-chestconfig-get: "§cUso: /chestconfig get <ruta>"
-  usage-chestconfig-set: "§cUso: /chestconfig set <ruta> <valor>"
-  usage-setchesttimer: "§cUso: /setchesttimer <segundos>"
-  invalid-number: "§c¡Número inválido!"
+  next-chest: "§7Siguiente cofre en §e%minutes%m %seconds%s§7."
+  next-chest-now: "§7Un cofre está apareciendo ahora."
+  chest-spawned: "§7Cofre generado."
+  chest-spawn-failed: "§7Error al generar cofre — intente de nuevo."
+  chest-spawn-in-progress: "§7Ya se está generando un cofre."
+  timer-set: "§7Intervalo de generación establecido a §e%seconds%s§7."
+  timer-invalid: "§7Introduzca un número válido."
+  config-reloaded: "§7Configuración recargada."
+  config-value: "§7%path%§8: §f%value%"
+  config-set: "§7Establecido §e%path% §8> §f%value%"
+  config-invalid-path: "§7Ruta de configuración desconocida: §e%path%"
+  feature-enabled: "§7%feature% §8> §aactivado"
+  feature-disabled: "§7%feature% §8> §7desactivado"
+  apple-given: "§7Se entregaron §f%amount% §7Manzana(s) Invocadora(s) a §f%player%§7."
+  apple-given-typed: "§7Se entregaron §f%amount% §e%type% §7Manzana(s) a §f%player%§7."
+  apple-received: "§6✦ §7Recibiste §f%amount% §7Manzana(s) Invocadora(s)."
+  apple-received-typed: "§6✦ §7Recibiste §f%amount% §e%type% §7Manzana(s)."
+  apple-unknown-type: "§7Tipo desconocido — usa §erandom§7, §fcommon§7, §brare §7o §6legendary§7."
+  legendary-items-given: "§7Recibiste todos los objetos legendarios."
+  no-permission: "§7No tienes permiso para hacer eso."
+  player-not-found: "§7Jugador no encontrado: §e%player%"
+  player-only: "§7Este comando solo puede ser usado por jugadores."
+  invalid-usage: "§7Uso: §e%usage%"
+  world-not-found: "§7Mundo no encontrado."
+  searching-location: "§7Buscando una ubicación..."
+  spawn-interval-set: "§7Intervalo de generación establecido a §e%seconds%s§7."
+  enter-valid-number: "§7Introduzca un número válido."
+  timer-reset: "§7Temporizador reiniciado — el cofre aparecerá en 10 segundos."
+  language-reloaded: "§7Idioma: §e%code% §8(§f%name%§8)"
+  stats-disabled: "§7Las estadísticas están desactivadas."
+  players-only: "§7Solo jugadores."
+  status-on: "§aactivado"
+  status-off: "§7desactivado"
+  config-help-header: "§8--- §6ChestConfig §8---"
+  config-help-get: "§e/chestconfig get §7<ruta>"
+  config-help-set: "§e/chestconfig set §7<ruta> <valor>"
+  config-help-toggle: "§e/chestconfig toggle §7<ruta>"
+  config-help-reload: "§e/chestconfig reload"
+  config-help-list: "§e/chestconfig list §7[sección]"
+  config-help-examples: "§8Ejemplos:"
+  config-help-example1: "§8  /chestconfig toggle features.guardians.enabled"
+  config-help-example2: "§8  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
+  config-list-header: "§8--- §7Config: §e%section% §8---"
+  config-list-master-toggle: "§7Interruptor principal: §e%value%"
+  chest-stats-header: "§8--- §6Estado de cofres §8---"
+  chest-stats-common-chance: "§7Común  §8·  §f%chance%%%"
+  chest-stats-rare-chance: "§7Raro  §8·  §f%chance%%%"
+  chest-stats-legendary-chance: "§7Legendario  §8·  §f%chance%%%"
+  chest-stats-guardians: "§7Guardianes  §8·  %status%"
+  chest-stats-legendary-items: "§7Objetos legendarios  §8·  %status%"
+  chest-stats-pvp-protection: "§7Protección PvP  §8·  %status%"
+  chest-stats-particles: "§7Partículas  §8·  %status%"
+  chest-stats-sounds: "§7Sonidos  §8·  %status%"
+  chest-stats-statistics: "§7Estadísticas  §8·  %status%"
+  chest-stats-active: "§7Cofres activos  §8·  §e%count%"
+  test-zone-header: "§8--- §7Prueba de zona de generación §8---"
+  test-zone-min-dist: "§7Distancia  §8·  §f%min% §8– §f%max%"
+  test-zone-bury: "§7Enterrar en suelo  §8·  §e%value%"
+  test-zone-worlds: "§7Mundos  §8·  §e%worlds%"
+  test-zone-example: "§7#%num%  §8·  §fX=%x% Z=%z% §8(§7%dist% bloques§8)"
+  legendary-all-toggled: "§7Todos los objetos legendarios: %status%"
+  legendary-item-toggled: "§7%item%: %status%"
+  legendary-unknown-item: "§7Objeto desconocido: §e%item%"
+  legendary-available-items: "§8dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
+  features-available-header: "§8--- §7Características §8---"
+  features-list-guardians: "§e  guardians"
+  features-list-particles: "§e  particles"
+  features-list-sounds: "§e  sounds"
+  features-list-lightning: "§e  lightning"
+  features-list-announcements: "§e  announcements"
+  features-list-titles: "§e  titles"
+  features-list-pvp: "§e  pvp-protection"
+  features-list-cooldown-msg: "§e  cooldown-messages"
+  features-list-activation-msg: "§e  activation-messages"
+  features-list-stats: "§e  statistics"
+  features-unknown: "§7Característica desconocida: §e%feature%"
+  legendary-received: "§7Recibiste todos los objetos legendarios."
+  legendary-use-cooldowns: "§8Usa §e/cooldowns §8para ver los tiempos de reutilización."
+  usage-giveapple: "§7Uso: §e/giveapple <random|common|rare|legendary> <jugador> [cantidad]"
+  usage-chestconfig-get: "§7Uso: §e/chestconfig get <ruta>"
+  usage-chestconfig-set: "§7Uso: §e/chestconfig set <ruta> <valor>"
+  usage-setchesttimer: "§7Uso: §e/setchesttimer <segundos>"
+  invalid-number: "§7Número inválido."
 
 # ============================================
 # ESTADÍSTICAS
 # ============================================
 stats:
-  header: "§6══════ Tus Estadísticas ══════"
-  chests-opened: "§7Cofres abiertos: §e%count%"
-  common-opened: "§7  Comunes: §f%count%"
-  rare-opened: "§7  Raros: §9%count%"
-  legendary-opened: "§7  Legendarios: §6%count%"
-  legendaries-found: "§7Ítems legendarios encontrados: §d%count%"
-  guardians-killed: "§7Guardianes eliminados: §c%count%"
-  apples-used: "§7Manzanas invocadoras usadas: §a%count%"
-  score: "§7Puntuación total: §e%score%"
-  rank: "§7Tu rango: §e#%rank%"
-  footer: "§6═══════════════════════════"
-  leaderboard-header: "§6══════ Top Cazadores de Tesoros ══════"
-  leaderboard-entry: "§e#%rank% §f%player% §7- §a%score% puntos"
-  leaderboard-empty: "§7Aún no hay estadísticas..."
-  leaderboard-footer: "§6══════════════════════════════════"
+  header: "§8--- §6Tus estadísticas §8---"
+  chests-opened: "§7Cofres abiertos  §8·  §e%count%"
+  common-opened: "§8  Comunes  §8·  §f%count%"
+  rare-opened: "§8  Raros  §8·  §f%count%"
+  legendary-opened: "§8  Legendarios  §8·  §f%count%"
+  legendaries-found: "§7Objetos legendarios  §8·  §e%count%"
+  guardians-killed: "§7Guardianes asesinados  §8·  §e%count%"
+  apples-used: "§7Manzanas usadas  §8·  §e%count%"
+  score: "§7Puntuación  §8·  §e%score%"
+  rank: "§7Rango  §8·  §e#%rank%"
+  footer: "§8-------------------"
+  leaderboard-header: "§8--- §6Mejores jugadores §8---"
+  leaderboard-entry: "§8  #%rank%  §f%player%  §8·  §e%score% pts"
+  leaderboard-empty: "§7Aún no hay estadísticas."
+  leaderboard-footer: "§8-------------------"
 
 # ============================================
 # TIEMPOS DE REUTILIZACIÓN
 # ============================================
 cooldowns:
-  header: "§6=== Tiempos de Reutilización de Habilidades ==="
-  ready: "§aListo"
-  seconds-left: "§c%seconds%s"
-  item-entry: "§7%item%: %status%"
-  footer: "§6═══════════════════════════"
-  on-cooldown: "§c⏳ ¡%item% está en reutilización! §e%seconds%s §crestante."
-  cooldown-ready: "§a✓ ¡%item% está listo para usar!"
-  
-  # Mensajes individuales de reutilización (para habilidades)
-  sword-recharging: "§c⚔ ¡Espada recargando! %time%"
-  axe-recharging: "§c🪓 ¡Hacha recargando! %time%"
-  hammer-recharging: "§c⚡ ¡Martillo recargando! %time%"
-  bow-recharging: "§c🏹 ¡Arco recargando! %time%"
-  shovel-recharging: "§c🕳 ¡Pala recargando! %time%"
-  tree-cutting-recharging: "§c🌳 ¡Talar árboles recargando! %time%"
-  trident-recharging: "§c🔱 ¡Tridente recargando! %time%"
-  
-  # Entradas de lista de reutilización (para comando /cooldowns)
-  dragon-slayer: "§6⚔ Espada Matadragones: %status%"
-  titan-axe: "§4🪓 Hacha Titánica: %status%"
-  storm-hammer: "§9⚡ Martillo de Tormenta: %status%"
-  guardian-bow: "§a🏹 Arco del Guardián: %status%"
-  void-shovel: "§5🕳 Pala del Vacío: %status%"
-  master-pickaxe: "§b⛏ Pico Maestro: %status%"
-  tree-cutting: "§4🌳 Tala de árboles: %status%"
-  poseidon-trident: "§b🔱 Tridente de Poseidón: %status%"
+  header: "§8--- §6Tiempos de reutilización §8---"
+  ready: "§alisto"
+  seconds-left: "§e%seconds%s"
+  item-entry: "§7%item%  §8·  %status%"
+  footer: "§8--------------"
+  on-cooldown: "§7%item%  §8·  §erecargando §8— §f%seconds%s"
+  cooldown-ready: "§7%item%  §8·  §alisto"
+  sword-recharging: "§7Espada recargando §8— §e%time%"
+  axe-recharging: "§7Hacha recargando §8— §e%time%"
+  hammer-recharging: "§7Martillo recargando §8— §e%time%"
+  bow-recharging: "§7Arco recargando §8— §e%time%"
+  shovel-recharging: "§7Pala recargando §8— §e%time%"
+  tree-cutting-recharging: "§7Tala de árboles recargando §8— §e%time%"
+  trident-recharging: "§7Tridente recargando §8— §e%time%"
+  dragon-slayer: "§7Matadragones  §8·  %status%"
+  titan-axe: "§7Hacha Titán  §8·  %status%"
+  storm-hammer: "§7Martillo de Tormenta  §8·  %status%"
+  guardian-bow: "§7Arco Guardián  §8·  %status%"
+  void-shovel: "§7Pala del Vacío  §8·  %status%"
+  master-pickaxe: "§7Pico Maestro  §8·  %status%"
+  tree-cutting: "§7Tala de árboles  §8·  %status%"
+  poseidon-trident: "§7Tridente de Poseidón  §8·  %status%"
 
 # ============================================
 # HABILIDADES
 # ============================================
 abilities:
-  # Espada
-  sword-activated: "§c🔥 ¡La Espada Matadragones incendia a tu enemigo!"
-  sword-activated-cooldown: "§6⚔ ¡Espada Matadragones se enciende! Reutilización: %cooldown%s"
-  
-  # Pico
-  pickaxe-smelted: "§6⛏ ¡Minerales fundidos automáticamente!"
-  pickaxe-double: "§e⛏ ¡Doble botín!"
-  
-  # Hacha
-  axe-tree-felled: "§a🪓 ¡Árbol derribado! §7(%blocks% bloques)"
-  axe-tree-felled-cooldown: "§4🪓 ¡Hacha Titánica derriba el árbol! Reutilización: %cooldown%s"
-  axe-combat: "§c🪓 ¡Hacha Titánica golpea con furia!"
-  axe-combat-cooldown: "§4🪓 ¡Hacha Titánica aplasta! Reutilización: %cooldown%s"
-  
-  # Pala
-  shovel-excavate: "§b🪏 ¡Área excavada! §7(%blocks% bloques)"
-  shovel-excavate-full: "§5🕳 ¡Pala del Vacío excavó %blocks% bloques!"
-  
-  # Martillo
-  hammer-lightning: "§e⚡ ¡Martillo de Tormenta invoca un rayo!"
-  hammer-shockwave: "§e⚡ ¡Onda de choque daña enemigos cercanos!"
-  hammer-activated-cooldown: "§9⚡ ¡Martillo de Tormenta truena! Reutilización: %cooldown%s"
-  
-  # Arco
-  bow-double-shot: "§d🏹 ¡Flecha doble disparada!"
-  bow-double-shot-cooldown: "§a🏹 ¡Arco del Guardián: disparo doble! Reutilización: %cooldown%s"
-  bow-homing: "§d🏹 ¡Flecha guiada busca objetivo!"
-  
-  # Libro
-  book-used: "§6📖 ¡La sabiduría antigua encanta tu equipo!"
-  book-enchanted: "§d📚 ¡Libro de la Sabiduría encantó %count% ítems!"
-  book-no-items: "§c📚 ¡No hay ítems adecuados para encantar!"
-  
-  # Pluma Fénix
-  phoenix-resurrect: "§d🪶 ¡La Pluma Fénix te salvó de la muerte!"
-  phoenix-fire-immune: "§6🪶 ¡La Pluma Fénix te protege del fuego!"
-  phoenix-resurrect-message: "§c🔥 ¡La Pluma Fénix te salva de la muerte!"
-  phoenix-resurrect-broadcast: "§6¡%player% fue resucitado por la Pluma Fénix!"
-  
-  # Tridente
-  trident-lightning: "§b🔱 ¡La ira de Poseidón golpea a tu enemigo!"
-  trident-lightning-cooldown: "§b🔱 ¡Poseidón golpea con un rayo! Reutilización: %cooldown%s"
-  trident-rain: "§b🔱 ¡La lluvia gira a tu alrededor..."
+  sword-activated: "§7La hoja prende fuego al objetivo."
+  sword-activated-cooldown: "§7Matadragones §8— §erecargando en §f%cooldown%s"
+  pickaxe-smelted: "§7Mineral fundido."
+  pickaxe-double: "§7Doble caída."
+  axe-tree-felled: "§7Árbol talado §8(§f%blocks% bloques§8)"
+  axe-tree-felled-cooldown: "§7Tala de árboles §8— §erecargando en §f%cooldown%s"
+  axe-combat: "§7Golpe del Hacha Titán."
+  axe-combat-cooldown: "§7Hacha Titán §8— §erecargando en §f%cooldown%s"
+  shovel-excavate: "§7Área limpiada §8(§f%blocks% bloques§8)"
+  shovel-excavate-full: "§7La Pala del Vacío limpió §f%blocks% §7bloques."
+  hammer-lightning: "§7El Martillo de Tormenta invoca un rayo."
+  hammer-shockwave: "§7Onda expansiva golpeó a enemigos cercanos."
+  hammer-activated-cooldown: "§7Martillo de Tormenta §8— §erecargando en §f%cooldown%s"
+  bow-double-shot: "§7Disparo doble."
+  bow-double-shot-cooldown: "§7Arco Guardián §8— §erecargando en §f%cooldown%s"
+  bow-homing: "§7Flecha guiada."
+  book-used: "§7Sabiduría aplicada a tu equipo."
+  book-enchanted: "§7El libro encantó §f%count% §7objetos."
+  book-no-items: "§7No hay objetos adecuados para encantar."
+  phoenix-resurrect: "§7La Pluma Fénix te salvó."
+  phoenix-fire-immune: "§7Inmunidad al fuego activa."
+  phoenix-resurrect-message: "§6✦ §7La Pluma Fénix te salvó de la muerte."
+  phoenix-resurrect-broadcast: "§6✦ §f%player% §7fue salvado por la Pluma Fénix."
+  trident-lightning: "§7Poseidón ataca."
+  trident-lightning-cooldown: "§7Tridente de Poseidón §8— §erecargando en §f%cooldown%s"
+  trident-rain: "§7La lluvia te rodea."
 
 # ============================================
-# ÍTEMS LEGENDARIOS
+# OBJETOS
 # ============================================
 items:
-  summoner-apple:
-    name: "§d🍎 Manzana Invocadora de Cofres"
+  summoner-apple-random:
+    name: "§6Manzana Invocadora"
     lore:
-      - "§7Una manzana mágica infundida con"
-      - "§7la esencia del tesoro."
+      - "§7Invoca un cofre de nivel aleatorio."
       - ""
-      - "§e⚡ ¡Cómela para invocar un cofre!"
-      - "§7(No reinicia el temporizador principal)"
+      - "§8Clic derecho para comer"
+      - "§8No reinicia el temporizador principal"
+
+  summoner-apple-common:
+    name: "§fManzana Invocadora Común"
+    lore:
+      - "§7Invoca un cofre Común."
       - ""
-      - "§dÍtem Especial de Donador"
-  
+      - "§8Clic derecho para comer"
+      - "§8No reinicia el temporizador principal"
+
+  summoner-apple-rare:
+    name: "§bManzana Invocadora Rara"
+    lore:
+      - "§7Invoca un cofre Raro."
+      - ""
+      - "§8Clic derecho para comer"
+      - "§8No reinicia el temporizador principal"
+
+  summoner-apple-legendary:
+    name: "§6Manzana Invocadora Legendaria"
+    lore:
+      - "§7Invoca un cofre Legendario."
+      - ""
+      - "§8Clic derecho para comer"
+      - "§8No reinicia el temporizador principal"
+
   dragon-slayer-sword:
-    name: "§6⚔ Espada Matadragones ⚔"
+    name: "§6Matadragones"
     lore:
-      - "§7Espada legendaria forjada"
-      - "§7del corazón de un dragón."
-      - "§7Arde con llama eterna."
+      - "§7Forjado del corazón de un dragón."
       - ""
-      - "§c+%damage% Daño Extra"
-      - "§e⚡ Enciende a los enemigos"
+      - "§e+%damage% §7de daño adicional"
+      - "§7Prende fuego al objetivo al golpear"
       - "§8Reutilización: %cooldown%s"
-      - ""
-      - "§6Ítem Legendario"
-  
+
   master-pickaxe:
-    name: "§b⛏ Pico Maestro ⛏"
+    name: "§fPico Maestro"
     lore:
-      - "§7Herramienta de un minero legendario,"
-      - "§7capaz de encontrar riquezas"
-      - "§7en cualquier piedra."
+      - "§7La herramienta de un minero legendario."
       - ""
-      - "§e⚡ Funde minerales automáticamente"
-      - "§e⚡ Posibilidad de doble botín"
+      - "§7Fundido automático de minerales"
+      - "§7Probabilidad de doble caída"
       - "§8Reutilización: %cooldown%s"
-      - ""
-      - "§6Ítem Legendario"
-  
+
   titan-axe:
-    name: "§4🪓 Hacha Titánica 🪓"
+    name: "§fHacha Titán"
     lore:
-      - "§7Hacha masiva de los titanes."
-      - "§7Un golpe derriba árboles enteros."
+      - "§7Un solo golpe tala árboles enteros."
       - ""
-      - "§c+%damage% Daño en Combate"
-      - "§e⚡ Derriba árboles enteros"
-      - "§8Reutilización árbol: %tree_cooldown%s"
-      - "§8Reutilización combate: %combat_cooldown%s"
-      - ""
-      - "§6Ítem Legendario"
-  
+      - "§e+%damage% §7de daño de combate"
+      - "§7Tala árboles enteros al cortar"
+      - "§8Reutilización de combate: %combat_cooldown%s"
+      - "§8Reutilización de tala: %tree_cooldown%s"
+
   void-shovel:
-    name: "§5🕳 Pala del Vacío 🕳"
+    name: "§fPala del Vacío"
     lore:
-      - "§7Pala tocada por el vacío."
       - "§7Consume tierra en un área amplia."
       - ""
-      - "§e⚡ Excava área %size%x%size% (SHIFT)"
-      - "§e⚡ Recolecta botín automáticamente"
+      - "§7Excavación de área %size%x%size% §8(mantén Shift)"
+      - "§7Recolecta automáticamente todas las caídas"
       - "§8Reutilización: %cooldown%s"
-      - ""
-      - "§6Ítem Legendario"
-  
+
   storm-hammer:
-    name: "§9⚡ Martillo de Tormenta ⚡"
+    name: "§fMartillo de Tormenta"
     lore:
-      - "§7Martillo de los señores de la tormenta."
-      - "§7Comanda al mismo rayo."
+      - "§7Comanda al mismísimo rayo."
       - ""
-      - "§c+%damage% Daño Extra"
-      - "§e⚡ Invoca rayos"
-      - "§e⚡ Daño por onda expansiva en área"
+      - "§e+%damage% §7de daño adicional"
+      - "§7Golpea con rayo al impactar"
+      - "§7Daño de onda expansiva en área"
       - "§8Reutilización: %cooldown%s"
-      - ""
-      - "§6Ítem Legendario"
-  
+
   guardian-bow:
-    name: "§a🏹 Arco del Guardián 🏹"
+    name: "§fArco Guardián"
     lore:
-      - "§7Arco bendecido por guardianes."
-      - "§7Las flechas buscan sus objetivos."
+      - "§7Flechas que buscan sus objetivos."
       - ""
-      - "§e⚡ Dispara flechas dobles"
-      - "§e⚡ Habilidad de flecha guiada"
+      - "§7Dispara dos flechas por disparo"
+      - "§7Las flechas persiguen a los mobs"
       - "§8Reutilización: %cooldown%s"
-      - ""
-      - "§6Ítem Legendario"
-  
+
   wisdom-book:
-    name: "§d📖 Libro de la Sabiduría Antigua 📖"
+    name: "§fLibro de Sabiduría Ancestral"
     lore:
-      - "§7Contiene el conocimiento"
-      - "§7de civilizaciones antiguas."
+      - "§7Conocimiento de civilizaciones antiguas."
       - ""
-      - "§e⚡ Clic derecho para encantar"
-      - "§e⚡ todo el equipo en el inventario"
-      - "§c⚠ Un solo uso"
-      - ""
-      - "§6Ítem Legendario"
-  
+      - "§7Clic derecho para encantar todo el equipo"
+      - "§8Un solo uso"
+
   phoenix-feather:
-    name: "§c🔥 Pluma Fénix 🔥"
+    name: "§6Pluma Fénix"
     lore:
-      - "§7Pluma del fénix inmortal."
-      - "§7Otorga una segunda oportunidad de vida."
+      - "§7Otorga una segunda oportunidad en la vida."
       - ""
-      - "§e⚡ Auto-resurrección al morir"
-      - "§e⚡ Inmunidad al fuego mientras se sostiene"
+      - "§7Revive automáticamente al recibir daño mortal"
+      - "§7Inmunidad al fuego mientras se sostiene"
       - "§8Reutilización: %cooldown%s"
-      - ""
-      - "§6Ítem Legendario"
-  
+
   poseidon-trident:
-    name: "§b🔱 Tridente de Poseidón 🔱"
+    name: "§bTridente de Poseidón"
     lore:
-      - "§7Arma del dios del mar."
       - "§7Comanda tormentas y mares."
       - ""
-      - "§e⚡ Aura de lluvia (%radius% bloques)"
-      - "§e⚡ Rayo al golpear"
-      - "§b+%damage% Daño de rayo"
+      - "§7Aura de lluvia §8(%radius% bloques)"
+      - "§7Golpe de rayo al impactar §8(+%damage% dmg)"
       - "§8Reutilización: %cooldown%s"
-      - ""
-      - "§6Ítem Legendario"
 
 # ============================================
 # POCIONES PERSONALIZADAS
 # ============================================
 potions:
   strength-3:
-    name: "§c⚔ Poción de Fuerza III"
+    name: "§fPoción de Fuerza III"
     lore:
-      - "§7Fuerza III (2:00)"
-      - "§6Poción Personalizada"
-  
+      - "§7Fuerza III  §8·  §e2:00"
+
   haste-2:
-    name: "§e⛏ Poción de Prisa II"
+    name: "§fPoción de Prisa II"
     lore:
-      - "§7Prisa II (3:00)"
-      - "§6Poción Personalizada"
-  
+      - "§7Prisa II  §8·  §e3:00"
+
   luck-2:
-    name: "§a🍀 Poción de Suerte II"
+    name: "§fPoción de Suerte II"
     lore:
-      - "§7Suerte II (5:00)"
-      - "§6Poción Personalizada"
-  
+      - "§7Suerte II  §8·  §e5:00"
+
   dolphins-grace:
-    name: "§b🐬 Poción de Gracia de Delfín"
+    name: "§fPoción de Gracia de Delfín"
     lore:
-      - "§7Gracia de delfín (3:00)"
-      - "§6Poción Personalizada"
-  
+      - "§7Gracia de Delfín  §8·  §e3:00"
+
   turtle-master:
-    name: "§a🐢 Maestro Tortuga Extendido"
+    name: "§fPoción Extendida de Maestro Tortuga"
     lore:
-      - "§7Lentitud IV (1:00)"
-      - "§7Resistencia III (1:00)"
-      - "§6Poción Personalizada"
-  
+      - "§7Lentitud IV  §8·  §e1:00"
+      - "§7Resistencia III  §8·  §e1:00"
+
   wither-resistance:
-    name: "§8💀 Poción de Resistencia al Wither"
+    name: "§fPoción de Resistencia al Wither"
     lore:
-      - "§7Regeneración II (0:30)"
-      - "§7Resistencia II (1:00)"
-      - "§6Poción Personalizada"
+      - "§7Regeneración II  §8·  §e0:30"
+      - "§7Resistencia II  §8·  §e1:00"
 
 # ============================================
 # LOGROS
@@ -469,172 +460,134 @@ achievements:
   first-chest:
     name: "§ePrimer Hallazgo"
     description: "Abre tu primer cofre"
-    reward-message: "§6¡+50 XP de bonificación!"
-  
+    reward-message: "§8+50 XP"
+
   treasure-hunter:
-    name: "§6Cazador de Tesoros"
+    name: "§eCazatesoros"
     description: "Abre 10 cofres"
-    reward-message: "§6¡+200 XP de bonificación!"
-  
+    reward-message: "§8+200 XP"
+
   chest-master:
-    name: "§cMaestro de Cofres"
+    name: "§6Maestro de Cofres"
     description: "Abre 50 cofres"
-    reward-message: "§6¡+500 XP de bonificación!"
-  
+    reward-message: "§8+500 XP"
+
   legendary-finder:
-    name: "§5Encontrador Legendario"
-    description: "Encuentra un ítem legendario"
-    reward-message: "§6¡+300 XP de bonificación!"
-  
+    name: "§6Buscador de Leyendas"
+    description: "Encuentra un objeto legendario"
+    reward-message: "§8+300 XP"
+
   guardian-slayer:
-    name: "§4Asesino de Guardianes"
+    name: "§6Asesino de Guardianes"
     description: "Mata 25 guardianes de cofres"
-    reward-message: "§6¡+400 XP de bonificación!"
+    reward-message: "§8+400 XP"
 
 # ============================================
-# INTERFAZ GRÁFICA DE BOTÍN PERSONALIZADO
+# GUI DE BOTÍN PERSONALIZADO
 # ============================================
 gui:
-  # Menú principal
-  custom-loot-title: "§6Botín Personalizado de Cofre"
-  edit-common: "§fEditar Botín de Cofre Común"
-  edit-rare: "§9Editar Botín de Cofre Raro"
-  edit-legendary: "§6Editar Botín de Cofre Legendario"
-
+  custom-loot-title: "§8Botín personalizado de cofres"
+  edit-common: "§fCofre Común — Editar botín"
+  edit-rare: "§bCofre Raro — Editar botín"
+  edit-legendary: "§6Cofre Legendario — Editar botín"
   common-chest-name: "§fCofre Común"
-  rare-chest-name: "§9Cofre Raro"
+  rare-chest-name: "§bCofre Raro"
   legendary-chest-name: "§6Cofre Legendario"
-
-  click-to-edit: "§7Haz clic para editar el botín"
-  custom-enabled: "§aBotín personalizado: ACTIVADO"
-  custom-disabled: "§cBotín personalizado: DESACTIVADO"
-  using-default: "§7Usando botín aleatorio por defecto"
-  items-count: "§7Objetos: %count%"
-
-  # Tipo de cofre
-  chest-type-toggle: "§eTipo de Cofre"
-  current-type: "§7Actual: %type%"
-  chest-type-info: "§7Haz clic para alternar entre:"
-  chest-type-single: "§fCofre Simple §7(27 espacios)"
-  chest-type-double: "§bCofre Doble §7(54 espacios)"
-  chest-type-single-desc: "§f  ■ Simple §7- 27 espacios (3 filas)"
-  chest-type-double-desc: "§b  ■ Doble §7- 54 espacios (6 filas)"
-  chest-type-changed: "§aTipo de cofre cambiado a %type%"
-  chest-type-change-error: "§c¡Error al cambiar el tipo de cofre!"
-  chest-type-display: "§7Tipo: %type%"
-
-  # Control de fracción
-  fraction-increase: "§a→ Siguiente Fracción"
+  click-to-edit: "§7Clic para editar"
+  custom-enabled: "§7Botín personalizado §8· §aactivado"
+  custom-disabled: "§7Botín personalizado §8· §7desactivado"
+  using-default: "§8Usando botín predeterminado"
+  items-count: "§7Objetos guardados §8· §e%count%"
+  chest-type-toggle: "§7Tamaño del cofre"
+  current-type: "§8Actual: %type%"
+  chest-type-info: "§8Clic para cambiar"
+  chest-type-single: "§7Individual §8(27 slots)"
+  chest-type-double: "§7Doble §8(54 slots)"
+  chest-type-single-desc: "§8Individual — 27 slots"
+  chest-type-double-desc: "§8Doble — 54 slots"
+  chest-type-changed: "§7Tamaño del cofre cambiado a %type%"
+  chest-type-change-error: "§7Error al cambiar el tamaño del cofre."
+  chest-type-display: "§8Tamaño: %type%"
+  fraction-increase: "§7Más objetos"
   fraction-increase-lore:
-    - "§7Haz clic para aumentar la fracción"
-    - "§7(más objetos por cofre)"
-
-  fraction-decrease: "§c← Fracción Anterior"
+    - "§8Aumentar objetos por cofre"
+  fraction-decrease: "§7Menos objetos"
   fraction-decrease-lore:
-    - "§7Haz clic para disminuir la fracción"
-    - "§7(menos objetos por cofre)"
-
-  current-fraction: "§eTasa de Aparición"
-  fraction-info: "§7Esta cantidad de objetos aparecerá"
-  fraction-changed: "§aFracción cambiada a %fraction%"
-  fraction-change-error: "§c¡Error al cambiar la fracción!"
-  item-fraction-display: "§7Tasa: %fraction%"
-
-  # Nombres de fracción
+    - "§8Disminuir objetos por cofre"
+  current-fraction: "§7Tasa de aparición"
+  fraction-info: "§8Objetos seleccionados por generación de cofre"
+  fraction-changed: "§7Tasa de aparición establecida en %fraction%"
+  fraction-change-error: "§7Error al cambiar la tasa de aparición."
+  item-fraction-display: "§8Tasa: %fraction%"
   fraction:
-    all: "§aTodos los objetos (mezclados)"
-    one-half: "§e1/2 - Mitad de objetos"
-    one-third: "§61/3 - Un tercio"
-    one-fourth: "§c1/4 - Un cuarto"
-    one-fifth: "§91/5 - Un quinto"
-    one-sixth: "§31/6 - Un sexto"
-    one-seventh: "§51/7 - Un séptimo"
-    one-eighth: "§41/8 - Un octavo"
-    one-ninth: "§d1/9 - Un noveno"
-    one-tenth: "§b1/10 - Un décimo"
-
-  # Botones
-  save-button: "§a✓ Guardar y Activar"
+    all: "§7Todos los objetos"
+    one-half: "§71/2 de los objetos"
+    one-third: "§71/3 de los objetos"
+    one-fourth: "§71/4 de los objetos"
+    one-fifth: "§71/5 de los objetos"
+    one-sixth: "§71/6 de los objetos"
+    one-seventh: "§71/7 de los objetos"
+    one-eighth: "§71/8 de los objetos"
+    one-ninth: "§71/9 de los objetos"
+    one-tenth: "§71/10 de los objetos"
+  save-button: "§aGuardar"
   save-lore:
-    - "§7Haz clic para guardar objetos y"
-    - "§7activar el botín personalizado para este nivel"
-
-  reset-button: "§c✗ Restablecer y Desactivar"
+    - "§8Guardar objetos y activar botín personalizado"
+  reset-button: "§7Restablecer"
   reset-lore:
-    - "§7Haz clic para borrar objetos y"
-    - "§7usar el botín aleatorio por defecto"
-
-  back-button: "§7← Atrás"
-
-  # Mensajes
-  saved: "§a✓ ¡Guardados %count% objetos para cofres %tier%!"
-  reset-done: "§c✗ Botín personalizado borrado para cofres %tier%."
-  chest-size-items-dropped: "§e¡%count% objetos no cabían y fueron soltados a tus pies!"
-  
-  # Confirmación de restablecimiento
+    - "§8Limpiar objetos y usar botín predeterminado"
+  back-button: "§7Atrás"
+  saved: "§7Guardados §e%count% §7objetos para §e%tier%§7."
+  reset-done: "§7Botín personalizado limpiado para §e%tier%§7."
+  chest-size-items-dropped: "§7%count% objetos no cabían y fueron soltados."
   reset-confirm-title-common: "Común"
   reset-confirm-title-rare: "Raro"
   reset-confirm-title-legendary: "Legendario"
-  
-  # Primer menú de confirmación
-  reset-first-menu-title: "§6⚠ Confirmación de Restablecimiento: %tier%"
-  reset-first-warning: "§e§l⚠ Primera Advertencia"
+  reset-first-menu-title: "§7Restablecer — %tier%"
+  reset-first-warning: "§eConfirmar restablecimiento"
   reset-first-warning-lore:
-    - "§7Quieres restablecer el nivel §e%tier%"
-    - "§7Objetos actuales: §e%count%"
-    - ""
-    - "§6Los AJUSTES se MANTENDRÁN:"
-    - "§7  • Tipo de cofre (simple/doble)"
-    - "§7  • Fracción de tasa de aparición"
-    - ""
-    - "§c¡Solo se borrarán los objetos!"
-    - "§7Todos los objetos caerán a tus pies"
-  
-  reset-continue: "§e→ Continuar"
-  reset-continue-lore:
-    - "§7Proceder a confirmación final"
-  
-  # Menú de confirmación final
-  reset-final-menu-title: "§4§l⚠ ADVERTENCIA FINAL: %tier%"
-  reset-final-warning: "§c§l⚠ ¡ÚLTIMA OPORTUNIDAD!"
-  reset-final-warning-lore:
-    - "§c§l¡ESTA ES TU ÚLTIMA OPORTUNIDAD!"
-    - ""
     - "§7Nivel: §e%tier%"
-    - "§7Objetos a borrar: §c%count%"
+    - "§7Objetos a eliminar: §e%count%"
     - ""
-    - "§a§lLOS AJUSTES SE MANTENDRÁN"
-    - "§a§lSOLO SE BORRARÁN LOS OBJETOS"
+    - "§8El tamaño del cofre y la tasa de aparición se mantendrán."
+    - "§8Solo se eliminarán los objetos."
+    - "§8Todos los objetos caerán en tu ubicación."
+  reset-continue: "§7Continuar"
+  reset-continue-lore:
+    - "§8Proceder a la confirmación final"
+  reset-final-menu-title: "§cConfirmación final — %tier%"
+  reset-final-warning: "§cÚltima oportunidad"
+  reset-final-warning-lore:
+    - "§7Nivel: §e%tier%"
+    - "§7Objetos a eliminar: §c%count%"
     - ""
-    - "§7Todos los objetos caerán a tus pies"
-  
-  reset-confirm-final: "§c§l✖ CONFIRMAR RESTABLECIMIENTO"
+    - "§8Los ajustes se mantendrán."
+    - "§8Esto no se puede deshacer."
+  reset-confirm-final: "§cConfirmar"
   reset-confirm-final-lore:
-    - "§c§lBORRAR TODOS LOS OBJETOS"
-    - "§7(los ajustes permanecen)"
-    - ""
-    - "§c§lHaz clic para confirmar"
-  
-  reset-cancel: "§a§l✔ Cancelar"
+    - "§8Eliminar todos los objetos permanentemente"
+  reset-cancel: "§7Cancelar"
   reset-cancel-lore:
-    - "§7Volver a editar"
-    - "§7No se cambiará nada"
-  
-  reset-items-dropped: "§e¡%count% objetos fueron soltados a tus pies!"
-  reset-complete: "§a✔ ¡El botín personalizado para %tier% ha sido restablecido!"
+    - "§8Volver — nada cambiará"
+  reset-items-dropped: "§7%count% objetos cayeron en tu ubicación."
+  reset-complete: "§7Botín personalizado para §e%tier% §7ha sido restablecido."
 
 # ============================================
-# INTERACCIÓN CON COFRES
+# INTERACCIÓN CON COFRE
 # ============================================
 chest:
-  first-opener: "§e✨ ¡Eres el primero en abrir este cofre!"
-  guardian-spawned: "§c¡Ha aparecido un guardián!"
-  proximity-hint: "§7Escuchas algo cercano..."
+  first-opener: "§6✦ §7Eres el primero en abrir este cofre."
+  locked: "§7Este cofre está cerrado — haz clic derecho para iniciar la cuenta regresiva."
+  already-activating: "§7Abre en §e%seconds%s§7."
+  already-opened: "§7Este cofre ya fue abierto por §f%player%§7."
+  not-active: "§7Este no es un cofre activo."
+  guardian-spawned: "§7Apareció un guardián."
+  proximity-hint: "§7Hay algo cerca..."
 
 # ============================================
-# VARIOS
+# MISCELÁNEOS
 # ============================================
 misc:
-  chest-opening: "§eAbriendo cofre..."
-  guardian-spawned: "§c¡Ha aparecido un guardián!"
-  proximity-hint: "§7Escuchas algo cercano..."
+  chest-opening: "§7Abriendo..."
+  guardian-spawned: "§7Apareció un guardián."
+  proximity-hint: "§7Hay algo cerca..."

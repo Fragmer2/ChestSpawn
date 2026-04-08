@@ -1,9 +1,15 @@
 name: SpawnChestPlugin
-version: 4.2
+version: 4.4
 main: com.myplugin.SpawnChestPlugin
 api-version: '1.18'
-description: Treasure chest events with legendary items, guardians, achievements. Supports 1.18-1.21+
+description: Treasure chest events with legendary items, guardians, achievements. Supports 1.18-1.21.x and 26.1+
 author: Bohdan Stepantsov
+
+softdepend:
+  - WorldGuard
+  - GriefPrevention
+  - GriefDefender
+  - Lands
 
 commands:
   chestnow:
@@ -16,20 +22,23 @@ commands:
     aliases: [nc]
   setchesttimer:
     description: Set the chest spawn interval
-    permission: spawnchest.admin
+    permission: spawnchest.setchesttimer
+  resettimer:
+    description: Reset the chest spawn timer
+    permission: spawnchest.resettimer
   chestconfig:
     description: View or modify configuration
-    permission: spawnchest.admin
+    permission: spawnchest.config
     aliases: [cc]
   togglelegendary:
     description: Toggle legendary items on/off
-    permission: spawnchest.admin
+    permission: spawnchest.config
   togglefeature:
     description: Toggle features on/off
-    permission: spawnchest.admin
+    permission: spawnchest.config
   reloadchestconfig:
     description: Reload the configuration and language
-    permission: spawnchest.admin
+    permission: spawnchest.reloadchestconfig
   cheststats:
     description: View chest statistics
     permission: spawnchest.admin
@@ -39,14 +48,14 @@ commands:
     aliases: [cd]
   getlegendaryitems:
     description: Get all legendary items
-    permission: spawnchest.admin
+    permission: spawnchest.getlegendaryitems
     aliases: [getlegendary, gli]
   testchestzone:
     description: Test chest spawn zone
-    permission: spawnchest.admin
+    permission: spawnchest.testchestzone
   giveapple:
     description: Give a Summoner Apple
-    permission: spawnchest.admin
+    permission: spawnchest.giveapple
   mystats:
     description: View your statistics
     permission: spawnchest.use
@@ -61,18 +70,100 @@ commands:
     aliases: [customloot, chestloot, editloot]
 
 permissions:
+
+  # ─── Player permissions ─────────────────────────────────────────────────────
   spawnchest.use:
-    description: Basic permissions
+    description: Basic player permissions (nextchest, cooldowns, mystats, leaderboard)
     default: true
+
+  # ─── Admin — master node ────────────────────────────────────────────────────
   spawnchest.admin:
-    description: Admin permissions
+    description: Full admin access — inherits all sub-permissions below
     default: op
+    children:
+      spawnchest.config: true
+      spawnchest.reloadchestconfig: true
+      spawnchest.setchesttimer: true
+      spawnchest.resettimer: true
+      spawnchest.getlegendaryitems: true
+      spawnchest.testchestzone: true
+      spawnchest.giveapple: true
+
+  # ─── Admin sub-permissions ──────────────────────────────────────────────────
+  spawnchest.config:
+    description: Use /chestconfig, /togglelegendary, /togglefeature
+    default: op
+
+  spawnchest.reloadchestconfig:
+    description: Use /reloadchestconfig
+    default: op
+
+  spawnchest.setchesttimer:
+    description: Use /setchesttimer
+    default: op
+
+  spawnchest.resettimer:
+    description: Use /resettimer
+    default: op
+
+  spawnchest.getlegendaryitems:
+    description: Use /getlegendaryitems
+    default: op
+
+  spawnchest.testchestzone:
+    description: Use /testchestzone
+    default: op
+
+  spawnchest.giveapple:
+    description: Use /giveapple
+    default: op
+
+  # ─── Item permissions ────────────────────────────────────────────────────────
   spawnchest.legendary:
-    description: Can receive legendary items
+    description: Can receive and use legendary items from chests
     default: true
+
   spawnchest.apple:
-    description: Can use Summoner Apple
+    description: Can use any Summoner Apple
     default: true
+
   spawnchest.bypass:
-    description: Bypass cooldowns
+    description: Bypass legendary item cooldowns
     default: op
+
+  # ─── Notification permissions ────────────────────────────────────────────────
+  # All default: true — everyone sees announcements on a standard server.
+  # On servers where all permissions are denied by default, grant these
+  # manually to the default group via LuckPerms:
+  #   /lp group default permission set spawnchest.notify.spawn true
+  #   /lp group default permission set spawnchest.notify.coordinates true
+  #   /lp group default permission set spawnchest.notify.disappear true
+  #   /lp group default permission set spawnchest.notify.countdown true
+  #   /lp group default permission set spawnchest.notify.bossbar true
+
+  spawnchest.notify.spawn:
+    description: >
+      Receive chest spawn announcements (chat message + title).
+      Also controls: chest activated, countdown, unlocked, opened-by,
+      world apple drop, batch spawn announcements.
+    default: true
+
+  spawnchest.notify.coordinates:
+    description: >
+      See coordinates inside spawn announcements.
+      Players without this see "A chest appeared somewhere!" instead.
+    default: true
+
+  spawnchest.notify.disappear:
+    description: Receive chest disappear announcements
+    default: true
+
+  spawnchest.notify.countdown:
+    description: Receive countdown warnings before chest spawns
+    default: true
+
+  spawnchest.notify.bossbar:
+    description: >
+      See the BossBar HUD (requires features.bossbar.enabled: true in config).
+      Shows: countdown to next chest, active chest timer, pre-open countdown.
+    default: true

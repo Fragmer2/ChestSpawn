@@ -1,7 +1,7 @@
 # ============================================
-# SpawnChestPlugin - Arquivo de Idioma Português
+# SpawnChestPlugin - Arquivo de idioma (Português)
 # Idioma: Português (pt)
-# Versão: 4.2 FULL
+# Versão: 4.4 FULL
 # ============================================
 
 # ============================================
@@ -10,457 +10,448 @@
 tiers:
   common:
     name: "§fBaú Comum"
-    guardian-name: "§fGuardião do Baú Comum"
+    guardian-name: "§7Guardião Comum"
   rare:
-    name: "§9Baú Raro"
-    guardian-name: "§9Guardião do Baú Raro"
+    name: "§bBaú Raro"
+    guardian-name: "§bGuardião Raro"
   legendary:
     name: "§6Baú Lendário"
-    guardian-name: "§6Guardião do Baú Lendário"
+    guardian-name: "§6Guardião Lendário"
 
 # ============================================
-# MENSAGENS DO SISTEMA (logs e internas)
+# MENSAGENS DO SISTEMA (apenas logs do servidor)
 # ============================================
 system:
-  # Estatísticas
-  stats-saved: "Estatísticas salvas para %count% jogadores."
-  stats-save-error: "Falha ao salvar estatísticas para %player%: %error%"
+  chest-batch-start: "[SpawnChest] Spawn em lote: %count% baú(s), %delay%s de intervalo."
+  chest-batch-spawn: "[SpawnChest] Spawnando baú %index% de %total%..."
+  chest-location-protected: "[SpawnChest] Localização %x%, %z% está protegida, repetindo..."
+  world-apple-no-location: "[SpawnChest] Não foi possível encontrar um local válido para a maçã mundial após %attempts% tentativas."
+  world-apple-spawned: "[SpawnChest] Maçã mundial spawnada em %x%, %y%, %z%"
+  zone-wg-create-error: "[SpawnChest] Falha ao criar região do WorldGuard em %x% %y% %z%: %error%"
+  zone-wg-remove-error: "[SpawnChest] Falha ao remover região do WorldGuard %name%: %error%"
+  pre-open-timer-started: "[SpawnChest] Timer de pré-abertura iniciado em %x% %y% %z% por %player%"
+  pre-open-timer-expired: "[SpawnChest] Timer de pré-abertura expirado em %x% %y% %z%"
+  stats-saved: "[SpawnChest] Estatísticas salvas para %count% jogadores."
+  stats-save-error: "[SpawnChest] Falha ao salvar estatísticas para %player%: %error%"
   player-unknown: "Desconhecido"
-  
-  # Adaptador de versão
-  version-adapter-init: "VersionAdapter inicializado:"
+  version-adapter-init: "[SpawnChest] VersionAdapter inicializado:"
   version-minecraft: "  - Minecraft: %version%"
   version-server: "  - Servidor: %type%"
   version-full: "  - Versão completa: %version%"
   version-java: "  - Java: %version%"
-  version-chunk-error: "Falha ao usar carregamento assíncrono de chunks: %error%"
-  
-  # Spawn de baús
-  chest-spawn-started: "Spawn de baú em andamento (há %elapsed%s)"
-  chest-spawn-stuck: "O spawn estava travado por %seconds%s, reiniciando..."
-  chest-invalid-world: "Nenhum mundo válido encontrado para spawn de baú!"
-  chest-spawn-attempt: "Tentativa %attempt%: testando X=%x% Z=%z% (dist=%dist%)"
-  chest-location-found: "Localização do baú encontrada: X=%x% Y=%y% Z=%z%"
-  chest-ground-level: "Spawnando baú em X=%x% Y=%y% Z=%z% (chão=%ground%)"
-  chest-filled: "Baú preenchido com sucesso em %x%, %y%, %z%"
-  chest-state-error: "Não foi possível obter estado do Baú, tipo é: %type%"
-  chest-spawn-error: "Erro ao spawnar baú: %error%"
-  chest-spawn-failed-attempts: "Falha ao encontrar localização após %attempts% tentativas, desistindo"
-  chest-block-not-chest: "Bloco não é um baú, forçando novamente..."
-  chest-highest-solid-not-found: "Não foi possível encontrar bloco sólido em X=%x% Z=%z%, usando Y=64"
-  
-  # Temporizador
-  timer-loaded: "Último tempo de spawn carregado: %time%"
-  timer-first-run: "Primeira execução detectada, baú aparecerá em 30 segundos"
-  timer-save-error: "Falha ao salvar temporizador: %error%"
-  timer-load-error: "Falha ao carregar temporizador: %error%"
-  timer-spawn-reset: "Temporizador: Spawn estava travado, reiniciando..."
-  
-  # Saque personalizado
-  custom-loot-using: "Usando saque personalizado para baú %tier%: %count% itens"
-  custom-loot-no-file: "Nenhum arquivo de saque personalizado encontrado, usando padrões."
-  custom-loot-loaded: "Configuração de saque personalizado carregada."
-  custom-loot-saved: "Saque personalizado salvo no arquivo."
-  custom-loot-load-error: "Erro ao carregar saque personalizado: %error%"
-  custom-loot-save-error: "Erro ao salvar saque personalizado: %error%"
-  
-  # Ciclo de vida do plugin
-  plugin-enabled: "SpawnChestPlugin v4.0 FULL ativado!"
-  plugin-disabled: "SpawnChestPlugin desativado."
-  plugin-version-too-old: "Este plugin requer Minecraft 1.18 ou superior!"
-  plugin-version-detected: "Versão detectada: %version%"
-  plugin-version-update: "Por favor, atualize seu servidor para MC 1.18+"
+  version-chunk-error: "[SpawnChest] Falha ao carregar chunk assíncrono: %error%"
+  chest-spawn-started: "[SpawnChest] Spawn em andamento (há %elapsed%s)"
+  chest-spawn-stuck: "[SpawnChest] Spawn travado por %seconds%s, reiniciando..."
+  chest-invalid-world: "[SpawnChest] Nenhum mundo válido encontrado para spawn do baú."
+  chest-spawn-attempt: "[SpawnChest] Tentativa %attempt%: X=%x% Z=%z% (dist=%dist%)"
+  chest-location-found: "[SpawnChest] Localização encontrada: X=%x% Y=%y% Z=%z%"
+  chest-ground-level: "[SpawnChest] Colocando baú em X=%x% Y=%y% Z=%z% (chão=%ground%)"
+  chest-filled: "[SpawnChest] Baú preenchido em %x%, %y%, %z%"
+  chest-state-error: "[SpawnChest] Não foi possível obter o estado do baú: %type%"
+  chest-spawn-error: "[SpawnChest] Erro ao spawnar baú: %error%"
+  chest-spawn-failed-attempts: "[SpawnChest] Falha ao encontrar localização após %attempts% tentativas."
+  chest-block-not-chest: "[SpawnChest] Bloco não é um baú, forçando..."
+  chest-highest-solid-not-found: "[SpawnChest] Nenhum bloco sólido em X=%x% Z=%z%, usando Y=64"
+  timer-loaded: "[SpawnChest] Timer carregado: %time%"
+  timer-first-run: "[SpawnChest] Primeira execução — o baú aparecerá em 30 segundos."
+  timer-save-error: "[SpawnChest] Falha ao salvar timer: %error%"
+  timer-load-error: "[SpawnChest] Falha ao carregar timer: %error%"
+  timer-spawn-reset: "[SpawnChest] Spawn estava travado, reiniciando timer."
+  custom-loot-using: "[SpawnChest] Saque personalizado para %tier%: %count% itens"
+  custom-loot-no-file: "[SpawnChest] Nenhum arquivo de saque personalizado, usando padrões."
+  custom-loot-loaded: "[SpawnChest] Saque personalizado carregado."
+  custom-loot-saved: "[SpawnChest] Saque personalizado salvo."
+  custom-loot-load-error: "[SpawnChest] Erro ao carregar saque personalizado: %error%"
+  custom-loot-save-error: "[SpawnChest] Erro ao salvar saque personalizado: %error%"
+  plugin-enabled: "[SpawnChest] SpawnChestPlugin v4.4 ativado."
+  plugin-disabled: "[SpawnChest] SpawnChestPlugin desativado."
+  plugin-version-too-old: "[SpawnChest] Este plugin requer Minecraft 1.18 ou superior."
+  plugin-version-detected: "[SpawnChest] Versão detectada: %version%"
+  plugin-version-update: "[SpawnChest] Por favor, atualize seu servidor para MC 1.18+"
 
 # ============================================
-# BROADCASTS
+# TRANSMISSÕES (enviadas aos jogadores)
 # ============================================
 broadcasts:
-  chest-spawned: "§6🎁 %tier% §aapareceu em: §eX: %x% Y: %y% Z: %z%"
-  chest-disappeared: "§c💨 Um baú desapareceu! Tarde demais..."
-  chest-opened: "§a%player% abriu um %tier%!"
-  legendary-found: "§6§l✨ %player% encontrou um item LENDÁRIO: %item%! ✨"
-  minutes-left: "§e⏰ %minutes% minuto(s) até o próximo baú aparecer!"
-  countdown: "§c⚡ %seconds% segundo(s) até o baú aparecer!"
-  spawn-title: "§6✨ Um Baú Apareceu! ✨"
-  spawn-subtitle: "§eCoordenadas: §fX: %x% Y: %y% Z: %z%"
-  apple-used: "§6🍎 %player% invocou um baú com a maçã mágica!"
-  resurrection: "§d🪶 %player% foi ressuscitado pela Pena de Fênix!"
-  achievement-unlocked: "§6%player% desbloqueou conquista: §e%achievement%"
-  achievement-title: "§6§l★ CONQUISTA DESBLOQUEADA ★"
+  # ── Spawn do baú ────────────────────────────────────────────
+  chest-spawned: "§6✦ §e%tier% §7apareceu §8— §fX: %x%  Y: %y%  Z: %z%"
+  chest-spawned-no-coords: "§6✦ §7Um §e%tier% §7apareceu em algum lugar do mundo."
+  chest-spawn-batch: "§6✦ §f%count% §ebaús §7apareceram pelo mundo."
+
+  # ── Ciclo de vida do baú ─────────────────────────────────────────
+  chest-disappeared: "§7✦ Um baú desapareceu — ninguém o reivindicou a tempo."
+  chest-opened: "§7✦ %player% abriu um %tier%."
+
+  # ── Timer de pré-abertura ─────────────────────────────────────────
+  chest-activating: "§6✦ §f%player% §7ativou um baú §8— §eabre em §f%seconds%s"
+  chest-countdown: "§e✦ §7Abre em §f%seconds%s"
+  chest-unlocked: "§6✦ §eO baú agora está aberto!"
+  chest-opened-by: "§6✦ §f%player% §7abriu o §e%tier%§7."
+
+  # ── Título / subtítulo de spawn ─────────────────────────────────
+  spawn-title: "§6✦ Um Baú Apareceu"
+  spawn-subtitle: "§7Vá para §fX: %x%  Y: %y%  Z: %z%"
+  spawn-subtitle-hidden: "§7Explore o mundo para encontrá-lo."
+
+  # ── Avisos de contagem regressiva ─────────────────────────────────────
+  minutes-left: "§7✦ Próximo baú em §e%minutes% minuto(s)§7."
+  countdown: "§6✦ §7Baú aparece em §f%seconds%s§7."
+
+  # ── Maçãs ─────────────────────────────────────────────────
+  apple-used: "§7✦ %player% invocou um baú."
+  apple-used-random: "§7✦ %player% §7usou uma Maçã Invocadora."
+  apple-used-common: "§7✦ %player% §7invocou um baú §fComum§7."
+  apple-used-rare: "§7✦ %player% §7invocou um baú §bRaro§7."
+  apple-used-legendary: "§7✦ %player% §7invocou um baú §6Lendário§7."
+  world-apple-dropped: "§6✦ §7Uma maçã §e%type% §7caiu em §fX: %x%  Y: %y%  Z: %z%§7."
+
+  # ── Lendário ──────────────────────────────────────────────
+  legendary-found: "§6✦ §f%player% §7encontrou um item lendário §8— §e%item%"
+
+  # ── Ressurreição ───────────────────────────────────────────
+  resurrection: "§7✦ %player% foi salvo pela Pena Fênix."
+
+  # ── Conquistas ───────────────────────────────────────────
+  achievement-unlocked: "§6✦ §f%player% §7desbloqueou a conquista §e%achievement%"
+  achievement-title: "§6Conquista Desbloqueada"
   achievement-subtitle: "§e%name%"
+
+  # ── Zona de proteção ────────────────────────────────────────
+  zone-break-blocked: "§7Esta área está protegida enquanto o baú estiver ativo."
+  zone-place-blocked: "§7Esta área está protegida enquanto o baú estiver ativo."
+  zone-created: "[SpawnChest] Zona de proteção criada em %x%, %y%, %z%"
+  zone-removed: "[SpawnChest] Zona de proteção removida em %x%, %y%, %z%"
+
+# ============================================
+# BARRA DE CHEFE
+# ============================================
+bossbar:
+  countdown-minutes: "§6✦  §7Próximo baú  §8·  §f%minutes%m %seconds%s"
+  countdown-seconds: "§6✦  §7Próximo baú  §8·  §e%seconds%s"
+  active-with-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%  §8·  %time%"
+  active-no-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%"
+  time-minutes: "§f%minutes%m %seconds%s"
+  time-seconds: "§e%seconds%s"
 
 # ============================================
 # COMANDOS
 # ============================================
 commands:
-  # Comandos básicos
-  next-chest: "§6⏰ Tempo até o próximo baú: §e%minutes% min. %seconds% seg."
-  next-chest-now: "§aUm baú está aparecendo agora!"
-  chest-spawned: "§a✅ Um baú foi spawnado!"
-  chest-spawn-failed: "§cFalha ao spawnar baú. Tente novamente."
-  chest-spawn-in-progress: "§eSpawn de baú já está em andamento..."
-  timer-set: "§aTemporizador de baú definido para §e%seconds% §asegundos (%minutes% min)."
-  timer-invalid: "§c❌ Por favor, insira um número válido!"
-  config-reloaded: "§a✓ Configuração recarregada!"
-  config-value: "§7%path%: §e%value%"
-  config-set: "§a✓ Definido §e%path% §apara §e%value%"
-  config-invalid-path: "§cCaminho de configuração inválido: %path%"
-  feature-enabled: "§a✓ %feature% ativado!"
-  feature-disabled: "§c✗ %feature% desativado!"
-  apple-given: "§aDeu %amount% Maçã(s) Invocadora(s) para %player%"
-  apple-received: "§6🍎 Você recebeu %amount% Maçã(s) Invocadora(s) de Baús!"
-  legendary-items-given: "§a✓ Você recebeu todos os itens lendários!"
-  no-permission: "§c❌ Você não tem permissão para fazer isso!"
-  player-not-found: "§c❌ Jogador não encontrado: %player%"
-  player-only: "§cEste comando só pode ser usado por jogadores!"
-  invalid-usage: "§cUso: %usage%"
-  world-not-found: "§c❌ Mundo não encontrado!"
-  
-  # Mensagens adicionais
-  searching-location: "§eProcurando localização para o baú..."
-  spawn-interval-set: "§aIntervalo de spawn definido para %seconds% segundos."
-  enter-valid-number: "§cInsira um número válido!"
-  timer-reset: "§aTemporizador reiniciado! Baú aparecerá em 10 segundos."
-  language-reloaded: "§7Idioma: §e%code% §7(%name%)"
-  stats-disabled: "§cEstatísticas estão desativadas!"
-  players-only: "§cApenas jogadores!"
-  status-on: "§aATIVADO"
-  status-off: "§cDESATIVADO"
-  
-  # Ajuda de configuração
-  config-help-header: "§6=== Comandos ChestConfig ==="
-  config-help-get: "§e/chestconfig get <caminho> §7- Obter valor de configuração"
-  config-help-set: "§e/chestconfig set <caminho> <valor> §7- Definir valor de configuração"
-  config-help-toggle: "§e/chestconfig toggle <caminho> §7- Alternar valor booleano"
-  config-help-reload: "§e/chestconfig reload §7- Recarregar configuração"
-  config-help-list: "§e/chestconfig list [seção] §7- Listar valores"
-  config-help-examples: "§7Exemplos:"
-  config-help-example1: "§7  /chestconfig toggle features.guardians.enabled"
-  config-help-example2: "§7  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
-  
-  # Lista de configuração
-  config-list-header: "§6=== Configuração: %section% ==="
-  config-list-master-toggle: "§7Interruptor mestre: §e%value%"
-  
-  # Comando de estatísticas de baús
-  chest-stats-header: "§6=== Estatísticas de Baús ==="
-  chest-stats-common-chance: "§7Chance de baú comum: §f%chance%%"
-  chest-stats-rare-chance: "§9Chance de baú raro: §f%chance%%"
-  chest-stats-legendary-chance: "§6Chance de baú lendário: §f%chance%%"
-  chest-stats-guardians: "§7Guardiões: %status%"
-  chest-stats-legendary-items: "§7Itens lendários: %status%"
-  chest-stats-pvp-protection: "§7Proteção PvP: %status%"
-  chest-stats-particles: "§7Partículas: %status%"
-  chest-stats-sounds: "§7Sons: %status%"
-  chest-stats-statistics: "§7Estatísticas: %status%"
-  chest-stats-active: "§7Baús ativos: §e%count%"
-  
-  # Comando de zona de teste
-  test-zone-header: "§eTestando zona de spawn de baús..."
-  test-zone-min-dist: "§7Distância mínima: %min%, Distância máxima: %max%"
-  test-zone-bury: "§7Enterrar no chão: %value%"
-  test-zone-worlds: "§7Mundos habilitados: %worlds%"
-  test-zone-example: "§7Exemplo %num%: §fX=%x% Z=%z% §7(distância: %dist%)"
-  
-  # Comando de alternar itens lendários
-  legendary-all-toggled: "§6Todos os itens lendários: %status%"
-  legendary-item-toggled: "§6%item%: %status%"
-  legendary-unknown-item: "§cItem desconhecido: %item%"
-  legendary-available-items: "§7Disponíveis: dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
-  
-  # Comando de alternar recursos
-  features-available-header: "§6Recursos disponíveis:"
-  features-list-guardians: "§e- guardians §7(features.guardians.enabled)"
-  features-list-particles: "§e- particles §7(features.effects.particles)"
-  features-list-sounds: "§e- sounds §7(features.effects.sounds)"
-  features-list-lightning: "§e- lightning §7(features.effects.lightning-on-legendary)"
-  features-list-announcements: "§e- announcements §7(features.broadcasts.chest-spawn-announcement)"
-  features-list-titles: "§e- titles §7(features.broadcasts.title-on-spawn)"
-  features-list-pvp: "§e- pvp-protection §7(abilities.pvp-protection)"
-  features-list-cooldown-msg: "§e- cooldown-messages §7(abilities.show-cooldown-messages)"
-  features-list-activation-msg: "§e- activation-messages §7(abilities.show-activation-messages)"
-  features-list-stats: "§e- statistics §7(statistics.enabled)"
-  features-unknown: "§cRecurso desconhecido: %feature%"
-  
-  # Comando de itens lendários
-  legendary-received: "§6✨ Você recebeu todos os itens lendários habilitados!"
-  legendary-use-cooldowns: "§eUse §f/cooldowns §epara verificar tempos de recarga!"
-  
-  # Mensagens de uso
-  usage-giveapple: "§cUso: /giveapple <jogador> [quantidade]"
-  usage-chestconfig-get: "§cUso: /chestconfig get <caminho>"
-  usage-chestconfig-set: "§cUso: /chestconfig set <caminho> <valor>"
-  usage-setchesttimer: "§cUso: /setchesttimer <segundos>"
-  invalid-number: "§cNúmero inválido!"
+  next-chest: "§7Próximo baú em §e%minutes%m %seconds%s§7."
+  next-chest-now: "§7Um baú está spawnando agora."
+  chest-spawned: "§7Baú spawnado."
+  chest-spawn-failed: "§7Falha ao spawnar baú — tente novamente."
+  chest-spawn-in-progress: "§7Um baú já está spawnando."
+  timer-set: "§7Intervalo de spawn definido para §e%seconds%s§7."
+  timer-invalid: "§7Por favor, insira um número válido."
+  config-reloaded: "§7Configuração recarregada."
+  config-value: "§7%path%§8: §f%value%"
+  config-set: "§7Definido §e%path% §8> §f%value%"
+  config-invalid-path: "§7Caminho de configuração desconhecido: §e%path%"
+  feature-enabled: "§7%feature% §8> §aativado"
+  feature-disabled: "§7%feature% §8> §7desativado"
+  apple-given: "§7Entregue(s) §f%amount% §7Maçã(s) Invocadora(s) para §f%player%§7."
+  apple-given-typed: "§7Entregue(s) §f%amount% §e%type% §7Maçã(s) para §f%player%§7."
+  apple-received: "§6✦ §7Você recebeu §f%amount% §7Maçã(s) Invocadora(s)."
+  apple-received-typed: "§6✦ §7Você recebeu §f%amount% §e%type% §7Maçã(s)."
+  apple-unknown-type: "§7Tipo desconhecido — use §erandom§7, §fcommon§7, §brare §7ou §6legendary§7."
+  legendary-items-given: "§7Você recebeu todos os itens lendários."
+  no-permission: "§7Você não tem permissão para fazer isso."
+  player-not-found: "§7Jogador não encontrado: §e%player%"
+  player-only: "§7Este comando só pode ser usado por jogadores."
+  invalid-usage: "§7Uso: §e%usage%"
+  world-not-found: "§7Mundo não encontrado."
+  searching-location: "§7Procurando uma localização..."
+  spawn-interval-set: "§7Intervalo de spawn definido para §e%seconds%s§7."
+  enter-valid-number: "§7Insira um número válido."
+  timer-reset: "§7Timer reiniciado — o baú aparecerá em 10 segundos."
+  language-reloaded: "§7Idioma: §e%code% §8(§f%name%§8)"
+  stats-disabled: "§7As estatísticas estão desativadas."
+  players-only: "§7Apenas jogadores."
+  status-on: "§aativo"
+  status-off: "§7inativo"
+  config-help-header: "§8--- §6ChestConfig §8---"
+  config-help-get: "§e/chestconfig get §7<caminho>"
+  config-help-set: "§e/chestconfig set §7<caminho> <valor>"
+  config-help-toggle: "§e/chestconfig toggle §7<caminho>"
+  config-help-reload: "§e/chestconfig reload"
+  config-help-list: "§e/chestconfig list §7[seção]"
+  config-help-examples: "§8Exemplos:"
+  config-help-example1: "§8  /chestconfig toggle features.guardians.enabled"
+  config-help-example2: "§8  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
+  config-list-header: "§8--- §7Config: §e%section% §8---"
+  config-list-master-toggle: "§7Interruptor principal: §e%value%"
+  chest-stats-header: "§8--- §6Status dos baús §8---"
+  chest-stats-common-chance: "§7Comum  §8·  §f%chance%%%"
+  chest-stats-rare-chance: "§7Raro  §8·  §f%chance%%%"
+  chest-stats-legendary-chance: "§7Lendário  §8·  §f%chance%%%"
+  chest-stats-guardians: "§7Guardioes  §8·  %status%"
+  chest-stats-legendary-items: "§7Itens lendários  §8·  %status%"
+  chest-stats-pvp-protection: "§7Proteção PvP  §8·  %status%"
+  chest-stats-particles: "§7Partículas  §8·  %status%"
+  chest-stats-sounds: "§7Sons  §8·  %status%"
+  chest-stats-statistics: "§7Estatísticas  §8·  %status%"
+  chest-stats-active: "§7Baús ativos  §8·  §e%count%"
+  test-zone-header: "§8--- §7Teste de zona de spawn §8---"
+  test-zone-min-dist: "§7Distância  §8·  §f%min% §8– §f%max%"
+  test-zone-bury: "§7Enterrar no chão  §8·  §e%value%"
+  test-zone-worlds: "§7Mundos  §8·  §e%worlds%"
+  test-zone-example: "§7#%num%  §8·  §fX=%x% Z=%z% §8(§7%dist% blocos§8)"
+  legendary-all-toggled: "§7Todos os itens lendários: %status%"
+  legendary-item-toggled: "§7%item%: %status%"
+  legendary-unknown-item: "§7Item desconhecido: §e%item%"
+  legendary-available-items: "§8dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
+  features-available-header: "§8--- §7Funcionalidades §8---"
+  features-list-guardians: "§e  guardians"
+  features-list-particles: "§e  particles"
+  features-list-sounds: "§e  sounds"
+  features-list-lightning: "§e  lightning"
+  features-list-announcements: "§e  announcements"
+  features-list-titles: "§e  titles"
+  features-list-pvp: "§e  pvp-protection"
+  features-list-cooldown-msg: "§e  cooldown-messages"
+  features-list-activation-msg: "§e  activation-messages"
+  features-list-stats: "§e  statistics"
+  features-unknown: "§7Funcionalidade desconhecida: §e%feature%"
+  legendary-received: "§7Você recebeu todos os itens lendários."
+  legendary-use-cooldowns: "§8Use §e/cooldowns §8para ver os tempos de recarga."
+  usage-giveapple: "§7Uso: §e/giveapple <random|common|rare|legendary> <jogador> [quantidade]"
+  usage-chestconfig-get: "§7Uso: §e/chestconfig get <caminho>"
+  usage-chestconfig-set: "§7Uso: §e/chestconfig set <caminho> <valor>"
+  usage-setchesttimer: "§7Uso: §e/setchesttimer <segundos>"
+  invalid-number: "§7Número inválido."
 
 # ============================================
 # ESTATÍSTICAS
 # ============================================
 stats:
-  header: "§6══════ Suas Estatísticas ══════"
-  chests-opened: "§7Baús abertos: §e%count%"
-  common-opened: "§7  Comuns: §f%count%"
-  rare-opened: "§7  Raros: §9%count%"
-  legendary-opened: "§7  Lendários: §6%count%"
-  legendaries-found: "§7Itens lendários encontrados: §d%count%"
-  guardians-killed: "§7Guardiões mortos: §c%count%"
-  apples-used: "§7Maçãs invocadoras usadas: §a%count%"
-  score: "§7Pontuação total: §e%score%"
-  rank: "§7Seu ranking: §e#%rank%"
-  footer: "§6═══════════════════════════"
-  leaderboard-header: "§6══════ Top Caçadores de Tesouros ══════"
-  leaderboard-entry: "§e#%rank% §f%player% §7- §a%score% pontos"
-  leaderboard-empty: "§7Ainda não há estatísticas..."
-  leaderboard-footer: "§6══════════════════════════════════"
+  header: "§8--- §6Suas estatísticas §8---"
+  chests-opened: "§7Baús abertos  §8·  §e%count%"
+  common-opened: "§8  Comuns  §8·  §f%count%"
+  rare-opened: "§8  Raros  §8·  §f%count%"
+  legendary-opened: "§8  Lendários  §8·  §f%count%"
+  legendaries-found: "§7Itens lendários  §8·  §e%count%"
+  guardians-killed: "§7Guardioes mortos  §8·  §e%count%"
+  apples-used: "§7Maçãs usadas  §8·  §e%count%"
+  score: "§7Pontuação  §8·  §e%score%"
+  rank: "§7Rank  §8·  §e#%rank%"
+  footer: "§8-------------------"
+  leaderboard-header: "§8--- §6Melhores jogadores §8---"
+  leaderboard-entry: "§8  #%rank%  §f%player%  §8·  §e%score% pts"
+  leaderboard-empty: "§7Ainda não há estatísticas."
+  leaderboard-footer: "§8-------------------"
 
 # ============================================
 # TEMPOS DE RECARGA
 # ============================================
 cooldowns:
-  header: "§6=== Tempos de Recarga de Habilidades ==="
-  ready: "§aPronto"
-  seconds-left: "§c%seconds%s"
-  item-entry: "§7%item%: %status%"
-  footer: "§6═══════════════════════════"
-  on-cooldown: "§c⏳ %item% está em recarga! §e%seconds%s §crestando."
-  cooldown-ready: "§a✓ %item% está pronto para usar!"
-  
-  # Mensagens de recarga individuais (para habilidades)
-  sword-recharging: "§c⚔ Espada recarregando! %time%"
-  axe-recharging: "§c🪓 Machado recarregando! %time%"
-  hammer-recharging: "§c⚡ Martelo recarregando! %time%"
-  bow-recharging: "§c🏹 Arco recarregando! %time%"
-  shovel-recharging: "§c🕳 Pá recarregando! %time%"
-  tree-cutting-recharging: "§c🌳 Corte de árvore recarregando! %time%"
-  trident-recharging: "§c🔱 Tridente recarregando! %time%"
-  
-  # Entradas de lista de recarga (para comando /cooldowns)
-  dragon-slayer: "§6⚔ Espada Matadora de Dragões: %status%"
-  titan-axe: "§4🪓 Machado Titânico: %status%"
-  storm-hammer: "§9⚡ Martelo da Tempestade: %status%"
-  guardian-bow: "§a🏹 Arco do Guardião: %status%"
-  void-shovel: "§5🕳 Pá do Vazio: %status%"
-  master-pickaxe: "§b⛏ Picareta Mestra: %status%"
-  tree-cutting: "§4🌳 Corte de árvore: %status%"
-  poseidon-trident: "§b🔱 Tridente de Poseidon: %status%"
+  header: "§8--- §6Tempos de recarga §8---"
+  ready: "§apronto"
+  seconds-left: "§e%seconds%s"
+  item-entry: "§7%item%  §8·  %status%"
+  footer: "§8--------------"
+  on-cooldown: "§7%item%  §8·  §erecarregando §8— §f%seconds%s"
+  cooldown-ready: "§7%item%  §8·  §apronto"
+  sword-recharging: "§7Espada recarregando §8— §e%time%"
+  axe-recharging: "§7Machado recarregando §8— §e%time%"
+  hammer-recharging: "§7Martelo recarregando §8— §e%time%"
+  bow-recharging: "§7Arco recarregando §8— §e%time%"
+  shovel-recharging: "§7Pá recarregando §8— §e%time%"
+  tree-cutting-recharging: "§7Corte de árvore recarregando §8— §e%time%"
+  trident-recharging: "§7Tridente recarregando §8— §e%time%"
+  dragon-slayer: "§7Mata-Dragões  §8·  %status%"
+  titan-axe: "§7Machado Titã  §8·  %status%"
+  storm-hammer: "§7Martelo da Tempestade  §8·  %status%"
+  guardian-bow: "§7Arco Guardião  §8·  %status%"
+  void-shovel: "§7Pá do Vácuo  §8·  %status%"
+  master-pickaxe: "§7Picareta Mestra  §8·  %status%"
+  tree-cutting: "§7Corte de árvore  §8·  %status%"
+  poseidon-trident: "§7Tridente de Poseidon  §8·  %status%"
 
 # ============================================
 # HABILIDADES
 # ============================================
 abilities:
-  # Espada
-  sword-activated: "§c🔥 Espada Matadora de Dragões incendeia seu inimigo!"
-  sword-activated-cooldown: "§6⚔ Espada Matadora de Dragões inflama! Recarga: %cooldown%s"
-  
-  # Picareta
-  pickaxe-smelted: "§6⛏ Minérios fundidos automaticamente!"
-  pickaxe-double: "§e⛏ Saque duplo!"
-  
-  # Machado
-  axe-tree-felled: "§a🪓 Árvore derrubada! §7(%blocks% blocos)"
-  axe-tree-felled-cooldown: "§4🪓 Machado Titânico derruba a árvore! Recarga: %cooldown%s"
-  axe-combat: "§c🪓 Machado Titânico ataca com fúria!"
-  axe-combat-cooldown: "§4🪓 Machado Titânico esmaga! Recarga: %cooldown%s"
-  
-  # Pá
-  shovel-excavate: "§b🪏 Área escavada! §7(%blocks% blocos)"
-  shovel-excavate-full: "§5🕳 Pá do Vazio cavou %blocks% blocos!"
-  
-  # Martelo
-  hammer-lightning: "§e⚡ Martelo da Tempestade invoca um raio!"
-  hammer-shockwave: "§e⚡ Onda de choque danifica inimigos próximos!"
-  hammer-activated-cooldown: "§9⚡ Martelo da Tempestade troveja! Recarga: %cooldown%s"
-  
-  # Arco
-  bow-double-shot: "§d🏹 Flecha dupla disparada!"
-  bow-double-shot-cooldown: "§a🏹 Arco do Guardião: tiro duplo! Recarga: %cooldown%s"
-  bow-homing: "§d🏹 Flecha guiada busca alvo!"
-  
-  # Livro
-  book-used: "§6📖 Sabedoria antiga encanta seu equipamento!"
-  book-enchanted: "§d📚 Livro da Sabedoria encantou %count% itens!"
-  book-no-items: "§c📚 Nenhum item adequado para encantar!"
-  
-  # Pena de Fênix
-  phoenix-resurrect: "§d🪶 Pena de Fênix salvou você da morte!"
-  phoenix-fire-immune: "§6🪶 Pena de Fênix protege você do fogo!"
-  phoenix-resurrect-message: "§c🔥 Pena de Fênix salva você da morte!"
-  phoenix-resurrect-broadcast: "§6%player% foi ressuscitado pela Pena de Fênix!"
-  
-  # Tridente
-  trident-lightning: "§b🔱 A ira de Poseidon atinge seu inimigo!"
-  trident-lightning-cooldown: "§b🔱 Poseidon ataca com um raio! Recarga: %cooldown%s"
-  trident-rain: "§b🔱 Chuva gira ao seu redor..."
+  sword-activated: "§7A lâmina incendeia o alvo."
+  sword-activated-cooldown: "§7Mata-Dragões §8— §erecarregando em §f%cooldown%s"
+  pickaxe-smelted: "§7Minério fundido."
+  pickaxe-double: "§7Dobro de drop."
+  axe-tree-felled: "§7Árvore derrubada §8(§f%blocks% blocos§8)"
+  axe-tree-felled-cooldown: "§7Corte de árvore §8— §erecarregando em §f%cooldown%s"
+  axe-combat: "§7Golpe do Machado Titã."
+  axe-combat-cooldown: "§7Machado Titã §8— §erecarregando em §f%cooldown%s"
+  shovel-excavate: "§7Área limpa §8(§f%blocks% blocos§8)"
+  shovel-excavate-full: "§7Pá do Vácuo limpou §f%blocks% §7blocos."
+  hammer-lightning: "§7Martelo da Tempestade invoca raio."
+  hammer-shockwave: "§7Onda de choque atingiu inimigos próximos."
+  hammer-activated-cooldown: "§7Martelo da Tempestade §8— §erecarregando em §f%cooldown%s"
+  bow-double-shot: "§7Tiro duplo."
+  bow-double-shot-cooldown: "§7Arco Guardião §8— §erecarregando em §f%cooldown%s"
+  bow-homing: "§7Flecha guiada."
+  book-used: "§7Sabedoria aplicada ao seu equipamento."
+  book-enchanted: "§7O livro encantou §f%count% §7itens."
+  book-no-items: "§7Nenhum item adequado para encantar."
+  phoenix-resurrect: "§7A Pena Fênix salvou você."
+  phoenix-fire-immune: "§7Imunidade ao fogo ativa."
+  phoenix-resurrect-message: "§6✦ §7A Pena Fênix salvou você da morte."
+  phoenix-resurrect-broadcast: "§6✦ §f%player% §7foi salvo pela Pena Fênix."
+  trident-lightning: "§7Poseidon ataca."
+  trident-lightning-cooldown: "§7Tridente de Poseidon §8— §erecarregando em §f%cooldown%s"
+  trident-rain: "§7Chuva ao seu redor."
 
 # ============================================
-# ITENS LENDÁRIOS
+# ITENS
 # ============================================
 items:
-  summoner-apple:
-    name: "§d🍎 Maçã Invocadora de Baús"
+  summoner-apple-random:
+    name: "§6Maçã Invocadora"
     lore:
-      - "§7Uma maçã mágica infundida com"
-      - "§7a essência do tesouro."
+      - "§7Invoca um baú de nível aleatório."
       - ""
-      - "§e⚡ Coma para invocar um baú!"
-      - "§7(Não reinicia o temporizador principal)"
+      - "§8Clique direito para comer"
+      - "§8Não redefine o timer principal"
+
+  summoner-apple-common:
+    name: "§fMaçã Invocadora Comum"
+    lore:
+      - "§7Invoca um baú Comum."
       - ""
-      - "§dItem Especial de Doador"
-  
+      - "§8Clique direito para comer"
+      - "§8Não redefine o timer principal"
+
+  summoner-apple-rare:
+    name: "§bMaçã Invocadora Rara"
+    lore:
+      - "§7Invoca um baú Raro."
+      - ""
+      - "§8Clique direito para comer"
+      - "§8Não redefine o timer principal"
+
+  summoner-apple-legendary:
+    name: "§6Maçã Invocadora Lendária"
+    lore:
+      - "§7Invoca um baú Lendário."
+      - ""
+      - "§8Clique direito para comer"
+      - "§8Não redefine o timer principal"
+
   dragon-slayer-sword:
-    name: "§6⚔ Espada Matadora de Dragões ⚔"
+    name: "§6Mata-Dragões"
     lore:
-      - "§7Espada lendária forjada"
-      - "§7do coração de um dragão."
-      - "§7Arde com chama eterna."
+      - "§7Forjado do coração de um dragão."
       - ""
-      - "§c+%damage% Dano Extra"
-      - "§e⚡ Incendeia inimigos"
+      - "§e+%damage% §7de dano bônus"
+      - "§7Incendeia o alvo ao acertar"
       - "§8Recarga: %cooldown%s"
-      - ""
-      - "§6Item Lendário"
-  
+
   master-pickaxe:
-    name: "§b⛏ Picareta Mestra ⛏"
+    name: "§fPicareta Mestra"
     lore:
-      - "§7Ferramenta de um minerador lendário,"
-      - "§7capaz de encontrar riquezas"
-      - "§7em qualquer pedra."
+      - "§7A ferramenta de um minerador lendário."
       - ""
-      - "§e⚡ Funde minérios automaticamente"
-      - "§e⚡ Chance de saque duplo"
+      - "§7Funde minérios automaticamente"
+      - "§7Chance de dobrar drops"
       - "§8Recarga: %cooldown%s"
-      - ""
-      - "§6Item Lendário"
-  
+
   titan-axe:
-    name: "§4🪓 Machado Titânico 🪓"
+    name: "§fMachado Titã"
     lore:
-      - "§7Machado massivo dos titãs."
       - "§7Um golpe derruba árvores inteiras."
       - ""
-      - "§c+%damage% Dano de Combate"
-      - "§e⚡ Derruba árvores inteiras"
-      - "§8Recarga árvore: %tree_cooldown%s"
-      - "§8Recarga combate: %combat_cooldown%s"
-      - ""
-      - "§6Item Lendário"
-  
+      - "§e+%damage% §7de dano de combate"
+      - "§7Derruba árvores inteiras ao cortar"
+      - "§8Recarga de combate: %combat_cooldown%s"
+      - "§8Recarga de árvore: %tree_cooldown%s"
+
   void-shovel:
-    name: "§5🕳 Pá do Vazio 🕳"
+    name: "§fPá do Vácuo"
     lore:
-      - "§7Pá tocada pelo vazio."
-      - "§7Consome terra em uma ampla área."
+      - "§7Consome terra em uma grande área."
       - ""
-      - "§e⚡ Escava área %size%x%size% (AGACHAR)"
-      - "§e⚡ Coleta saque automaticamente"
+      - "§7Escavação de área %size%x%size% §8(segure Shift)"
+      - "§7Coleta automática de todos os drops"
       - "§8Recarga: %cooldown%s"
-      - ""
-      - "§6Item Lendário"
-  
+
   storm-hammer:
-    name: "§9⚡ Martelo da Tempestade ⚡"
+    name: "§fMartelo da Tempestade"
     lore:
-      - "§7Martelo dos senhores das tempestades."
-      - "§7Comanda o próprio raio."
+      - "§7Comanda o próprio relâmpago."
       - ""
-      - "§c+%damage% Dano Extra"
-      - "§e⚡ Invoca raios"
-      - "§e⚡ Dano por onda de choque em área"
+      - "§e+%damage% §7de dano bônus"
+      - "§7Atinge com raio ao acertar"
+      - "§7Dano de onda de choque em área"
       - "§8Recarga: %cooldown%s"
-      - ""
-      - "§6Item Lendário"
-  
+
   guardian-bow:
-    name: "§a🏹 Arco do Guardião 🏹"
+    name: "§fArco Guardião"
     lore:
-      - "§7Arco abençoado por guardiões."
-      - "§7Flechas buscam seus alvos."
+      - "§7Flechas que buscam seus alvos."
       - ""
-      - "§e⚡ Dispara flechas duplas"
-      - "§e⚡ Habilidade de flecha guiada"
+      - "§7Dispara duas flechas por tiro"
+      - "§7Flechas perseguem mobs"
       - "§8Recarga: %cooldown%s"
-      - ""
-      - "§6Item Lendário"
-  
+
   wisdom-book:
-    name: "§d📖 Livro da Sabedoria Antiga 📖"
+    name: "§fLivro da Sabedoria Antiga"
     lore:
-      - "§7Contém o conhecimento"
-      - "§7das civilizações antigas."
+      - "§7Conhecimento de civilizações antigas."
       - ""
-      - "§e⚡ Clique direito para encantar"
-      - "§e⚡ todo o equipamento no inventário"
-      - "§c⚠ Uso único"
-      - ""
-      - "§6Item Lendário"
-  
+      - "§7Clique direito para encantar todo o equipamento"
+      - "§8Uso único"
+
   phoenix-feather:
-    name: "§c🔥 Pena de Fênix 🔥"
+    name: "§6Pena Fênix"
     lore:
-      - "§7Pena da fênix imortal."
-      - "§7Concede uma segunda chance de vida."
+      - "§7Concede uma segunda chance na vida."
       - ""
-      - "§e⚡ Auto-ressurreição ao morrer"
-      - "§e⚡ Imunidade a fogo enquanto segurada"
+      - "§7Revive automaticamente em dano fatal"
+      - "§7Imunidade ao fogo enquanto segurada"
       - "§8Recarga: %cooldown%s"
-      - ""
-      - "§6Item Lendário"
-  
+
   poseidon-trident:
-    name: "§b🔱 Tridente de Poseidon 🔱"
+    name: "§bTridente de Poseidon"
     lore:
-      - "§7Arma do deus do mar."
       - "§7Comanda tempestades e mares."
       - ""
-      - "§e⚡ Aura de chuva (%radius% blocos)"
-      - "§e⚡ Raio ao acertar"
-      - "§b+%damage% Dano de raio"
+      - "§7Aura de chuva §8(%radius% blocos)"
+      - "§7Raio ao acertar §8(+%damage% de dano)"
       - "§8Recarga: %cooldown%s"
-      - ""
-      - "§6Item Lendário"
 
 # ============================================
 # POÇÕES PERSONALIZADAS
 # ============================================
 potions:
   strength-3:
-    name: "§c⚔ Poção de Força III"
+    name: "§fPoção de Força III"
     lore:
-      - "§7Força III (2:00)"
-      - "§6Poção Personalizada"
-  
+      - "§7Força III  §8·  §e2:00"
+
   haste-2:
-    name: "§e⛏ Poção de Pressa II"
+    name: "§fPoção de Pressa II"
     lore:
-      - "§7Pressa II (3:00)"
-      - "§6Poção Personalizada"
-  
+      - "§7Pressa II  §8·  §e3:00"
+
   luck-2:
-    name: "§a🍀 Poção de Sorte II"
+    name: "§fPoção de Sorte II"
     lore:
-      - "§7Sorte II (5:00)"
-      - "§6Poção Personalizada"
-  
+      - "§7Sorte II  §8·  §e5:00"
+
   dolphins-grace:
-    name: "§b🐬 Poção da Graça do Golfinho"
+    name: "§fPoção da Graça do Golfinho"
     lore:
-      - "§7Graça do golfinho (3:00)"
-      - "§6Poção Personalizada"
-  
+      - "§7Graça do Golfinho  §8·  §e3:00"
+
   turtle-master:
-    name: "§a🐢 Mestre Tartaruga Estendida"
+    name: "§fPoção Estendida do Mestre Tartaruga"
     lore:
-      - "§7Lentidão IV (1:00)"
-      - "§7Resistência III (1:00)"
-      - "§6Poção Personalizada"
-  
+      - "§7Lentidão IV  §8·  §e1:00"
+      - "§7Resistência III  §8·  §e1:00"
+
   wither-resistance:
-    name: "§8💀 Poção de Resistência ao Wither"
+    name: "§fPoção de Resistência ao Wither"
     lore:
-      - "§7Regeneração II (0:30)"
-      - "§7Resistência II (1:00)"
-      - "§6Poção Personalizada"
+      - "§7Regeneração II  §8·  §e0:30"
+      - "§7Resistência II  §8·  §e1:00"
 
 # ============================================
 # CONQUISTAS
@@ -469,172 +460,134 @@ achievements:
   first-chest:
     name: "§ePrimeira Descoberta"
     description: "Abra seu primeiro baú"
-    reward-message: "§6+50 XP de bônus!"
-  
+    reward-message: "§8+50 XP"
+
   treasure-hunter:
-    name: "§6Caçador de Tesouros"
+    name: "§eCaçador de Tesouros"
     description: "Abra 10 baús"
-    reward-message: "§6+200 XP de bônus!"
-  
+    reward-message: "§8+200 XP"
+
   chest-master:
-    name: "§cMestre dos Baús"
+    name: "§6Mestre dos Baús"
     description: "Abra 50 baús"
-    reward-message: "§6+500 XP de bônus!"
-  
+    reward-message: "§8+500 XP"
+
   legendary-finder:
-    name: "§5Descobridor Lendário"
+    name: "§6Buscador de Lendas"
     description: "Encontre um item lendário"
-    reward-message: "§6+300 XP de bônus!"
-  
+    reward-message: "§8+300 XP"
+
   guardian-slayer:
-    name: "§4Exterminador de Guardiões"
-    description: "Mate 25 guardiões de baús"
-    reward-message: "§6+400 XP de bônus!"
+    name: "§6Matador de Guardiões"
+    description: "Mate 25 guardiões de baú"
+    reward-message: "§8+400 XP"
 
 # ============================================
-# INTERFACE DE SAQUE PERSONALIZADO
+# GUI DE SAQUE PERSONALIZADO
 # ============================================
 gui:
-  # Menu principal
-  custom-loot-title: "§6Saque Personalizado de Baú"
-  edit-common: "§fEditar Saque de Baú Comum"
-  edit-rare: "§9Editar Saque de Baú Raro"
-  edit-legendary: "§6Editar Saque de Baú Lendário"
-
+  custom-loot-title: "§8Saque Personalizado de Baús"
+  edit-common: "§fBaú Comum — Editar Saque"
+  edit-rare: "§bBaú Raro — Editar Saque"
+  edit-legendary: "§6Baú Lendário — Editar Saque"
   common-chest-name: "§fBaú Comum"
-  rare-chest-name: "§9Baú Raro"
+  rare-chest-name: "§bBaú Raro"
   legendary-chest-name: "§6Baú Lendário"
-
-  click-to-edit: "§7Clique para editar saque"
-  custom-enabled: "§aSaque personalizado: ATIVADO"
-  custom-disabled: "§cSaque personalizado: DESATIVADO"
-  using-default: "§7Usando saque aleatório padrão"
-  items-count: "§7Itens: %count%"
-
-  # Tipo de baú
-  chest-type-toggle: "§eTipo de Baú"
-  current-type: "§7Atual: %type%"
-  chest-type-info: "§7Clique para alternar entre:"
-  chest-type-single: "§fBaú Simples §7(27 slots)"
-  chest-type-double: "§bBaú Duplo §7(54 slots)"
-  chest-type-single-desc: "§f  ■ Simples §7- 27 slots (3 fileiras)"
-  chest-type-double-desc: "§b  ■ Duplo §7- 54 slots (6 fileiras)"
-  chest-type-changed: "§aTipo de baú alterado para %type%"
-  chest-type-change-error: "§cFalha ao alterar tipo de baú!"
-  chest-type-display: "§7Tipo: %type%"
-
-  # Controle de fração
-  fraction-increase: "§a→ Próxima Fração"
+  click-to-edit: "§7Clique para editar"
+  custom-enabled: "§7Saque personalizado §8· §aativado"
+  custom-disabled: "§7Saque personalizado §8· §7desativado"
+  using-default: "§8Usando saque padrão"
+  items-count: "§7Itens salvos §8· §e%count%"
+  chest-type-toggle: "§7Tamanho do Baú"
+  current-type: "§8Atual: %type%"
+  chest-type-info: "§8Clique para alternar"
+  chest-type-single: "§7Simples §8(27 slots)"
+  chest-type-double: "§7Duplo §8(54 slots)"
+  chest-type-single-desc: "§8Simples — 27 slots"
+  chest-type-double-desc: "§8Duplo — 54 slots"
+  chest-type-changed: "§7Tamanho do baú alterado para %type%"
+  chest-type-change-error: "§7Falha ao alterar o tamanho do baú."
+  chest-type-display: "§8Tamanho: %type%"
+  fraction-increase: "§7Mais itens"
   fraction-increase-lore:
-    - "§7Clique para aumentar fração"
-    - "§7(mais itens por baú)"
-
-  fraction-decrease: "§c← Fração Anterior"
+    - "§8Aumentar itens por baú"
+  fraction-decrease: "§7Menos itens"
   fraction-decrease-lore:
-    - "§7Clique para diminuir fração"
-    - "§7(menos itens por baú)"
-
-  current-fraction: "§eTaxa de Drops"
-  fraction-info: "§7Esta quantidade de itens aparecerá"
-  fraction-changed: "§aFração alterada para %fraction%"
-  fraction-change-error: "§cFalha ao alterar fração!"
-  item-fraction-display: "§7Taxa: %fraction%"
-
-  # Nomes das frações
+    - "§8Diminuir itens por baú"
+  current-fraction: "§7Taxa de drop"
+  fraction-info: "§8Itens selecionados por spawn de baú"
+  fraction-changed: "§7Taxa de drop definida para %fraction%"
+  fraction-change-error: "§7Falha ao alterar a taxa de drop."
+  item-fraction-display: "§8Taxa: %fraction%"
   fraction:
-    all: "§aTodos os itens (embaralhados)"
-    one-half: "§e1/2 - Metade dos itens"
-    one-third: "§61/3 - Um terço"
-    one-fourth: "§c1/4 - Um quarto"
-    one-fifth: "§91/5 - Um quinto"
-    one-sixth: "§31/6 - Um sexto"
-    one-seventh: "§51/7 - Um sétimo"
-    one-eighth: "§41/8 - Um oitavo"
-    one-ninth: "§d1/9 - Um nono"
-    one-tenth: "§b1/10 - Um décimo"
-
-  # Botões
-  save-button: "§a✓ Salvar & Ativar"
+    all: "§7Todos os itens"
+    one-half: "§71/2 dos itens"
+    one-third: "§71/3 dos itens"
+    one-fourth: "§71/4 dos itens"
+    one-fifth: "§71/5 dos itens"
+    one-sixth: "§71/6 dos itens"
+    one-seventh: "§71/7 dos itens"
+    one-eighth: "§71/8 dos itens"
+    one-ninth: "§71/9 dos itens"
+    one-tenth: "§71/10 dos itens"
+  save-button: "§aSalvar"
   save-lore:
-    - "§7Clique para salvar itens e"
-    - "§7ativar saque personalizado para este nível"
-
-  reset-button: "§c✗ Redefinir & Desativar"
+    - "§8Salvar itens e ativar saque personalizado"
+  reset-button: "§7Redefinir"
   reset-lore:
-    - "§7Clique para limpar itens e"
-    - "§7usar saque aleatório padrão"
-
-  back-button: "§7← Voltar"
-
-  # Mensagens
-  saved: "§a✓ %count% itens salvos para baús %tier%!"
-  reset-done: "§c✗ Saque personalizado limpo para baús %tier%."
-  chest-size-items-dropped: "§e%count% itens não couberam e foram dropados a seus pés!"
-  
-  # Confirmação de redefinição
+    - "§8Limpar itens e usar saque padrão"
+  back-button: "§7Voltar"
+  saved: "§7Salvos §e%count% §7itens para §e%tier%§7."
+  reset-done: "§7Saque personalizado limpo para §e%tier%§7."
+  chest-size-items-dropped: "§7%count% itens não couberam e foram dropados."
   reset-confirm-title-common: "Comum"
   reset-confirm-title-rare: "Raro"
   reset-confirm-title-legendary: "Lendário"
-  
-  # Primeiro menu de confirmação
-  reset-first-menu-title: "§6⚠ Confirmação de Redefinição: %tier%"
-  reset-first-warning: "§e§l⚠ Primeiro Aviso"
+  reset-first-menu-title: "§7Redefinir — %tier%"
+  reset-first-warning: "§eConfirmar Redefinição"
   reset-first-warning-lore:
-    - "§7Você quer redefinir o nível §e%tier%"
-    - "§7Itens atuais: §e%count%"
+    - "§7Nível: §e%tier%"
+    - "§7Itens a deletar: §e%count%"
     - ""
-    - "§6CONFIGURAÇÕES serão MANTIDAS:"
-    - "§7  • Tipo de baú (simples/duplo)"
-    - "§7  • Fração da taxa de drops"
-    - ""
-    - "§cApenas itens serão deletados!"
-    - "§7Todos os itens cairão a seus pés"
-  
-  reset-continue: "§e→ Continuar"
+    - "§8O tamanho do baú e a taxa de drop serão mantidos."
+    - "§8Apenas os itens serão removidos."
+    - "§8Todos os itens cairão em sua localização."
+  reset-continue: "§7Continuar"
   reset-continue-lore:
-    - "§7Prosseguir para confirmação final"
-  
-  # Menu de confirmação final
-  reset-final-menu-title: "§4§l⚠ AVISO FINAL: %tier%"
-  reset-final-warning: "§c§l⚠ ÚLTIMA CHANCE!"
+    - "§8Prosseguir para confirmação final"
+  reset-final-menu-title: "§cConfirmação Final — %tier%"
+  reset-final-warning: "§cÚltima chance"
   reset-final-warning-lore:
-    - "§c§lESTA É SUA ÚLTIMA CHANCE!"
-    - ""
     - "§7Nível: §e%tier%"
     - "§7Itens a deletar: §c%count%"
     - ""
-    - "§a§lCONFIGURAÇÕES SERÃO MANTIDAS"
-    - "§a§lAPENAS ITENS SERÃO DELETADOS"
-    - ""
-    - "§7Todos os itens cairão a seus pés"
-  
-  reset-confirm-final: "§c§l✖ CONFIRMAR REDEFINIÇÃO"
+    - "§8As configurações serão mantidas."
+    - "§8Isso não pode ser desfeito."
+  reset-confirm-final: "§cConfirmar"
   reset-confirm-final-lore:
-    - "§c§lDELETAR TODOS OS ITENS"
-    - "§7(configurações permanecem)"
-    - ""
-    - "§c§lClique para confirmar"
-  
-  reset-cancel: "§a§l✔ Cancelar"
+    - "§8Deletar todos os itens permanentemente"
+  reset-cancel: "§7Cancelar"
   reset-cancel-lore:
-    - "§7Voltar para edição"
-    - "§7Nada será alterado"
-  
-  reset-items-dropped: "§e%count% itens foram dropados a seus pés!"
-  reset-complete: "§a✔ Saque personalizado para %tier% redefinido!"
+    - "§8Voltar — nada mudará"
+  reset-items-dropped: "§7%count% itens caíram em sua localização."
+  reset-complete: "§7O saque personalizado para §e%tier% §7foi redefinido."
 
 # ============================================
-# INTERAÇÃO COM BAÚS
+# INTERAÇÃO COM BAÚ
 # ============================================
 chest:
-  first-opener: "§e✨ Você foi o primeiro a abrir este baú!"
-  guardian-spawned: "§cUm guardião apareceu!"
-  proximity-hint: "§7Você ouve algo nas proximidades..."
+  first-opener: "§6✦ §7Você é o primeiro a abrir este baú."
+  locked: "§7Este baú está trancado — clique direito para iniciar a contagem regressiva."
+  already-activating: "§7Abre em §e%seconds%s§7."
+  already-opened: "§7Este baú já foi aberto por §f%player%§7."
+  not-active: "§7Este não é um baú ativo."
+  guardian-spawned: "§7Um guardião apareceu."
+  proximity-hint: "§7Algo está por perto..."
 
 # ============================================
 # DIVERSOS
 # ============================================
 misc:
-  chest-opening: "§eAbrindo baú..."
-  guardian-spawned: "§cUm guardião apareceu!"
-  proximity-hint: "§7Você ouve algo nas proximidades..."
+  chest-opening: "§7Abrindo..."
+  guardian-spawned: "§7Um guardião apareceu."
+  proximity-hint: "§7Algo está por perto..."

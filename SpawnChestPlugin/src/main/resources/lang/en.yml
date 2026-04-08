@@ -1,7 +1,7 @@
 # ============================================
 # SpawnChestPlugin - English Language File
 # Language: English (en)
-# Version: 4.2 FULL
+# Version: 4.4 FULL
 # ============================================
 
 # ============================================
@@ -10,457 +10,448 @@
 tiers:
   common:
     name: "§fCommon Chest"
-    guardian-name: "§fCommon Chest Guardian"
+    guardian-name: "§7Common Guardian"
   rare:
-    name: "§9Rare Chest"
-    guardian-name: "§9Rare Chest Guardian"
+    name: "§bRare Chest"
+    guardian-name: "§bRare Guardian"
   legendary:
     name: "§6Legendary Chest"
-    guardian-name: "§6Legendary Chest Guardian"
+    guardian-name: "§6Legendary Guardian"
 
 # ============================================
-# SYSTEM MESSAGES (logs and internal)
+# SYSTEM MESSAGES (server logs only)
 # ============================================
 system:
-  # Stats
-  stats-saved: "Saved stats for %count% players."
-  stats-save-error: "Failed to save stats for %player%: %error%"
+  chest-batch-start: "[SpawnChest] Batch spawn: %count% chest(s), %delay%s apart."
+  chest-batch-spawn: "[SpawnChest] Spawning chest %index% of %total%..."
+  chest-location-protected: "[SpawnChest] Location %x%, %z% is protected, retrying..."
+  world-apple-no-location: "[SpawnChest] Could not find valid apple drop location after %attempts% attempts."
+  world-apple-spawned: "[SpawnChest] World apple spawned at %x%, %y%, %z%"
+  zone-wg-create-error: "[SpawnChest] Failed to create WorldGuard region at %x% %y% %z%: %error%"
+  zone-wg-remove-error: "[SpawnChest] Failed to remove WorldGuard region %name%: %error%"
+  pre-open-timer-started: "[SpawnChest] Pre-open timer started at %x% %y% %z% by %player%"
+  pre-open-timer-expired: "[SpawnChest] Pre-open timer expired at %x% %y% %z%"
+  stats-saved: "[SpawnChest] Saved stats for %count% players."
+  stats-save-error: "[SpawnChest] Failed to save stats for %player%: %error%"
   player-unknown: "Unknown"
-  
-  # Version adapter
-  version-adapter-init: "VersionAdapter initialized:"
+  version-adapter-init: "[SpawnChest] VersionAdapter initialized:"
   version-minecraft: "  - Minecraft: %version%"
   version-server: "  - Server: %type%"
   version-full: "  - Full version: %version%"
   version-java: "  - Java: %version%"
-  version-chunk-error: "Failed to use async chunk loading: %error%"
-  
-  # Chest spawning
-  chest-spawn-started: "Chest spawn in progress (%elapsed%s ago)"
-  chest-spawn-stuck: "Spawn was stuck for %seconds%s, resetting..."
-  chest-invalid-world: "No valid world found for chest spawn!"
-  chest-spawn-attempt: "Attempt %attempt%: trying X=%x% Z=%z% (dist=%dist%)"
-  chest-location-found: "Found chest location: X=%x% Y=%y% Z=%z%"
-  chest-ground-level: "Spawning chest at X=%x% Y=%y% Z=%z% (ground=%ground%)"
-  chest-filled: "Chest filled successfully at %x%, %y%, %z%"
-  chest-state-error: "Could not get Chest state, type is: %type%"
-  chest-spawn-error: "Error spawning chest: %error%"
-  chest-spawn-failed-attempts: "Failed to find location after %attempts% attempts, giving up"
-  chest-block-not-chest: "Block is not chest, forcing again..."
-  chest-highest-solid-not-found: "Could not find solid block at X=%x% Z=%z%, using Y=64"
-  
-  # Timer
-  timer-loaded: "Loaded last spawn time: %time%"
-  timer-first-run: "First run detected, chest will spawn in 30 seconds"
-  timer-save-error: "Failed to save timer: %error%"
-  timer-load-error: "Failed to load timer: %error%"
-  timer-spawn-reset: "Timer: Spawn was stuck, resetting..."
-  
-  # Custom loot
-  custom-loot-using: "Using custom loot for %tier% chest: %count% items"
-  custom-loot-no-file: "No custom loot file found, using defaults."
-  custom-loot-loaded: "Loaded custom loot configuration."
-  custom-loot-saved: "Custom loot saved to file."
-  custom-loot-load-error: "Error loading custom loot: %error%"
-  custom-loot-save-error: "Error saving custom loot: %error%"
-  
-  # Plugin lifecycle
-  plugin-enabled: "SpawnChestPlugin v4.0 FULL enabled!"
-  plugin-disabled: "SpawnChestPlugin disabled."
-  plugin-version-too-old: "This plugin requires Minecraft 1.18 or higher!"
-  plugin-version-detected: "Detected version: %version%"
-  plugin-version-update: "Please update your server to MC 1.18+"
+  version-chunk-error: "[SpawnChest] Failed async chunk loading: %error%"
+  chest-spawn-started: "[SpawnChest] Spawn in progress (%elapsed%s ago)"
+  chest-spawn-stuck: "[SpawnChest] Spawn stuck for %seconds%s, resetting..."
+  chest-invalid-world: "[SpawnChest] No valid world found for chest spawn."
+  chest-spawn-attempt: "[SpawnChest] Attempt %attempt%: X=%x% Z=%z% (dist=%dist%)"
+  chest-location-found: "[SpawnChest] Location found: X=%x% Y=%y% Z=%z%"
+  chest-ground-level: "[SpawnChest] Placing chest at X=%x% Y=%y% Z=%z% (ground=%ground%)"
+  chest-filled: "[SpawnChest] Chest filled at %x%, %y%, %z%"
+  chest-state-error: "[SpawnChest] Could not get Chest state: %type%"
+  chest-spawn-error: "[SpawnChest] Error spawning chest: %error%"
+  chest-spawn-failed-attempts: "[SpawnChest] Failed to find location after %attempts% attempts."
+  chest-block-not-chest: "[SpawnChest] Block is not a chest, forcing..."
+  chest-highest-solid-not-found: "[SpawnChest] No solid block at X=%x% Z=%z%, using Y=64"
+  timer-loaded: "[SpawnChest] Timer loaded: %time%"
+  timer-first-run: "[SpawnChest] First run — chest will spawn in 30 seconds."
+  timer-save-error: "[SpawnChest] Failed to save timer: %error%"
+  timer-load-error: "[SpawnChest] Failed to load timer: %error%"
+  timer-spawn-reset: "[SpawnChest] Spawn was stuck, resetting timer."
+  custom-loot-using: "[SpawnChest] Custom loot for %tier%: %count% items"
+  custom-loot-no-file: "[SpawnChest] No custom loot file, using defaults."
+  custom-loot-loaded: "[SpawnChest] Custom loot loaded."
+  custom-loot-saved: "[SpawnChest] Custom loot saved."
+  custom-loot-load-error: "[SpawnChest] Custom loot load error: %error%"
+  custom-loot-save-error: "[SpawnChest] Custom loot save error: %error%"
+  plugin-enabled: "[SpawnChest] SpawnChestPlugin v4.4 enabled."
+  plugin-disabled: "[SpawnChest] SpawnChestPlugin disabled."
+  plugin-version-too-old: "[SpawnChest] This plugin requires Minecraft 1.18 or higher."
+  plugin-version-detected: "[SpawnChest] Detected version: %version%"
+  plugin-version-update: "[SpawnChest] Please update your server to MC 1.18+"
 
 # ============================================
-# BROADCASTS
+# BROADCASTS  (sent to players)
 # ============================================
 broadcasts:
-  chest-spawned: "§6🎁 %tier% §ahas spawned at: §eX: %x% Y: %y% Z: %z%"
-  chest-disappeared: "§c💨 A chest has disappeared! Too late..."
-  chest-opened: "§a%player% opened a %tier%!"
-  legendary-found: "§6§l✨ %player% found a LEGENDARY item: %item%! ✨"
-  minutes-left: "§e⏰ %minutes% minute(s) until the next chest appears!"
-  countdown: "§c⚡ %seconds% second(s) until the chest appears!"
-  spawn-title: "§6✨ A Chest Has Appeared! ✨"
-  spawn-subtitle: "§eCoordinates: §fX: %x% Y: %y% Z: %z%"
-  apple-used: "§6🍎 %player% summoned a chest with the magic apple!"
-  resurrection: "§d🪶 %player% was resurrected by Phoenix Feather!"
-  achievement-unlocked: "§6%player% unlocked achievement: §e%achievement%"
-  achievement-title: "§6§l★ ACHIEVEMENT UNLOCKED ★"
+  # ── Chest spawn ────────────────────────────────────────────
+  chest-spawned: "§6✦ §e%tier% §7has appeared §8— §fX: %x%  Y: %y%  Z: %z%"
+  chest-spawned-no-coords: "§6✦ §7A §e%tier% §7has appeared somewhere in the world."
+  chest-spawn-batch: "§6✦ §f%count% §echests §7have appeared across the world."
+
+  # ── Chest lifetime ─────────────────────────────────────────
+  chest-disappeared: "§7✦ A chest vanished — no one claimed it in time."
+  chest-opened: "§7✦ %player% opened a %tier%."
+
+  # ── Pre-open timer ─────────────────────────────────────────
+  chest-activating: "§6✦ §f%player% §7activated a chest §8— §eopens in §f%seconds%s"
+  chest-countdown: "§e✦ §7Opens in §f%seconds%s"
+  chest-unlocked: "§6✦ §eThe chest is now open!"
+  chest-opened-by: "§6✦ §f%player% §7opened the §e%tier%§7."
+
+  # ── Spawn title / subtitle ─────────────────────────────────
+  spawn-title: "§6✦ A Chest Has Appeared"
+  spawn-subtitle: "§7Head to §fX: %x%  Y: %y%  Z: %z%"
+  spawn-subtitle-hidden: "§7Explore the world to find it."
+
+  # ── Countdown warnings ─────────────────────────────────────
+  minutes-left: "§7✦ Next chest in §e%minutes% minute(s)§7."
+  countdown: "§6✦ §7Chest spawns in §f%seconds%s§7."
+
+  # ── Apples ─────────────────────────────────────────────────
+  apple-used: "§7✦ %player% summoned a chest."
+  apple-used-random: "§7✦ %player% §7used a Summoner Apple."
+  apple-used-common: "§7✦ %player% §7summoned a §fCommon §7chest."
+  apple-used-rare: "§7✦ %player% §7summoned a §bRare §7chest."
+  apple-used-legendary: "§7✦ %player% §7summoned a §6Legendary §7chest."
+  world-apple-dropped: "§6✦ §7A §e%type% §7dropped at §fX: %x%  Y: %y%  Z: %z%§7."
+
+  # ── Legendary ──────────────────────────────────────────────
+  legendary-found: "§6✦ §f%player% §7found a legendary item §8— §e%item%"
+
+  # ── Resurrection ───────────────────────────────────────────
+  resurrection: "§7✦ %player% was saved by the Phoenix Feather."
+
+  # ── Achievements ───────────────────────────────────────────
+  achievement-unlocked: "§6✦ §f%player% §7unlocked §e%achievement%"
+  achievement-title: "§6Achievement Unlocked"
   achievement-subtitle: "§e%name%"
+
+  # ── Protection zone ────────────────────────────────────────
+  zone-break-blocked: "§7This area is protected while the chest is active."
+  zone-place-blocked: "§7This area is protected while the chest is active."
+  zone-created: "[SpawnChest] Protection zone created at %x%, %y%, %z%"
+  zone-removed: "[SpawnChest] Protection zone removed at %x%, %y%, %z%"
+
+# ============================================
+# BOSSBAR
+# ============================================
+bossbar:
+  countdown-minutes: "§6✦  §7Next chest  §8·  §f%minutes%m %seconds%s"
+  countdown-seconds: "§6✦  §7Next chest  §8·  §e%seconds%s"
+  active-with-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%  §8·  %time%"
+  active-no-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%"
+  time-minutes: "§f%minutes%m %seconds%s"
+  time-seconds: "§e%seconds%s"
 
 # ============================================
 # COMMANDS
 # ============================================
 commands:
-  # Basic commands
-  next-chest: "§6⏰ Time until next chest: §e%minutes% min. %seconds% sec."
-  next-chest-now: "§aA chest is spawning now!"
-  chest-spawned: "§a✅ A chest has been spawned!"
-  chest-spawn-failed: "§cFailed to spawn chest. Try again."
-  chest-spawn-in-progress: "§eChest spawn already in progress..."
-  timer-set: "§aChest timer set to §e%seconds% §aseconds (%minutes% min)."
-  timer-invalid: "§c❌ Please enter a valid number!"
-  config-reloaded: "§a✓ Configuration reloaded!"
-  config-value: "§7%path%: §e%value%"
-  config-set: "§a✓ Set §e%path% §ato §e%value%"
-  config-invalid-path: "§cInvalid config path: %path%"
-  feature-enabled: "§a✓ %feature% enabled!"
-  feature-disabled: "§c✗ %feature% disabled!"
-  apple-given: "§aGave %amount% Summoner Apple(s) to %player%"
-  apple-received: "§6🍎 You received %amount% Chest Summoner Apple(s)!"
-  legendary-items-given: "§a✓ You received all legendary items!"
-  no-permission: "§c❌ You don't have permission to do that!"
-  player-not-found: "§c❌ Player not found: %player%"
-  player-only: "§cThis command can only be used by players!"
-  invalid-usage: "§cUsage: %usage%"
-  world-not-found: "§c❌ World not found!"
-  
-  # Additional messages
-  searching-location: "§eSearching for chest location..."
-  spawn-interval-set: "§aSpawn interval set to %seconds% seconds."
-  enter-valid-number: "§cEnter a valid number!"
-  timer-reset: "§aTimer reset! Chest will spawn in 10 seconds."
-  language-reloaded: "§7Language: §e%code% §7(%name%)"
-  stats-disabled: "§cStatistics are disabled!"
-  players-only: "§cPlayers only!"
-  status-on: "§aON"
-  status-off: "§cOFF"
-  
-  # Config help
-  config-help-header: "§6=== ChestConfig Commands ==="
-  config-help-get: "§e/chestconfig get <path> §7- Get config value"
-  config-help-set: "§e/chestconfig set <path> <value> §7- Set config value"
-  config-help-toggle: "§e/chestconfig toggle <path> §7- Toggle boolean"
-  config-help-reload: "§e/chestconfig reload §7- Reload config"
-  config-help-list: "§e/chestconfig list [section] §7- List values"
-  config-help-examples: "§7Examples:"
-  config-help-example1: "§7  /chestconfig toggle features.guardians.enabled"
-  config-help-example2: "§7  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
-  
-  # Config list
-  config-list-header: "§6=== Config: %section% ==="
+  next-chest: "§7Next chest in §e%minutes%m %seconds%s§7."
+  next-chest-now: "§7A chest is spawning now."
+  chest-spawned: "§7Chest spawned."
+  chest-spawn-failed: "§7Failed to spawn chest — try again."
+  chest-spawn-in-progress: "§7A chest is already spawning."
+  timer-set: "§7Spawn interval set to §e%seconds%s§7."
+  timer-invalid: "§7Please enter a valid number."
+  config-reloaded: "§7Configuration reloaded."
+  config-value: "§7%path%§8: §f%value%"
+  config-set: "§7Set §e%path% §8> §f%value%"
+  config-invalid-path: "§7Unknown config path: §e%path%"
+  feature-enabled: "§7%feature% §8> §aenabled"
+  feature-disabled: "§7%feature% §8> §7disabled"
+  apple-given: "§7Gave §f%amount% §7Summoner Apple(s) to §f%player%§7."
+  apple-given-typed: "§7Gave §f%amount% §e%type% §7Apple(s) to §f%player%§7."
+  apple-received: "§6✦ §7You received §f%amount% §7Summoner Apple(s)."
+  apple-received-typed: "§6✦ §7You received §f%amount% §e%type% §7Apple(s)."
+  apple-unknown-type: "§7Unknown type — use §erandom§7, §fcommon§7, §brare §7or §6legendary§7."
+  legendary-items-given: "§7You received all legendary items."
+  no-permission: "§7You don't have permission to do that."
+  player-not-found: "§7Player not found: §e%player%"
+  player-only: "§7This command can only be used by players."
+  invalid-usage: "§7Usage: §e%usage%"
+  world-not-found: "§7World not found."
+  searching-location: "§7Searching for a location..."
+  spawn-interval-set: "§7Spawn interval set to §e%seconds%s§7."
+  enter-valid-number: "§7Enter a valid number."
+  timer-reset: "§7Timer reset — chest will spawn in 10 seconds."
+  language-reloaded: "§7Language: §e%code% §8(§f%name%§8)"
+  stats-disabled: "§7Statistics are disabled."
+  players-only: "§7Players only."
+  status-on: "§aon"
+  status-off: "§7off"
+  config-help-header: "§8--- §6ChestConfig §8---"
+  config-help-get: "§e/chestconfig get §7<path>"
+  config-help-set: "§e/chestconfig set §7<path> <value>"
+  config-help-toggle: "§e/chestconfig toggle §7<path>"
+  config-help-reload: "§e/chestconfig reload"
+  config-help-list: "§e/chestconfig list §7[section]"
+  config-help-examples: "§8Examples:"
+  config-help-example1: "§8  /chestconfig toggle features.guardians.enabled"
+  config-help-example2: "§8  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
+  config-list-header: "§8--- §7Config: §e%section% §8---"
   config-list-master-toggle: "§7Master toggle: §e%value%"
-  
-  # Chest stats command
-  chest-stats-header: "§6=== Chest Statistics ==="
-  chest-stats-common-chance: "§7Common chest chance: §f%chance%%"
-  chest-stats-rare-chance: "§9Rare chest chance: §f%chance%%"
-  chest-stats-legendary-chance: "§6Legendary chest chance: §f%chance%%"
-  chest-stats-guardians: "§7Guardians: %status%"
-  chest-stats-legendary-items: "§7Legendary items: %status%"
-  chest-stats-pvp-protection: "§7PvP protection: %status%"
-  chest-stats-particles: "§7Particles: %status%"
-  chest-stats-sounds: "§7Sounds: %status%"
-  chest-stats-statistics: "§7Statistics: %status%"
-  chest-stats-active: "§7Active chests: §e%count%"
-  
-  # Test zone command
-  test-zone-header: "§eTesting chest spawn zone..."
-  test-zone-min-dist: "§7Min distance: %min%, Max distance: %max%"
-  test-zone-bury: "§7Bury in ground: %value%"
-  test-zone-worlds: "§7Enabled worlds: %worlds%"
-  test-zone-example: "§7Example %num%: §fX=%x% Z=%z% §7(distance: %dist%)"
-  
-  # Toggle legendary command
-  legendary-all-toggled: "§6All legendary items: %status%"
-  legendary-item-toggled: "§6%item%: %status%"
-  legendary-unknown-item: "§cUnknown item: %item%"
-  legendary-available-items: "§7Available: dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
-  
-  # Toggle features command
-  features-available-header: "§6Available features:"
-  features-list-guardians: "§e- guardians §7(features.guardians.enabled)"
-  features-list-particles: "§e- particles §7(features.effects.particles)"
-  features-list-sounds: "§e- sounds §7(features.effects.sounds)"
-  features-list-lightning: "§e- lightning §7(features.effects.lightning-on-legendary)"
-  features-list-announcements: "§e- announcements §7(features.broadcasts.chest-spawn-announcement)"
-  features-list-titles: "§e- titles §7(features.broadcasts.title-on-spawn)"
-  features-list-pvp: "§e- pvp-protection §7(abilities.pvp-protection)"
-  features-list-cooldown-msg: "§e- cooldown-messages §7(abilities.show-cooldown-messages)"
-  features-list-activation-msg: "§e- activation-messages §7(abilities.show-activation-messages)"
-  features-list-stats: "§e- statistics §7(statistics.enabled)"
-  features-unknown: "§cUnknown feature: %feature%"
-  
-  # Legendary items command
-  legendary-received: "§6✨ You received all enabled legendary items!"
-  legendary-use-cooldowns: "§eUse §f/cooldowns §eto check cooldowns!"
-  
-  # Usage messages
-  usage-giveapple: "§cUsage: /giveapple <player> [amount]"
-  usage-chestconfig-get: "§cUsage: /chestconfig get <path>"
-  usage-chestconfig-set: "§cUsage: /chestconfig set <path> <value>"
-  usage-setchesttimer: "§cUsage: /setchesttimer <seconds>"
-  invalid-number: "§cInvalid number!"
+  chest-stats-header: "§8--- §6Chest Status §8---"
+  chest-stats-common-chance: "§7Common  §8·  §f%chance%%%"
+  chest-stats-rare-chance: "§7Rare  §8·  §f%chance%%%"
+  chest-stats-legendary-chance: "§7Legendary  §8·  §f%chance%%%"
+  chest-stats-guardians: "§7Guardians  §8·  %status%"
+  chest-stats-legendary-items: "§7Legendary items  §8·  %status%"
+  chest-stats-pvp-protection: "§7PvP protection  §8·  %status%"
+  chest-stats-particles: "§7Particles  §8·  %status%"
+  chest-stats-sounds: "§7Sounds  §8·  %status%"
+  chest-stats-statistics: "§7Statistics  §8·  %status%"
+  chest-stats-active: "§7Active chests  §8·  §e%count%"
+  test-zone-header: "§8--- §7Spawn Zone Test §8---"
+  test-zone-min-dist: "§7Distance  §8·  §f%min% §8– §f%max%"
+  test-zone-bury: "§7Bury in ground  §8·  §e%value%"
+  test-zone-worlds: "§7Worlds  §8·  §e%worlds%"
+  test-zone-example: "§7#%num%  §8·  §fX=%x% Z=%z% §8(§7%dist% blocks§8)"
+  legendary-all-toggled: "§7All legendary items: %status%"
+  legendary-item-toggled: "§7%item%: %status%"
+  legendary-unknown-item: "§7Unknown item: §e%item%"
+  legendary-available-items: "§8dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
+  features-available-header: "§8--- §7Features §8---"
+  features-list-guardians: "§e  guardians"
+  features-list-particles: "§e  particles"
+  features-list-sounds: "§e  sounds"
+  features-list-lightning: "§e  lightning"
+  features-list-announcements: "§e  announcements"
+  features-list-titles: "§e  titles"
+  features-list-pvp: "§e  pvp-protection"
+  features-list-cooldown-msg: "§e  cooldown-messages"
+  features-list-activation-msg: "§e  activation-messages"
+  features-list-stats: "§e  statistics"
+  features-unknown: "§7Unknown feature: §e%feature%"
+  legendary-received: "§7You received all legendary items."
+  legendary-use-cooldowns: "§8Use §e/cooldowns §8to check cooldowns."
+  usage-giveapple: "§7Usage: §e/giveapple <random|common|rare|legendary> <player> [amount]"
+  usage-chestconfig-get: "§7Usage: §e/chestconfig get <path>"
+  usage-chestconfig-set: "§7Usage: §e/chestconfig set <path> <value>"
+  usage-setchesttimer: "§7Usage: §e/setchesttimer <seconds>"
+  invalid-number: "§7Invalid number."
 
 # ============================================
 # STATISTICS
 # ============================================
 stats:
-  header: "§6══════ Your Statistics ══════"
-  chests-opened: "§7Chests opened: §e%count%"
-  common-opened: "§7  Common: §f%count%"
-  rare-opened: "§7  Rare: §9%count%"
-  legendary-opened: "§7  Legendary: §6%count%"
-  legendaries-found: "§7Legendary items found: §d%count%"
-  guardians-killed: "§7Guardians killed: §c%count%"
-  apples-used: "§7Summoner apples used: §a%count%"
-  score: "§7Total score: §e%score%"
-  rank: "§7Your rank: §e#%rank%"
-  footer: "§6═══════════════════════════"
-  leaderboard-header: "§6══════ Top Treasure Hunters ══════"
-  leaderboard-entry: "§e#%rank% §f%player% §7- §a%score% points"
-  leaderboard-empty: "§7No statistics yet..."
-  leaderboard-footer: "§6══════════════════════════════════"
+  header: "§8--- §6Your Statistics §8---"
+  chests-opened: "§7Chests opened  §8·  §e%count%"
+  common-opened: "§8  Common  §8·  §f%count%"
+  rare-opened: "§8  Rare  §8·  §f%count%"
+  legendary-opened: "§8  Legendary  §8·  §f%count%"
+  legendaries-found: "§7Legendary items  §8·  §e%count%"
+  guardians-killed: "§7Guardians killed  §8·  §e%count%"
+  apples-used: "§7Apples used  §8·  §e%count%"
+  score: "§7Score  §8·  §e%score%"
+  rank: "§7Rank  §8·  §e#%rank%"
+  footer: "§8-------------------"
+  leaderboard-header: "§8--- §6Top Players §8---"
+  leaderboard-entry: "§8  #%rank%  §f%player%  §8·  §e%score% pts"
+  leaderboard-empty: "§7No statistics yet."
+  leaderboard-footer: "§8-------------------"
 
 # ============================================
 # COOLDOWNS
 # ============================================
 cooldowns:
-  header: "§6=== Ability Cooldowns ==="
-  ready: "§aReady"
-  seconds-left: "§c%seconds%s"
-  item-entry: "§7%item%: %status%"
-  footer: "§6═══════════════════════════"
-  on-cooldown: "§c⏳ %item% is on cooldown! §e%seconds%s §cremaining."
-  cooldown-ready: "§a✓ %item% is ready to use!"
-  
-  # Individual cooldown messages (for abilities)
-  sword-recharging: "§c⚔ Blade recharging! %time%"
-  axe-recharging: "§c🪓 Axe recharging! %time%"
-  hammer-recharging: "§c⚡ Hammer recharging! %time%"
-  bow-recharging: "§c🏹 Bow recharging! %time%"
-  shovel-recharging: "§c🕳 Shovel recharging! %time%"
-  tree-cutting-recharging: "§c🌳 Tree cutting recharging! %time%"
-  trident-recharging: "§c🔱 Trident recharging! %time%"
-  
-  # Cooldown list entries (for /cooldowns command)
-  dragon-slayer: "§6⚔ Dragon Slayer: %status%"
-  titan-axe: "§4🪓 Titan Axe: %status%"
-  storm-hammer: "§9⚡ Storm Hammer: %status%"
-  guardian-bow: "§a🏹 Guardian Bow: %status%"
-  void-shovel: "§5🕳 Void Shovel: %status%"
-  master-pickaxe: "§b⛏ Master Pickaxe: %status%"
-  tree-cutting: "§4🌳 Tree cutting: %status%"
-  poseidon-trident: "§b🔱 Poseidon Trident: %status%"
+  header: "§8--- §6Cooldowns §8---"
+  ready: "§aready"
+  seconds-left: "§e%seconds%s"
+  item-entry: "§7%item%  §8·  %status%"
+  footer: "§8--------------"
+  on-cooldown: "§7%item%  §8·  §erecharging §8— §f%seconds%s"
+  cooldown-ready: "§7%item%  §8·  §aready"
+  sword-recharging: "§7Sword recharging §8— §e%time%"
+  axe-recharging: "§7Axe recharging §8— §e%time%"
+  hammer-recharging: "§7Hammer recharging §8— §e%time%"
+  bow-recharging: "§7Bow recharging §8— §e%time%"
+  shovel-recharging: "§7Shovel recharging §8— §e%time%"
+  tree-cutting-recharging: "§7Tree cutting recharging §8— §e%time%"
+  trident-recharging: "§7Trident recharging §8— §e%time%"
+  dragon-slayer: "§7Dragon Slayer  §8·  %status%"
+  titan-axe: "§7Titan Axe  §8·  %status%"
+  storm-hammer: "§7Storm Hammer  §8·  %status%"
+  guardian-bow: "§7Guardian Bow  §8·  %status%"
+  void-shovel: "§7Void Shovel  §8·  %status%"
+  master-pickaxe: "§7Master Pickaxe  §8·  %status%"
+  tree-cutting: "§7Tree Cutting  §8·  %status%"
+  poseidon-trident: "§7Poseidon Trident  §8·  %status%"
 
 # ============================================
 # ABILITIES
 # ============================================
 abilities:
-  # Sword
-  sword-activated: "§c🔥 Dragon Slayer ignites your enemy!"
-  sword-activated-cooldown: "§6⚔ Dragon Slayer ignites! Cooldown: %cooldown%s"
-  
-  # Pickaxe
-  pickaxe-smelted: "§6⛏ Ore auto-smelted!"
-  pickaxe-double: "§e⛏ Double drop!"
-  
-  # Axe
-  axe-tree-felled: "§a🪓 Tree felled! §7(%blocks% blocks)"
-  axe-tree-felled-cooldown: "§4🪓 Titan Axe fells the tree! Cooldown: %cooldown%s"
-  axe-combat: "§c🪓 Titan Axe strikes with fury!"
-  axe-combat-cooldown: "§4🪓 Titan Axe smashes! Cooldown: %cooldown%s"
-  
-  # Shovel
-  shovel-excavate: "§b🪏 Area excavated! §7(%blocks% blocks)"
-  shovel-excavate-full: "§5🕳 Void Shovel dug %blocks% blocks!"
-  
-  # Hammer
-  hammer-lightning: "§e⚡ Storm Hammer summons lightning!"
-  hammer-shockwave: "§e⚡ Shockwave damages nearby enemies!"
-  hammer-activated-cooldown: "§9⚡ Storm Hammer thunders! Cooldown: %cooldown%s"
-  
-  # Bow
-  bow-double-shot: "§d🏹 Double arrow fired!"
-  bow-double-shot-cooldown: "§a🏹 Guardian Bow: double shot! Cooldown: %cooldown%s"
-  bow-homing: "§d🏹 Homing arrow seeks target!"
-  
-  # Book
-  book-used: "§6📖 Ancient wisdom enchants your gear!"
-  book-enchanted: "§d📚 Book of Wisdom enchanted %count% items!"
-  book-no-items: "§c📚 No suitable items to enchant!"
-  
-  # Phoenix Feather
-  phoenix-resurrect: "§d🪶 Phoenix Feather saved you from death!"
-  phoenix-fire-immune: "§6🪶 Phoenix Feather protects you from fire!"
-  phoenix-resurrect-message: "§c🔥 Phoenix Feather saves you from death!"
-  phoenix-resurrect-broadcast: "§6%player% was resurrected by the Phoenix Feather!"
-  
-  # Trident
-  trident-lightning: "§b🔱 Poseidon's wrath strikes your enemy!"
-  trident-lightning-cooldown: "§b🔱 Poseidon strikes with lightning! Cooldown: %cooldown%s"
-  trident-rain: "§b🔱 Rain swirls around you..."
+  sword-activated: "§7Blade ignites the target."
+  sword-activated-cooldown: "§7Dragon Slayer §8— §erecharging in §f%cooldown%s"
+  pickaxe-smelted: "§7Ore smelted."
+  pickaxe-double: "§7Double drop."
+  axe-tree-felled: "§7Tree felled §8(§f%blocks% blocks§8)"
+  axe-tree-felled-cooldown: "§7Tree felled §8— §erecharging in §f%cooldown%s"
+  axe-combat: "§7Titan Axe strikes."
+  axe-combat-cooldown: "§7Titan Axe §8— §erecharging in §f%cooldown%s"
+  shovel-excavate: "§7Area cleared §8(§f%blocks% blocks§8)"
+  shovel-excavate-full: "§7Void Shovel cleared §f%blocks% §7blocks."
+  hammer-lightning: "§7Storm Hammer calls lightning."
+  hammer-shockwave: "§7Shockwave hit nearby enemies."
+  hammer-activated-cooldown: "§7Storm Hammer §8— §erecharging in §f%cooldown%s"
+  bow-double-shot: "§7Double shot."
+  bow-double-shot-cooldown: "§7Guardian Bow §8— §erecharging in §f%cooldown%s"
+  bow-homing: "§7Arrow homing."
+  book-used: "§7Wisdom applied to your gear."
+  book-enchanted: "§7Book enchanted §f%count% §7items."
+  book-no-items: "§7No suitable items to enchant."
+  phoenix-resurrect: "§7Phoenix Feather saved you."
+  phoenix-fire-immune: "§7Fire immunity active."
+  phoenix-resurrect-message: "§6✦ §7The Phoenix Feather saved you from death."
+  phoenix-resurrect-broadcast: "§6✦ §f%player% §7was saved by the Phoenix Feather."
+  trident-lightning: "§7Poseidon strikes."
+  trident-lightning-cooldown: "§7Poseidon Trident §8— §erecharging in §f%cooldown%s"
+  trident-rain: "§7Rain surrounds you."
 
 # ============================================
-# LEGENDARY ITEMS
+# ITEMS
 # ============================================
 items:
-  summoner-apple:
-    name: "§d🍎 Chest Summoner Apple"
+  summoner-apple-random:
+    name: "§6Summoner Apple"
     lore:
-      - "§7A magical apple infused with"
-      - "§7the essence of treasure."
+      - "§7Summons a chest of a random tier."
       - ""
-      - "§e⚡ Eat to summon a chest!"
-      - "§7(Does not reset main timer)"
+      - "§8Right-click to eat"
+      - "§8Does not reset the main timer"
+
+  summoner-apple-common:
+    name: "§fCommon Summoner Apple"
+    lore:
+      - "§7Summons a Common chest."
       - ""
-      - "§dSpecial Donator Item"
-  
+      - "§8Right-click to eat"
+      - "§8Does not reset the main timer"
+
+  summoner-apple-rare:
+    name: "§bRare Summoner Apple"
+    lore:
+      - "§7Summons a Rare chest."
+      - ""
+      - "§8Right-click to eat"
+      - "§8Does not reset the main timer"
+
+  summoner-apple-legendary:
+    name: "§6Legendary Summoner Apple"
+    lore:
+      - "§7Summons a Legendary chest."
+      - ""
+      - "§8Right-click to eat"
+      - "§8Does not reset the main timer"
+
   dragon-slayer-sword:
-    name: "§6⚔ Dragon Slayer Sword ⚔"
+    name: "§6Dragon Slayer"
     lore:
-      - "§7Legendary sword forged"
-      - "§7from the heart of a dragon."
-      - "§7Burns with eternal flame."
+      - "§7Forged from the heart of a dragon."
       - ""
-      - "§c+%damage% Bonus Damage"
-      - "§e⚡ Ignites enemies"
+      - "§e+%damage% §7bonus damage"
+      - "§7Ignites the target on hit"
       - "§8Cooldown: %cooldown%s"
-      - ""
-      - "§6Legendary Item"
-  
+
   master-pickaxe:
-    name: "§b⛏ Master Pickaxe ⛏"
+    name: "§fMaster Pickaxe"
     lore:
-      - "§7Tool of a legendary miner,"
-      - "§7capable of finding riches"
-      - "§7in any stone."
+      - "§7The tool of a legendary miner."
       - ""
-      - "§e⚡ Auto-smelts ores"
-      - "§e⚡ Chance for double drops"
+      - "§7Auto-smelts mined ores"
+      - "§7Chance to double drops"
       - "§8Cooldown: %cooldown%s"
-      - ""
-      - "§6Legendary Item"
-  
+
   titan-axe:
-    name: "§4🪓 Titan Axe 🪓"
+    name: "§fTitan Axe"
     lore:
-      - "§7Massive axe of the titans."
       - "§7One swing fells entire trees."
       - ""
-      - "§c+%damage% Combat Damage"
-      - "§e⚡ Fells entire trees"
-      - "§8Tree Cooldown: %tree_cooldown%s"
-      - "§8Combat Cooldown: %combat_cooldown%s"
-      - ""
-      - "§6Legendary Item"
-  
+      - "§e+%damage% §7combat damage"
+      - "§7Fells entire trees on chop"
+      - "§8Combat cooldown: %combat_cooldown%s"
+      - "§8Tree cooldown: %tree_cooldown%s"
+
   void-shovel:
-    name: "§5🕳 Void Shovel 🕳"
+    name: "§fVoid Shovel"
     lore:
-      - "§7Shovel touched by the void."
       - "§7Consumes earth in a wide area."
       - ""
-      - "§e⚡ %size%x%size% Area Dig (SHIFT)"
-      - "§e⚡ Auto-collects drops"
+      - "§7%size%x%size% area dig §8(hold Shift)"
+      - "§7Auto-collects all drops"
       - "§8Cooldown: %cooldown%s"
-      - ""
-      - "§6Legendary Item"
-  
+
   storm-hammer:
-    name: "§9⚡ Storm Hammer ⚡"
+    name: "§fStorm Hammer"
     lore:
-      - "§7Hammer of the storm lords."
       - "§7Commands lightning itself."
       - ""
-      - "§c+%damage% Bonus Damage"
-      - "§e⚡ Summons lightning"
-      - "§e⚡ AoE shockwave damage"
+      - "§e+%damage% §7bonus damage"
+      - "§7Strikes lightning on hit"
+      - "§7Area shockwave damage"
       - "§8Cooldown: %cooldown%s"
-      - ""
-      - "§6Legendary Item"
-  
+
   guardian-bow:
-    name: "§a🏹 Guardian Bow 🏹"
+    name: "§fGuardian Bow"
     lore:
-      - "§7Bow blessed by guardians."
-      - "§7Arrows seek their targets."
+      - "§7Arrows that seek their targets."
       - ""
-      - "§e⚡ Fires double arrows"
-      - "§e⚡ Homing arrow ability"
+      - "§7Fires two arrows per shot"
+      - "§7Arrows home in on mobs"
       - "§8Cooldown: %cooldown%s"
-      - ""
-      - "§6Legendary Item"
-  
+
   wisdom-book:
-    name: "§d📖 Book of Ancient Wisdom 📖"
+    name: "§fBook of Ancient Wisdom"
     lore:
-      - "§7Contains the knowledge"
-      - "§7of ancient civilizations."
+      - "§7Knowledge of ancient civilizations."
       - ""
-      - "§e⚡ Right-click to enchant"
-      - "§e⚡ all gear in inventory"
-      - "§c⚠ One-time use"
-      - ""
-      - "§6Legendary Item"
-  
+      - "§7Right-click to enchant all gear"
+      - "§8One-time use"
+
   phoenix-feather:
-    name: "§c🔥 Phoenix Feather 🔥"
+    name: "§6Phoenix Feather"
     lore:
-      - "§7Feather of the immortal phoenix."
       - "§7Grants a second chance at life."
       - ""
-      - "§e⚡ Auto-resurrect on death"
-      - "§e⚡ Fire immunity while held"
+      - "§7Auto-revives on fatal damage"
+      - "§7Fire immunity while held"
       - "§8Cooldown: %cooldown%s"
-      - ""
-      - "§6Legendary Item"
-  
+
   poseidon-trident:
-    name: "§b🔱 Poseidon's Trident 🔱"
+    name: "§bPoseidon's Trident"
     lore:
-      - "§7Weapon of the sea god."
       - "§7Commands storms and seas."
       - ""
-      - "§e⚡ Rain aura (%radius% blocks)"
-      - "§e⚡ Lightning strike on hit"
-      - "§b+%damage% Lightning Damage"
+      - "§7Rain aura §8(%radius% blocks)"
+      - "§7Lightning strike on hit §8(+%damage% dmg)"
       - "§8Cooldown: %cooldown%s"
-      - ""
-      - "§6Legendary Item"
 
 # ============================================
 # CUSTOM POTIONS
 # ============================================
 potions:
   strength-3:
-    name: "§c⚔ Potion of Strength III"
+    name: "§fPotion of Strength III"
     lore:
-      - "§7Strength III (2:00)"
-      - "§6Custom Potion"
-  
+      - "§7Strength III  §8·  §e2:00"
+
   haste-2:
-    name: "§e⛏ Potion of Haste II"
+    name: "§fPotion of Haste II"
     lore:
-      - "§7Haste II (3:00)"
-      - "§6Custom Potion"
-  
+      - "§7Haste II  §8·  §e3:00"
+
   luck-2:
-    name: "§a🍀 Potion of Luck II"
+    name: "§fPotion of Luck II"
     lore:
-      - "§7Luck II (5:00)"
-      - "§6Custom Potion"
-  
+      - "§7Luck II  §8·  §e5:00"
+
   dolphins-grace:
-    name: "§b🐬 Potion of Dolphin's Grace"
+    name: "§fPotion of Dolphin's Grace"
     lore:
-      - "§7Dolphin's Grace (3:00)"
-      - "§6Custom Potion"
-  
+      - "§7Dolphin's Grace  §8·  §e3:00"
+
   turtle-master:
-    name: "§a🐢 Extended Turtle Master"
+    name: "§fExtended Turtle Master"
     lore:
-      - "§7Slowness IV (1:00)"
-      - "§7Resistance III (1:00)"
-      - "§6Custom Potion"
-  
+      - "§7Slowness IV  §8·  §e1:00"
+      - "§7Resistance III  §8·  §e1:00"
+
   wither-resistance:
-    name: "§8💀 Potion of Wither Resistance"
+    name: "§fPotion of Wither Resistance"
     lore:
-      - "§7Regeneration II (0:30)"
-      - "§7Resistance II (1:00)"
-      - "§6Custom Potion"
+      - "§7Regeneration II  §8·  §e0:30"
+      - "§7Resistance II  §8·  §e1:00"
 
 # ============================================
 # ACHIEVEMENTS
@@ -469,172 +460,134 @@ achievements:
   first-chest:
     name: "§eFirst Find"
     description: "Open your first chest"
-    reward-message: "§6+50 XP bonus!"
-  
+    reward-message: "§8+50 XP"
+
   treasure-hunter:
-    name: "§6Treasure Hunter"
+    name: "§eTreasure Hunter"
     description: "Open 10 chests"
-    reward-message: "§6+200 XP bonus!"
-  
+    reward-message: "§8+200 XP"
+
   chest-master:
-    name: "§cChest Master"
+    name: "§6Chest Master"
     description: "Open 50 chests"
-    reward-message: "§6+500 XP bonus!"
-  
+    reward-message: "§8+500 XP"
+
   legendary-finder:
-    name: "§5Legendary Finder"
+    name: "§6Legendary Finder"
     description: "Find a legendary item"
-    reward-message: "§6+300 XP bonus!"
-  
+    reward-message: "§8+300 XP"
+
   guardian-slayer:
-    name: "§4Guardian Slayer"
+    name: "§6Guardian Slayer"
     description: "Kill 25 chest guardians"
-    reward-message: "§6+400 XP bonus!"
+    reward-message: "§8+400 XP"
 
 # ============================================
 # CUSTOM LOOT GUI
 # ============================================
 gui:
-  # Main menu
-  custom-loot-title: "§6Custom Chest Loot"
-  edit-common: "§fEdit Common Chest Loot"
-  edit-rare: "§9Edit Rare Chest Loot"
-  edit-legendary: "§6Edit Legendary Chest Loot"
-
+  custom-loot-title: "§8Custom Chest Loot"
+  edit-common: "§fCommon Chest — Edit Loot"
+  edit-rare: "§bRare Chest — Edit Loot"
+  edit-legendary: "§6Legendary Chest — Edit Loot"
   common-chest-name: "§fCommon Chest"
-  rare-chest-name: "§9Rare Chest"
+  rare-chest-name: "§bRare Chest"
   legendary-chest-name: "§6Legendary Chest"
-
-  click-to-edit: "§7Click to edit loot"
-  custom-enabled: "§aCustom loot: ENABLED"
-  custom-disabled: "§cCustom loot: DISABLED"
-  using-default: "§7Using default random loot"
-  items-count: "§7Items: %count%"
-
-  # Chest type
-  chest-type-toggle: "§eChest Type"
-  current-type: "§7Current: %type%"
-  chest-type-info: "§7Click to toggle between:"
-  chest-type-single: "§fSingle Chest §7(27 slots)"
-  chest-type-double: "§bDouble Chest §7(54 slots)"
-  chest-type-single-desc: "§f  ■ Single §7- 27 slots (3 rows)"
-  chest-type-double-desc: "§b  ■ Double §7- 54 slots (6 rows)"
-  chest-type-changed: "§aChest type changed to %type%"
-  chest-type-change-error: "§cFailed to change chest type!"
-  chest-type-display: "§7Type: %type%"
-
-  # Fraction control
-  fraction-increase: "§a→ Next Fraction"
+  click-to-edit: "§7Click to edit"
+  custom-enabled: "§7Custom loot §8· §aenabled"
+  custom-disabled: "§7Custom loot §8· §7disabled"
+  using-default: "§8Using default loot"
+  items-count: "§7Items saved §8· §e%count%"
+  chest-type-toggle: "§7Chest Size"
+  current-type: "§8Current: %type%"
+  chest-type-info: "§8Click to switch"
+  chest-type-single: "§7Single §8(27 slots)"
+  chest-type-double: "§7Double §8(54 slots)"
+  chest-type-single-desc: "§8Single — 27 slots"
+  chest-type-double-desc: "§8Double — 54 slots"
+  chest-type-changed: "§7Chest size changed to %type%"
+  chest-type-change-error: "§7Failed to change chest size."
+  chest-type-display: "§8Size: %type%"
+  fraction-increase: "§7More items"
   fraction-increase-lore:
-    - "§7Click to increase fraction"
-    - "§7(more items per chest)"
-
-  fraction-decrease: "§c← Previous Fraction"
+    - "§8Increase items per chest"
+  fraction-decrease: "§7Fewer items"
   fraction-decrease-lore:
-    - "§7Click to decrease fraction"
-    - "§7(fewer items per chest)"
-
-  current-fraction: "§eItem Drop Rate"
-  fraction-info: "§7This many items will spawn"
-  fraction-changed: "§aFraction changed to %fraction%"
-  fraction-change-error: "§cFailed to change fraction!"
-  item-fraction-display: "§7Drop rate: %fraction%"
-
-  # Fraction names
+    - "§8Decrease items per chest"
+  current-fraction: "§7Drop Rate"
+  fraction-info: "§8Items selected per chest spawn"
+  fraction-changed: "§7Drop rate set to %fraction%"
+  fraction-change-error: "§7Failed to change drop rate."
+  item-fraction-display: "§8Rate: %fraction%"
   fraction:
-    all: "§aAll items (shuffled)"
-    one-half: "§e1/2 - Half of items"
-    one-third: "§61/3 - One third"
-    one-fourth: "§c1/4 - One fourth"
-    one-fifth: "§91/5 - One fifth"
-    one-sixth: "§31/6 - One sixth"
-    one-seventh: "§51/7 - One seventh"
-    one-eighth: "§41/8 - One eighth"
-    one-ninth: "§d1/9 - One ninth"
-    one-tenth: "§b1/10 - One tenth"
-
-  # Buttons
-  save-button: "§a✓ Save & Enable"
+    all: "§7All items"
+    one-half: "§71/2 of items"
+    one-third: "§71/3 of items"
+    one-fourth: "§71/4 of items"
+    one-fifth: "§71/5 of items"
+    one-sixth: "§71/6 of items"
+    one-seventh: "§71/7 of items"
+    one-eighth: "§71/8 of items"
+    one-ninth: "§71/9 of items"
+    one-tenth: "§71/10 of items"
+  save-button: "§aSave"
   save-lore:
-    - "§7Click to save items and"
-    - "§7enable custom loot for this tier"
-
-  reset-button: "§c✗ Reset & Disable"
+    - "§8Save items and enable custom loot"
+  reset-button: "§7Reset"
   reset-lore:
-    - "§7Click to clear items and"
-    - "§7use default random loot"
-
-  back-button: "§7← Back"
-
-  # Messages
-  saved: "§a✓ Saved %count% items for %tier% chests!"
-  reset-done: "§c✗ Custom loot cleared for %tier% chests."
-  chest-size-items-dropped: "§e%count% items didn't fit and were dropped at your feet!"
-  
-  # Reset confirmation
+    - "§8Clear items and use default loot"
+  back-button: "§7Back"
+  saved: "§7Saved §e%count% §7items for §e%tier%§7."
+  reset-done: "§7Custom loot cleared for §e%tier%§7."
+  chest-size-items-dropped: "§7%count% items did not fit and were dropped."
   reset-confirm-title-common: "Common"
   reset-confirm-title-rare: "Rare"
   reset-confirm-title-legendary: "Legendary"
-  
-  # First confirmation menu
-  reset-first-menu-title: "§6⚠ Reset Confirmation: %tier%"
-  reset-first-warning: "§e§l⚠ First Warning"
+  reset-first-menu-title: "§7Reset — %tier%"
+  reset-first-warning: "§eConfirm Reset"
   reset-first-warning-lore:
-    - "§7You want to reset §e%tier% §7tier"
-    - "§7Current items: §e%count%"
+    - "§7Tier: §e%tier%"
+    - "§7Items to delete: §e%count%"
     - ""
-    - "§6Settings will be KEPT:"
-    - "§7  • Chest type (single/double)"
-    - "§7  • Drop rate fraction"
-    - ""
-    - "§cOnly items will be deleted!"
-    - "§7All items will drop at your feet"
-  
-  reset-continue: "§e→ Continue"
+    - "§8Chest size and drop rate will be kept."
+    - "§8Only items will be removed."
+    - "§8All items drop at your location."
+  reset-continue: "§7Continue"
   reset-continue-lore:
-    - "§7Proceed to final confirmation"
-  
-  # Final confirmation menu
-  reset-final-menu-title: "§4§l⚠ FINAL WARNING: %tier%"
-  reset-final-warning: "§c§l⚠ LAST CHANCE!"
+    - "§8Proceed to final confirmation"
+  reset-final-menu-title: "§cFinal Confirmation — %tier%"
+  reset-final-warning: "§cLast chance"
   reset-final-warning-lore:
-    - "§c§lTHIS IS YOUR LAST CHANCE!"
-    - ""
     - "§7Tier: §e%tier%"
     - "§7Items to delete: §c%count%"
     - ""
-    - "§a§lSETTINGS WILL BE KEPT"
-    - "§a§lONLY ITEMS WILL BE DELETED"
-    - ""
-    - "§7All items will drop at your feet"
-  
-  reset-confirm-final: "§c§l✖ CONFIRM RESET"
+    - "§8Settings will be kept."
+    - "§8This cannot be undone."
+  reset-confirm-final: "§cConfirm"
   reset-confirm-final-lore:
-    - "§c§lDELETE ALL ITEMS"
-    - "§7(settings stay)"
-    - ""
-    - "§c§lClick to confirm"
-  
-  reset-cancel: "§a§l✔ Cancel"
+    - "§8Delete all items permanently"
+  reset-cancel: "§7Cancel"
   reset-cancel-lore:
-    - "§7Go back to editing"
-    - "§7Nothing will be changed"
-  
-  reset-items-dropped: "§e%count% items were dropped at your feet!"
-  reset-complete: "§a✔ Custom loot for %tier% has been reset!"
-  
+    - "§8Go back — nothing will change"
+  reset-items-dropped: "§7%count% items were dropped at your location."
+  reset-complete: "§7Custom loot for §e%tier% §7has been reset."
+
 # ============================================
 # CHEST INTERACTION
 # ============================================
 chest:
-  first-opener: "§e✨ You are the first to open this chest!"
-  guardian-spawned: "§cA guardian has appeared!"
-  proximity-hint: "§7You hear something nearby..."
+  first-opener: "§6✦ §7You are the first to open this chest."
+  locked: "§7This chest is locked — right-click to start the countdown."
+  already-activating: "§7Opens in §e%seconds%s§7."
+  already-opened: "§7This chest was already opened by §f%player%§7."
+  not-active: "§7This is not an active chest."
+  guardian-spawned: "§7A guardian appeared."
+  proximity-hint: "§7Something is nearby..."
 
 # ============================================
 # MISCELLANEOUS
 # ============================================
 misc:
-  chest-opening: "§eOpening chest..."
-  guardian-spawned: "§cA guardian has appeared!"
-  proximity-hint: "§7You hear something nearby..."
+  chest-opening: "§7Opening..."
+  guardian-spawned: "§7A guardian appeared."
+  proximity-hint: "§7Something is nearby..."

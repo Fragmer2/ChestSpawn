@@ -1,163 +1,452 @@
 # ╔═══════════════════════════════════════════════════════════════╗
-# ║           SpawnChestPlugin v4.2 - Configuration               ║
+# ║           SpawnChestPlugin v4.4 - Configuration               ║
 # ╚═══════════════════════════════════════════════════════════════╝
-
-# ============================================
-# LANGUAGE SETTING
-# ============================================
-# Available languages:
-#   en - English
-#   ru - Русский (Russian)
-#   ua - Українська (Ukrainian)
-#   es - Español (Spanish)
-#   de - Deutsch (German)
-#   fr - Français (French)
-#   zh - 中文 (Chinese)
-#   pt - Português (Portuguese)
-#   pl - Polski (Polish)
-#   it - Italiano (Italian)
 #
-# Language files are located in: plugins/SpawnChestPlugin/lang/
-# You can edit them or create your own!
+# Full documentation: https://github.com/Fragmer2/ChestSpawn/wiki
+# Support & Discord:  https://discord.gg/AAZkJBPeva
+#
+# After editing this file run /reloadchestconfig in-game.
+# YAML rules: use SPACES only — never TABs for indentation.
+
+
+# ============================================================
+# LANGUAGE
+# ============================================================
+# Language files live in: plugins/SpawnChestPlugin/lang/
+# You can edit them or create your own file there.
+#
+# Available codes:
+#   en  English        ru  Russian        ua  Ukrainian
+#   es  Spanish        de  German         fr  French
+#   zh  Chinese        pt  Portuguese     pl  Polish
+#   it  Italian
 language: en
 
-# ============================================
+
+# ============================================================
 # MAIN SETTINGS
-# ============================================
+# ============================================================
 settings:
-  # Time between chest spawns (in seconds)
-  # 14400 = 4 hours, 3600 = 1 hour, 600 = 10 minutes
+
+  # ── Spawn timer ──────────────────────────────────────────
+  # Time between chest spawns in seconds.
+  # 14400 = 4 h  |  3600 = 1 h  |  600 = 10 min
   spawn-interval-seconds: 14400
-  
-  # How long until chest disappears (in minutes)
+
+  # ── Batch spawning ────────────────────────────────────────
+  # How many chests spawn each interval.
+  # Set to 1 for classic single-chest behaviour.
+  chest-count-per-interval: 1
+
+  # Delay between chests in a batch (seconds).
+  # Only used when chest-count-per-interval > 1.
+  chest-spawn-delay-seconds: 5
+
+  # ── Chest lifetime ────────────────────────────────────────
+  # Minutes until an unopened chest disappears.
+  # Set to 0 to keep chests forever (not recommended).
   chest-disappear-minutes: 30
-  
-  # Spawn zone configuration
-  spawn-zone:
-    min-distance: 400
-    max-distance: 2000
-    min-distance-from-center: 100
-    min-height: 50
-    max-height: 200
-    bury-in-ground: false
-  
-  enabled-worlds:
-    - "world"
-  
+
+  # ── Chest tier chances ────────────────────────────────────
+  # Must sum to 1.0
   chest-chances:
-    common: 0.50
-    rare: 0.35
+    common:    0.50
+    rare:      0.35
     legendary: 0.15
 
-# ============================================
+  # ── Worlds ────────────────────────────────────────────────
+  # List every world where chests are allowed to spawn.
+  enabled-worlds:
+    - "world"
+
+  # ── Spawn zone ────────────────────────────────────────────
+  spawn-zone:
+
+    # Distance range from world centre (0, 0) in blocks.
+    min-distance: 400
+    max-distance: 2000
+
+    # Hard minimum distance from 0,0 — never goes below this.
+    min-distance-from-center: 100
+
+    # Allowed Y range for chest placement.
+    min-height: 50
+    max-height: 200
+
+    # true  = chest replaces the ground block (half-buried look)
+    # false = chest sits on top of the ground block
+    bury-in-ground: false
+
+    # ── Surface exclusions ──────────────────────────────────
+    # true  = chest will NOT spawn on this surface (retries)
+    # false = chest CAN spawn on this surface
+    exclude-surfaces:
+      water:      true    # lakes, rivers, oceans
+      lava:       true    # lava pools and nether lakes
+      leaves:     true    # tree canopy
+      ice:        true    # ICE, PACKED_ICE, BLUE_ICE
+      magma:      true    # magma blocks in the nether
+      cactus:     true    # desert cactus
+      sand:       false   # desert / beach sand - allowed
+      gravel:     false   # gravel patches - allowed
+      netherrack: false   # nether floor - allowed
+      # Note: BEDROCK and BARRIER are always excluded regardless of this setting.
+
+
+# ============================================================
+# PRE-OPEN TIMER
+# ============================================================
+# When enabled a chest starts LOCKED after spawning.
+# The first player to right-click it starts a countdown.
+# Only after the countdown finishes can anyone open the chest.
+# The chest-disappear timer begins only after the chest unlocks.
+pre-open-timer:
+
+  # Master switch.
+  enabled: true
+
+  # Countdown length in seconds.
+  duration-seconds: 30
+
+  # Broadcast a warning at these remaining-second thresholds.
+  # Sent to players with the spawnchest.notify.spawn permission.
+  announce-at-seconds:
+    - 30
+    - 10
+    - 3
+    - 2
+    - 1
+
+  # Show the countdown in the BossBar.
+  # Requires features.bossbar.enabled: true
+  show-in-bossbar: false
+
+  # BossBar colour during the pre-open countdown.
+  # Options: PINK  RED  YELLOW  GREEN  BLUE  PURPLE  WHITE
+  bossbar-color: PINK
+  
+  # Radius in blocks for countdown messages.
+  # Only players within this radius see the per-second countdown.
+  # The activation message ("X activated the chest") is sent to everyone.
+  notify-radius: 20.0
+
+
+# ============================================================
+# CHEST PROTECTION ZONE
+# ============================================================
+# Temporarily protects blocks around the chest from being
+# broken or placed by non-op players.
+# Zone is removed automatically when the chest disappears
+# or is opened.
+chest-protection-zone:
+
+  # Master switch.
+  enabled: true
+
+  # Protection radius in blocks.
+  # radius: 2 = 5x5 area  |  radius: 5 = 11x11  |  radius: 8 = 17x17
+  radius: 5
+
+  # When WorldGuard is installed, create a real WG region.
+  # When WorldGuard is NOT installed, the plugin blocks
+  # BlockBreak and BlockPlace events directly instead.
+  use-worldguard: true
+
+  # Prefix for auto-created WorldGuard region names.
+  # Result: <prefix>_x_y_z  (e.g. spawnchest_120_64_340)
+  worldguard-region-prefix: "spawnchest"
+
+  # Notify players when their action is blocked by the zone.
+  notify-players: true
+
+
+# ============================================================
 # FEATURES
-# ============================================
+# ============================================================
 features:
+
+  # ── Guardian mobs ─────────────────────────────────────────
   guardians:
     enabled: true
-    common-count: 1
-    rare-count: 2
-    legendary-count: 3
-  
+    common-count:    1    # Zombie
+    rare-count:      2    # Skeleton
+    legendary-count: 3    # Wither Skeleton
+
+  # ── Visual / audio effects ────────────────────────────────
   effects:
-    particles: true
+    particles:              true
     lightning-on-legendary: true
-    sounds: true
-    chest-glow-particles: true
-    chest-beacon-beam: true
-  
+    sounds:                 true
+    chest-glow-particles:   true
+    chest-beacon-beam:      true
+
+  # ── Broadcasts ────────────────────────────────────────────
   broadcasts:
-    chest-spawn-announcement: true
-    title-on-spawn: true
-    countdown-warnings: true
+    chest-spawn-announcement:  true
+    title-on-spawn:            true
+    countdown-warnings:        true
     resurrection-announcement: true
-    achievement-announcement: true
+    achievement-announcement:  true
 
+  # ── BossBar HUD ───────────────────────────────────────────
+  bossbar:
+
+    # Master switch. Disabled by default.
+    # Also grant players the spawnchest.notify.bossbar permission.
+    enabled: false
+
+    # --- Countdown mode (shown while no chest is active) ---
+    show-countdown: true
+
+    # Show countdown only during the last N minutes before spawn.
+    # Set to 0 to show the bar the entire time between spawns.
+    countdown-show-minutes-before: 5
+
+    # --- Active chest mode (shown after a chest spawns) ---
+    show-active-chest: true
+
+    # How many minutes to show the active-chest bar after spawn.
+    # Set to 0 to show it for the full chest lifetime.
+    # Cannot exceed chest-disappear-minutes.
+    active-chest-show-minutes: 0
+
+    # --- Colours ---
+    # Options: PINK  RED  YELLOW  GREEN  BLUE  PURPLE  WHITE
+    color-countdown: YELLOW   # idle countdown colour
+    color-soon:      RED      # colour when < 60 s before spawn
+    color-active:    GREEN    # active chest bar colour
+
+
+# ============================================================
+# SUMMONER APPLES
+# ============================================================
+# Four apple types. Each can be given with /giveapple and
+# configured to drop inside chests independently.
+#
+# Commands:
+#   /giveapple random    <player> [amount] - random tier chest
+#   /giveapple common    <player> [amount] - forces Common chest
+#   /giveapple rare      <player> [amount] - forces Rare chest
+#   /giveapple legendary <player> [amount] - forces Legendary chest
+#
+# /getlegendaryitems gives one of each apple type.
 summoner-apple:
-  enabled: true
-  drop-in-chests: true
-  drop-chance: 0.05
-  spawn-guardians: true
-  spawn-effects: true
 
+  # ── Random Apple ─────────────────────────────────────────
+  # Spawns a chest of a randomly selected tier.
+  random:
+    enabled:         true
+    spawn-guardians: true
+    spawn-effects:   true
+    # Drop chance per chest tier (0.05 = 5 %)
+    drop-in-common:    false
+    drop-in-rare:      false
+    drop-in-legendary: true
+    drop-chance:       0.05
+
+  # ── Common Apple ─────────────────────────────────────────
+  # Always spawns a Common tier chest.
+  common:
+    enabled:         true
+    spawn-guardians: true
+    spawn-effects:   true
+    drop-in-common:    false
+    drop-in-rare:      false
+    drop-in-legendary: false
+    drop-chance:       0.05
+
+  # ── Rare Apple ───────────────────────────────────────────
+  # Always spawns a Rare tier chest.
+  rare:
+    enabled:         true
+    spawn-guardians: true
+    spawn-effects:   true
+    drop-in-common:    false
+    drop-in-rare:      false
+    drop-in-legendary: false
+    drop-chance:       0.03
+
+  # ── Legendary Apple ──────────────────────────────────────
+  # Always spawns a Legendary tier chest.
+  legendary:
+    enabled:         true
+    spawn-guardians: true
+    spawn-effects:   true
+    drop-in-common:    false
+    drop-in-rare:      false
+    drop-in-legendary: false
+    drop-chance:       0.01
+
+
+# ============================================================
+# WORLD APPLE DROP
+# ============================================================
+# When enabled, a Summoner Apple spawns as a physical item
+# in the world every time a chest appears.
+# Players see the drop coordinates in chat and can race to
+# pick it up. The item never despawns until collected.
+world-apple-drop:
+
+  # Master switch. Disabled by default.
+  enabled: false
+
+  # Which apple type drops in the world.
+  # Options: random  common  rare  legendary
+  apple-type: random
+
+  # Where the apple spawns relative to the chest.
+  # Options:
+  #   near-chest  - random spot within 'radius' blocks of the chest
+  #   near-player - random spot within 'radius' blocks of the nearest player
+  #   with-chest  - completely separate random world location
+  spawn-method: near-chest
+
+  # Search radius used by near-chest and near-player (blocks).
+  radius: 15
+
+  # Announce drop coordinates in chat.
+  # Sent to players with spawnchest.notify.spawn permission.
+  announce-coordinates: true
+
+  # Prevent the item from despawning until a player picks it up.
+  persist-until-pickup: true
+
+
+# ============================================================
+# PROXIMITY SOUNDS
+# ============================================================
+# Plays a directional sound to players near an active chest,
+# helping them locate it by ear. Volume scales with distance.
 proximity-sounds:
-  enabled: true
-  max-distance: 50
-  min-distance: 5
-  sound: "BLOCK_NOTE_BLOCK_CHIME"
-  interval-ticks: 40
+  enabled:        true
+  max-distance:   50    # beyond this distance no sound plays
+  min-distance:   5     # closer than this = maximum volume
+  sound:          "BLOCK_NOTE_BLOCK_CHIME"
+  interval-ticks: 40    # how often to play (20 ticks = 1 second)
 
+
+# ============================================================
+# STATISTICS & ACHIEVEMENTS
+# ============================================================
 statistics:
   enabled: true
   achievements:
     enabled: true
 
-# ============================================
-# LEGENDARY ITEMS
-# ============================================
-legendary-items:
-  enabled: true
-  
-  dragon-slayer-sword:
-    enabled: true
-    bonus-damage: 4.0
-    fire-duration-ticks: 100
-    cooldown-ms: 3000
-  
-  master-pickaxe:
-    enabled: true
-    auto-smelt: true
-    double-drop-chance: 0.5
-    cooldown-ms: 1000
-  
-  titan-axe:
-    enabled: true
-    bonus-damage: 3.0
-    tree-felling: true
-    combat-cooldown-ms: 4000
-    tree-cooldown-ms: 6000
-  
-  void-shovel:
-    enabled: true
-    area-size: 3
-    auto-collect: true
-    cooldown-ms: 5000
-  
-  storm-hammer:
-    enabled: true
-    bonus-damage: 5.0
-    lightning-effect: true
-    area-damage-radius: 3.0
-    area-damage-amount: 4.0
-    cooldown-ms: 8000
-  
-  guardian-bow:
-    enabled: true
-    double-shot: true
-    homing-arrows: true
-    homing-range: 5.0
-    cooldown-ms: 2000
-  
-  wisdom-book:
-    enabled: true
-  
-  phoenix-feather:
-    enabled: true
-    resurrection: true
-    fire-immunity-passive: true
-    full-heal-on-resurrect: true
-    cooldown-ms: 300000
-  
-  poseidon-trident:
-    enabled: true
-    rain-radius: 5
-    lightning-on-hit: true
-    lightning-damage: 6.0
-    cooldown-ms: 10000
 
+# ============================================================
+# PROTECTION PLUGIN INTEGRATION
+# ============================================================
+# Prevents chests from spawning inside claimed or protected
+# areas. Detected automatically at server startup.
+# No extra setup needed beyond having the plugin installed.
+#
+# Supported plugins:
+#   WorldGuard  |  GriefPrevention  |  GriefDefender  |  Lands
+protection:
+  enabled:                true
+  check-worldguard:       true
+  check-grief-prevention: true
+  check-grief-defender:   true
+  check-lands:            true
+
+  # Extra location retries when a candidate spot is protected.
+  # Total attempts = 15 (base) + max-protection-retries
+  max-protection-retries: 20
+
+
+# ============================================================
+# LEGENDARY ITEMS
+# ============================================================
+legendary-items:
+
+  # Master switch — disables ALL legendary items at once.
+  enabled: true
+
+  # ── Dragon Slayer Sword ───────────────────────────────────
+  dragon-slayer-sword:
+    enabled:             true
+    bonus-damage:        4.0    # extra damage added per hit (hearts)
+    fire-duration-ticks: 100    # how long the target burns
+    cooldown-ms:         3000   # ms between ability activations
+
+  # ── Master Pickaxe ────────────────────────────────────────
+  master-pickaxe:
+    enabled:            true
+    auto-smelt:         true    # automatically smelts mined ores
+    double-drop-chance: 0.5     # 50 % chance for double drops
+    cooldown-ms:        1000
+
+  # ── Titan Axe ─────────────────────────────────────────────
+  titan-axe:
+    enabled:            true
+    bonus-damage:       3.0
+    tree-felling:       true    # chops entire tree in one hit
+    combat-cooldown-ms: 4000
+    tree-cooldown-ms:   6000
+
+  # ── Void Shovel ───────────────────────────────────────────
+  void-shovel:
+    enabled:      true
+    area-size:    3             # NxN excavation (hold SHIFT to activate)
+    auto-collect: true          # drops go straight into inventory
+    cooldown-ms:  5000
+
+  # ── Storm Hammer ─────────────────────────────────────────
+  storm-hammer:
+    enabled:            true
+    bonus-damage:       5.0
+    lightning-effect:   true
+    area-damage-radius: 3.0     # shockwave radius in blocks
+    area-damage-amount: 4.0     # shockwave damage in hearts
+    cooldown-ms:        8000
+
+  # ── Guardian Bow ─────────────────────────────────────────
+  guardian-bow:
+    enabled:       true
+    double-shot:   true         # fires two arrows per shot
+    homing-arrows: true         # arrows home in on nearby mobs
+    homing-range:  5.0          # homing detection radius (blocks)
+    cooldown-ms:   2000
+
+  # ── Book of Ancient Wisdom ────────────────────────────────
+  wisdom-book:
+    enabled: true               # right-click to enchant all gear in inventory
+
+  # ── Phoenix Feather ───────────────────────────────────────
+  phoenix-feather:
+    enabled:                true
+    resurrection:           true    # auto-revive on fatal damage
+    fire-immunity-passive:  true    # fire resistance while held in hand
+    full-heal-on-resurrect: true    # heal to full HP on resurrection
+    cooldown-ms:            300000  # 5 minutes between resurrections
+
+  # ── Poseidon Trident ─────────────────────────────────────
+  poseidon-trident:
+    enabled:          true
+    rain-radius:      5         # rain particle aura radius (blocks)
+    lightning-on-hit: true
+    lightning-damage: 6.0       # extra lightning damage (hearts)
+    cooldown-ms:      10000
+
+
+# ============================================================
+# CUSTOM POTIONS
+# ============================================================
 custom-potions:
   enabled: true
 
+
+# ============================================================
+# COUNTDOWN WARNING TIMES
+# ============================================================
+# Broadcast a warning at these thresholds before next spawn.
+# Values are in TICKS  (20 ticks = 1 second).
+#
+# Reference:
+#   72000 = 60 min    36000 = 30 min    12000 = 10 min
+#    6000 =  5 min     2400 =  2 min     1200 =  1 min
+#     200 = 10 sec       60 =  3 sec       20 =  1 sec
 warning-times:
   - 72000
   - 36000
@@ -169,27 +458,29 @@ warning-times:
   - 60
   - 40
   - 20
-  
-  
-#=============================
-#-------Custom Loot-----------
-#=============================
 
+
+# ============================================================
+# CUSTOM LOOT  (managed by /putintothechest GUI)
+# ============================================================
+# Do NOT edit this section by hand.
+# Use /putintothechest in-game to set up custom loot tables.
+# The GUI saves items here automatically when you press Save.
 
 common:
-  enabled: false
-  double-chest: false  # true = 54 slots, false = 27 slots
+  enabled:       false
+  double-chest:  false    # true = 54 slots  |  false = 27 slots
   item-fraction: "one-third"
-  items: []
+  items:         []
 
 rare:
-  enabled: false
-  double-chest: false
+  enabled:       false
+  double-chest:  false
   item-fraction: "one-third"
-  items: []
+  items:         []
 
 legendary:
-  enabled: false
-  double-chest: false
+  enabled:       false
+  double-chest:  false
   item-fraction: "one-third"
-  items: []
+  items:         []

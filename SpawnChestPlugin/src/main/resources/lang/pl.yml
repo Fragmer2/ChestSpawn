@@ -1,7 +1,7 @@
 # ============================================
-# SpawnChestPlugin - Polski plik językowy
+# SpawnChestPlugin - Plik językowy (Polski)
 # Język: Polski (pl)
-# Wersja: 4.2 FULL
+# Wersja: 4.4 FULL
 # ============================================
 
 # ============================================
@@ -10,457 +10,448 @@
 tiers:
   common:
     name: "§fZwykła Skrzynia"
-    guardian-name: "§fStrażnik Zwykłej Skrzyni"
+    guardian-name: "§7Zwykły Strażnik"
   rare:
-    name: "§9Rzadka Skrzynia"
-    guardian-name: "§9Strażnik Rzadkiej Skrzyni"
+    name: "§bRzadka Skrzynia"
+    guardian-name: "§bRzadki Strażnik"
   legendary:
     name: "§6Legendarna Skrzynia"
-    guardian-name: "§6Strażnik Legendarnej Skrzyni"
+    guardian-name: "§6Legendarny Strażnik"
 
 # ============================================
-# WIADOMOŚCI SYSTEMOWE (logi i wewnętrzne)
+# WIADOMOŚCI SYSTEMOWE (tylko logi serwera)
 # ============================================
 system:
-  # Statystyki
-  stats-saved: "Zapisano statystyki dla %count% graczy."
-  stats-save-error: "Nie udało się zapisać statystyk dla %player%: %error%"
+  chest-batch-start: "[SpawnChest] Spawn wsadowy: %count% skrzyn(ie), %delay%s odstępu."
+  chest-batch-spawn: "[SpawnChest] Spawn skrzyni %index% z %total%..."
+  chest-location-protected: "[SpawnChest] Lokalizacja %x%, %z% jest chroniona, ponawianie..."
+  world-apple-no-location: "[SpawnChest] Nie można znaleźć lokalizacji dla jabłka świata po %attempts% próbach."
+  world-apple-spawned: "[SpawnChest] Jabłko świata pojawiło się w %x%, %y%, %z%"
+  zone-wg-create-error: "[SpawnChest] Nie udało się utworzyć regionu WorldGuard w %x% %y% %z%: %error%"
+  zone-wg-remove-error: "[SpawnChest] Nie udało się usunąć regionu WorldGuard %name%: %error%"
+  pre-open-timer-started: "[SpawnChest] Licznik przedotwarciowy uruchomiony w %x% %y% %z% przez %player%"
+  pre-open-timer-expired: "[SpawnChest] Licznik przedotwarciowy wygasł w %x% %y% %z%"
+  stats-saved: "[SpawnChest] Zapisano statystyki dla %count% graczy."
+  stats-save-error: "[SpawnChest] Nie udało się zapisać statystyk dla %player%: %error%"
   player-unknown: "Nieznany"
-  
-  # Adapter wersji
-  version-adapter-init: "VersionAdapter zainicjowany:"
+  version-adapter-init: "[SpawnChest] Zainicjowano VersionAdapter:"
   version-minecraft: "  - Minecraft: %version%"
   version-server: "  - Serwer: %type%"
   version-full: "  - Pełna wersja: %version%"
   version-java: "  - Java: %version%"
-  version-chunk-error: "Nie udało się użyć asynchronicznego ładowania chunków: %error%"
-  
-  # Spawn skrzyń
-  chest-spawn-started: "Spawning skrzyni w toku (przed %elapsed%s)"
-  chest-spawn-stuck: "Spawn utknął na %seconds%s, resetowanie..."
-  chest-invalid-world: "Nie znaleziono odpowiedniego świata do spawnu skrzyni!"
-  chest-spawn-attempt: "Próba %attempt%: testuję X=%x% Z=%z% (odległość=%dist%)"
-  chest-location-found: "Znaleziono lokalizację skrzyni: X=%x% Y=%y% Z=%z%"
-  chest-ground-level: "Spawning skrzyni na X=%x% Y=%y% Z=%z% (ziemia=%ground%)"
-  chest-filled: "Skrzynia pomyślnie wypełniona na %x%, %y%, %z%"
-  chest-state-error: "Nie można uzyskać stanu Skrzyni, typ to: %type%"
-  chest-spawn-error: "Błąd przy spawnowaniu skrzyni: %error%"
-  chest-spawn-failed-attempts: "Nie udało się znaleźć lokalizacji po %attempts% próbach, rezygnuję"
-  chest-block-not-chest: "Blok nie jest skrzynią, wymuszam ponownie..."
-  chest-highest-solid-not-found: "Nie znaleziono stałego bloku na X=%x% Z=%z%, używam Y=64"
-  
-  # Timer
-  timer-loaded: "Załadowano czas ostatniego spawnu: %time%"
-  timer-first-run: "Wykryto pierwsze uruchomienie, skrzynia pojawi się za 30 sekund"
-  timer-save-error: "Nie udało się zapisać timera: %error%"
-  timer-load-error: "Nie udało się załadować timera: %error%"
-  timer-spawn-reset: "Timer: Spawn utknął, resetowanie..."
-  
-  # Niestandardowy łup
-  custom-loot-using: "Używam niestandardowego łupu dla skrzyni %tier%: %count% przedmiotów"
-  custom-loot-no-file: "Nie znaleziono pliku niestandardowego łupu, używam domyślnych."
-  custom-loot-loaded: "Załadowano konfigurację niestandardowego łupu."
-  custom-loot-saved: "Niestandardowy łup zapisany do pliku."
-  custom-loot-load-error: "Błąd ładowania niestandardowego łupu: %error%"
-  custom-loot-save-error: "Błąd zapisywania niestandardowego łupu: %error%"
-  
-  # Cykl życia pluginu
-  plugin-enabled: "SpawnChestPlugin v4.0 FULL włączony!"
-  plugin-disabled: "SpawnChestPlugin wyłączony."
-  plugin-version-too-old: "Ten plugin wymaga Minecraft 1.18 lub wyższego!"
-  plugin-version-detected: "Wykryto wersję: %version%"
-  plugin-version-update: "Proszę zaktualizować serwer do MC 1.18+"
+  version-chunk-error: "[SpawnChest] Błąd asynchronicznego ładowania chunku: %error%"
+  chest-spawn-started: "[SpawnChest] Spawn w toku (%elapsed%s temu)"
+  chest-spawn-stuck: "[SpawnChest] Spawn zablokowany od %seconds%s, resetowanie..."
+  chest-invalid-world: "[SpawnChest] Nie znaleziono odpowiedniego świata do spawnu skrzyni."
+  chest-spawn-attempt: "[SpawnChest] Próba %attempt%: X=%x% Z=%z% (dyst=%dist%)"
+  chest-location-found: "[SpawnChest] Znaleziono lokalizację: X=%x% Y=%y% Z=%z%"
+  chest-ground-level: "[SpawnChest] Umieszczanie skrzyni w X=%x% Y=%y% Z=%z% (ziemia=%ground%)"
+  chest-filled: "[SpawnChest] Skrzynia wypełniona w %x%, %y%, %z%"
+  chest-state-error: "[SpawnChest] Nie można uzyskać stanu skrzyni: %type%"
+  chest-spawn-error: "[SpawnChest] Błąd przy spawnie skrzyni: %error%"
+  chest-spawn-failed-attempts: "[SpawnChest] Nie znaleziono lokalizacji po %attempts% próbach."
+  chest-block-not-chest: "[SpawnChest] Blok nie jest skrzynią, wymuszanie..."
+  chest-highest-solid-not-found: "[SpawnChest] Brak stałego bloku w X=%x% Z=%z%, używam Y=64"
+  timer-loaded: "[SpawnChest] Licznik załadowany: %time%"
+  timer-first-run: "[SpawnChest] Pierwsze uruchomienie — skrzynia pojawi się za 30 sekund."
+  timer-save-error: "[SpawnChest] Błąd zapisu licznika: %error%"
+  timer-load-error: "[SpawnChest] Błąd ładowania licznika: %error%"
+  timer-spawn-reset: "[SpawnChest] Spawn był zablokowany, resetowanie licznika."
+  custom-loot-using: "[SpawnChest] Niestandardowy łup dla %tier%: %count% przedmiotów"
+  custom-loot-no-file: "[SpawnChest] Brak pliku z niestandardowym łupem, używanie domyślnych."
+  custom-loot-loaded: "[SpawnChest] Niestandardowy łup załadowany."
+  custom-loot-saved: "[SpawnChest] Niestandardowy łup zapisany."
+  custom-loot-load-error: "[SpawnChest] Błąd ładowania niestandardowego łupu: %error%"
+  custom-loot-save-error: "[SpawnChest] Błąd zapisu niestandardowego łupu: %error%"
+  plugin-enabled: "[SpawnChest] SpawnChestPlugin v4.4 włączony."
+  plugin-disabled: "[SpawnChest] SpawnChestPlugin wyłączony."
+  plugin-version-too-old: "[SpawnChest] Ten plugin wymaga Minecraft 1.18 lub nowszego."
+  plugin-version-detected: "[SpawnChest] Wykryta wersja: %version%"
+  plugin-version-update: "[SpawnChest] Zaktualizuj serwer do MC 1.18+"
 
 # ============================================
-# BROADCASTY
+# OGŁOSZENIA (wysyłane do graczy)
 # ============================================
 broadcasts:
-  chest-spawned: "§6🎁 %tier% §apojawił się w: §eX: %x% Y: %y% Z: %z%"
-  chest-disappeared: "§c💨 Skrzynia zniknęła! Za późno..."
-  chest-opened: "§a%player% otworzył %tier%!"
-  legendary-found: "§6§l✨ %player% znalazł LEGENDARNY przedmiot: %item%! ✨"
-  minutes-left: "§e⏰ %minutes% minut(y) do pojawienia się następnej skrzyni!"
-  countdown: "§c⚡ %seconds% sekund(y) do pojawienia się skrzyni!"
-  spawn-title: "§6✨ Pojawiła się Skrzynia! ✨"
-  spawn-subtitle: "§eWspółrzędne: §fX: %x% Y: %y% Z: %z%"
-  apple-used: "§6🍎 %player% przyzwał skrzynię magicznym jabłkiem!"
-  resurrection: "§d🪶 %player% został wskrzeszony przez Pióro Feniksa!"
-  achievement-unlocked: "§6%player% odblokował osiągnięcie: §e%achievement%"
-  achievement-title: "§6§l★ OSIĄGNIĘCIE ODKRYTE ★"
+  # ── Spawn skrzyni ────────────────────────────────────────────
+  chest-spawned: "§6✦ §e%tier% §7pojawiła się §8— §fX: %x%  Y: %y%  Z: %z%"
+  chest-spawned-no-coords: "§6✦ §7§e%tier% §7pojawiła się gdzieś w świecie."
+  chest-spawn-batch: "§6✦ §f%count% §eskrzyń §7pojawiło się na całym świecie."
+
+  # ── Cykl życia skrzyni ─────────────────────────────────────────
+  chest-disappeared: "§7✦ Skrzynia zniknęła — nikt jej nie otworzył na czas."
+  chest-opened: "§7✦ %player% otworzył %tier%."
+
+  # ── Licznik przedotwarciowy ─────────────────────────────────────────
+  chest-activating: "§6✦ §f%player% §7aktywował skrzynię §8— §eotwiera się za §f%seconds%s"
+  chest-countdown: "§e✦ §7Otwiera się za §f%seconds%s"
+  chest-unlocked: "§6✦ §eSkrzynia jest teraz otwarta!"
+  chest-opened-by: "§6✦ §f%player% §7otworzył §e%tier%§7."
+
+  # ── Tytuł / podtytuł spawnu ─────────────────────────────────
+  spawn-title: "§6✦ Pojawiła się skrzynia"
+  spawn-subtitle: "§7Idź do §fX: %x%  Y: %y%  Z: %z%"
+  spawn-subtitle-hidden: "§7Eksploruj świat, aby ją znaleźć."
+
+  # ── Ostrzeżenia odliczania ─────────────────────────────────────
+  minutes-left: "§7✦ Następna skrzynia za §e%minutes% minut(y)§7."
+  countdown: "§6✦ §7Skrzynia pojawi się za §f%seconds%s§7."
+
+  # ── Jabłka ─────────────────────────────────────────────────
+  apple-used: "§7✦ %player% przywołał skrzynię."
+  apple-used-random: "§7✦ %player% §7użył Jabłka Przywoływacza."
+  apple-used-common: "§7✦ %player% §7przywołał §fZwykłą §7skrzynię."
+  apple-used-rare: "§7✦ %player% §7przywołał §bRzadką §7skrzynię."
+  apple-used-legendary: "§7✦ %player% §7przywołał §6Legendarną §7skrzynię."
+  world-apple-dropped: "§6✦ §7§e%type% §7spadło w §fX: %x%  Y: %y%  Z: %z%§7."
+
+  # ── Legendarne ──────────────────────────────────────────────
+  legendary-found: "§6✦ §f%player% §7znalazł legendarny przedmiot §8— §e%item%"
+
+  # ── Wskrzeszenie ───────────────────────────────────────────
+  resurrection: "§7✦ %player% został uratowany przez Pióro Feniksa."
+
+  # ── Osiągnięcia ───────────────────────────────────────────
+  achievement-unlocked: "§6✦ §f%player% §7odblokował osiągnięcie §e%achievement%"
+  achievement-title: "§6Osiągnięcie odblokowane"
   achievement-subtitle: "§e%name%"
 
+  # ── Strefa ochrony ────────────────────────────────────────
+  zone-break-blocked: "§7Ten obszar jest chroniony, gdy skrzynia jest aktywna."
+  zone-place-blocked: "§7Ten obszar jest chroniony, gdy skrzynia jest aktywna."
+  zone-created: "[SpawnChest] Strefa ochrony utworzona w %x%, %y%, %z%"
+  zone-removed: "[SpawnChest] Strefa ochrony usunięta w %x%, %y%, %z%"
+
 # ============================================
-# KOMENDY
+# PASEK BOSSA
+# ============================================
+bossbar:
+  countdown-minutes: "§6✦  §7Następna skrzynia  §8·  §f%minutes%m %seconds%s"
+  countdown-seconds: "§6✦  §7Następna skrzynia  §8·  §e%seconds%s"
+  active-with-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%  §8·  %time%"
+  active-no-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%"
+  time-minutes: "§f%minutes%m %seconds%s"
+  time-seconds: "§e%seconds%s"
+
+# ============================================
+# POLECENIA
 # ============================================
 commands:
-  # Podstawowe komendy
-  next-chest: "§6⏰ Czas do następnej skrzyni: §e%minutes% min. %seconds% sek."
-  next-chest-now: "§aSkrzynia pojawia się teraz!"
-  chest-spawned: "§a✅ Skrzynia została zespawnowana!"
-  chest-spawn-failed: "§cNie udało się spawnować skrzyni. Spróbuj ponownie."
-  chest-spawn-in-progress: "§eSpawning skrzyni już w toku..."
-  timer-set: "§aTimer skrzyni ustawiony na §e%seconds% §asekund (%minutes% min)."
-  timer-invalid: "§c❌ Proszę podać poprawną liczbę!"
-  config-reloaded: "§a✓ Konfiguracja przeładowana!"
-  config-value: "§7%path%: §e%value%"
-  config-set: "§a✓ Ustawiono §e%path% §ana §e%value%"
-  config-invalid-path: "§cNieprawidłowa ścieżka konfiguracji: %path%"
-  feature-enabled: "§a✓ %feature% włączony!"
-  feature-disabled: "§c✗ %feature% wyłączony!"
-  apple-given: "§aDano %amount% Jabłek(ka) Przyzywacza %player%"
-  apple-received: "§6🍎 Otrzymałeś %amount% Jabłek(a) Przyzywacza Skrzyń!"
-  legendary-items-given: "§a✓ Otrzymałeś wszystkie legendarne przedmioty!"
-  no-permission: "§c❌ Nie masz uprawnień do tego!"
-  player-not-found: "§c❌ Nie znaleziono gracza: %player%"
-  player-only: "§cTa komenda może być użyta tylko przez graczy!"
-  invalid-usage: "§cUżycie: %usage%"
-  world-not-found: "§c❌ Nie znaleziono świata!"
-  
-  # Dodatkowe wiadomości
-  searching-location: "§eSzukam lokalizacji dla skrzyni..."
-  spawn-interval-set: "§aInterwał spawnu ustawiony na %seconds% sekund."
-  enter-valid-number: "§cWprowadź poprawną liczbę!"
-  timer-reset: "§aTimer zresetowany! Skrzynia pojawi się za 10 sekund."
-  language-reloaded: "§7Język: §e%code% §7(%name%)"
-  stats-disabled: "§cStatystyki są wyłączone!"
-  players-only: "§cTylko gracze!"
-  status-on: "§aWŁ."
-  status-off: "§cWYŁ."
-  
-  # Pomoc konfiguracyjna
-  config-help-header: "§6=== Komendy ChestConfig ==="
-  config-help-get: "§e/chestconfig get <ścieżka> §7- Pobierz wartość konfiguracji"
-  config-help-set: "§e/chestconfig set <ścieżka> <wartość> §7- Ustaw wartość konfiguracji"
-  config-help-toggle: "§e/chestconfig toggle <ścieżka> §7- Przełącz wartość boolowską"
-  config-help-reload: "§e/chestconfig reload §7- Przeładuj konfigurację"
-  config-help-list: "§e/chestconfig list [sekcja] §7- Wyświetl wartości"
-  config-help-examples: "§7Przykłady:"
-  config-help-example1: "§7  /chestconfig toggle features.guardians.enabled"
-  config-help-example2: "§7  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
-  
-  # Lista konfiguracji
-  config-list-header: "§6=== Konfiguracja: %section% ==="
+  next-chest: "§7Następna skrzynia za §e%minutes%m %seconds%s§7."
+  next-chest-now: "§7Skrzynia pojawia się teraz."
+  chest-spawned: "§7Skrzynia spawniona."
+  chest-spawn-failed: "§7Nie udało się spawnić skrzyni — spróbuj ponownie."
+  chest-spawn-in-progress: "§7Skrzynia już się spawni."
+  timer-set: "§7Interwał spawnu ustawiony na §e%seconds%s§7."
+  timer-invalid: "§7Wprowadź prawidłową liczbę."
+  config-reloaded: "§7Konfiguracja przeładowana."
+  config-value: "§7%path%§8: §f%value%"
+  config-set: "§7Ustawiono §e%path% §8> §f%value%"
+  config-invalid-path: "§7Nieznana ścieżka konfiguracji: §e%path%"
+  feature-enabled: "§7%feature% §8> §awłączone"
+  feature-disabled: "§7%feature% §8> §7wyłączone"
+  apple-given: "§7Wydano §f%amount% §7Jabłko(a) Przywoływacza dla §f%player%§7."
+  apple-given-typed: "§7Wydano §f%amount% §e%type% §7Jabłko(a) dla §f%player%§7."
+  apple-received: "§6✦ §7Otrzymałeś §f%amount% §7Jabłko(a) Przywoływacza."
+  apple-received-typed: "§6✦ §7Otrzymałeś §f%amount% §e%type% §7Jabłko(a)."
+  apple-unknown-type: "§7Nieznany typ — użyj §erandom§7, §fcommon§7, §brare §7lub §6legendary§7."
+  legendary-items-given: "§7Otrzymałeś wszystkie legendarne przedmioty."
+  no-permission: "§7Nie masz uprawnień do tego."
+  player-not-found: "§7Nie znaleziono gracza: §e%player%"
+  player-only: "§7Tego polecenia mogą używać tylko gracze."
+  invalid-usage: "§7Użycie: §e%usage%"
+  world-not-found: "§7Nie znaleziono świata."
+  searching-location: "§7Szukanie lokalizacji..."
+  spawn-interval-set: "§7Interwał spawnu ustawiony na §e%seconds%s§7."
+  enter-valid-number: "§7Wprowadź prawidłową liczbę."
+  timer-reset: "§7Licznik zresetowany — skrzynia pojawi się za 10 sekund."
+  language-reloaded: "§7Język: §e%code% §8(§f%name%§8)"
+  stats-disabled: "§7Statystyki są wyłączone."
+  players-only: "§7Tylko dla graczy."
+  status-on: "§awłączone"
+  status-off: "§7wyłączone"
+  config-help-header: "§8--- §6ChestConfig §8---"
+  config-help-get: "§e/chestconfig get §7<ścieżka>"
+  config-help-set: "§e/chestconfig set §7<ścieżka> <wartość>"
+  config-help-toggle: "§e/chestconfig toggle §7<ścieżka>"
+  config-help-reload: "§e/chestconfig reload"
+  config-help-list: "§e/chestconfig list §7[sekcja]"
+  config-help-examples: "§8Przykłady:"
+  config-help-example1: "§8  /chestconfig toggle features.guardians.enabled"
+  config-help-example2: "§8  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
+  config-list-header: "§8--- §7Konfig: §e%section% §8---"
   config-list-master-toggle: "§7Główny przełącznik: §e%value%"
-  
-  # Komenda statystyk skrzyń
-  chest-stats-header: "§6=== Statystyki Skrzyń ==="
-  chest-stats-common-chance: "§7Szansa na zwykłą skrzynię: §f%chance%%"
-  chest-stats-rare-chance: "§9Szansa na rzadką skrzynię: §f%chance%%"
-  chest-stats-legendary-chance: "§6Szansa na legendarną skrzynię: §f%chance%%"
-  chest-stats-guardians: "§7Strażnicy: %status%"
-  chest-stats-legendary-items: "§7Legendarne przedmioty: %status%"
-  chest-stats-pvp-protection: "§7Ochrona PvP: %status%"
-  chest-stats-particles: "§7Cząsteczki: %status%"
-  chest-stats-sounds: "§7Dźwięki: %status%"
-  chest-stats-statistics: "§7Statystyki: %status%"
-  chest-stats-active: "§7Aktywne skrzynie: §e%count%"
-  
-  # Komenda testowej strefy
-  test-zone-header: "§eTestowanie strefy spawnu skrzyń..."
-  test-zone-min-dist: "§7Min. odległość: %min%, Maks. odległość: %max%"
-  test-zone-bury: "§7Zakopane w ziemi: %value%"
-  test-zone-worlds: "§7Włączone światy: %worlds%"
-  test-zone-example: "§7Przykład %num%: §fX=%x% Z=%z% §7(odległość: %dist%)"
-  
-  # Komenda przełączania legendarnych przedmiotów
-  legendary-all-toggled: "§6Wszystkie legendarne przedmioty: %status%"
-  legendary-item-toggled: "§6%item%: %status%"
-  legendary-unknown-item: "§cNieznany przedmiot: %item%"
-  legendary-available-items: "§7Dostępne: dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
-  
-  # Komenda przełączania funkcji
-  features-available-header: "§6Dostępne funkcje:"
-  features-list-guardians: "§e- guardians §7(features.guardians.enabled)"
-  features-list-particles: "§e- particles §7(features.effects.particles)"
-  features-list-sounds: "§e- sounds §7(features.effects.sounds)"
-  features-list-lightning: "§e- lightning §7(features.effects.lightning-on-legendary)"
-  features-list-announcements: "§e- announcements §7(features.broadcasts.chest-spawn-announcement)"
-  features-list-titles: "§e- titles §7(features.broadcasts.title-on-spawn)"
-  features-list-pvp: "§e- pvp-protection §7(abilities.pvp-protection)"
-  features-list-cooldown-msg: "§e- cooldown-messages §7(abilities.show-cooldown-messages)"
-  features-list-activation-msg: "§e- activation-messages §7(abilities.show-activation-messages)"
-  features-list-stats: "§e- statistics §7(statistics.enabled)"
-  features-unknown: "§cNieznana funkcja: %feature%"
-  
-  # Komenda legendarnych przedmiotów
-  legendary-received: "§6✨ Otrzymałeś wszystkie włączone legendarne przedmioty!"
-  legendary-use-cooldowns: "§eUżyj §f/cooldowns §eaby sprawdzić czasy odnowienia!"
-  
-  # Wiadomości użycia
-  usage-giveapple: "§cUżycie: /giveapple <gracz> [ilość]"
-  usage-chestconfig-get: "§cUżycie: /chestconfig get <ścieżka>"
-  usage-chestconfig-set: "§cUżycie: /chestconfig set <ścieżka> <wartość>"
-  usage-setchesttimer: "§cUżycie: /setchesttimer <sekundy>"
-  invalid-number: "§cNieprawidłowa liczba!"
+  chest-stats-header: "§8--- §6Status skrzyń §8---"
+  chest-stats-common-chance: "§7Zwykła  §8·  §f%chance%%%"
+  chest-stats-rare-chance: "§7Rzadka  §8·  §f%chance%%%"
+  chest-stats-legendary-chance: "§7Legendarna  §8·  §f%chance%%%"
+  chest-stats-guardians: "§7Strażnicy  §8·  %status%"
+  chest-stats-legendary-items: "§7Legendarne przedmioty  §8·  %status%"
+  chest-stats-pvp-protection: "§7Ochrona PvP  §8·  %status%"
+  chest-stats-particles: "§7Cząsteczki  §8·  %status%"
+  chest-stats-sounds: "§7Dźwięki  §8·  %status%"
+  chest-stats-statistics: "§7Statystyki  §8·  %status%"
+  chest-stats-active: "§7Aktywne skrzynie  §8·  §e%count%"
+  test-zone-header: "§8--- §7Test strefy spawnu §8---"
+  test-zone-min-dist: "§7Dystans  §8·  §f%min% §8– §f%max%"
+  test-zone-bury: "§7Zakop w ziemi  §8·  §e%value%"
+  test-zone-worlds: "§7Światy  §8·  §e%worlds%"
+  test-zone-example: "§7#%num%  §8·  §fX=%x% Z=%z% §8(§7%dist% bloków§8)"
+  legendary-all-toggled: "§7Wszystkie legendarne przedmioty: %status%"
+  legendary-item-toggled: "§7%item%: %status%"
+  legendary-unknown-item: "§7Nieznany przedmiot: §e%item%"
+  legendary-available-items: "§8dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
+  features-available-header: "§8--- §7Funkcje §8---"
+  features-list-guardians: "§e  guardians"
+  features-list-particles: "§e  particles"
+  features-list-sounds: "§e  sounds"
+  features-list-lightning: "§e  lightning"
+  features-list-announcements: "§e  announcements"
+  features-list-titles: "§e  titles"
+  features-list-pvp: "§e  pvp-protection"
+  features-list-cooldown-msg: "§e  cooldown-messages"
+  features-list-activation-msg: "§e  activation-messages"
+  features-list-stats: "§e  statistics"
+  features-unknown: "§7Nieznana funkcja: §e%feature%"
+  legendary-received: "§7Otrzymałeś wszystkie legendarne przedmioty."
+  legendary-use-cooldowns: "§8Użyj §e/cooldowns §8aby sprawdzić czasy odnowienia."
+  usage-giveapple: "§7Użycie: §e/giveapple <random|common|rare|legendary> <gracz> [ilość]"
+  usage-chestconfig-get: "§7Użycie: §e/chestconfig get <ścieżka>"
+  usage-chestconfig-set: "§7Użycie: §e/chestconfig set <ścieżka> <wartość>"
+  usage-setchesttimer: "§7Użycie: §e/setchesttimer <sekundy>"
+  invalid-number: "§7Nieprawidłowa liczba."
 
 # ============================================
 # STATYSTYKI
 # ============================================
 stats:
-  header: "§6══════ Twoje Statystyki ══════"
-  chests-opened: "§7Otwarte skrzynie: §e%count%"
-  common-opened: "§7  Zwykłe: §f%count%"
-  rare-opened: "§7  Rzadkie: §9%count%"
-  legendary-opened: "§7  Legendarne: §6%count%"
-  legendaries-found: "§7Znalezione legendarne przedmioty: §d%count%"
-  guardians-killed: "§7Zabici strażnicy: §c%count%"
-  apples-used: "§7Użyte jabłka przyzywacza: §a%count%"
-  score: "§7Łączny wynik: §e%score%"
-  rank: "§7Twoja ranga: §e#%rank%"
-  footer: "§6═══════════════════════════"
-  leaderboard-header: "§6══════ Top Poszukiwacze Skarbów ══════"
-  leaderboard-entry: "§e#%rank% §f%player% §7- §a%score% punktów"
-  leaderboard-empty: "§7Brak statystyk..."
-  leaderboard-footer: "§6══════════════════════════════════"
+  header: "§8--- §6Twoje statystyki §8---"
+  chests-opened: "§7Otwarte skrzynie  §8·  §e%count%"
+  common-opened: "§8  Zwykłe  §8·  §f%count%"
+  rare-opened: "§8  Rzadkie  §8·  §f%count%"
+  legendary-opened: "§8  Legendarne  §8·  §f%count%"
+  legendaries-found: "§7Legendarne przedmioty  §8·  §e%count%"
+  guardians-killed: "§7Zabici strażnicy  §8·  §e%count%"
+  apples-used: "§7Użyte jabłka  §8·  §e%count%"
+  score: "§7Punkty  §8·  §e%score%"
+  rank: "§7Miejsce  §8·  §e#%rank%"
+  footer: "§8-------------------"
+  leaderboard-header: "§8--- §6Najlepsi gracze §8---"
+  leaderboard-entry: "§8  #%rank%  §f%player%  §8·  §e%score% pkt"
+  leaderboard-empty: "§7Brak statystyk."
+  leaderboard-footer: "§8-------------------"
 
 # ============================================
 # CZASY ODNOWIENIA
 # ============================================
 cooldowns:
-  header: "§6=== Czasy Odnowienia Umiejętności ==="
-  ready: "§aGotowe"
-  seconds-left: "§c%seconds%s"
-  item-entry: "§7%item%: %status%"
-  footer: "§6═══════════════════════════"
-  on-cooldown: "§c⏳ %item% ma czas odnowienia! §e%seconds%s §cpozostało."
-  cooldown-ready: "§a✓ %item% jest gotowy do użycia!"
-  
-  # Indywidualne wiadomości o odnowieniu (dla umiejętności)
-  sword-recharging: "§c⚔ Miecz się ładuje! %time%"
-  axe-recharging: "§c🪓 Topór się ładuje! %time%"
-  hammer-recharging: "§c⚡ Młot się ładuje! %time%"
-  bow-recharging: "§c🏹 Łuk się ładuje! %time%"
-  shovel-recharging: "§c🕳 Łopata się ładuje! %time%"
-  tree-cutting-recharging: "§c🌳 Ścinanie drzew się ładuje! %time%"
-  trident-recharging: "§c🔱 Trójząb się ładuje! %time%"
-  
-  # Wpisy listy odnowienia (dla komendy /cooldowns)
-  dragon-slayer: "§6⚔ Miecz Zabójcy Smoków: %status%"
-  titan-axe: "§4🪓 Topór Tytana: %status%"
-  storm-hammer: "§9⚡ Młot Burzy: %status%"
-  guardian-bow: "§a🏹 Łuk Strażnika: %status%"
-  void-shovel: "§5🕳 Łopata Pustki: %status%"
-  master-pickaxe: "§b⛏ Mistrzowski Kilof: %status%"
-  tree-cutting: "§4🌳 Ścinanie drzew: %status%"
-  poseidon-trident: "§b🔱 Trójząb Posejdona: %status%"
+  header: "§8--- §6Czasy odnowienia §8---"
+  ready: "§agotowe"
+  seconds-left: "§e%seconds%s"
+  item-entry: "§7%item%  §8·  %status%"
+  footer: "§8--------------"
+  on-cooldown: "§7%item%  §8·  §eładowanie §8— §f%seconds%s"
+  cooldown-ready: "§7%item%  §8·  §agotowe"
+  sword-recharging: "§7Miecz ładuje §8— §e%time%"
+  axe-recharging: "§7Topór ładuje §8— §e%time%"
+  hammer-recharging: "§7Młot ładuje §8— §e%time%"
+  bow-recharging: "§7Łuk ładuje §8— §e%time%"
+  shovel-recharging: "§7Łopata ładuje §8— §e%time%"
+  tree-cutting-recharging: "§8Ścinanie drzew ładuje §8— §e%time%"
+  trident-recharging: "§7Trójząb ładuje §8— §e%time%"
+  dragon-slayer: "§7Pogromca Smoków  §8·  %status%"
+  titan-axe: "§7Topór Tytana  §8·  %status%"
+  storm-hammer: "§7Młot Burzy  §8·  %status%"
+  guardian-bow: "§7Łuk Strażnika  §8·  %status%"
+  void-shovel: "§7Łopata Pustki  §8·  %status%"
+  master-pickaxe: "§7Kilof Mistrza  §8·  %status%"
+  tree-cutting: "§7Ścinanie drzew  §8·  %status%"
+  poseidon-trident: "§7Trójząb Posejdona  §8·  %status%"
 
 # ============================================
 # UMIEJĘTNOŚCI
 # ============================================
 abilities:
-  # Miecz
-  sword-activated: "§c🔥 Miecz Zabójcy Smoków podpala twojego wroga!"
-  sword-activated-cooldown: "§6⚔ Miecz Zabójcy Smoków zapłonął! Odnowienie: %cooldown%s"
-  
-  # Kilof
-  pickaxe-smelted: "§6⛏ Ruda automatycznie przetopiona!"
-  pickaxe-double: "§e⛏ Podwójny łup!"
-  
-  # Topór
-  axe-tree-felled: "§a🪓 Drzewo ścięte! §7(%blocks% bloków)"
-  axe-tree-felled-cooldown: "§4🪓 Topór Tytana ścina drzewo! Odnowienie: %cooldown%s"
-  axe-combat: "§c🪓 Topór Tytana uderza z furią!"
-  axe-combat-cooldown: "§4🪓 Topór Tytana miażdży! Odnowienie: %cooldown%s"
-  
-  # Łopata
-  shovel-excavate: "§b🪏 Obszar wykopany! §7(%blocks% bloków)"
-  shovel-excavate-full: "§5🕳 Łopata Pustki wykopała %blocks% bloków!"
-  
-  # Młot
-  hammer-lightning: "§e⚡ Młot Burzy przyzywa piorun!"
-  hammer-shockwave: "§e⚡ Fala uderzeniowa rani pobliskich wrogów!"
-  hammer-activated-cooldown: "§9⚡ Młot Burzy grzmi! Odnowienie: %cooldown%s"
-  
-  # Łuk
-  bow-double-shot: "§d🏹 Podwójna strzała wystrzelona!"
-  bow-double-shot-cooldown: "§a🏹 Łuk Strażnika: podwójny strzał! Odnowienie: %cooldown%s"
-  bow-homing: "§d🏹 Strzała samonaprowadzająca szuka celu!"
-  
-  # Książka
-  book-used: "§6📖 Starożytna mądrość zaklina twój ekwipunek!"
-  book-enchanted: "§d📚 Księga Mądrości zaklęła %count% przedmiotów!"
-  book-no-items: "§c📚 Brak odpowiednich przedmiotów do zaklęcia!"
-  
-  # Pióro Feniksa
-  phoenix-resurrect: "§d🪶 Pióro Feniksa uratowało cię od śmierci!"
-  phoenix-fire-immune: "§6🪶 Pióro Feniksa chroni cię przed ogniem!"
-  phoenix-resurrect-message: "§c🔥 Pióro Feniksa ratuje cię od śmierci!"
-  phoenix-resurrect-broadcast: "§6%player% został wskrzeszony przez Pióro Feniksa!"
-  
-  # Trójząb
-  trident-lightning: "§b🔱 Gniew Posejdona razi twojego wroga!"
-  trident-lightning-cooldown: "§b🔱 Posejdon razi piorunem! Odnowienie: %cooldown%s"
-  trident-rain: "§b🔱 Deszcz wiruje wokół ciebie..."
+  sword-activated: "§7Ostrze podpala cel."
+  sword-activated-cooldown: "§7Pogromca Smoków §8— §eładowanie §f%cooldown%s"
+  pickaxe-smelted: "§7Ruda przetopiona."
+  pickaxe-double: "§7Podwójny drop."
+  axe-tree-felled: "§7Drzewo ścięte §8(§f%blocks% bloków§8)"
+  axe-tree-felled-cooldown: "§7Ścinanie drzew §8— §eładowanie §f%cooldown%s"
+  axe-combat: "§7Cios Toporem Tytana."
+  axe-combat-cooldown: "§7Topór Tytana §8— §eładowanie §f%cooldown%s"
+  shovel-excavate: "§7Obszar oczyszczony §8(§f%blocks% bloków§8)"
+  shovel-excavate-full: "§7Łopata Pustki oczyściła §f%blocks% §7bloków."
+  hammer-lightning: "§7Młot Burzy przyzywa piorun."
+  hammer-shockwave: "§7Fala uderzeniowa trafiła pobliskich wrogów."
+  hammer-activated-cooldown: "§7Młot Burzy §8— §eładowanie §f%cooldown%s"
+  bow-double-shot: "§7Podwójny strzał."
+  bow-double-shot-cooldown: "§7Łuk Strażnika §8— §eładowanie §f%cooldown%s"
+  bow-homing: "§7Strzała naprowadzana."
+  book-used: "§7Mądrość zastosowana do twojego wyposażenia."
+  book-enchanted: "§7Księga zaczarowała §f%count% §7przedmiotów."
+  book-no-items: "§7Brak odpowiednich przedmiotów do zaczarowania."
+  phoenix-resurrect: "§7Pióro Feniksa uratowało cię."
+  phoenix-fire-immune: "§7Odporność na ogień aktywna."
+  phoenix-resurrect-message: "§6✦ §7Pióro Feniksa uratowało cię przed śmiercią."
+  phoenix-resurrect-broadcast: "§6✦ §f%player% §7został uratowany przez Pióro Feniksa."
+  trident-lightning: "§7Posejdon uderza."
+  trident-lightning-cooldown: "§7Trójząb Posejdona §8— §eładowanie §f%cooldown%s"
+  trident-rain: "§7Deszcz cię otacza."
 
 # ============================================
-# LEGENDARNE PRZEDMIOTY
+# PRZEDMIOTY
 # ============================================
 items:
-  summoner-apple:
-    name: "§d🍎 Jabłko Przyzywacza Skrzyń"
+  summoner-apple-random:
+    name: "§6Jabłko Przywoływacza"
     lore:
-      - "§7Magiczne jabłko przepełnione"
-      - "§7esencją skarbów."
+      - "§7Przywołuje skrzynię losowego poziomu."
       - ""
-      - "§e⚡ Zjedz, by przyzwać skrzynię!"
-      - "§7(Nie resetuje głównego timera)"
+      - "§8PPM, aby zjeść"
+      - "§8Nie resetuje głównego licznika"
+
+  summoner-apple-common:
+    name: "§fZwykłe Jabłko Przywoływacza"
+    lore:
+      - "§7Przywołuje Zwykłą skrzynię."
       - ""
-      - "§dSpecjalny Przedmiot Darczyńcy"
-  
+      - "§8PPM, aby zjeść"
+      - "§8Nie resetuje głównego licznika"
+
+  summoner-apple-rare:
+    name: "§bRzadkie Jabłko Przywoływacza"
+    lore:
+      - "§7Przywołuje Rzadką skrzynię."
+      - ""
+      - "§8PPM, aby zjeść"
+      - "§8Nie resetuje głównego licznika"
+
+  summoner-apple-legendary:
+    name: "§6Legendarne Jabłko Przywoływacza"
+    lore:
+      - "§7Przywołuje Legendarną skrzynię."
+      - ""
+      - "§8PPM, aby zjeść"
+      - "§8Nie resetuje głównego licznika"
+
   dragon-slayer-sword:
-    name: "§6⚔ Miecz Zabójcy Smoków ⚔"
+    name: "§6Pogromca Smoków"
     lore:
-      - "§7Legendarny miecz wykuty"
-      - "§7z serca smoka."
-      - "§7Płonie wiecznym płomieniem."
+      - "§7Wykuty z serca smoka."
       - ""
-      - "§c+%damage% Dodatkowe Obrażenia"
-      - "§e⚡ Podpala wrogów"
+      - "§e+%damage% §7dodatkowych obrażeń"
+      - "§7Podpala cel przy trafieniu"
       - "§8Odnowienie: %cooldown%s"
-      - ""
-      - "§6Legendarny Przedmiot"
-  
+
   master-pickaxe:
-    name: "§b⛏ Mistrzowski Kilof ⛏"
+    name: "§fKilof Mistrza"
     lore:
-      - "§7Narzędzie legendarnego górnika,"
-      - "§7zdolne znaleźć bogactwa"
-      - "§7w każdej skale."
+      - "§7Narzędzie legendarnego górnika."
       - ""
-      - "§e⚡ Automatycznie przetapia rudy"
-      - "§e⚡ Szansa na podwójny łup"
+      - "§7Automatyczne przetapianie rud"
+      - "§7Szansa na podwójny drop"
       - "§8Odnowienie: %cooldown%s"
-      - ""
-      - "§6Legendarny Przedmiot"
-  
+
   titan-axe:
-    name: "§4🪓 Topór Tytana 🪓"
+    name: "§fTopór Tytana"
     lore:
-      - "§7Masowy topór tytanów."
-      - "§7Jedno cięcie ścina całe drzewa."
+      - "§7Jeden zamach ścina całe drzewa."
       - ""
-      - "§c+%damage% Obrażenia w Walce"
-      - "§e⚡ Ścina całe drzewa"
-      - "§8Odnowienie drzewa: %tree_cooldown%s"
-      - "§8Odnowienie walki: %combat_cooldown%s"
-      - ""
-      - "§6Legendarny Przedmiot"
-  
+      - "§e+%damage% §7obrażeń bojowych"
+      - "§7Ścina całe drzewa przy rąbaniu"
+      - "§8Odnowienie bojowe: %combat_cooldown%s"
+      - "§8Odnowienie drzew: %tree_cooldown%s"
+
   void-shovel:
-    name: "§5🕳 Łopata Pustki 🕳"
+    name: "§fŁopata Pustki"
     lore:
-      - "§7Łopata dotknięta pustką."
-      - "§7Pożera ziemię na dużym obszarze."
+      - "§7Pochłania ziemię na dużym obszarze."
       - ""
-      - "§e⚡ Kopanie obszaru %size%x%size% (SHIFT)"
-      - "§e⚡ Automatycznie zbiera łupy"
+      - "§7Kopanie obszaru %size%x%size% §8(przytrzymaj Shift)"
+      - "§7Automatyczne zbieranie wszystkich dropów"
       - "§8Odnowienie: %cooldown%s"
-      - ""
-      - "§6Legendarny Przedmiot"
-  
+
   storm-hammer:
-    name: "§9⚡ Młot Burzy ⚡"
+    name: "§fMłot Burzy"
     lore:
-      - "§7Młot władców burzy."
       - "§7Rozkazuje samemu piorunowi."
       - ""
-      - "§c+%damage% Dodatkowe Obrażenia"
-      - "§e⚡ Przyzywa pioruny"
-      - "§e⚡ Obrażenia falą uderzeniową na obszarze"
+      - "§e+%damage% §7dodatkowych obrażeń"
+      - "§7Uderza piorunem przy trafieniu"
+      - "§7Obszarowe obrażenia od fali uderzeniowej"
       - "§8Odnowienie: %cooldown%s"
-      - ""
-      - "§6Legendarny Przedmiot"
-  
+
   guardian-bow:
-    name: "§a🏹 Łuk Strażnika 🏹"
+    name: "§fŁuk Strażnika"
     lore:
-      - "§7Łuk pobłogosławiony przez strażników."
-      - "§7Strzały szukają swoich celów."
+      - "§7Strzały, które szukają celów."
       - ""
-      - "§e⚡ Wystrzeliwuje podwójne strzały"
-      - "§e⚡ Umiejętność samonaprowadzającej strzały"
+      - "§7Wystrzeliwuje dwie strzały na strzał"
+      - "§7Strzały naprowadzają się na moby"
       - "§8Odnowienie: %cooldown%s"
-      - ""
-      - "§6Legendarny Przedmiot"
-  
+
   wisdom-book:
-    name: "§d📖 Księga Starożytnej Mądrości 📖"
+    name: "§fKsięga Starożytnej Mądrości"
     lore:
-      - "§7Zawiera wiedzę"
-      - "§7starożytnych cywilizacji."
+      - "§7Wiedza starożytnych cywilizacji."
       - ""
-      - "§e⚡ Prawy przycisk, by zakląć"
-      - "§e⚡ cały ekwipunek w ekwipunku"
-      - "§c⚠ Jednorazowego użytku"
-      - ""
-      - "§6Legendarny Przedmiot"
-  
+      - "§7PPM, aby zaczarować całe wyposażenie"
+      - "§8Jednorazowe użycie"
+
   phoenix-feather:
-    name: "§c🔥 Pióro Feniksa 🔥"
+    name: "§6Pióro Feniksa"
     lore:
-      - "§7Pióro nieśmiertelnego feniksa."
-      - "§7Daje drugą szansę na życie."
+      - "§7Daje drugą szansę w życiu."
       - ""
-      - "§e⚡ Auto-wskrzeszenie przy śmierci"
-      - "§e⚡ Ognioodporność podczas trzymania"
+      - "§7Automatycznie przywraca przy śmiertelnych obrażeniach"
+      - "§7Odporność na ogień podczas trzymania"
       - "§8Odnowienie: %cooldown%s"
-      - ""
-      - "§6Legendarny Przedmiot"
-  
+
   poseidon-trident:
-    name: "§b🔱 Trójząb Posejdona 🔱"
+    name: "§bTrójząb Posejdona"
     lore:
-      - "§7Broń boga morza."
       - "§7Rozkazuje burzom i morzom."
       - ""
-      - "§e⚡ Aura deszczu (%radius% bloków)"
-      - "§e⚡ Piorun przy trafieniu"
-      - "§b+%damage% Obrażenia od pioruna"
+      - "§7Aura deszczu §8(%radius% bloków)"
+      - "§7Uderzenie pioruna przy trafieniu §8(+%damage% obrażeń)"
       - "§8Odnowienie: %cooldown%s"
-      - ""
-      - "§6Legendarny Przedmiot"
 
 # ============================================
 # NIESTANDARDOWE MIKSTURY
 # ============================================
 potions:
   strength-3:
-    name: "§c⚔ Mikstura Siły III"
+    name: "§fMikstura Siły III"
     lore:
-      - "§7Siła III (2:00)"
-      - "§6Niestandardowa Mikstura"
-  
+      - "§7Siła III  §8·  §e2:00"
+
   haste-2:
-    name: "§e⛏ Mikstura Pośpiechu II"
+    name: "§fMikstura Pośpiechu II"
     lore:
-      - "§7Pośpiech II (3:00)"
-      - "§6Niestandardowa Mikstura"
-  
+      - "§7Pośpiech II  §8·  §e3:00"
+
   luck-2:
-    name: "§a🍀 Mikstura Szczęścia II"
+    name: "§fMikstura Szczęścia II"
     lore:
-      - "§7Szczęście II (5:00)"
-      - "§6Niestandardowa Mikstura"
-  
+      - "§7Szczęście II  §8·  §e5:00"
+
   dolphins-grace:
-    name: "§b🐬 Mikstura Łaski Delfina"
+    name: "§fMikstura Łaski Delfina"
     lore:
-      - "§7Łaska delfina (3:00)"
-      - "§6Niestandardowa Mikstura"
-  
+      - "§7Łaska Delfina  §8·  §e3:00"
+
   turtle-master:
-    name: "§a🐢 Rozszerzony Żółwio-Mistrz"
+    name: "§fPrzedłużona Mikstura Żółwiego Mistrza"
     lore:
-      - "§7Spowolnienie IV (1:00)"
-      - "§7Odporność III (1:00)"
-      - "§6Niestandardowa Mikstura"
-  
+      - "§7Spowolnienie IV  §8·  §e1:00"
+      - "§7Odporność III  §8·  §e1:00"
+
   wither-resistance:
-    name: "§8💀 Mikstura Odporności na Withera"
+    name: "§fMikstura Odporności na Wither"
     lore:
-      - "§7Regeneracja II (0:30)"
-      - "§7Odporność II (1:00)"
-      - "§6Niestandardowa Mikstura"
+      - "§7Regeneracja II  §8·  §e0:30"
+      - "§7Odporność II  §8·  §e1:00"
 
 # ============================================
 # OSIĄGNIĘCIA
@@ -469,172 +460,134 @@ achievements:
   first-chest:
     name: "§ePierwsze Znalezisko"
     description: "Otwórz swoją pierwszą skrzynię"
-    reward-message: "§6+50 XP premii!"
-  
+    reward-message: "§8+50 XP"
+
   treasure-hunter:
-    name: "§6Poszukiwacz Skarbów"
+    name: "§eŁowca Skarbów"
     description: "Otwórz 10 skrzyń"
-    reward-message: "§6+200 XP premii!"
-  
+    reward-message: "§8+200 XP"
+
   chest-master:
-    name: "§cMistrz Skrzyń"
+    name: "§6Mistrz Skrzyń"
     description: "Otwórz 50 skrzyń"
-    reward-message: "§6+500 XP premii!"
-  
+    reward-message: "§8+500 XP"
+
   legendary-finder:
-    name: "§5Odkrywca Legend"
+    name: "§6Poszukiwacz Legend"
     description: "Znajdź legendarny przedmiot"
-    reward-message: "§6+300 XP premii!"
-  
+    reward-message: "§8+300 XP"
+
   guardian-slayer:
-    name: "§4Zabójca Strażników"
+    name: "§6Pogromca Strażników"
     description: "Zabij 25 strażników skrzyń"
-    reward-message: "§6+400 XP premii!"
+    reward-message: "§8+400 XP"
 
 # ============================================
-# INTERFEJS NIESTANDARDOWEGO ŁUPU
+# GUI NIESTANDARDOWEGO ŁUPU
 # ============================================
 gui:
-  # Menu główne
-  custom-loot-title: "§6Niestandardowy Łup ze Skrzyni"
-  edit-common: "§fEdytuj Łup ze Zwykłych Skrzyń"
-  edit-rare: "§9Edytuj Łup z Rzadkich Skrzyń"
-  edit-legendary: "§6Edytuj Łup z Legendarnych Skrzyń"
-
+  custom-loot-title: "§8Niestandardowy Łup Skrzyń"
+  edit-common: "§fZwykła Skrzynia — Edytuj Łup"
+  edit-rare: "§bRzadka Skrzynia — Edytuj Łup"
+  edit-legendary: "§6Legendarna Skrzynia — Edytuj Łup"
   common-chest-name: "§fZwykła Skrzynia"
-  rare-chest-name: "§9Rzadka Skrzynia"
+  rare-chest-name: "§bRzadka Skrzynia"
   legendary-chest-name: "§6Legendarna Skrzynia"
-
-  click-to-edit: "§7Kliknij, aby edytować łup"
-  custom-enabled: "§aNiestandardowy łup: WŁĄCZONY"
-  custom-disabled: "§cNiestandardowy łup: WYŁĄCZONY"
-  using-default: "§7Używanie domyślnego losowego łupu"
-  items-count: "§7Przedmioty: %count%"
-
-  # Typ skrzyni
-  chest-type-toggle: "§eTyp Skrzyni"
-  current-type: "§7Aktualny: %type%"
-  chest-type-info: "§7Kliknij, aby przełączyć między:"
-  chest-type-single: "§fPojedyncza Skrzynia §7(27 slotów)"
-  chest-type-double: "§bPodwójna Skrzynia §7(54 sloty)"
-  chest-type-single-desc: "§f  ■ Pojedyncza §7- 27 slotów (3 rzędy)"
-  chest-type-double-desc: "§b  ■ Podwójna §7- 54 sloty (6 rzędów)"
-  chest-type-changed: "§aTyp skrzyni zmieniony na %type%"
-  chest-type-change-error: "§cNie udało się zmienić typu skrzyni!"
-  chest-type-display: "§7Typ: %type%"
-
-  # Kontrola ułamka
-  fraction-increase: "§a→ Następny Ułamek"
+  click-to-edit: "§7Kliknij, aby edytować"
+  custom-enabled: "§7Niestandardowy łup §8· §awłączony"
+  custom-disabled: "§7Niestandardowy łup §8· §7wyłączony"
+  using-default: "§8Używanie domyślnego łupu"
+  items-count: "§7Zapisane przedmioty §8· §e%count%"
+  chest-type-toggle: "§7Rozmiar Skrzyni"
+  current-type: "§8Obecny: %type%"
+  chest-type-info: "§8Kliknij, aby przełączyć"
+  chest-type-single: "§7Pojedyncza §8(27 slotów)"
+  chest-type-double: "§7Podwójna §8(54 sloty)"
+  chest-type-single-desc: "§8Pojedyncza — 27 slotów"
+  chest-type-double-desc: "§8Podwójna — 54 sloty"
+  chest-type-changed: "§7Rozmiar skrzyni zmieniony na %type%"
+  chest-type-change-error: "§7Nie udało się zmienić rozmiaru skrzyni."
+  chest-type-display: "§8Rozmiar: %type%"
+  fraction-increase: "§7Więcej przedmiotów"
   fraction-increase-lore:
-    - "§7Kliknij, aby zwiększyć ułamek"
-    - "§7(więcej przedmiotów na skrzynię)"
-
-  fraction-decrease: "§c← Poprzedni Ułamek"
+    - "§8Zwiększ liczbę przedmiotów na skrzynię"
+  fraction-decrease: "§7Mniej przedmiotów"
   fraction-decrease-lore:
-    - "§7Kliknij, aby zmniejszyć ułamek"
-    - "§7(mniej przedmiotów na skrzynię)"
-
-  current-fraction: "§eWspółczynnik Dropsów"
-  fraction-info: "§7Tyle przedmiotów się pojawi"
-  fraction-changed: "§aUłamek zmieniony na %fraction%"
-  fraction-change-error: "§cNie udało się zmienić ułamka!"
-  item-fraction-display: "§7Współczynnik: %fraction%"
-
-  # Nazwy ułamków
+    - "§8Zmniejsz liczbę przedmiotów na skrzynię"
+  current-fraction: "§7Wskaźnik dropu"
+  fraction-info: "§8Przedmioty wybierane przy spawnie skrzyni"
+  fraction-changed: "§7Wskaźnik dropu ustawiony na %fraction%"
+  fraction-change-error: "§7Nie udało się zmienić wskaźnika dropu."
+  item-fraction-display: "§8Wskaźnik: %fraction%"
   fraction:
-    all: "§aWszystkie przedmioty (przetasowane)"
-    one-half: "§e1/2 - Połowa przedmiotów"
-    one-third: "§61/3 - Jedna trzecia"
-    one-fourth: "§c1/4 - Jedna czwarta"
-    one-fifth: "§91/5 - Jedna piąta"
-    one-sixth: "§31/6 - Jedna szósta"
-    one-seventh: "§51/7 - Jedna siódma"
-    one-eighth: "§41/8 - Jedna ósma"
-    one-ninth: "§d1/9 - Jedna dziewiąta"
-    one-tenth: "§b1/10 - Jedna dziesiąta"
-
-  # Przyciski
-  save-button: "§a✓ Zapisz & Włącz"
+    all: "§7Wszystkie przedmioty"
+    one-half: "§71/2 przedmiotów"
+    one-third: "§71/3 przedmiotów"
+    one-fourth: "§71/4 przedmiotów"
+    one-fifth: "§71/5 przedmiotów"
+    one-sixth: "§71/6 przedmiotów"
+    one-seventh: "§71/7 przedmiotów"
+    one-eighth: "§71/8 przedmiotów"
+    one-ninth: "§71/9 przedmiotów"
+    one-tenth: "§71/10 przedmiotów"
+  save-button: "§aZapisz"
   save-lore:
-    - "§7Kliknij, aby zapisać przedmioty i"
-    - "§7włączyć niestandardowy łup dla tej klasy"
-
-  reset-button: "§c✗ Resetuj & Wyłącz"
+    - "§8Zapisz przedmioty i włącz niestandardowy łup"
+  reset-button: "§7Resetuj"
   reset-lore:
-    - "§7Kliknij, aby wyczyścić przedmioty i"
-    - "§7użyć domyślnego losowego łupu"
-
-  back-button: "§7← Wstecz"
-
-  # Komunikaty
-  saved: "§a✓ Zapisano %count% przedmiotów dla skrzyń %tier%!"
-  reset-done: "§c✗ Niestandardowy łup wyczyszczony dla skrzyń %tier%."
-  chest-size-items-dropped: "§e%count% przedmiotów się nie zmieściło i zostało upuszczonych pod twoje stopy!"
-  
-  # Potwierdzenie resetu
+    - "§8Wyczyść przedmioty i użyj domyślnego łupu"
+  back-button: "§7Wstecz"
+  saved: "§7Zapisano §e%count% §7przedmiotów dla §e%tier%§7."
+  reset-done: "§7Niestandardowy łup dla §e%tier% §7wyczyszczony."
+  chest-size-items-dropped: "§7%count% przedmiotów nie zmieściło się i zostało upuszczonych."
   reset-confirm-title-common: "Zwykła"
   reset-confirm-title-rare: "Rzadka"
   reset-confirm-title-legendary: "Legendarna"
-  
-  # Pierwsze menu potwierdzenia
-  reset-first-menu-title: "§6⚠ Potwierdzenie Resetu: %tier%"
-  reset-first-warning: "§e§l⚠ Pierwsze Ostrzeżenie"
+  reset-first-menu-title: "§7Resetuj — %tier%"
+  reset-first-warning: "§ePotwierdź reset"
   reset-first-warning-lore:
-    - "§7Chcesz zresetować klasę §e%tier%"
-    - "§7Aktualne przedmioty: §e%count%"
+    - "§7Poziom: §e%tier%"
+    - "§7Przedmioty do usunięcia: §e%count%"
     - ""
-    - "§6USTAWIENIA zostaną ZACHOWANE:"
-    - "§7  • Typ skrzyni (pojedyncza/podwójna)"
-    - "§7  • Ułamek współczynnika dropsów"
-    - ""
-    - "§cTylko przedmioty zostaną usunięte!"
-    - "§7Wszystkie przedmioty spadną pod twoje stopy"
-  
-  reset-continue: "§e→ Kontynuuj"
+    - "§8Rozmiar skrzyni i wskaźnik dropu zostaną zachowane."
+    - "§8Tylko przedmioty zostaną usunięte."
+    - "§8Wszystkie przedmioty spadną w twojej lokalizacji."
+  reset-continue: "§7Kontynuuj"
   reset-continue-lore:
-    - "§7Przejdź do finalnego potwierdzenia"
-  
-  # Finalne menu potwierdzenia
-  reset-final-menu-title: "§4§l⚠ OSTRZEŻENIE KOŃCOWE: %tier%"
-  reset-final-warning: "§c§l⚠ OSTATNIA SZANSA!"
+    - "§8Przejdź do ostatecznego potwierdzenia"
+  reset-final-menu-title: "§cOstateczne potwierdzenie — %tier%"
+  reset-final-warning: "§cOstatnia szansa"
   reset-final-warning-lore:
-    - "§c§lTO TWOJA OSTATNIA SZANSA!"
-    - ""
-    - "§7Klasa: §e%tier%"
+    - "§7Poziom: §e%tier%"
     - "§7Przedmioty do usunięcia: §c%count%"
     - ""
-    - "§a§lUSTAWIENIA ZOSTANĄ ZACHOWANE"
-    - "§a§lTYLKO PRZEDMIOTY ZOSTANĄ USUNIĘTE"
-    - ""
-    - "§7Wszystkie przedmioty spadną pod twoje stopy"
-  
-  reset-confirm-final: "§c§l✖ POTWIERDŹ RESET"
+    - "§8Ustawienia zostaną zachowane."
+    - "§8Tej operacji nie można cofnąć."
+  reset-confirm-final: "§cPotwierdź"
   reset-confirm-final-lore:
-    - "§c§lUSUŃ WSZYSTKIE PRZEDMIOTY"
-    - "§7(ustawienia pozostają)"
-    - ""
-    - "§c§lKliknij, aby potwierdzić"
-  
-  reset-cancel: "§a§l✔ Anuluj"
+    - "§8Usuń wszystkie przedmioty trwale"
+  reset-cancel: "§7Anuluj"
   reset-cancel-lore:
-    - "§7Wróć do edycji"
-    - "§7Nic nie zostanie zmienione"
-  
-  reset-items-dropped: "§e%count% przedmiotów zostało upuszczonych pod twoje stopy!"
-  reset-complete: "§a✔ Niestandardowy łup dla %tier% został zresetowany!"
+    - "§8Wróć — nic się nie zmieni"
+  reset-items-dropped: "§7%count% przedmiotów spadło w twojej lokalizacji."
+  reset-complete: "§7Niestandardowy łup dla §e%tier% §7został zresetowany."
 
 # ============================================
-# INTERAKCJA ZE SKRZYNIAMI
+# INTERAKCJA Z SKRZYNIĄ
 # ============================================
 chest:
-  first-opener: "§e✨ Byłeś pierwszy, kto otworzył tę skrzynię!"
-  guardian-spawned: "§cPojawił się strażnik!"
-  proximity-hint: "§7Słyszysz coś w pobliżu..."
+  first-opener: "§6✦ §7Jesteś pierwszym, który otwiera tę skrzynię."
+  locked: "§7Ta skrzynia jest zamknięta — kliknij PPM, aby rozpocząć odliczanie."
+  already-activating: "§7Otwiera się za §e%seconds%s§7."
+  already-opened: "§7Ta skrzynia została już otwarta przez §f%player%§7."
+  not-active: "§7To nie jest aktywna skrzynia."
+  guardian-spawned: "§7Pojawił się strażnik."
+  proximity-hint: "§7Coś jest w pobliżu..."
 
 # ============================================
 # RÓŻNE
 # ============================================
 misc:
-  chest-opening: "§eOtwieram skrzynię..."
-  guardian-spawned: "§cPojawił się strażnik!"
-  proximity-hint: "§7Słyszysz coś w pobliżu..."
+  chest-opening: "§7Otwieranie..."
+  guardian-spawned: "§7Pojawił się strażnik."
+  proximity-hint: "§7Coś jest w pobliżu..."

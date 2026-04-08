@@ -1,7 +1,7 @@
 # ============================================
-# SpawnChestPlugin - Русский языковой файл
+# SpawnChestPlugin - Файл локализации (Русский)
 # Язык: Русский (ru)
-# Версия: 4.2 FULL
+# Версия: 4.4 FULL
 # ============================================
 
 # ============================================
@@ -10,631 +10,584 @@
 tiers:
   common:
     name: "§fОбычный сундук"
-    guardian-name: "§fСтраж обычного сундука"
+    guardian-name: "§7Обычный страж"
   rare:
-    name: "§9Редкий сундук"
-    guardian-name: "§9Страж редкого сундука"
+    name: "§bРедкий сундук"
+    guardian-name: "§bРедкий страж"
   legendary:
     name: "§6Легендарный сундук"
-    guardian-name: "§6Страж легендарного сундука"
+    guardian-name: "§6Легендарный страж"
 
 # ============================================
-# СИСТЕМНЫЕ СООБЩЕНИЯ (логи и внутренние)
+# СИСТЕМНЫЕ СООБЩЕНИЯ (только в логах сервера)
 # ============================================
 system:
-  # Статистика
-  stats-saved: "Сохранена статистика для %count% игроков."
-  stats-save-error: "Не удалось сохранить статистику для %player%: %error%"
-  player-unknown: "Неизвестно"
-  
-  # Адаптер версии
-  version-adapter-init: "Версия адаптера инициализирована:"
+  chest-batch-start: "[SpawnChest] Пакетный спаун: %count% сундук(ов), задержка %delay% сек."
+  chest-batch-spawn: "[SpawnChest] Спаун сундука %index% из %total%..."
+  chest-location-protected: "[SpawnChest] Место %x%, %z% защищено, повторяем..."
+  world-apple-no-location: "[SpawnChest] Не удалось найти место для яблока мира после %attempts% попыток."
+  world-apple-spawned: "[SpawnChest] Яблоко мира появилось в %x%, %y%, %z%"
+  zone-wg-create-error: "[SpawnChest] Ошибка создания региона WorldGuard в %x% %y% %z%: %error%"
+  zone-wg-remove-error: "[SpawnChest] Ошибка удаления региона WorldGuard %name%: %error%"
+  pre-open-timer-started: "[SpawnChest] Таймер предоткрытия запущен в %x% %y% %z% игроком %player%"
+  pre-open-timer-expired: "[SpawnChest] Таймер предоткрытия истёк в %x% %y% %z%"
+  stats-saved: "[SpawnChest] Сохранена статистика для %count% игроков."
+  stats-save-error: "[SpawnChest] Ошибка сохранения статистики для %player%: %error%"
+  player-unknown: "Неизвестный"
+  version-adapter-init: "[SpawnChest] VersionAdapter инициализирован:"
   version-minecraft: "  - Minecraft: %version%"
   version-server: "  - Сервер: %type%"
   version-full: "  - Полная версия: %version%"
   version-java: "  - Java: %version%"
-  version-chunk-error: "Не удалось использовать асинхронную загрузку чанков: %error%"
-  
-  # Спавн сундуков
-  chest-spawn-started: "Спавн сундука в процессе (%elapsed%s назад)"
-  chest-spawn-stuck: "Спавн завис на %seconds%s, сброс..."
-  chest-invalid-world: "Не найден подходящий мир для спавна сундука!"
-  chest-spawn-attempt: "Попытка %attempt%: пробуем X=%x% Z=%z% (расст.=%dist%)"
-  chest-location-found: "Найдено место для сундука: X=%x% Y=%y% Z=%z%"
-  chest-ground-level: "Спавн сундука на X=%x% Y=%y% Z=%z% (земля=%ground%)"
-  chest-filled: "Сундук успешно заполнен на %x%, %y%, %z%"
-  chest-state-error: "Не удалось получить состояние сундука, тип: %type%"
-  chest-spawn-error: "Ошибка спавна сундука: %error%"
-  chest-spawn-failed-attempts: "Не удалось найти место после %attempts% попыток, отмена"
-  chest-block-not-chest: "Блок не является сундуком, принудительно повторяем..."
-  chest-highest-solid-not-found: "Не найден твердый блок на X=%x% Z=%z%, используем Y=64"
-  
-  # Таймер
-  timer-loaded: "Загружено время последнего спавна: %time%"
-  timer-first-run: "Обнаружен первый запуск, сундук появится через 30 секунд"
-  timer-save-error: "Не удалось сохранить таймер: %error%"
-  timer-load-error: "Не удалось загрузить таймер: %error%"
-  timer-spawn-reset: "Таймер: Спавн завис, сброс..."
-  
-  # Пользовательская добыча
-  custom-loot-using: "Используется пользовательская добыча для сундука %tier%: %count% предметов"
-  custom-loot-no-file: "Файл пользовательской добычи не найден, используем стандартную."
-  custom-loot-loaded: "Загружена конфигурация пользовательской добычи."
-  custom-loot-saved: "Пользовательская добыча сохранена в файл."
-  custom-loot-load-error: "Ошибка загрузки пользовательской добычи: %error%"
-  custom-loot-save-error: "Ошибка сохранения пользовательской добычи: %error%"
-  
-  # Жизненный цикл плагина
-  plugin-enabled: "SpawnChestPlugin v4.0 FULL включен!"
-  plugin-disabled: "SpawnChestPlugin выключен."
-  plugin-version-too-old: "Этот плагин требует Minecraft версии 1.18 или выше!"
-  plugin-version-detected: "Обнаружена версия: %version%"
-  plugin-version-update: "Пожалуйста, обновите ваш сервер до MC 1.18+"
+  version-chunk-error: "[SpawnChest] Ошибка асинхронной загрузки чанка: %error%"
+  chest-spawn-started: "[SpawnChest] Спаун в процессе (%elapsed% сек. назад)"
+  chest-spawn-stuck: "[SpawnChest] Спаун завис на %seconds% сек., сброс..."
+  chest-invalid-world: "[SpawnChest] Не найдено подходящего мира для спауна сундука."
+  chest-spawn-attempt: "[SpawnChest] Попытка %attempt%: X=%x% Z=%z% (дист=%dist%)"
+  chest-location-found: "[SpawnChest] Место найдено: X=%x% Y=%y% Z=%z%"
+  chest-ground-level: "[SpawnChest] Установка сундука в X=%x% Y=%y% Z=%z% (земля=%ground%)"
+  chest-filled: "[SpawnChest] Сундук заполнен в %x%, %y%, %z%"
+  chest-state-error: "[SpawnChest] Не удалось получить состояние сундука: %type%"
+  chest-spawn-error: "[SpawnChest] Ошибка спауна сундука: %error%"
+  chest-spawn-failed-attempts: "[SpawnChest] Не удалось найти место после %attempts% попыток."
+  chest-block-not-chest: "[SpawnChest] Блок не является сундуком, принудительно..."
+  chest-highest-solid-not-found: "[SpawnChest] Нет твёрдого блока в X=%x% Z=%z%, используется Y=64"
+  timer-loaded: "[SpawnChest] Таймер загружен: %time%"
+  timer-first-run: "[SpawnChest] Первый запуск — сундук появится через 30 секунд."
+  timer-save-error: "[SpawnChest] Ошибка сохранения таймера: %error%"
+  timer-load-error: "[SpawnChest] Ошибка загрузки таймера: %error%"
+  timer-spawn-reset: "[SpawnChest] Спаун завис, сброс таймера."
+  custom-loot-using: "[SpawnChest] Пользовательский лут для %tier%: %count% предметов"
+  custom-loot-no-file: "[SpawnChest] Файл кастомного лута отсутствует, используются стандартные настройки."
+  custom-loot-loaded: "[SpawnChest] Пользовательский лут загружен."
+  custom-loot-saved: "[SpawnChest] Пользовательский лут сохранён."
+  custom-loot-load-error: "[SpawnChest] Ошибка загрузки кастомного лута: %error%"
+  custom-loot-save-error: "[SpawnChest] Ошибка сохранения кастомного лута: %error%"
+  plugin-enabled: "[SpawnChest] SpawnChestPlugin v4.4 включён."
+  plugin-disabled: "[SpawnChest] SpawnChestPlugin отключён."
+  plugin-version-too-old: "[SpawnChest] Этому плагину требуется Minecraft 1.18 или выше."
+  plugin-version-detected: "[SpawnChest] Обнаружена версия: %version%"
+  plugin-version-update: "[SpawnChest] Пожалуйста, обновите сервер до MC 1.18+"
 
 # ============================================
-# АНОНСЫ
+# ОБЪЯВЛЕНИЯ (отправляются игрокам)
 # ============================================
 broadcasts:
-  chest-spawned: "§6🎁 %tier% §aпоявился в: §eX: %x% Y: %y% Z: %z%"
-  chest-disappeared: "§c💨 Сундук исчез! Вы опоздали..."
-  chest-opened: "§a%player% открыл %tier%!"
-  legendary-found: "§6§l✨ %player% нашёл ЛЕГЕНДАРНЫЙ предмет: %item%! ✨"
-  minutes-left: "§e⏰ %minutes% минут(ы) до появления следующего сундука!"
-  countdown: "§c⚡ %seconds% секунд(ы) до появления сундука!"
-  spawn-title: "§6✨ Появился Сундук! ✨"
-  spawn-subtitle: "§eКоординаты: §fX: %x% Y: %y% Z: %z%"
-  apple-used: "§6🍎 %player% призвал сундук с помощью волшебного яблока!"
-  resurrection: "§d🪶 %player% был воскрешен Пером Феникса!"
-  achievement-unlocked: "§6%player% получил достижение: §e%achievement%"
-  achievement-title: "§6§l★ ДОСТИЖЕНИЕ ПОЛУЧЕНО ★"
+  # ── Спаун сундука ────────────────────────────────────────────
+  chest-spawned: "§6✦ §e%tier% §7появился §8— §fX: %x%  Y: %y%  Z: %z%"
+  chest-spawned-no-coords: "§6✦ §7Где-то в мире появился §e%tier%§7."
+  chest-spawn-batch: "§6✦ §f%count% §eсундуков §7появились по всему миру."
+
+  # ── Жизненный цикл сундука ─────────────────────────────────────────
+  chest-disappeared: "§7✦ Сундук исчез — никто не успел его открыть."
+  chest-opened: "§7✦ %player% открыл %tier%."
+
+  # ── Таймер предоткрытия ─────────────────────────────────────────
+  chest-activating: "§6✦ §f%player% §7активировал сундук §8— §eоткроется через §f%seconds%с"
+  chest-countdown: "§e✦ §7Откроется через §f%seconds%с"
+  chest-unlocked: "§6✦ §eСундук теперь открыт!"
+  chest-opened-by: "§6✦ §f%player% §7открыл §e%tier%§7."
+
+  # ── Заголовок / подзаголовок при спауне ─────────────────────────────────
+  spawn-title: "§6✦ Появился сундук"
+  spawn-subtitle: "§7Направляйтесь к §fX: %x%  Y: %y%  Z: %z%"
+  spawn-subtitle-hidden: "§7Исследуйте мир, чтобы найти его."
+
+  # ── Предупреждения об обратном отсчёте ─────────────────────────────────────
+  minutes-left: "§7✦ Следующий сундук через §e%minutes% мин."
+  countdown: "§6✦ §7Сундук появится через §f%seconds%с§7."
+
+  # ── Яблоки ─────────────────────────────────────────────────
+  apple-used: "§7✦ %player% призвал сундук."
+  apple-used-random: "§7✦ %player% §7использовал Яблоко призывателя."
+  apple-used-common: "§7✦ %player% §7призвал §fОбычный §7сундук."
+  apple-used-rare: "§7✦ %player% §7призвал §bРедкий §7сундук."
+  apple-used-legendary: "§7✦ %player% §7призвал §6Легендарный §7сундук."
+  world-apple-dropped: "§6✦ §7Яблоко §e%type% §7упало в §fX: %x%  Y: %y%  Z: %z%§7."
+
+  # ── Легендарное ──────────────────────────────────────────────
+  legendary-found: "§6✦ §f%player% §7нашёл легендарный предмет §8— §e%item%"
+
+  # ── Воскрешение ───────────────────────────────────────────
+  resurrection: "§7✦ %player% был спасён Пером Феникса."
+
+  # ── Достижения ───────────────────────────────────────────
+  achievement-unlocked: "§6✦ §f%player% §7получил достижение §e%achievement%"
+  achievement-title: "§6Достижение получено"
   achievement-subtitle: "§e%name%"
+
+  # ── Защитная зона ────────────────────────────────────────
+  zone-break-blocked: "§7Эта область защищена, пока активен сундук."
+  zone-place-blocked: "§7Эта область защищена, пока активен сундук."
+  zone-created: "[SpawnChest] Зона защиты создана в %x%, %y%, %z%"
+  zone-removed: "[SpawnChest] Зона защиты удалена в %x%, %y%, %z%"
+
+# ============================================
+# БОССБАР
+# ============================================
+bossbar:
+  countdown-minutes: "§6✦  §7Следующий сундук  §8·  §f%minutes%м %seconds%с"
+  countdown-seconds: "§6✦  §7Следующий сундук  §8·  §e%seconds%с"
+  active-with-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%  §8·  %time%"
+  active-no-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%"
+  time-minutes: "§f%minutes%м %seconds%с"
+  time-seconds: "§e%seconds%с"
 
 # ============================================
 # КОМАНДЫ
 # ============================================
 commands:
-  # Основные команды
-  next-chest: "§6⏰ Время до следующего сундука: §e%minutes% мин. %seconds% сек."
-  next-chest-now: "§aСундук появляется сейчас!"
-  chest-spawned: "§a✅ Сундук был успешно создан!"
-  chest-spawn-failed: "§cНе удалось создать сундук. Попробуйте снова."
-  chest-spawn-in-progress: "§eСпавн сундука уже в процессе..."
-  timer-set: "§aТаймер сундука установлен на §e%seconds% §асекунд (%minutes% мин)."
-  timer-invalid: "§c❌ Пожалуйста, введите корректное число!"
-  config-reloaded: "§a✓ Конфигурация перезагружена!"
-  config-value: "§7%path%: §e%value%"
-  config-set: "§a✓ Установлено §e%path% §aна §e%value%"
-  config-invalid-path: "§cНеверный путь в конфиге: %path%"
-  feature-enabled: "§a✓ %feature% включено!"
-  feature-disabled: "§c✗ %feature% выключено!"
-  apple-given: "§aВыдано %amount% Яблок Призывателя сундуков игроку %player%"
-  apple-received: "§6🍎 Вы получили %amount% Яблоко(а) Призывателя сундуков!"
-  legendary-items-given: "§a✓ Вы получили все легендарные предметы!"
-  no-permission: "§c❌ У вас нет прав для этого действия!"
-  player-not-found: "§c❌ Игрок не найден: %player%"
-  player-only: "§cЭту команду могут использовать только игроки!"
-  invalid-usage: "§cИспользование: %usage%"
-  world-not-found: "§c❌ Мир не найден!"
-  
-  # Дополнительные сообщения
-  searching-location: "§eПоиск места для сундука..."
-  spawn-interval-set: "§aИнтервал спавна установлен на %seconds% секунд."
-  enter-valid-number: "§cВведите корректное число!"
-  timer-reset: "§aТаймер сброшен! Сундук появится через 10 секунд."
-  language-reloaded: "§7Язык: §e%code% §7(%name%)"
-  stats-disabled: "§cСтатистика отключена!"
-  players-only: "§cТолько для игроков!"
-  status-on: "§aВКЛ"
-  status-off: "§cВЫКЛ"
-  
-  # Помощь по конфигу
-  config-help-header: "§6=== Команды ChestConfig ==="
-  config-help-get: "§e/chestconfig get <путь> §7- Получить значение из конфига"
-  config-help-set: "§e/chestconfig set <путь> <значение> §7- Установить значение в конфиге"
-  config-help-toggle: "§e/chestconfig toggle <путь> §7- Переключить булево значение"
-  config-help-reload: "§e/chestconfig reload §7- Перезагрузить конфиг"
-  config-help-list: "§e/chestconfig list [раздел] §7- Список значений"
-  config-help-examples: "§7Примеры:"
-  config-help-example1: "§7  /chestconfig toggle features.guardians.enabled"
-  config-help-example2: "§7  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
-  
-  # Список конфига
-  config-list-header: "§6=== Конфиг: %section% ==="
+  next-chest: "§7Следующий сундук через §e%minutes%м %seconds%с§7."
+  next-chest-now: "§7Сундук появляется прямо сейчас."
+  chest-spawned: "§7Сундук появился."
+  chest-spawn-failed: "§7Не удалось создать сундук — попробуйте снова."
+  chest-spawn-in-progress: "§7Сундук уже создаётся."
+  timer-set: "§7Интервал спауна установлен на §e%seconds%с§7."
+  timer-invalid: "§7Введите корректное число."
+  config-reloaded: "§7Конфигурация перезагружена."
+  config-value: "§7%path%§8: §f%value%"
+  config-set: "§7Установлено §e%path% §8> §f%value%"
+  config-invalid-path: "§7Неизвестный путь конфига: §e%path%"
+  feature-enabled: "§7%feature% §8> §aвключено"
+  feature-disabled: "§7%feature% §8> §7отключено"
+  apple-given: "§7Выдано §f%amount% §7Яблоко(к) призывателя игроку §f%player%§7."
+  apple-given-typed: "§7Выдано §f%amount% §e%type% §7Яблоко(к) игроку §f%player%§7."
+  apple-received: "§6✦ §7Вы получили §f%amount% §7Яблоко(к) призывателя."
+  apple-received-typed: "§6✦ §7Вы получили §f%amount% §e%type% §7Яблоко(к)."
+  apple-unknown-type: "§7Неизвестный тип — используйте §erandom§7, §fcommon§7, §brare §7или §6legendary§7."
+  legendary-items-given: "§7Вы получили все легендарные предметы."
+  no-permission: "§7У вас нет прав на это."
+  player-not-found: "§7Игрок не найден: §e%player%"
+  player-only: "§7Эту команду могут использовать только игроки."
+  invalid-usage: "§7Использование: §e%usage%"
+  world-not-found: "§7Мир не найден."
+  searching-location: "§7Поиск места..."
+  spawn-interval-set: "§7Интервал спауна установлен на §e%seconds%с§7."
+  enter-valid-number: "§7Введите корректное число."
+  timer-reset: "§7Таймер сброшен — сундук появится через 10 секунд."
+  language-reloaded: "§7Язык: §e%code% §8(§f%name%§8)"
+  stats-disabled: "§7Статистика отключена."
+  players-only: "§7Только для игроков."
+  status-on: "§aвкл"
+  status-off: "§7выкл"
+  config-help-header: "§8--- §6ChestConfig §8---"
+  config-help-get: "§e/chestconfig get §7<путь>"
+  config-help-set: "§e/chestconfig set §7<путь> <значение>"
+  config-help-toggle: "§e/chestconfig toggle §7<путь>"
+  config-help-reload: "§e/chestconfig reload"
+  config-help-list: "§e/chestconfig list §7[раздел]"
+  config-help-examples: "§8Примеры:"
+  config-help-example1: "§8  /chestconfig toggle features.guardians.enabled"
+  config-help-example2: "§8  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
+  config-list-header: "§8--- §7Конфиг: §e%section% §8---"
   config-list-master-toggle: "§7Главный переключатель: §e%value%"
-  
-  # Команда статистики сундуков
-  chest-stats-header: "§6=== Статистика Сундуков ==="
-  chest-stats-common-chance: "§7Шанс обычного сундука: §f%chance%%"
-  chest-stats-rare-chance: "§9Шанс редкого сундука: §f%chance%%"
-  chest-stats-legendary-chance: "§6Шанс легендарного сундука: §f%chance%%"
-  chest-stats-guardians: "§7Стражи: %status%"
-  chest-stats-legendary-items: "§7Легендарные предметы: %status%"
-  chest-stats-pvp-protection: "§7Защита от PvP: %status%"
-  chest-stats-particles: "§7Частицы: %status%"
-  chest-stats-sounds: "§7Звуки: %status%"
-  chest-stats-statistics: "§7Статистика: %status%"
-  chest-stats-active: "§7Активные сундуки: §e%count%"
-  
-  # Команда тестовой зоны
-  test-zone-header: "§eТестирование зоны спавна сундуков..."
-  test-zone-min-dist: "§7Мин. расстояние: %min%, Макс. расстояние: %max%"
-  test-zone-bury: "§7Закапывать в землю: %value%"
-  test-zone-worlds: "§7Включенные миры: %worlds%"
-  test-zone-example: "§7Пример %num%: §fX=%x% Z=%z% §7(расстояние: %dist%)"
-  
-  # Команда переключения легендарных предметов
-  legendary-all-toggled: "§6Все легендарные предметы: %status%"
-  legendary-item-toggled: "§6%item%: %status%"
-  legendary-unknown-item: "§cНеизвестный предмет: %item%"
-  legendary-available-items: "§7Доступно: dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
-  
-  # Команда переключения функций
-  features-available-header: "§6Доступные функции:"
-  features-list-guardians: "§e- guardians §7(features.guardians.enabled)"
-  features-list-particles: "§e- particles §7(features.effects.particles)"
-  features-list-sounds: "§e- sounds §7(features.effects.sounds)"
-  features-list-lightning: "§e- lightning §7(features.effects.lightning-on-legendary)"
-  features-list-announcements: "§e- announcements §7(features.broadcasts.chest-spawn-announcement)"
-  features-list-titles: "§e- titles §7(features.broadcasts.title-on-spawn)"
-  features-list-pvp: "§e- pvp-protection §7(abilities.pvp-protection)"
-  features-list-cooldown-msg: "§e- cooldown-messages §7(abilities.show-cooldown-messages)"
-  features-list-activation-msg: "§e- activation-messages §7(abilities.show-activation-messages)"
-  features-list-stats: "§e- statistics §7(statistics.enabled)"
-  features-unknown: "§cНеизвестная функция: %feature%"
-  
-  # Команда легендарных предметов
-  legendary-received: "§6✨ Вы получили все включенные легендарные предметы!"
-  legendary-use-cooldowns: "§eИспользуйте §f/cooldowns §eдля проверки времени восстановления!"
-  
-  # Сообщения об использовании
-  usage-giveapple: "§cИспользование: /giveapple <игрок> [количество]"
-  usage-chestconfig-get: "§cИспользование: /chestconfig get <путь>"
-  usage-chestconfig-set: "§cИспользование: /chestconfig set <путь> <значение>"
-  usage-setchesttimer: "§cИспользование: /setchesttimer <секунды>"
-  invalid-number: "§cНекорректное число!"
+  chest-stats-header: "§8--- §6Статус сундуков §8---"
+  chest-stats-common-chance: "§7Обычный  §8·  §f%chance%%%"
+  chest-stats-rare-chance: "§7Редкий  §8·  §f%chance%%%"
+  chest-stats-legendary-chance: "§7Легендарный  §8·  §f%chance%%%"
+  chest-stats-guardians: "§7Стражи  §8·  %status%"
+  chest-stats-legendary-items: "§7Легендарные предметы  §8·  %status%"
+  chest-stats-pvp-protection: "§7Защита PvP  §8·  %status%"
+  chest-stats-particles: "§7Частицы  §8·  %status%"
+  chest-stats-sounds: "§7Звуки  §8·  %status%"
+  chest-stats-statistics: "§7Статистика  §8·  %status%"
+  chest-stats-active: "§7Активных сундуков  §8·  §e%count%"
+  test-zone-header: "§8--- §7Тест зоны спауна §8---"
+  test-zone-min-dist: "§7Дистанция  §8·  §f%min% §8– §f%max%"
+  test-zone-bury: "§7Закапывать в землю  §8·  §e%value%"
+  test-zone-worlds: "§7Миры  §8·  §e%worlds%"
+  test-zone-example: "§7#%num%  §8·  §fX=%x% Z=%z% §8(§7%dist% блоков§8)"
+  legendary-all-toggled: "§7Все легендарные предметы: %status%"
+  legendary-item-toggled: "§7%item%: %status%"
+  legendary-unknown-item: "§7Неизвестный предмет: §e%item%"
+  legendary-available-items: "§8dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
+  features-available-header: "§8--- §7Функции §8---"
+  features-list-guardians: "§e  guardians"
+  features-list-particles: "§e  particles"
+  features-list-sounds: "§e  sounds"
+  features-list-lightning: "§e  lightning"
+  features-list-announcements: "§e  announcements"
+  features-list-titles: "§e  titles"
+  features-list-pvp: "§e  pvp-protection"
+  features-list-cooldown-msg: "§e  cooldown-messages"
+  features-list-activation-msg: "§e  activation-messages"
+  features-list-stats: "§e  statistics"
+  features-unknown: "§7Неизвестная функция: §e%feature%"
+  legendary-received: "§7Вы получили все легендарные предметы."
+  legendary-use-cooldowns: "§8Используйте §e/cooldowns §8для проверки перезарядок."
+  usage-giveapple: "§7Использование: §e/giveapple <random|common|rare|legendary> <игрок> [количество]"
+  usage-chestconfig-get: "§7Использование: §e/chestconfig get <путь>"
+  usage-chestconfig-set: "§7Использование: §e/chestconfig set <путь> <значение>"
+  usage-setchesttimer: "§7Использование: §e/setchesttimer <секунды>"
+  invalid-number: "§7Неверное число."
 
 # ============================================
 # СТАТИСТИКА
 # ============================================
 stats:
-  header: "§6══════ Ваша Статистика ══════"
-  chests-opened: "§7Сундуков открыто: §e%count%"
-  common-opened: "§7  Обычных: §f%count%"
-  rare-opened: "§7  Редких: §9%count%"
-  legendary-opened: "§7  Легендарных: §6%count%"
-  legendaries-found: "§7Легендарных предметов найдено: §d%count%"
-  guardians-killed: "§7Стражей убито: §c%count%"
-  apples-used: "§7Яблок призывателя использовано: §a%count%"
-  score: "§7Общий счёт: §e%score%"
-  rank: "§7Ваш рейтинг: §e#%rank%"
-  footer: "§6═══════════════════════════"
-  leaderboard-header: "§6══════ Топ Искателей Сокровищ ══════"
-  leaderboard-entry: "§e#%rank% §f%player% §7- §a%score% очков"
-  leaderboard-empty: "§7Статистики пока нет..."
-  leaderboard-footer: "§6══════════════════════════════════"
+  header: "§8--- §6Ваша статистика §8---"
+  chests-opened: "§7Открыто сундуков  §8·  §e%count%"
+  common-opened: "§8  Обычных  §8·  §f%count%"
+  rare-opened: "§8  Редких  §8·  §f%count%"
+  legendary-opened: "§8  Легендарных  §8·  §f%count%"
+  legendaries-found: "§7Легендарных предметов  §8·  §e%count%"
+  guardians-killed: "§7Стражей убито  §8·  §e%count%"
+  apples-used: "§7Яблок использовано  §8·  §e%count%"
+  score: "§7Очки  §8·  §e%score%"
+  rank: "§7Место  §8·  §e#%rank%"
+  footer: "§8-------------------"
+  leaderboard-header: "§8--- §6Лучшие игроки §8---"
+  leaderboard-entry: "§8  #%rank%  §f%player%  §8·  §e%score% очков"
+  leaderboard-empty: "§7Пока нет статистики."
+  leaderboard-footer: "§8-------------------"
 
 # ============================================
-# ВРЕМЯ ВОССТАНОВЛЕНИЯ
+# ПЕРЕЗАРЯДКИ
 # ============================================
 cooldowns:
-  header: "§6=== Время восстановления способностей ==="
-  ready: "§aГотово"
-  seconds-left: "§c%seconds%с"
-  item-entry: "§7%item%: %status%"
-  footer: "§6═══════════════════════════"
-  on-cooldown: "§c⏳ %item% восстанавливается! §e%seconds%с §cосталось."
-  cooldown-ready: "§a✓ %item% готов к использованию!"
-  
-  # Индивидуальные сообщения о восстановлении (для способностей)
-  sword-recharging: "§c⚔ Клинок перезаряжается! %time%"
-  axe-recharging: "§c🪓 Топор перезаряжается! %time%"
-  hammer-recharging: "§c⚡ Молот перезаряжается! %time%"
-  bow-recharging: "§c🏹 Лук перезаряжается! %time%"
-  shovel-recharging: "§c🕳 Лопата перезаряжается! %time%"
-  tree-cutting-recharging: "§c🌳 Рубка деревьев перезаряжается! %time%"
-  trident-recharging: "§c🔱 Трезубец перезаряжается! %time%"
-  
-  # Записи списка восстановления (для команды /cooldowns)
-  dragon-slayer: "§6⚔ Убийца драконов: %status%"
-  titan-axe: "§4🪓 Титановый топор: %status%"
-  storm-hammer: "§9⚡ Молот бури: %status%"
-  guardian-bow: "§a🏹 Лук стража: %status%"
-  void-shovel: "§5🕳 Лопата Бездны: %status%"
-  master-pickaxe: "§b⛏ Мастерская кирка: %status%"
-  tree-cutting: "§4🌳 Рубка деревьев: %status%"
-  poseidon-trident: "§b🔱 Трезубец Посейдона: %status%"
+  header: "§8--- §6Перезарядки §8---"
+  ready: "§aготово"
+  seconds-left: "§e%seconds%с"
+  item-entry: "§7%item%  §8·  %status%"
+  footer: "§8--------------"
+  on-cooldown: "§7%item%  §8·  §eперезарядка §8— §f%seconds%с"
+  cooldown-ready: "§7%item%  §8·  §aготово"
+  sword-recharging: "§7Меч перезаряжается §8— §e%time%"
+  axe-recharging: "§7Топор перезаряжается §8— §e%time%"
+  hammer-recharging: "§7Молот перезаряжается §8— §e%time%"
+  bow-recharging: "§7Лук перезаряжается §8— §e%time%"
+  shovel-recharging: "§7Лопата перезаряжается §8— §e%time%"
+  tree-cutting-recharging: "§7Валка деревьев перезаряжается §8— §e%time%"
+  trident-recharging: "§7Трезубец перезаряжается §8— §e%time%"
+  dragon-slayer: "§7Убийца драконов  §8·  %status%"
+  titan-axe: "§7Титановый топор  §8·  %status%"
+  storm-hammer: "§7Штормовой молот  §8·  %status%"
+  guardian-bow: "§7Лук стража  §8·  %status%"
+  void-shovel: "§7Пустотная лопата  §8·  %status%"
+  master-pickaxe: "§7Кирка мастера  §8·  %status%"
+  tree-cutting: "§7Валка деревьев  §8·  %status%"
+  poseidon-trident: "§7Трезубец Посейдона  §8·  %status%"
 
 # ============================================
 # СПОСОБНОСТИ
 # ============================================
 abilities:
-  # Меч
-  sword-activated: "§c🔥 Убийца Драконов поджигает вашего врага!"
-  sword-activated-cooldown: "§6⚔ Убийца Драконов воспламеняется! Восстановление: %cooldown%с"
-  
-  # Кирка
-  pickaxe-smelted: "§6⛏ Руды автоматически переплавлены!"
-  pickaxe-double: "§e⛏ Двойная добыча!"
-  
-  # Топор
-  axe-tree-felled: "§a🪓 Дерево срублено! §7(%blocks% блоков)"
-  axe-tree-felled-cooldown: "§4🪓 Титановый Топор валит дерево! Восстановление: %cooldown%с"
-  axe-combat: "§c🪓 Титановый Топор бьёт с яростью!"
-  axe-combat-cooldown: "§4🪓 Титановый Топор крушит! Восстановление: %cooldown%с"
-  
-  # Лопата
-  shovel-excavate: "§b🪏 Область выкопана! §7(%blocks% блоков)"
-  shovel-excavate-full: "§5🕳 Лопата Бездны выкопала %blocks% блоков!"
-  
-  # Молот
-  hammer-lightning: "§e⚡ Молот Бури призывает молнию!"
-  hammer-shockwave: "§e⚡ Ударная волна повреждает ближайших врагов!"
-  hammer-activated-cooldown: "§9⚡ Молот Бури гремит! Восстановление: %cooldown%с"
-  
-  # Лук
-  bow-double-shot: "§d🏹 Выпущена двойная стрела!"
-  bow-double-shot-cooldown: "§a🏹 Лук Стража: двойной выстрел! Восстановление: %cooldown%с"
-  bow-homing: "§d🏹 Самонаводящаяся стрела ищет цель!"
-  
-  # Книга
-  book-used: "§6📖 Древняя мудрость зачаровывает вашу экипировку!"
-  book-enchanted: "§d📚 Книга Мудрости зачаровала %count% предметов!"
-  book-no-items: "§c📚 Нет подходящих предметов для зачарования!"
-  
-  # Перо Феникса
-  phoenix-resurrect: "§d🪶 Перо Феникса спасло вас от смерти!"
-  phoenix-fire-immune: "§6🪶 Перо Феникса защищает вас от огня!"
-  phoenix-resurrect-message: "§c🔥 Перо Феникса спасает вас от смерти!"
-  phoenix-resurrect-broadcast: "§6%player% был воскрешен Пером Феникса!"
-  
-  # Трезубец
-  trident-lightning: "§b🔱 Гнев Посейдона поражает вашего врага!"
-  trident-lightning-cooldown: "§b🔱 Посейдон поражает молнией! Восстановление: %cooldown%с"
-  trident-rain: "§b🔱 Дождь кружится вокруг вас..."
+  sword-activated: "§7Клинок поджигает цель."
+  sword-activated-cooldown: "§7Убийца драконов §8— §eперезарядка §f%cooldown%с"
+  pickaxe-smelted: "§7Руда переплавлена."
+  pickaxe-double: "§7Двойная добыча."
+  axe-tree-felled: "§7Дерево срублено §8(§f%blocks% блоков§8)"
+  axe-tree-felled-cooldown: "§7Валка деревьев §8— §eперезарядка §f%cooldown%с"
+  axe-combat: "§7Удар Титанового топора."
+  axe-combat-cooldown: "§7Титановый топор §8— §eперезарядка §f%cooldown%с"
+  shovel-excavate: "§7Область расчищена §8(§f%blocks% блоков§8)"
+  shovel-excavate-full: "§7Пустотная лопата расчистила §f%blocks% §7блоков."
+  hammer-lightning: "§7Штормовой молот призывает молнию."
+  hammer-shockwave: "§7Ударная волна поразила ближайших врагов."
+  hammer-activated-cooldown: "§7Штормовой молот §8— §eперезарядка §f%cooldown%с"
+  bow-double-shot: "§7Двойной выстрел."
+  bow-double-shot-cooldown: "§7Лук стража §8— §eперезарядка §f%cooldown%с"
+  bow-homing: "§7Стрела самонаводящаяся."
+  book-used: "§7Мудрость применена к вашему снаряжению."
+  book-enchanted: "§7Книга зачаровала §f%count% §7предметов."
+  book-no-items: "§7Нет подходящих предметов для зачарования."
+  phoenix-resurrect: "§7Перо Феникса спасло вас."
+  phoenix-fire-immune: "§7Иммунитет к огню активен."
+  phoenix-resurrect-message: "§6✦ §7Перо Феникса спасло вас от смерти."
+  phoenix-resurrect-broadcast: "§6✦ §f%player% §7был спасён Пером Феникса."
+  trident-lightning: "§7Посейдон поражает."
+  trident-lightning-cooldown: "§7Трезубец Посейдона §8— §eперезарядка §f%cooldown%с"
+  trident-rain: "§7Дождь окружает вас."
 
 # ============================================
-# ЛЕГЕНДАРНЫЕ ПРЕДМЕТЫ
+# ПРЕДМЕТЫ
 # ============================================
 items:
-  summoner-apple:
-    name: "§d🍎 Яблоко Призывателя Сундуков"
+  summoner-apple-random:
+    name: "§6Яблоко призывателя"
     lore:
-      - "§7Волшебное яблоко, наполненное"
-      - "§7сущностью сокровищ."
+      - "§7Призывает сундук случайного уровня."
       - ""
-      - "§e⚡ Съешьте, чтобы призвать сундук!"
-      - "§7(Не сбрасывает основной таймер)"
+      - "§8ПКМ, чтобы съесть"
+      - "§8Не сбрасывает основной таймер"
+
+  summoner-apple-common:
+    name: "§fОбычное яблоко призывателя"
+    lore:
+      - "§7Призывает обычный сундук."
       - ""
-      - "§dОсобый предмет донатора"
-  
+      - "§8ПКМ, чтобы съесть"
+      - "§8Не сбрасывает основной таймер"
+
+  summoner-apple-rare:
+    name: "§bРедкое яблоко призывателя"
+    lore:
+      - "§7Призывает редкий сундук."
+      - ""
+      - "§8ПКМ, чтобы съесть"
+      - "§8Не сбрасывает основной таймер"
+
+  summoner-apple-legendary:
+    name: "§6Легендарное яблоко призывателя"
+    lore:
+      - "§7Призывает легендарный сундук."
+      - ""
+      - "§8ПКМ, чтобы съесть"
+      - "§8Не сбрасывает основной таймер"
+
   dragon-slayer-sword:
-    name: "§6⚔ Меч Убийцы Драконов ⚔"
+    name: "§6Убийца драконов"
     lore:
-      - "§7Легендарный меч, выкованный"
-      - "§7из сердца дракона."
-      - "§7Горит вечным пламенем."
+      - "§7Выкован из сердца дракона."
       - ""
-      - "§c+%damage% Бонусного урона"
-      - "§e⚡ Поджигает врагов"
-      - "§8Восстановление: %cooldown%с"
-      - ""
-      - "§6Легендарный предмет"
-  
+      - "§e+%damage% §7дополнительного урона"
+      - "§7Поджигает цель при ударе"
+      - "§8Перезарядка: %cooldown%с"
+
   master-pickaxe:
-    name: "§b⛏ Мастерская Кирка ⛏"
+    name: "§fКирка мастера"
     lore:
-      - "§7Инструмент легендарного шахтёра,"
-      - "§7способный находить богатства"
-      - "§7в любой породе."
+      - "§7Инструмент легендарного шахтёра."
       - ""
-      - "§e⚡ Автопереплавка руд"
-      - "§e⚡ Шанс двойной добычи"
-      - "§8Восстановление: %cooldown%с"
-      - ""
-      - "§6Легендарный предмет"
-  
+      - "§7Автоматически плавит добытую руду"
+      - "§7Шанс двойной добычи"
+      - "§8Перезарядка: %cooldown%с"
+
   titan-axe:
-    name: "§4🪓 Титановый Топор 🪓"
+    name: "§fТитановый топор"
     lore:
-      - "§7Огромный топор титанов."
-      - "§7Один взмах валит целые деревья."
+      - "§7Одним ударом валит целые деревья."
       - ""
-      - "§c+%damage% Боевого урона"
-      - "§e⚡ Валяет целые деревья"
-      - "§8Восст. дерева: %tree_cooldown%с"
-      - "§8Восст. боя: %combat_cooldown%с"
-      - ""
-      - "§6Легендарный предмет"
-  
+      - "§e+%damage% §7боевого урона"
+      - "§7Валит целые деревья при рубке"
+      - "§8Боевая перезарядка: %combat_cooldown%с"
+      - "§8Перезарядка рубки: %tree_cooldown%с"
+
   void-shovel:
-    name: "§5🕳 Лопата Бездны 🕳"
+    name: "§fПустотная лопата"
     lore:
-      - "§7Лопата, затронутая Бездной."
       - "§7Поглощает землю на большой площади."
       - ""
-      - "§e⚡ Копка области %size%x%size% (SHIFT)"
-      - "§e⚡ Автосбор добычи"
-      - "§8Восстановление: %cooldown%с"
-      - ""
-      - "§6Легендарный предмет"
-  
+      - "§7Копка области %size%x%size% §8(зажмите Shift)"
+      - "§7Автосбор всей добычи"
+      - "§8Перезарядка: %cooldown%с"
+
   storm-hammer:
-    name: "§9⚡ Молот Бури ⚡"
+    name: "§fШтормовой молот"
     lore:
-      - "§7Молот владык бури."
-      - "§7Подчиняет саму молнию."
+      - "§7Повелевает самой молнией."
       - ""
-      - "§c+%damage% Бонусного урона"
-      - "§e⚡ Призывает молнию"
-      - "§e⚡ Урон ударной волной по области"
-      - "§8Восстановление: %cooldown%с"
-      - ""
-      - "§6Легендарный предмет"
-  
+      - "§e+%damage% §7дополнительного урона"
+      - "§7Призывает молнию при ударе"
+      - "§7Ударная волна по области"
+      - "§8Перезарядка: %cooldown%с"
+
   guardian-bow:
-    name: "§a🏹 Лук Стража 🏹"
+    name: "§fЛук стража"
     lore:
-      - "§7Лук, благословлённый стражами."
-      - "§7Стрелы сами находят цели."
+      - "§7Стрелы, ищущие свои цели."
       - ""
-      - "§e⚡ Выпускает двойные стрелы"
-      - "§e⚡ Способность самонаводящейся стрелы"
-      - "§8Восстановление: %cooldown%с"
-      - ""
-      - "§6Легендарный предмет"
-  
+      - "§7Выпускает две стрелы за выстрел"
+      - "§7Стрелы самонаводятся на мобов"
+      - "§8Перезарядка: %cooldown%с"
+
   wisdom-book:
-    name: "§d📖 Книга Древней Мудрости 📖"
+    name: "§fКнига древней мудрости"
     lore:
-      - "§7Содержит знания"
-      - "§7древних цивилизаций."
+      - "§7Знания древних цивилизаций."
       - ""
-      - "§e⚡ ПКМ для зачарования"
-      - "§e⚡ всей экипировки в инвентаре"
-      - "§c⚠ Одноразовое использование"
-      - ""
-      - "§6Легендарный предмет"
-  
+      - "§7ПКМ, чтобы зачаровать всё снаряжение"
+      - "§8Одноразовое использование"
+
   phoenix-feather:
-    name: "§c🔥 Перо Феникса 🔥"
+    name: "§6Перо Феникса"
     lore:
-      - "§7Перо бессмертного феникса."
-      - "§7Дарует второй шанс на жизнь."
+      - "§7Дарует второй шанс в жизни."
       - ""
-      - "§e⚡ Автовоскрешение при смерти"
-      - "§e⚡ Иммунитет к огню при держании"
-      - "§8Восстановление: %cooldown%с"
-      - ""
-      - "§6Легендарный предмет"
-  
+      - "§7Автоматически воскрешает при смертельном уроне"
+      - "§7Иммунитет к огню, пока в руке"
+      - "§8Перезарядка: %cooldown%с"
+
   poseidon-trident:
-    name: "§b🔱 Трезубец Посейдона 🔱"
+    name: "§bТрезубец Посейдона"
     lore:
-      - "§7Оружие бога морей."
-      - "§7Управляет бурями и морями."
+      - "§7Повелевает штормами и морями."
       - ""
-      - "§e⚡ Аура дождя (%radius% блоков)"
-      - "§e⚡ Удар молнии при попадании"
-      - "§b+%damage% Урона молнией"
-      - "§8Восстановление: %cooldown%с"
-      - ""
-      - "§6Легендарный предмет"
+      - "§7Аура дождя §8(%radius% блоков)"
+      - "§7Удар молнии при попадании §8(+%damage% урона)"
+      - "§8Перезарядка: %cooldown%с"
 
 # ============================================
-# ПОЛЬЗОВАТЕЛЬСКИЕ ЗЕЛЬЯ
+# КАСТОМНЫЕ ЗЕЛЬЯ
 # ============================================
 potions:
   strength-3:
-    name: "§c⚔ Зелье Силы III"
+    name: "§fЗелье силы III"
     lore:
-      - "§7Сила III (2:00)"
-      - "§6Пользовательское зелье"
-  
+      - "§7Сила III  §8·  §e2:00"
+
   haste-2:
-    name: "§e⛏ Зелье Ускорения II"
+    name: "§fЗелье спешки II"
     lore:
-      - "§7Ускорение II (3:00)"
-      - "§6Пользовательское зелье"
-  
+      - "§7Спешка II  §8·  §e3:00"
+
   luck-2:
-    name: "§a🍀 Зелье Удачи II"
+    name: "§fЗелье удачи II"
     lore:
-      - "§7Удача II (5:00)"
-      - "§6Пользовательское зелье"
-  
+      - "§7Удача II  §8·  §e5:00"
+
   dolphins-grace:
-    name: "§b🐬 Зелье Изящества Дельфина"
+    name: "§fЗелье грации дельфина"
     lore:
-      - "§7Изящество дельфина (3:00)"
-      - "§6Пользовательское зелье"
-  
+      - "§7Грация дельфина  §8·  §e3:00"
+
   turtle-master:
-    name: "§a🐢 Улучшенное Зелье Черепашьего Мастера"
+    name: "§fРасширенное зелье черепашьего мастера"
     lore:
-      - "§7Замедление IV (1:00)"
-      - "§7Сопротивление III (1:00)"
-      - "§6Пользовательское зелье"
-  
+      - "§7Медлительность IV  §8·  §e1:00"
+      - "§7Сопротивление III  §8·  §e1:00"
+
   wither-resistance:
-    name: "§8💀 Зелье Сопротивления Иссушению"
+    name: "§fЗелье сопротивления иссушению"
     lore:
-      - "§7Регенерация II (0:30)"
-      - "§7Сопротивление II (1:00)"
-      - "§6Пользовательское зелье"
+      - "§7Регенерация II  §8·  §e0:30"
+      - "§7Сопротивление II  §8·  §e1:00"
 
 # ============================================
 # ДОСТИЖЕНИЯ
 # ============================================
 achievements:
   first-chest:
-    name: "§eПервая Находка"
+    name: "§eПервая находка"
     description: "Откройте свой первый сундук"
-    reward-message: "§6+50 бонусного опыта!"
-  
+    reward-message: "§8+50 XP"
+
   treasure-hunter:
-    name: "§6Искатель Сокровищ"
+    name: "§eОхотник за сокровищами"
     description: "Откройте 10 сундуков"
-    reward-message: "§6+200 бонусного опыта!"
-  
+    reward-message: "§8+200 XP"
+
   chest-master:
-    name: "§cМастер Сундуков"
+    name: "§6Мастер сундуков"
     description: "Откройте 50 сундуков"
-    reward-message: "§6+500 бонусного опыта!"
-  
+    reward-message: "§8+500 XP"
+
   legendary-finder:
-    name: "§5Нашедший Легенду"
+    name: "§6Искатель легенд"
     description: "Найдите легендарный предмет"
-    reward-message: "§6+300 бонусного опыта!"
-  
+    reward-message: "§8+300 XP"
+
   guardian-slayer:
-    name: "§4Убийца Стражей"
+    name: "§6Убийца стражей"
     description: "Убейте 25 стражей сундуков"
-    reward-message: "§6+400 бонусного опыта!"
+    reward-message: "§8+400 XP"
 
 # ============================================
-# ГРАФИЧЕСКИЙ ИНТЕРФЕЙС ПОЛЬЗОВАТЕЛЬСКОЙ ДОБЫЧИ
+# ГРАФИЧЕСКИЙ ИНТЕРФЕЙС КАСТОМНОГО ЛУТА
 # ============================================
 gui:
-  # Главное меню
-  custom-loot-title: "§6Кастомный лут сундуков"
-  edit-common: "§fРедактор обычного сундука"
-  edit-rare: "§9Редактор редкого сундука"
-  edit-legendary: "§6Редактор легендарного сундука"
-
+  custom-loot-title: "§8Кастомный лут сундуков"
+  edit-common: "§fОбычный сундук — Редактировать лут"
+  edit-rare: "§bРедкий сундук — Редактировать лут"
+  edit-legendary: "§6Легендарный сундук — Редактировать лут"
   common-chest-name: "§fОбычный сундук"
-  rare-chest-name: "§9Редкий сундук"
+  rare-chest-name: "§bРедкий сундук"
   legendary-chest-name: "§6Легендарный сундук"
-
-  click-to-edit: "§7Нажми для редактирования"
-  custom-enabled: "§aКастомный лут: ВКЛЮЧЁН"
-  custom-disabled: "§cКастомный лут: ВЫКЛЮЧЕН"
-  using-default: "§7Используется случайный лут"
-  items-count: "§7Предметов: %count%"
-
-  # Тип сундука
-  chest-type-toggle: "§eТип сундука"
-  current-type: "§7Текущий: %type%"
-  chest-type-info: "§7Нажмите для переключения:"
-  chest-type-single: "§fОдинарный §7(27 слотов)"
-  chest-type-double: "§bДвойной §7(54 слота)"
-  chest-type-single-desc: "§f  ■ Одинарный §7- 27 слотов (3 ряда)"
-  chest-type-double-desc: "§b  ■ Двойной §7- 54 слота (6 рядов)"
-  chest-type-changed: "§aТип сундука изменён на %type%"
-  chest-type-change-error: "§cОшибка изменения типа сундука!"
-  chest-type-display: "§7Тип: %type%"
-
-  # Контроль дроби
-  fraction-increase: "§a→ Больше предметов"
+  click-to-edit: "§7Нажмите, чтобы редактировать"
+  custom-enabled: "§7Кастомный лут §8· §aвключён"
+  custom-disabled: "§7Кастомный лут §8· §7отключён"
+  using-default: "§8Используется стандартный лут"
+  items-count: "§7Предметов сохранено §8· §e%count%"
+  chest-type-toggle: "§7Размер сундука"
+  current-type: "§8Текущий: %type%"
+  chest-type-info: "§8Нажмите, чтобы переключить"
+  chest-type-single: "§7Одиночный §8(27 слотов)"
+  chest-type-double: "§7Двойной §8(54 слота)"
+  chest-type-single-desc: "§8Одиночный — 27 слотов"
+  chest-type-double-desc: "§8Двойной — 54 слота"
+  chest-type-changed: "§7Размер сундука изменён на %type%"
+  chest-type-change-error: "§7Не удалось изменить размер сундука."
+  chest-type-display: "§8Размер: %type%"
+  fraction-increase: "§7Больше предметов"
   fraction-increase-lore:
-    - "§7Нажмите для увеличения дроби"
-    - "§7(больше предметов в сундуке)"
-
-  fraction-decrease: "§c← Меньше предметов"
+    - "§8Увеличить количество предметов в сундуке"
+  fraction-decrease: "§7Меньше предметов"
   fraction-decrease-lore:
-    - "§7Нажмите для уменьшения дроби"
-    - "§7(меньше предметов в сундуке)"
-
-  current-fraction: "§eЧастота выпадения"
-  fraction-info: "§7Столько предметов будет появляться"
-  fraction-changed: "§aДробь изменена на %fraction%"
-  fraction-change-error: "§cОшибка изменения дроби!"
-  item-fraction-display: "§7Частота: %fraction%"
-
-  # Названия дробей
+    - "§8Уменьшить количество предметов в сундуке"
+  current-fraction: "§7Шанс выпадения"
+  fraction-info: "§8Предметов выбирается при спауне сундука"
+  fraction-changed: "§7Шанс выпадения установлен на %fraction%"
+  fraction-change-error: "§7Не удалось изменить шанс выпадения."
+  item-fraction-display: "§8Коэффициент: %fraction%"
   fraction:
-    all: "§aВсе предметы (перемешаны)"
-    one-half: "§e1/2 - Половина предметов"
-    one-third: "§61/3 - Треть предметов"
-    one-fourth: "§c1/4 - Четверть"
-    one-fifth: "§91/5 - Пятая часть"
-    one-sixth: "§31/6 - Шестая часть"
-    one-seventh: "§51/7 - Седьмая часть"
-    one-eighth: "§41/8 - Восьмая часть"
-    one-ninth: "§d1/9 - Девятая часть"
-    one-tenth: "§b1/10 - Десятая часть"
-
-  # Кнопки
-  save-button: "§a✓ Сохранить"
+    all: "§7Все предметы"
+    one-half: "§71/2 предметов"
+    one-third: "§71/3 предметов"
+    one-fourth: "§71/4 предметов"
+    one-fifth: "§71/5 предметов"
+    one-sixth: "§71/6 предметов"
+    one-seventh: "§71/7 предметов"
+    one-eighth: "§71/8 предметов"
+    one-ninth: "§71/9 предметов"
+    one-tenth: "§71/10 предметов"
+  save-button: "§aСохранить"
   save-lore:
-    - "§7Нажмите чтобы сохранить"
-    - "§7и включить кастомный лут"
-
-  reset-button: "§c✗ Сбросить"
+    - "§8Сохранить предметы и включить кастомный лут"
+  reset-button: "§7Сбросить"
   reset-lore:
-    - "§7Очистить все предметы"
-    - "§7и использовать стандартный лут"
-
-  back-button: "§7← Назад"
-
-  # Сообщения
-  saved: "§a✓ Сохранено %count% предметов для %tier% сундуков!"
-  reset-done: "§c✗ Кастомный лут очищен для %tier% сундуков."
-  chest-size-items-dropped: "§e%count% предметов не поместились и были выброшены под вами!"
-  
-  # Подтверждение сброса
+    - "§8Очистить предметы и использовать стандартный лут"
+  back-button: "§7Назад"
+  saved: "§7Сохранено §e%count% §7предметов для §e%tier%§7."
+  reset-done: "§7Кастомный лут для §e%tier% §7очищен."
+  chest-size-items-dropped: "§7%count% предметов не поместились и были выброшены."
   reset-confirm-title-common: "Обычный"
   reset-confirm-title-rare: "Редкий"
   reset-confirm-title-legendary: "Легендарный"
-  
-  # Первое меню подтверждения
-  reset-first-menu-title: "§6⚠ Подтверждение сброса: %tier%"
-  reset-first-warning: "§e§l⚠ Первое предупреждение"
+  reset-first-menu-title: "§7Сброс — %tier%"
+  reset-first-warning: "§eПодтвердите сброс"
   reset-first-warning-lore:
-    - "§7Вы хотите сбросить §e%tier% §7тир"
-    - "§7Текущих предметов: §e%count%"
+    - "§7Уровень: §e%tier%"
+    - "§7Предметов к удалению: §e%count%"
     - ""
-    - "§6Настройки будут СОХРАНЕНЫ:"
-    - "§7  • Тип сундука (одинарный/двойной)"
-    - "§7  • Дробь выпадения"
-    - ""
-    - "§cБудут удалены только предметы!"
-    - "§7Все предметы выпадут под вами"
-  
-  reset-continue: "§e→ Продолжить"
+    - "§8Размер сундука и шанс выпадения останутся."
+    - "§8Будут удалены только предметы."
+    - "§8Все предметы выпадут на вашем месте."
+  reset-continue: "§7Продолжить"
   reset-continue-lore:
-    - "§7Перейти к финальному подтверждению"
-  
-  # Финальное меню подтверждения
-  reset-final-menu-title: "§4§l⚠ ФИНАЛЬНОЕ ПРЕДУПРЕЖДЕНИЕ: %tier%"
-  reset-final-warning: "§c§l⚠ ПОСЛЕДНИЙ ШАНС!"
+    - "§8Перейти к окончательному подтверждению"
+  reset-final-menu-title: "§cОкончательное подтверждение — %tier%"
+  reset-final-warning: "§cПоследний шанс"
   reset-final-warning-lore:
-    - "§c§lЭТО ВАШ ПОСЛЕДНИЙ ШАНС!"
-    - ""
-    - "§7Тир: §e%tier%"
+    - "§7Уровень: §e%tier%"
     - "§7Предметов к удалению: §c%count%"
     - ""
-    - "§a§lНАСТРОЙКИ БУДУТ СОХРАНЕНЫ"
-    - "§a§lУДАЛЯТСЯ ТОЛЬКО ПРЕДМЕТЫ"
-    - ""
-    - "§7Все предметы выпадут под вами"
-  
-  reset-confirm-final: "§c§l✖ ПОДТВЕРДИТЬ СБРОС"
+    - "§8Настройки останутся."
+    - "§8Это действие нельзя отменить."
+  reset-confirm-final: "§cПодтвердить"
   reset-confirm-final-lore:
-    - "§c§lУДАЛИТЬ ВСЕ ПРЕДМЕТЫ"
-    - "§7(настройки останутся)"
-    - ""
-    - "§c§lНажмите для подтверждения"
-  
-  reset-cancel: "§a§l✔ Отмена"
+    - "§8Удалить все предметы навсегда"
+  reset-cancel: "§7Отмена"
   reset-cancel-lore:
-    - "§7Вернуться к редактированию"
-    - "§7Ничего не будет изменено"
-  
-  reset-items-dropped: "§e%count% предметов были выброшены под вами!"
-  reset-complete: "§a✔ Кастомный лут для %tier% был сброшен!"
+    - "§8Вернуться — ничего не изменится"
+  reset-items-dropped: "§7%count% предметов выпало на вашем месте."
+  reset-complete: "§7Кастомный лут для §e%tier% §7сброшен."
 
 # ============================================
-# ВЗАИМОДЕЙСТВИЕ С СУНДУКАМИ
+# ВЗАИМОДЕЙСТВИЕ С СУНДУКОМ
 # ============================================
 chest:
-  first-opener: "§e✨ Вы первый открыли этот сундук!"
-  guardian-spawned: "§cПоявился страж!"
-  proximity-hint: "§7Вы слышите что-то неподалёку..."
+  first-opener: "§6✦ §7Вы первый, кто открыл этот сундук."
+  locked: "§7Этот сундук заперт — нажмите ПКМ, чтобы начать отсчёт."
+  already-activating: "§7Откроется через §e%seconds%с§7."
+  already-opened: "§7Этот сундук уже был открыт игроком §f%player%§7."
+  not-active: "§7Это не активный сундук."
+  guardian-spawned: "§7Появился страж."
+  proximity-hint: "§7Что-то рядом..."
 
 # ============================================
 # РАЗНОЕ
 # ============================================
 misc:
-  chest-opening: "§eОткрытие сундука..."
-  guardian-spawned: "§cПоявился страж!"
-  proximity-hint: "§7Вы слышите что-то неподалёку..."
+  chest-opening: "§7Открытие..."
+  guardian-spawned: "§7Появился страж."
+  proximity-hint: "§7Что-то рядом..."

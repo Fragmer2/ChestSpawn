@@ -1,7 +1,7 @@
 # ============================================
-# SpawnChestPlugin - Українська мовна версія
-# Мова: Українська (uk)
-# Версія: 4.2 FULL
+# SpawnChestPlugin - Файл локалізації (Українська)
+# Мова: Українська (ua)
+# Версія: 4.4 FULL
 # ============================================
 
 # ============================================
@@ -10,631 +10,584 @@
 tiers:
   common:
     name: "§fЗвичайна скриня"
-    guardian-name: "§fОхоронець звичайної скрині"
+    guardian-name: "§7Звичайний страж"
   rare:
-    name: "§9Рідкісна скриня"
-    guardian-name: "§9Охоронець рідкісної скрині"
+    name: "§bРідкісна скриня"
+    guardian-name: "§bРідкісний страж"
   legendary:
     name: "§6Легендарна скриня"
-    guardian-name: "§6Охоронець легендарної скрині"
+    guardian-name: "§6Легендарний страж"
 
 # ============================================
-# СИСТЕМНІ ПОВІДОМЛЕННЯ (логи та внутрішні)
+# СИСТЕМНІ ПОВІДОМЛЕННЯ (тільки в логах сервера)
 # ============================================
 system:
-  # Статистика
-  stats-saved: "Збережено статистику для %count% гравців."
-  stats-save-error: "Не вдалося зберегти статистику для %player%: %error%"
-  player-unknown: "Невідомо"
-  
-  # Адаптер версії
-  version-adapter-init: "Версія адаптера ініціалізована:"
+  chest-batch-start: "[SpawnChest] Пакетний спаун: %count% скринь, затримка %delay% сек."
+  chest-batch-spawn: "[SpawnChest] Спаун скрині %index% з %total%..."
+  chest-location-protected: "[SpawnChest] Місце %x%, %z% захищене, повторюємо..."
+  world-apple-no-location: "[SpawnChest] Не вдалося знайти місце для яблука світу після %attempts% спроб."
+  world-apple-spawned: "[SpawnChest] Яблуко світу з'явилося в %x%, %y%, %z%"
+  zone-wg-create-error: "[SpawnChest] Помилка створення регіону WorldGuard у %x% %y% %z%: %error%"
+  zone-wg-remove-error: "[SpawnChest] Помилка видалення регіону WorldGuard %name%: %error%"
+  pre-open-timer-started: "[SpawnChest] Таймер передвідкриття запущено в %x% %y% %z% гравцем %player%"
+  pre-open-timer-expired: "[SpawnChest] Таймер передвідкриття минув у %x% %y% %z%"
+  stats-saved: "[SpawnChest] Збережено статистику для %count% гравців."
+  stats-save-error: "[SpawnChest] Помилка збереження статистики для %player%: %error%"
+  player-unknown: "Невідомий"
+  version-adapter-init: "[SpawnChest] VersionAdapter ініціалізовано:"
   version-minecraft: "  - Minecraft: %version%"
   version-server: "  - Сервер: %type%"
   version-full: "  - Повна версія: %version%"
   version-java: "  - Java: %version%"
-  version-chunk-error: "Не вдалося використати асинхронне завантаження чанків: %error%"
-  
-  # Спавн скринь
-  chest-spawn-started: "Спавн скрині в процесі (%elapsed%s тому)"
-  chest-spawn-stuck: "Спавн завис на %seconds%s, скидання..."
-  chest-invalid-world: "Не знайдено підходящого світу для спавну скрині!"
-  chest-spawn-attempt: "Спроба %attempt%: пробуємо X=%x% Z=%z% (відст.=%dist%)"
-  chest-location-found: "Знайдено місце для скрині: X=%x% Y=%y% Z=%z%"
-  chest-ground-level: "Спавн скрині на X=%x% Y=%y% Z=%z% (земля=%ground%)"
-  chest-filled: "Скриню успішно заповнено на %x%, %y%, %z%"
-  chest-state-error: "Не вдалося отримати стан скрині, тип: %type%"
-  chest-spawn-error: "Помилка спавну скрині: %error%"
-  chest-spawn-failed-attempts: "Не вдалося знайти місце після %attempts% спроб, скасування"
-  chest-block-not-chest: "Блок не є скринею, примусово повторюємо..."
-  chest-highest-solid-not-found: "Не знайдено твердого блоку на X=%x% Z=%z%, використовуємо Y=64"
-  
-  # Таймер
-  timer-loaded: "Завантажено час останнього спавну: %time%"
-  timer-first-run: "Виявлено перший запуск, скриня з'явиться через 30 секунд"
-  timer-save-error: "Не вдалося зберегти таймер: %error%"
-  timer-load-error: "Не вдалося завантажити таймер: %error%"
-  timer-spawn-reset: "Таймер: Спавн завис, скидання..."
-  
-  # Користувацька здобич
-  custom-loot-using: "Використовується користувацька здобич для скрині %tier%: %count% предметів"
-  custom-loot-no-file: "Файл користувацької здобичі не знайдено, використовуємо стандартну."
-  custom-loot-loaded: "Завантажено конфігурацію користувацької здобичі."
-  custom-loot-saved: "Користувацьку здобич збережено у файл."
-  custom-loot-load-error: "Помилка завантаження користувацької здобичі: %error%"
-  custom-loot-save-error: "Помилка збереження користувацької здобичі: %error%"
-  
-  # Життєвий цикл плагіна
-  plugin-enabled: "SpawnChestPlugin v4.0 FULL увімкнено!"
-  plugin-disabled: "SpawnChestPlugin вимкнено."
-  plugin-version-too-old: "Цей плагін потребує Minecraft версії 1.18 або вище!"
-  plugin-version-detected: "Виявлено версію: %version%"
-  plugin-version-update: "Будь ласка, оновіть ваш сервер до MC 1.18+"
+  version-chunk-error: "[SpawnChest] Помилка асинхронного завантаження чанку: %error%"
+  chest-spawn-started: "[SpawnChest] Спаун у процесі (%elapsed% сек. тому)"
+  chest-spawn-stuck: "[SpawnChest] Спаун завис на %seconds% сек., скидання..."
+  chest-invalid-world: "[SpawnChest] Не знайдено відповідного світу для спауну скрині."
+  chest-spawn-attempt: "[SpawnChest] Спроба %attempt%: X=%x% Z=%z% (відст=%dist%)"
+  chest-location-found: "[SpawnChest] Місце знайдено: X=%x% Y=%y% Z=%z%"
+  chest-ground-level: "[SpawnChest] Встановлення скрині в X=%x% Y=%y% Z=%z% (земля=%ground%)"
+  chest-filled: "[SpawnChest] Скриню заповнено в %x%, %y%, %z%"
+  chest-state-error: "[SpawnChest] Не вдалося отримати стан скрині: %type%"
+  chest-spawn-error: "[SpawnChest] Помилка спауну скрині: %error%"
+  chest-spawn-failed-attempts: "[SpawnChest] Не вдалося знайти місце після %attempts% спроб."
+  chest-block-not-chest: "[SpawnChest] Блок не є скринею, примусово..."
+  chest-highest-solid-not-found: "[SpawnChest] Немає твердого блоку в X=%x% Z=%z%, використовується Y=64"
+  timer-loaded: "[SpawnChest] Таймер завантажено: %time%"
+  timer-first-run: "[SpawnChest] Перший запуск — скриня з'явиться через 30 секунд."
+  timer-save-error: "[SpawnChest] Помилка збереження таймера: %error%"
+  timer-load-error: "[SpawnChest] Помилка завантаження таймера: %error%"
+  timer-spawn-reset: "[SpawnChest] Спаун завис, скидання таймера."
+  custom-loot-using: "[SpawnChest] Користувацький лут для %tier%: %count% предметів"
+  custom-loot-no-file: "[SpawnChest] Файл кастомного луту відсутній, використовуються стандартні налаштування."
+  custom-loot-loaded: "[SpawnChest] Користувацький лут завантажено."
+  custom-loot-saved: "[SpawnChest] Користувацький лут збережено."
+  custom-loot-load-error: "[SpawnChest] Помилка завантаження кастомного луту: %error%"
+  custom-loot-save-error: "[SpawnChest] Помилка збереження кастомного луту: %error%"
+  plugin-enabled: "[SpawnChest] SpawnChestPlugin v4.4 увімкнено."
+  plugin-disabled: "[SpawnChest] SpawnChestPlugin вимкнено."
+  plugin-version-too-old: "[SpawnChest] Цьому плагіну потрібен Minecraft 1.18 або вище."
+  plugin-version-detected: "[SpawnChest] Виявлено версію: %version%"
+  plugin-version-update: "[SpawnChest] Будь ласка, оновіть сервер до MC 1.18+"
 
 # ============================================
-# АНОНСИ
+# ОГОЛОШЕННЯ (надсилаються гравцям)
 # ============================================
 broadcasts:
-  chest-spawned: "§6🎁 %tier% §aз'явився в: §eX: %x% Y: %y% Z: %z%"
-  chest-disappeared: "§c💨 Скриня зникла! Ви запізнилися..."
-  chest-opened: "§a%player% відкрив %tier%!"
-  legendary-found: "§6§l✨ %player% знайшов ЛЕГЕНДАРНИЙ предмет: %item%! ✨"
-  minutes-left: "§e⏰ %minutes% хвилин(и) до появи наступної скрині!"
-  countdown: "§c⚡ %seconds% секунд(и) до появи скрині!"
-  spawn-title: "§6✨ З'явилася Скриня! ✨"
-  spawn-subtitle: "§eКоординати: §fX: %x% Y: %y% Z: %z%"
-  apple-used: "§6🍎 %player% призвав скриню за допомогою магічного яблука!"
-  resurrection: "§d🪶 %player% був воскрешений Пером Фенікса!"
-  achievement-unlocked: "§6%player% отримав досягнення: §e%achievement%"
-  achievement-title: "§6§l★ ДОСЯГНЕННЯ ОТРИМАНО ★"
+  # ── Спаун скрині ────────────────────────────────────────────
+  chest-spawned: "§6✦ §e%tier% §7з'явилася §8— §fX: %x%  Y: %y%  Z: %z%"
+  chest-spawned-no-coords: "§6✦ §7Десь у світі з'явилася §e%tier%§7."
+  chest-spawn-batch: "§6✦ §f%count% §eскринь §7з'явилися по всьому світу."
+
+  # ── Життєвий цикл скрині ─────────────────────────────────────────
+  chest-disappeared: "§7✦ Скриня зникла — ніхто не встиг її відкрити."
+  chest-opened: "§7✦ %player% відкрив %tier%."
+
+  # ── Таймер передвідкриття ─────────────────────────────────────────
+  chest-activating: "§6✦ §f%player% §7активував скриню §8— §eвідкриється через §f%seconds%с"
+  chest-countdown: "§e✦ §7Відкриється через §f%seconds%с"
+  chest-unlocked: "§6✦ §eСкриня тепер відкрита!"
+  chest-opened-by: "§6✦ §f%player% §7відкрив §e%tier%§7."
+
+  # ── Заголовок / підзаголовок при спауні ─────────────────────────────────
+  spawn-title: "§6✦ З'явилася скриня"
+  spawn-subtitle: "§7Прямуйте до §fX: %x%  Y: %y%  Z: %z%"
+  spawn-subtitle-hidden: "§7Досліджуйте світ, щоб знайти її."
+
+  # ── Попередження про зворотний відлік ─────────────────────────────────────
+  minutes-left: "§7✦ Наступна скриня через §e%minutes% хв."
+  countdown: "§6✦ §7Скриня з'явиться через §f%seconds%с§7."
+
+  # ── Яблука ─────────────────────────────────────────────────
+  apple-used: "§7✦ %player% призвав скриню."
+  apple-used-random: "§7✦ %player% §7використав Яблуко призивача."
+  apple-used-common: "§7✦ %player% §7призвав §fЗвичайну §7скриню."
+  apple-used-rare: "§7✦ %player% §7призвав §bРідкісну §7скриню."
+  apple-used-legendary: "§7✦ %player% §7призвав §6Легендарну §7скриню."
+  world-apple-dropped: "§6✦ §7Яблуко §e%type% §7впало в §fX: %x%  Y: %y%  Z: %z%§7."
+
+  # ── Легендарне ──────────────────────────────────────────────
+  legendary-found: "§6✦ §f%player% §7знайшов легендарний предмет §8— §e%item%"
+
+  # ── Воскресіння ───────────────────────────────────────────
+  resurrection: "§7✦ %player% був врятований Пером Фенікса."
+
+  # ── Досягнення ───────────────────────────────────────────
+  achievement-unlocked: "§6✦ §f%player% §7отримав досягнення §e%achievement%"
+  achievement-title: "§6Досягнення отримано"
   achievement-subtitle: "§e%name%"
+
+  # ── Захисна зона ────────────────────────────────────────
+  zone-break-blocked: "§7Ця область захищена, поки активна скриня."
+  zone-place-blocked: "§7Ця область захищена, поки активна скриня."
+  zone-created: "[SpawnChest] Зона захисту створена в %x%, %y%, %z%"
+  zone-removed: "[SpawnChest] Зона захисту видалена в %x%, %y%, %z%"
+
+# ============================================
+# БОССБАР
+# ============================================
+bossbar:
+  countdown-minutes: "§6✦  §7Наступна скриня  §8·  §f%minutes%хв %seconds%с"
+  countdown-seconds: "§6✦  §7Наступна скриня  §8·  §e%seconds%с"
+  active-with-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%  §8·  %time%"
+  active-no-timer: "§6✦  §e%tier%  §8·  §f%x%, %y%, %z%"
+  time-minutes: "§f%minutes%хв %seconds%с"
+  time-seconds: "§e%seconds%с"
 
 # ============================================
 # КОМАНДИ
 # ============================================
 commands:
-  # Основні команди
-  next-chest: "§6⏰ Час до наступної скрині: §e%minutes% хв. %seconds% сек."
-  next-chest-now: "§aСкриня з'являється зараз!"
-  chest-spawned: "§a✅ Скриню успішно створено!"
-  chest-spawn-failed: "§cНе вдалося створити скриню. Спробуйте знову."
-  chest-spawn-in-progress: "§eСпавн скрині вже в процесі..."
-  timer-set: "§aТаймер скрині встановлено на §e%seconds% §aсекунд (%minutes% хв)."
-  timer-invalid: "§c❌ Будь ласка, введіть коректне число!"
-  config-reloaded: "§a✓ Конфігурацію перезавантажено!"
-  config-value: "§7%path%: §e%value%"
-  config-set: "§a✓ Встановлено §e%path% §aна §e%value%"
-  config-invalid-path: "§cНевірний шлях у конфігу: %path%"
-  feature-enabled: "§a✓ %feature% увімкнено!"
-  feature-disabled: "§c✗ %feature% вимкнено!"
-  apple-given: "§aВидано %amount% Яблук Прикликача скринь гравцю %player%"
-  apple-received: "§6🍎 Ви отримали %amount% Яблук(о) Прикликача скринь!"
-  legendary-items-given: "§a✓ Ви отримали всі легендарні предмети!"
-  no-permission: "§c❌ У вас немає прав для цієї дії!"
-  player-not-found: "§c❌ Гравець не знайдений: %player%"
-  player-only: "§cЦю команду можуть використовувати лише гравці!"
-  invalid-usage: "§cВикористання: %usage%"
-  world-not-found: "§c❌ Світ не знайдений!"
-  
-  # Додаткові повідомлення
-  searching-location: "§eПошук місця для скрині..."
-  spawn-interval-set: "§aІнтервал спавну встановлено на %seconds% секунд."
-  enter-valid-number: "§cВведіть коректне число!"
-  timer-reset: "§aТаймер скинуто! Скриня з'явиться через 10 секунд."
-  language-reloaded: "§7Мова: §e%code% §7(%name%)"
-  stats-disabled: "§cСтатистику вимкнено!"
-  players-only: "§cЛише для гравців!"
-  status-on: "§aУВІМК"
-  status-off: "§cВИМК"
-  
-  # Допомога по конфігу
-  config-help-header: "§6=== Команди ChestConfig ==="
-  config-help-get: "§e/chestconfig get <шлях> §7- Отримати значення з конфігу"
-  config-help-set: "§e/chestconfig set <шлях> <значення> §7- Встановити значення в конфігу"
-  config-help-toggle: "§e/chestconfig toggle <шлях> §7- Перемкнути булеве значення"
-  config-help-reload: "§e/chestconfig reload §7- Перезавантажити конфіг"
-  config-help-list: "§e/chestconfig list [розділ] §7- Список значень"
-  config-help-examples: "§7Приклади:"
-  config-help-example1: "§7  /chestconfig toggle features.guardians.enabled"
-  config-help-example2: "§7  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
-  
-  # Список конфігу
-  config-list-header: "§6=== Конфіг: %section% ==="
+  next-chest: "§7Наступна скриня через §e%minutes%хв %seconds%с§7."
+  next-chest-now: "§7Скриня з'являється прямо зараз."
+  chest-spawned: "§7Скриня з'явилася."
+  chest-spawn-failed: "§7Не вдалося створити скриню — спробуйте ще раз."
+  chest-spawn-in-progress: "§7Скриня вже створюється."
+  timer-set: "§7Інтервал спауну встановлено на §e%seconds%с§7."
+  timer-invalid: "§7Введіть коректне число."
+  config-reloaded: "§7Конфігурацію перезавантажено."
+  config-value: "§7%path%§8: §f%value%"
+  config-set: "§7Встановлено §e%path% §8> §f%value%"
+  config-invalid-path: "§7Невідомий шлях конфігу: §e%path%"
+  feature-enabled: "§7%feature% §8> §aувімкнено"
+  feature-disabled: "§7%feature% §8> §7вимкнено"
+  apple-given: "§7Видано §f%amount% §7Яблук(о) призивача гравцеві §f%player%§7."
+  apple-given-typed: "§7Видано §f%amount% §e%type% §7Яблук(о) гравцеві §f%player%§7."
+  apple-received: "§6✦ §7Ви отримали §f%amount% §7Яблук(о) призивача."
+  apple-received-typed: "§6✦ §7Ви отримали §f%amount% §e%type% §7Яблук(о)."
+  apple-unknown-type: "§7Невідомий тип — використовуйте §erandom§7, §fcommon§7, §brare §7або §6legendary§7."
+  legendary-items-given: "§7Ви отримали всі легендарні предмети."
+  no-permission: "§7У вас немає прав на це."
+  player-not-found: "§7Гравця не знайдено: §e%player%"
+  player-only: "§7Цю команду можуть використовувати лише гравці."
+  invalid-usage: "§7Використання: §e%usage%"
+  world-not-found: "§7Світ не знайдено."
+  searching-location: "§7Пошук місця..."
+  spawn-interval-set: "§7Інтервал спауну встановлено на §e%seconds%с§7."
+  enter-valid-number: "§7Введіть коректне число."
+  timer-reset: "§7Таймер скинуто — скриня з'явиться через 10 секунд."
+  language-reloaded: "§7Мова: §e%code% §8(§f%name%§8)"
+  stats-disabled: "§7Статистику вимкнено."
+  players-only: "§7Тільки для гравців."
+  status-on: "§aвкл"
+  status-off: "§7викл"
+  config-help-header: "§8--- §6ChestConfig §8---"
+  config-help-get: "§e/chestconfig get §7<шлях>"
+  config-help-set: "§e/chestconfig set §7<шлях> <значення>"
+  config-help-toggle: "§e/chestconfig toggle §7<шлях>"
+  config-help-reload: "§e/chestconfig reload"
+  config-help-list: "§e/chestconfig list §7[розділ]"
+  config-help-examples: "§8Приклади:"
+  config-help-example1: "§8  /chestconfig toggle features.guardians.enabled"
+  config-help-example2: "§8  /chestconfig set legendary-items.storm-hammer.bonus-damage 10"
+  config-list-header: "§8--- §7Конфіг: §e%section% §8---"
   config-list-master-toggle: "§7Головний перемикач: §e%value%"
-  
-  # Команда статистики скринь
-  chest-stats-header: "§6=== Статистика Скринь ==="
-  chest-stats-common-chance: "§7Шанс звичайної скрині: §f%chance%%"
-  chest-stats-rare-chance: "§9Шанс рідкісної скрині: §f%chance%%"
-  chest-stats-legendary-chance: "§6Шанс легендарної скрині: §f%chance%%"
-  chest-stats-guardians: "§7Охоронці: %status%"
-  chest-stats-legendary-items: "§7Легендарні предмети: %status%"
-  chest-stats-pvp-protection: "§7Захист від PvP: %status%"
-  chest-stats-particles: "§7Частинки: %status%"
-  chest-stats-sounds: "§7Звуки: %status%"
-  chest-stats-statistics: "§7Статистика: %status%"
-  chest-stats-active: "§7Активні скрині: §e%count%"
-  
-  # Команда тестової зони
-  test-zone-header: "§eТестування зони спавну скринь..."
-  test-zone-min-dist: "§7Мін. відстань: %min%, Макс. відстань: %max%"
-  test-zone-bury: "§7Закопувати в землю: %value%"
-  test-zone-worlds: "§7Увімкнені світи: %worlds%"
-  test-zone-example: "§7Приклад %num%: §fX=%x% Z=%z% §7(відстань: %dist%)"
-  
-  # Команда перемикання легендарних предметів
-  legendary-all-toggled: "§6Всі легендарні предмети: %status%"
-  legendary-item-toggled: "§6%item%: %status%"
-  legendary-unknown-item: "§cНевідомий предмет: %item%"
-  legendary-available-items: "§7Доступно: dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
-  
-  # Команда перемикання функцій
-  features-available-header: "§6Доступні функції:"
-  features-list-guardians: "§e- guardians §7(features.guardians.enabled)"
-  features-list-particles: "§e- particles §7(features.effects.particles)"
-  features-list-sounds: "§e- sounds §7(features.effects.sounds)"
-  features-list-lightning: "§e- lightning §7(features.effects.lightning-on-legendary)"
-  features-list-announcements: "§e- announcements §7(features.broadcasts.chest-spawn-announcement)"
-  features-list-titles: "§e- titles §7(features.broadcasts.title-on-spawn)"
-  features-list-pvp: "§e- pvp-protection §7(abilities.pvp-protection)"
-  features-list-cooldown-msg: "§e- cooldown-messages §7(abilities.show-cooldown-messages)"
-  features-list-activation-msg: "§e- activation-messages §7(abilities.show-activation-messages)"
-  features-list-stats: "§e- statistics §7(statistics.enabled)"
-  features-unknown: "§cНевідома функція: %feature%"
-  
-  # Команда легендарних предметів
-  legendary-received: "§6✨ Ви отримали всі увімкнені легендарні предмети!"
-  legendary-use-cooldowns: "§eВикористовуйте §f/cooldowns §eдля перевірки часу відновлення!"
-  
-  # Повідомлення про використання
-  usage-giveapple: "§cВикористання: /giveapple <гравець> [кількість]"
-  usage-chestconfig-get: "§cВикористання: /chestconfig get <шлях>"
-  usage-chestconfig-set: "§cВикористання: /chestconfig set <шлях> <значення>"
-  usage-setchesttimer: "§cВикористання: /setchesttimer <секунди>"
-  invalid-number: "§cНекорректне число!"
+  chest-stats-header: "§8--- §6Статус скринь §8---"
+  chest-stats-common-chance: "§7Звичайна  §8·  §f%chance%%%"
+  chest-stats-rare-chance: "§7Рідкісна  §8·  §f%chance%%%"
+  chest-stats-legendary-chance: "§7Легендарна  §8·  §f%chance%%%"
+  chest-stats-guardians: "§7Вартові  §8·  %status%"
+  chest-stats-legendary-items: "§7Легендарні предмети  §8·  %status%"
+  chest-stats-pvp-protection: "§7Захист PvP  §8·  %status%"
+  chest-stats-particles: "§7Частинки  §8·  %status%"
+  chest-stats-sounds: "§7Звуки  §8·  %status%"
+  chest-stats-statistics: "§7Статистика  §8·  %status%"
+  chest-stats-active: "§7Активних скринь  §8·  §e%count%"
+  test-zone-header: "§8--- §7Тест зони спауну §8---"
+  test-zone-min-dist: "§7Відстань  §8·  §f%min% §8– §f%max%"
+  test-zone-bury: "§7Закопувати в землю  §8·  §e%value%"
+  test-zone-worlds: "§7Світи  §8·  §e%worlds%"
+  test-zone-example: "§7#%num%  §8·  §fX=%x% Z=%z% §8(§7%dist% блоків§8)"
+  legendary-all-toggled: "§7Усі легендарні предмети: %status%"
+  legendary-item-toggled: "§7%item%: %status%"
+  legendary-unknown-item: "§7Невідомий предмет: §e%item%"
+  legendary-available-items: "§8dragon-slayer-sword, master-pickaxe, titan-axe, void-shovel, storm-hammer, guardian-bow, wisdom-book, phoenix-feather, poseidon-trident"
+  features-available-header: "§8--- §7Функції §8---"
+  features-list-guardians: "§e  guardians"
+  features-list-particles: "§e  particles"
+  features-list-sounds: "§e  sounds"
+  features-list-lightning: "§e  lightning"
+  features-list-announcements: "§e  announcements"
+  features-list-titles: "§e  titles"
+  features-list-pvp: "§e  pvp-protection"
+  features-list-cooldown-msg: "§e  cooldown-messages"
+  features-list-activation-msg: "§e  activation-messages"
+  features-list-stats: "§e  statistics"
+  features-unknown: "§7Невідома функція: §e%feature%"
+  legendary-received: "§7Ви отримали всі легендарні предмети."
+  legendary-use-cooldowns: "§8Використовуйте §e/cooldowns §8для перевірки перезарядок."
+  usage-giveapple: "§7Використання: §e/giveapple <random|common|rare|legendary> <гравець> [кількість]"
+  usage-chestconfig-get: "§7Використання: §e/chestconfig get <шлях>"
+  usage-chestconfig-set: "§7Використання: §e/chestconfig set <шлях> <значення>"
+  usage-setchesttimer: "§7Використання: §e/setchesttimer <секунди>"
+  invalid-number: "§7Невірне число."
 
 # ============================================
 # СТАТИСТИКА
 # ============================================
 stats:
-  header: "§6══════ Ваша Статистика ══════"
-  chests-opened: "§7Скринь відкрито: §e%count%"
-  common-opened: "§7  Звичайних: §f%count%"
-  rare-opened: "§7  Рідкісних: §9%count%"
-  legendary-opened: "§7  Легендарних: §6%count%"
-  legendaries-found: "§7Легендарних предметів знайдено: §d%count%"
-  guardians-killed: "§7Охоронців вбито: §c%count%"
-  apples-used: "§7Яблук прикликача використано: §a%count%"
-  score: "§7Загальний рахунок: §e%score%"
-  rank: "§7Ваш рейтинг: §e#%rank%"
-  footer: "§6═══════════════════════════"
-  leaderboard-header: "§6══════ Топ Шукачів Скарбів ══════"
-  leaderboard-entry: "§e#%rank% §f%player% §7- §a%score% очок"
-  leaderboard-empty: "§7Статистики поки що немає..."
-  leaderboard-footer: "§6══════════════════════════════════"
+  header: "§8--- §6Ваша статистика §8---"
+  chests-opened: "§7Відкрито скринь  §8·  §e%count%"
+  common-opened: "§8  Звичайних  §8·  §f%count%"
+  rare-opened: "§8  Рідкісних  §8·  §f%count%"
+  legendary-opened: "§8  Легендарних  §8·  §f%count%"
+  legendaries-found: "§7Легендарних предметів  §8·  §e%count%"
+  guardians-killed: "§7Вартових убито  §8·  §e%count%"
+  apples-used: "§7Яблук використано  §8·  §e%count%"
+  score: "§7Очки  §8·  §e%score%"
+  rank: "§7Місце  §8·  §e#%rank%"
+  footer: "§8-------------------"
+  leaderboard-header: "§8--- §6Найкращі гравці §8---"
+  leaderboard-entry: "§8  #%rank%  §f%player%  §8·  §e%score% очок"
+  leaderboard-empty: "§7Поки немає статистики."
+  leaderboard-footer: "§8-------------------"
 
 # ============================================
-# ЧАС ВІДНОВЛЕННЯ
+# ПЕРЕЗАРЯДКИ
 # ============================================
 cooldowns:
-  header: "§6=== Час відновлення здібностей ==="
-  ready: "§aГотово"
-  seconds-left: "§c%seconds%с"
-  item-entry: "§7%item%: %status%"
-  footer: "§6═══════════════════════════"
-  on-cooldown: "§c⏳ %item% відновлюється! §e%seconds%с §cзалишилося."
-  cooldown-ready: "§a✓ %item% готовий до використання!"
-  
-  # Індивідуальні повідомлення про відновлення (для здібностей)
-  sword-recharging: "§c⚔ Клинок перезаряджається! %time%"
-  axe-recharging: "§c🪓 Сокира перезаряджається! %time%"
-  hammer-recharging: "§c⚡ Молот перезаряджається! %time%"
-  bow-recharging: "§c🏹 Лук перезаряджається! %time%"
-  shovel-recharging: "§c🕳 Лопата перезаряджається! %time%"
-  tree-cutting-recharging: "§c🌳 Рубання дерев перезаряджається! %time%"
-  trident-recharging: "§c🔱 Тризубець перезаряджається! %time%"
-  
-  # Записи списку відновлення (для команди /cooldowns)
-  dragon-slayer: "§6⚔ Вбивця драконів: %status%"
-  titan-axe: "§4🪓 Титанова сокира: %status%"
-  storm-hammer: "§9⚡ Молот бурі: %status%"
-  guardian-bow: "§a🏹 Лук охоронця: %status%"
-  void-shovel: "§5🕳 Лопата Безодні: %status%"
-  master-pickaxe: "§b⛏ Майстерна кирка: %status%"
-  tree-cutting: "§4🌳 Рубання дерев: %status%"
-  poseidon-trident: "§b🔱 Тризубець Посейдона: %status%"
+  header: "§8--- §6Перезарядки §8---"
+  ready: "§aготово"
+  seconds-left: "§e%seconds%с"
+  item-entry: "§7%item%  §8·  %status%"
+  footer: "§8--------------"
+  on-cooldown: "§7%item%  §8·  §eперезарядка §8— §f%seconds%с"
+  cooldown-ready: "§7%item%  §8·  §aготово"
+  sword-recharging: "§7Меч перезаряджається §8— §e%time%"
+  axe-recharging: "§7Сокира перезаряджається §8— §e%time%"
+  hammer-recharging: "§7Молот перезаряджається §8— §e%time%"
+  bow-recharging: "§7Лук перезаряджається §8— §e%time%"
+  shovel-recharging: "§7Лопата перезаряджається §8— §e%time%"
+  tree-cutting-recharging: "§7Валка дерев перезаряджається §8— §e%time%"
+  trident-recharging: "§7Тризуб перезаряджається §8— §e%time%"
+  dragon-slayer: "§7Вбивця драконів  §8·  %status%"
+  titan-axe: "§7Титанова сокира  §8·  %status%"
+  storm-hammer: "§7Штормовий молот  §8·  %status%"
+  guardian-bow: "§7Лук вартового  §8·  %status%"
+  void-shovel: "§7Порожнечна лопата  §8·  %status%"
+  master-pickaxe: "§7Кирка майстра  §8·  %status%"
+  tree-cutting: "§7Валка дерев  §8·  %status%"
+  poseidon-trident: "§7Тризуб Посейдона  §8·  %status%"
 
 # ============================================
 # ЗДІБНОСТІ
 # ============================================
 abilities:
-  # Меч
-  sword-activated: "§c🔥 Вбивця Драконів підпалює вашого ворога!"
-  sword-activated-cooldown: "§6⚔ Вбивця Драконів запалає! Відновлення: %cooldown%с"
-  
-  # Кирка
-  pickaxe-smelted: "§6⛏ Руди автоматично переплавлені!"
-  pickaxe-double: "§e⛏ Подвійна здобич!"
-  
-  # Сокира
-  axe-tree-felled: "§a🪓 Дерево зрубано! §7(%blocks% блоків)"
-  axe-tree-felled-cooldown: "§4🪓 Титанова Сокира валить дерево! Відновлення: %cooldown%с"
-  axe-combat: "§c🪓 Титанова Сокира б'є з лютью!"
-  axe-combat-cooldown: "§4🪓 Титанова Сокира розбиває! Відновлення: %cooldown%с"
-  
-  # Лопата
-  shovel-excavate: "§b🪏 Область викопана! §7(%blocks% блоків)"
-  shovel-excavate-full: "§5🕳 Лопата Безодні викопала %blocks% блоків!"
-  
-  # Молот
-  hammer-lightning: "§e⚡ Молот Бурі прикликає блискавку!"
-  hammer-shockwave: "§e⚡ Ударна хвиля пошкоджує найближчих ворогів!"
-  hammer-activated-cooldown: "§9⚡ Молот Бурі гримить! Відновлення: %cooldown%с"
-  
-  # Лук
-  bow-double-shot: "§d🏹 Випущено подвійну стрілу!"
-  bow-double-shot-cooldown: "§a🏹 Лук Охоронця: подвійний постріл! Відновлення: %cooldown%с"
-  bow-homing: "§d🏹 Самонавідна стріла шукає ціль!"
-  
-  # Книга
-  book-used: "§6📖 Давня мудрість зачаровує вашу екіпіровку!"
-  book-enchanted: "§d📚 Книга Мудрості зачарувала %count% предметів!"
-  book-no-items: "§c📚 Немає підходящих предметів для зачарування!"
-  
-  # Перо Фенікса
-  phoenix-resurrect: "§d🪶 Перо Фенікса врятувало вас від смерті!"
-  phoenix-fire-immune: "§6🪶 Перо Фенікса захищає вас від вогню!"
-  phoenix-resurrect-message: "§c🔥 Перо Фенікса рятує вас від смерті!"
-  phoenix-resurrect-broadcast: "§6%player% був воскрешений Пером Фенікса!"
-  
-  # Тризубець
-  trident-lightning: "§b🔱 Гнів Посейдона вражає вашого ворога!"
-  trident-lightning-cooldown: "§b🔱 Посейдон вражає блискавкою! Відновлення: %cooldown%с"
-  trident-rain: "§b🔱 Дощ кружляє навколо вас..."
+  sword-activated: "§7Клинок підпалює ціль."
+  sword-activated-cooldown: "§7Вбивця драконів §8— §eперезарядка §f%cooldown%с"
+  pickaxe-smelted: "§7Руда переплавлена."
+  pickaxe-double: "§7Подвійний видобуток."
+  axe-tree-felled: "§7Дерево зрубано §8(§f%blocks% блоків§8)"
+  axe-tree-felled-cooldown: "§7Валка дерев §8— §eперезарядка §f%cooldown%с"
+  axe-combat: "§7Удар Титанової сокири."
+  axe-combat-cooldown: "§7Титанова сокира §8— §eперезарядка §f%cooldown%с"
+  shovel-excavate: "§7Область розчищено §8(§f%blocks% блоків§8)"
+  shovel-excavate-full: "§7Порожнечна лопата розчистила §f%blocks% §7блоків."
+  hammer-lightning: "§7Штормовий молот прикликає блискавку."
+  hammer-shockwave: "§7Ударна хвиля вразила найближчих ворогів."
+  hammer-activated-cooldown: "§7Штормовий молот §8— §eперезарядка §f%cooldown%с"
+  bow-double-shot: "§7Подвійний постріл."
+  bow-double-shot-cooldown: "§7Лук вартового §8— §eперезарядка §f%cooldown%с"
+  bow-homing: "§7Стріла самонавідна."
+  book-used: "§7Мудрість застосована до вашого спорядження."
+  book-enchanted: "§7Книга зачарувала §f%count% §7предметів."
+  book-no-items: "§7Немає відповідних предметів для зачарування."
+  phoenix-resurrect: "§7Перо Фенікса врятувало вас."
+  phoenix-fire-immune: "§7Імунітет до вогню активний."
+  phoenix-resurrect-message: "§6✦ §7Перо Фенікса врятувало вас від смерті."
+  phoenix-resurrect-broadcast: "§6✦ §f%player% §7був врятований Пером Фенікса."
+  trident-lightning: "§7Посейдон вражає."
+  trident-lightning-cooldown: "§7Тризуб Посейдона §8— §eперезарядка §f%cooldown%с"
+  trident-rain: "§7Дощ оточує вас."
 
 # ============================================
-# ЛЕГЕНДАРНІ ПРЕДМЕТИ
+# ПРЕДМЕТИ
 # ============================================
 items:
-  summoner-apple:
-    name: "§d🍎 Яблуко Прикликача Скринь"
+  summoner-apple-random:
+    name: "§6Яблуко призивача"
     lore:
-      - "§7Магічне яблуко, наповнене"
-      - "§7сутністю скарбів."
+      - "§7Призиває скриню випадкового рівня."
       - ""
-      - "§e⚡ З'їжте, щоб прикликати скриню!"
-      - "§7(Не скидає основний таймер)"
+      - "§8ПКМ, щоб з'їсти"
+      - "§8Не скидає основний таймер"
+
+  summoner-apple-common:
+    name: "§fЗвичайне яблуко призивача"
+    lore:
+      - "§7Призиває звичайну скриню."
       - ""
-      - "§dОсобливий предмет донатора"
-  
+      - "§8ПКМ, щоб з'їсти"
+      - "§8Не скидає основний таймер"
+
+  summoner-apple-rare:
+    name: "§bРідкісне яблуко призивача"
+    lore:
+      - "§7Призиває рідкісну скриню."
+      - ""
+      - "§8ПКМ, щоб з'їсти"
+      - "§8Не скидає основний таймер"
+
+  summoner-apple-legendary:
+    name: "§6Легендарне яблуко призивача"
+    lore:
+      - "§7Призиває легендарну скриню."
+      - ""
+      - "§8ПКМ, щоб з'їсти"
+      - "§8Не скидає основний таймер"
+
   dragon-slayer-sword:
-    name: "§6⚔ Меч Вбивці Драконів ⚔"
+    name: "§6Вбивця драконів"
     lore:
-      - "§7Легендарний меч, викутий"
-      - "§7із серця дракона."
-      - "§7Горить вічним полум'ям."
+      - "§7Викуваний із серця дракона."
       - ""
-      - "§c+%damage% Бонусної шкоди"
-      - "§e⚡ Підпалює ворогів"
-      - "§8Відновлення: %cooldown%с"
-      - ""
-      - "§6Легендарний предмет"
-  
+      - "§e+%damage% §7додаткового урону"
+      - "§7Підпалює ціль при ударі"
+      - "§8Перезарядка: %cooldown%с"
+
   master-pickaxe:
-    name: "§b⛏ Майстерна Кирка ⛏"
+    name: "§fКирка майстра"
     lore:
-      - "§7Інструмент легендарного шахтаря,"
-      - "§7здатний знаходити багатства"
-      - "§7у будь-якій породі."
+      - "§7Інструмент легендарного шахтаря."
       - ""
-      - "§e⚡ Автопереплавка руд"
-      - "§e⚡ Шанс подвійної здобичі"
-      - "§8Відновлення: %cooldown%с"
-      - ""
-      - "§6Легендарний предмет"
-  
+      - "§7Автоматично плавить видобуту руду"
+      - "§7Шанс подвійного видобутку"
+      - "§8Перезарядка: %cooldown%с"
+
   titan-axe:
-    name: "§4🪓 Титанова Сокира 🪓"
+    name: "§fТитанова сокира"
     lore:
-      - "§7Велетенська сокира титанів."
-      - "§7Один мах валить цілі дерева."
+      - "§7Одним ударом валить цілі дерева."
       - ""
-      - "§c+%damage% Бойової шкоди"
-      - "§e⚡ Валить цілі дерева"
-      - "§8Відн. дерева: %tree_cooldown%с"
-      - "§8Відн. бою: %combat_cooldown%с"
-      - ""
-      - "§6Легендарний предмет"
-  
+      - "§e+%damage% §7бойового урону"
+      - "§7Валить цілі дерева при рубанні"
+      - "§8Бойова перезарядка: %combat_cooldown%с"
+      - "§8Перезарядка рубання: %tree_cooldown%с"
+
   void-shovel:
-    name: "§5🕳 Лопата Безодні 🕳"
+    name: "§fПорожнечна лопата"
     lore:
-      - "§7Лопата, торкнута Безоднею."
       - "§7Поглинає землю на великій площі."
       - ""
-      - "§e⚡ Копання області %size%x%size% (SHIFT)"
-      - "§e⚡ Автозбір здобичі"
-      - "§8Відновлення: %cooldown%с"
-      - ""
-      - "§6Легендарний предмет"
-  
+      - "§7Копання області %size%x%size% §8(затисніть Shift)"
+      - "§7Автозбір усієї здобичі"
+      - "§8Перезарядка: %cooldown%с"
+
   storm-hammer:
-    name: "§9⚡ Молот Бурі ⚡"
+    name: "§fШтормовий молот"
     lore:
-      - "§7Молот володарів бурі."
-      - "§7Підкорює саму блискавку."
+      - "§7Володіє самою блискавкою."
       - ""
-      - "§c+%damage% Бонусної шкоди"
-      - "§e⚡ Прикликає блискавку"
-      - "§e⚡ Шкода ударною хвилею по області"
-      - "§8Відновлення: %cooldown%с"
-      - ""
-      - "§6Легендарний предмет"
-  
+      - "§e+%damage% §7додаткового урону"
+      - "§7Прикликає блискавку при ударі"
+      - "§7Ударна хвиля по області"
+      - "§8Перезарядка: %cooldown%с"
+
   guardian-bow:
-    name: "§a🏹 Лук Охоронця 🏹"
+    name: "§fЛук вартового"
     lore:
-      - "§7Лук, благословлений охоронцями."
-      - "§7Стріли самі знаходять цілі."
+      - "§7Стріли, що шукають свої цілі."
       - ""
-      - "§e⚡ Випускає подвійні стріли"
-      - "§e⚡ Здібність самонавідної стріли"
-      - "§8Відновлення: %cooldown%с"
-      - ""
-      - "§6Легендарний предмет"
-  
+      - "§7Випускає дві стріли за постріл"
+      - "§7Стріли самонавідні на мобів"
+      - "§8Перезарядка: %cooldown%с"
+
   wisdom-book:
-    name: "§d📖 Книга Давньої Мудрості 📖"
+    name: "§fКнига давньої мудрості"
     lore:
-      - "§7Містить знання"
-      - "§7давніх цивілізацій."
+      - "§7Знання давніх цивілізацій."
       - ""
-      - "§e⚡ ПКМ для зачарування"
-      - "§e⚡ всієї екіпіровки в інвентарі"
-      - "§c⚠ Одноразове використання"
-      - ""
-      - "§6Легендарний предмет"
-  
+      - "§7ПКМ, щоб зачарувати все спорядження"
+      - "§8Одноразове використання"
+
   phoenix-feather:
-    name: "§c🔥 Перо Фенікса 🔥"
+    name: "§6Перо Фенікса"
     lore:
-      - "§7Перо безсмертного фенікса."
-      - "§7Дарує другий шанс на життя."
+      - "§7Дарує другий шанс у житті."
       - ""
-      - "§e⚡ Автовоскресіння при смерті"
-      - "§e⚡ Імунітет до вогню при триманні"
-      - "§8Відновлення: %cooldown%с"
-      - ""
-      - "§6Легендарний предмет"
-  
+      - "§7Автоматично воскрешає при смертельному уроні"
+      - "§7Імунітет до вогню, поки в руці"
+      - "§8Перезарядка: %cooldown%с"
+
   poseidon-trident:
-    name: "§b🔱 Тризубець Посейдона 🔱"
+    name: "§bТризуб Посейдона"
     lore:
-      - "§7Зброя бога морів."
-      - "§7Керує бурями та морями."
+      - "§7Володіє штормами та морями."
       - ""
-      - "§e⚡ Аура дощу (%radius% блоків)"
-      - "§e⚡ Удар блискавкою при попаданні"
-      - "§b+%damage% Шкоди блискавкою"
-      - "§8Відновлення: %cooldown%с"
-      - ""
-      - "§6Легендарний предмет"
+      - "§7Аура дощу §8(%radius% блоків)"
+      - "§7Удар блискавки при влученні §8(+%damage% урону)"
+      - "§8Перезарядка: %cooldown%с"
 
 # ============================================
-# КОРИСТУВАЦЬКІ ЗІЛЛЯ
+# КАСТОМНІ ЗІЛЛЯ
 # ============================================
 potions:
   strength-3:
-    name: "§c⚔ Зілля Сили III"
+    name: "§fЗілля сили III"
     lore:
-      - "§7Сила III (2:00)"
-      - "§6Користувацьке зілля"
-  
+      - "§7Сила III  §8·  §e2:00"
+
   haste-2:
-    name: "§e⛏ Зілля Прискорення II"
+    name: "§fЗілля поспіху II"
     lore:
-      - "§7Прискорення II (3:00)"
-      - "§6Користувацьке зілля"
-  
+      - "§7Поспіх II  §8·  §e3:00"
+
   luck-2:
-    name: "§a🍀 Зілля Удачі II"
+    name: "§fЗілля удачі II"
     lore:
-      - "§7Удача II (5:00)"
-      - "§6Користувацьке зілля"
-  
+      - "§7Удача II  §8·  §e5:00"
+
   dolphins-grace:
-    name: "§b🐬 Зілля Грації Дельфіна"
+    name: "§fЗілля грації дельфіна"
     lore:
-      - "§7Грація дельфіна (3:00)"
-      - "§6Користувацьке зілля"
-  
+      - "§7Грація дельфіна  §8·  §e3:00"
+
   turtle-master:
-    name: "§a🐢 Покращене Зілля Черепахового Майстра"
+    name: "§fРозширене зілля черепашого майстра"
     lore:
-      - "§7Уповільнення IV (1:00)"
-      - "§7Опір III (1:00)"
-      - "§6Користувацьке зілля"
-  
+      - "§7Повільність IV  §8·  §e1:00"
+      - "§7Стійкість III  §8·  §e1:00"
+
   wither-resistance:
-    name: "§8💀 Зілля Опору Виснаженню"
+    name: "§fЗілля стійкості до в'янення"
     lore:
-      - "§7Регенерація II (0:30)"
-      - "§7Опір II (1:00)"
-      - "§6Користувацьке зілля"
+      - "§7Регенерація II  §8·  §e0:30"
+      - "§7Стійкість II  §8·  §e1:00"
 
 # ============================================
 # ДОСЯГНЕННЯ
 # ============================================
 achievements:
   first-chest:
-    name: "§eПерша Знахідка"
+    name: "§eПерша знахідка"
     description: "Відкрийте свою першу скриню"
-    reward-message: "§6+50 бонусного досвіду!"
-  
+    reward-message: "§8+50 XP"
+
   treasure-hunter:
-    name: "§6Шукач Скарбів"
+    name: "§eМисливець за скарбами"
     description: "Відкрийте 10 скринь"
-    reward-message: "§6+200 бонусного досвіду!"
-  
+    reward-message: "§8+200 XP"
+
   chest-master:
-    name: "§cМайстер Скринь"
+    name: "§6Майстер скринь"
     description: "Відкрийте 50 скринь"
-    reward-message: "§6+500 бонусного досвіду!"
-  
+    reward-message: "§8+500 XP"
+
   legendary-finder:
-    name: "§5Той, Хто Знайшов Легенду"
+    name: "§6Шукач легенд"
     description: "Знайдіть легендарний предмет"
-    reward-message: "§6+300 бонусного досвіду!"
-  
+    reward-message: "§8+300 XP"
+
   guardian-slayer:
-    name: "§4Вбивця Охоронців"
-    description: "Вбийте 25 охоронців скринь"
-    reward-message: "§6+400 бонусного досвіду!"
+    name: "§6Вбивця вартових"
+    description: "Убийте 25 вартових скринь"
+    reward-message: "§8+400 XP"
 
 # ============================================
-# ГРАФІЧНИЙ ІНТЕРФЕЙС КОРИСТУВАЦЬКОЇ ЗДОБИЧІ
+# ГРАФІЧНИЙ ІНТЕРФЕЙС КАСТОМНОГО ЛУТУ
 # ============================================
 gui:
-  # Головне меню
-  custom-loot-title: "§6Кастомний лут скринь"
-  edit-common: "§fРедактор звичайної скрині"
-  edit-rare: "§9Редактор рідкісної скрині"
-  edit-legendary: "§6Редактор легендарної скрині"
-
+  custom-loot-title: "§8Кастомний лут скринь"
+  edit-common: "§fЗвичайна скриня — Редагувати лут"
+  edit-rare: "§bРідкісна скриня — Редагувати лут"
+  edit-legendary: "§6Легендарна скриня — Редагувати лут"
   common-chest-name: "§fЗвичайна скриня"
-  rare-chest-name: "§9Рідкісна скриня"
+  rare-chest-name: "§bРідкісна скриня"
   legendary-chest-name: "§6Легендарна скриня"
-
-  click-to-edit: "§7Натисни для редагування"
-  custom-enabled: "§aКастомний лут: УВІМКНЕНО"
-  custom-disabled: "§cКастомний лут: ВИМКНЕНО"
-  using-default: "§7Використовується випадковий лут"
-  items-count: "§7Предметів: %count%"
-
-  # Тип скрині
-  chest-type-toggle: "§eТип скрині"
-  current-type: "§7Поточний: %type%"
-  chest-type-info: "§7Натисніть для перемикання:"
-  chest-type-single: "§fОдинарна §7(27 слотів)"
-  chest-type-double: "§bПодвійна §7(54 слоти)"
-  chest-type-single-desc: "§f  ■ Одинарна §7- 27 слотів (3 ряди)"
-  chest-type-double-desc: "§b  ■ Подвійна §7- 54 слоти (6 рядів)"
-  chest-type-changed: "§aТип скрині змінено на %type%"
-  chest-type-change-error: "§cПомилка зміни типу скрині!"
-  chest-type-display: "§7Тип: %type%"
-
-  # Контроль дробу
-  fraction-increase: "§a→ Більше предметів"
+  click-to-edit: "§7Натисніть, щоб редагувати"
+  custom-enabled: "§7Кастомний лут §8· §aувімкнено"
+  custom-disabled: "§7Кастомний лут §8· §7вимкнено"
+  using-default: "§8Використовується стандартний лут"
+  items-count: "§7Предметів збережено §8· §e%count%"
+  chest-type-toggle: "§7Розмір скрині"
+  current-type: "§8Поточний: %type%"
+  chest-type-info: "§8Натисніть, щоб перемкнути"
+  chest-type-single: "§7Одинарна §8(27 слотів)"
+  chest-type-double: "§7Подвійна §8(54 слоти)"
+  chest-type-single-desc: "§8Одинарна — 27 слотів"
+  chest-type-double-desc: "§8Подвійна — 54 слоти"
+  chest-type-changed: "§7Розмір скрині змінено на %type%"
+  chest-type-change-error: "§7Не вдалося змінити розмір скрині."
+  chest-type-display: "§8Розмір: %type%"
+  fraction-increase: "§7Більше предметів"
   fraction-increase-lore:
-    - "§7Натисніть для збільшення дробу"
-    - "§7(більше предметів у скрині)"
-
-  fraction-decrease: "§c← Менше предметів"
+    - "§8Збільшити кількість предметів у скрині"
+  fraction-decrease: "§7Менше предметів"
   fraction-decrease-lore:
-    - "§7Натисніть для зменшення дробу"
-    - "§7(менше предметів у скрині)"
-
-  current-fraction: "§eЧастота випадання"
-  fraction-info: "§7Стільки предметів буде з'являтися"
-  fraction-changed: "§aДріб змінено на %fraction%"
-  fraction-change-error: "§cПомилка зміни дробу!"
-  item-fraction-display: "§7Частота: %fraction%"
-
-  # Назви дробів
+    - "§8Зменшити кількість предметів у скрині"
+  current-fraction: "§7Шанс випадання"
+  fraction-info: "§8Предметів обирається при спауні скрині"
+  fraction-changed: "§7Шанс випадання встановлено на %fraction%"
+  fraction-change-error: "§7Не вдалося змінити шанс випадання."
+  item-fraction-display: "§8Коефіцієнт: %fraction%"
   fraction:
-    all: "§aВсі предмети (перемішані)"
-    one-half: "§e1/2 - Половина предметів"
-    one-third: "§61/3 - Третина предметів"
-    one-fourth: "§c1/4 - Чверть"
-    one-fifth: "§91/5 - П'ята частина"
-    one-sixth: "§31/6 - Шоста частина"
-    one-seventh: "§51/7 - Сьома частина"
-    one-eighth: "§41/8 - Восьма частина"
-    one-ninth: "§d1/9 - Дев'ята частина"
-    one-tenth: "§b1/10 - Десята частина"
-
-  # Кнопки
-  save-button: "§a✓ Зберегти"
+    all: "§7Усі предмети"
+    one-half: "§71/2 предметів"
+    one-third: "§71/3 предметів"
+    one-fourth: "§71/4 предметів"
+    one-fifth: "§71/5 предметів"
+    one-sixth: "§71/6 предметів"
+    one-seventh: "§71/7 предметів"
+    one-eighth: "§71/8 предметів"
+    one-ninth: "§71/9 предметів"
+    one-tenth: "§71/10 предметів"
+  save-button: "§aЗберегти"
   save-lore:
-    - "§7Натисніть щоб зберегти"
-    - "§7та увімкнути кастомний лут"
-
-  reset-button: "§c✗ Скинути"
+    - "§8Зберегти предмети та ввімкнути кастомний лут"
+  reset-button: "§7Скинути"
   reset-lore:
-    - "§7Очистити всі предмети"
-    - "§7та використати стандартний лут"
-
-  back-button: "§7← Назад"
-
-  # Повідомлення
-  saved: "§a✓ Збережено %count% предметів для %tier% скринь!"
-  reset-done: "§c✗ Кастомний лут очищено для %tier% скринь."
-  chest-size-items-dropped: "§e%count% предметів не помістилися та були викинуті під вами!"
-  
-  # Підтвердження скидання
-  reset-confirm-title-common: "Звичайний"
-  reset-confirm-title-rare: "Рідкісний"
-  reset-confirm-title-legendary: "Легендарний"
-  
-  # Перше меню підтвердження
-  reset-first-menu-title: "§6⚠ Підтвердження скидання: %tier%"
-  reset-first-warning: "§e§l⚠ Перше попередження"
+    - "§8Очистити предмети та використовувати стандартний лут"
+  back-button: "§7Назад"
+  saved: "§7Збережено §e%count% §7предметів для §e%tier%§7."
+  reset-done: "§7Кастомний лут для §e%tier% §7очищено."
+  chest-size-items-dropped: "§7%count% предметів не помістилися і були викинуті."
+  reset-confirm-title-common: "Звичайна"
+  reset-confirm-title-rare: "Рідкісна"
+  reset-confirm-title-legendary: "Легендарна"
+  reset-first-menu-title: "§7Скидання — %tier%"
+  reset-first-warning: "§eПідтвердіть скидання"
   reset-first-warning-lore:
-    - "§7Ви хочете скинути §e%tier% §7тір"
-    - "§7Поточних предметів: §e%count%"
+    - "§7Рівень: §e%tier%"
+    - "§7Предметів до видалення: §e%count%"
     - ""
-    - "§6Налаштування будуть ЗБЕРЕЖЕНІ:"
-    - "§7  • Тип скрині (одинарна/подвійна)"
-    - "§7  • Дріб випадання"
-    - ""
-    - "§cБудуть видалені тільки предмети!"
-    - "§7Всі предмети випадуть під вами"
-  
-  reset-continue: "§e→ Продовжити"
+    - "§8Розмір скрині та шанс випадання залишаться."
+    - "§8Будуть видалені лише предмети."
+    - "§8Усі предмети випадуть на вашому місці."
+  reset-continue: "§7Продовжити"
   reset-continue-lore:
-    - "§7Перейти до фінального підтвердження"
-  
-  # Фінальне меню підтвердження
-  reset-final-menu-title: "§4§l⚠ ФІНАЛЬНЕ ПОПЕРЕДЖЕННЯ: %tier%"
-  reset-final-warning: "§c§l⚠ ОСТАННІЙ ШАНС!"
+    - "§8Перейти до остаточного підтвердження"
+  reset-final-menu-title: "§cОстаточне підтвердження — %tier%"
+  reset-final-warning: "§cОстанній шанс"
   reset-final-warning-lore:
-    - "§c§lЦЕ ВАШ ОСТАННІЙ ШАНС!"
-    - ""
-    - "§7Тір: §e%tier%"
+    - "§7Рівень: §e%tier%"
     - "§7Предметів до видалення: §c%count%"
     - ""
-    - "§a§lНАЛАШТУВАННЯ БУДУТЬ ЗБЕРЕЖЕНІ"
-    - "§a§lВИДАЛЯЮТЬСЯ ТІЛЬКИ ПРЕДМЕТИ"
-    - ""
-    - "§7Всі предмети випадуть під вами"
-  
-  reset-confirm-final: "§c§l✖ ПІДТВЕРДИТИ СКИДАННЯ"
+    - "§8Налаштування залишаться."
+    - "§8Цю дію не можна скасувати."
+  reset-confirm-final: "§cПідтвердити"
   reset-confirm-final-lore:
-    - "§c§lВИДАЛИТИ ВСІ ПРЕДМЕТИ"
-    - "§7(налаштування залишаться)"
-    - ""
-    - "§c§lНатисніть для підтвердження"
-  
-  reset-cancel: "§a§l✔ Скасувати"
+    - "§8Видалити всі предмети назавжди"
+  reset-cancel: "§7Скасувати"
   reset-cancel-lore:
-    - "§7Повернутись до редагування"
-    - "§7Нічого не буде змінено"
-  
-  reset-items-dropped: "§e%count% предметів були викинуті під вами!"
-  reset-complete: "§a✔ Кастомний лут для %tier% було скинуто!"
+    - "§8Повернутися — нічого не зміниться"
+  reset-items-dropped: "§7%count% предметів випало на вашому місці."
+  reset-complete: "§7Кастомний лут для §e%tier% §7скинуто."
 
 # ============================================
-# ВЗАЄМОДІЯ ЗІ СКРИНЯМИ
+# ВЗАЄМОДІЯ ЗІ СКРИНЕЮ
 # ============================================
 chest:
-  first-opener: "§e✨ Ви перший відкрили цю скриню!"
-  guardian-spawned: "§cЗ'явився охоронець!"
-  proximity-hint: "§7Ви чуєте щось неподалік..."
+  first-opener: "§6✦ §7Ви перший, хто відкрив цю скриню."
+  locked: "§7Ця скриня замкнена — натисніть ПКМ, щоб почати відлік."
+  already-activating: "§7Відкриється через §e%seconds%с§7."
+  already-opened: "§7Цю скриню вже відкрив гравець §f%player%§7."
+  not-active: "§7Це не активна скриня."
+  guardian-spawned: "§7З'явився страж."
+  proximity-hint: "§7Щось поруч..."
 
 # ============================================
 # РІЗНЕ
 # ============================================
 misc:
-  chest-opening: "§eВідкриття скрині..."
-  guardian-spawned: "§cЗ'явився охоронець!"
-  proximity-hint: "§7Ви чуєте щось неподалік..."
+  chest-opening: "§7Відкриття..."
+  guardian-spawned: "§7З'явився страж."
+  proximity-hint: "§7Щось поруч..."
