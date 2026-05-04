@@ -1,5 +1,5 @@
 name: SpawnChestPlugin
-version: 4.4
+version: 4.4.1
 main: com.myplugin.SpawnChestPlugin
 api-version: '1.18'
 description: Treasure chest events with legendary items, guardians, achievements. Supports 1.18-1.21.x and 26.1+

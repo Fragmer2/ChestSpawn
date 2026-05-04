@@ -210,11 +210,12 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
         public String activatedByName = "";    // player who triggered countdown
         public long openTime = 0L;
 
-        public ActiveChest(Location loc, ChestTier tier) {
+        public ActiveChest(Location loc, ChestTier tier, boolean locked) {
             this.location  = loc;
             this.tier      = tier;
             this.spawnTime = System.currentTimeMillis();
             this.chestKey  = loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ();
+            this.locked    = locked;
         }
 
         /** Remaining seconds in the pre-open countdown. -1 if not activating. */
@@ -785,7 +786,8 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
                 createSpawnEffects(chestLoc, forcedTier);
                 broadcastChestSpawn(chestLoc, forcedTier);
 
-                ActiveChest activeChest = new ActiveChest(chestLoc, forcedTier);
+                boolean preOpenEnabled = getConfig().getBoolean("pre-open-timer.enabled", true);
+                ActiveChest activeChest = new ActiveChest(chestLoc, forcedTier, preOpenEnabled);
                 activeChests.put(activeChest.chestKey, activeChest);
 
                 // Create protection zone around the chest
@@ -1172,7 +1174,8 @@ public class SpawnChestPlugin extends JavaPlugin implements Listener, TabComplet
                 broadcastChestSpawn(chestLoc, tier);
                 
                 // Track active chest
-                ActiveChest activeChest = new ActiveChest(chestLoc, tier);
+                boolean preOpenEnabled = getConfig().getBoolean("pre-open-timer.enabled", true);
+                ActiveChest activeChest = new ActiveChest(chestLoc, tier, preOpenEnabled);
                 activeChests.put(activeChest.chestKey, activeChest);
                 
                 // Create protection zone around the chest
